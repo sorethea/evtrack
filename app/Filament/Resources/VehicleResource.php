@@ -25,6 +25,13 @@ class VehicleResource extends Resource
             ->schema([
                 Forms\Components\Section::make([
                     Forms\Components\TextInput::make("name")->required(),
+                    Forms\Components\TextInput::make("make")->required(),
+                    Forms\Components\TextInput::make("model")->required(),
+                    Forms\Components\TextInput::make("year")->required(),
+                    Forms\Components\TextInput::make("vin")->nullable(),
+                    Forms\Components\MarkdownEditor::make("specs")
+                        ->columnSpan(2)
+                        ->nullable(),
                 ])
                 ->columns(2),
             ]);
