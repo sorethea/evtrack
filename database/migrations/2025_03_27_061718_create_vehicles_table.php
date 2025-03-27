@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("year");
             $table->string("vin")->nullable();
             $table->text("specs")->nullable();
+            $table->foreignId("user_id")->nullable();
             $table->timestamps();
         });
     }
