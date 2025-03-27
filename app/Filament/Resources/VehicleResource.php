@@ -26,6 +26,7 @@ class VehicleResource extends Resource
                 Forms\Components\Section::make([
                     Forms\Components\TextInput::make("name")->required(),
                 ])
+                ->columns(2),
             ]);
     }
 
