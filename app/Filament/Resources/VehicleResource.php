@@ -41,7 +41,10 @@ class VehicleResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make("make")->searchable(),
+                Tables\Columns\TextColumn::make("model")->searchable(),
+                Tables\Columns\TextColumn::make("year")->searchable(),
+                Tables\Columns\TextColumn::make("vin")->searchable(),
             ])
             ->filters([
                 //
