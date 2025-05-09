@@ -133,6 +133,7 @@ class TripResource extends Resource
                     ->numeric(0)
                     ->suffix("Km"),
             ])
+            ->defaultSort("date_to","desc")
             ->filters([
                 //
             ])
