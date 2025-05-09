@@ -105,14 +105,14 @@ class TripResource extends Resource
                 Tables\Columns\TextColumn::make(trans("ev.distance"))
                     ->default(fn($record)=>$record->odo_to - $record->odo_from)
                     ->suffix('Km'),
-                Tables\Columns\TextColumn::make(trans("ev.rb"))
+                Tables\Columns\TextColumn::make(trans("ev.charge"))
                     ->default(fn($record)=>$record->ac_to - $record->ac_from)
                     ->suffix("kWh"),
-                Tables\Columns\TextColumn::make(trans("ev.net")." ".trans("ev.discharge"))
-                    ->default(fn($record)=>$record->vehicle->capacity * ($record->soc_from - $record->soc_to)/100)
-                    ->numeric(0)
-                    ->suffix("kWh"),
-                Tables\Columns\TextColumn::make(trans("ev.gross")." ".trans("ev.discharge"))
+//                Tables\Columns\TextColumn::make(trans("ev.net")." ".trans("ev.discharge"))
+//                    ->default(fn($record)=>$record->vehicle->capacity * ($record->soc_from - $record->soc_to)/100)
+//                    ->numeric(0)
+//                    ->suffix("kWh"),
+                Tables\Columns\TextColumn::make(trans("ev.discharge"))
                     ->default(fn($record)=>$record->ad_to - $record->ad_from)
                     ->numeric(0)
                     ->suffix("kWh"),
