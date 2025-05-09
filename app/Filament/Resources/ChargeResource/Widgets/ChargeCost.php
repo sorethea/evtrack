@@ -8,7 +8,7 @@ use Filament\Widgets\ChartWidget;
 
 class ChargeCost extends ChartWidget
 {
-    protected static ?string $heading = 'Last 12 Months Charging Cost';
+    protected static ?string $heading = 'EV Charging Cost';
 
     protected function getData(): array
     {
