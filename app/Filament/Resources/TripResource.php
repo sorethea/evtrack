@@ -119,19 +119,19 @@ class TripResource extends Resource
                 Tables\Columns\TextColumn::make(trans("ev.consumption"))
                     ->default(function ($record){
                         $distance = $record->odo_to - $record->odo_from;
-                        $discharge = $record->vehicle->capacity * ($record->soc_from - $record->soc_to)/100;
-                        return $discharge/$distance * 100;
+                        $discharge = $record->ad_to - $record->ad_from;
+                        return $discharge/$distance *1000;
                     })
                     ->numeric(0)
-                    ->suffix("kWh/100Km"),
-                Tables\Columns\TextColumn::make(trans("ev.range"))
-                    ->default(function ($record){
-                        $distance = $record->odo_to - $record->odo_from;
-                        $discharge = $record->soc_from - $record->soc_to;
-                        return $distance/$discharge * 100;
-                    })
-                    ->numeric(0)
-                    ->suffix("Km"),
+                    ->suffix("Wh/Km"),
+//                Tables\Columns\TextColumn::make(trans("ev.range"))
+//                    ->default(function ($record){
+//                        $distance = $record->odo_to - $record->odo_from;
+//                        $discharge = $record->soc_from - $record->soc_to;
+//                        return $distance/$discharge * 100;
+//                    })
+//                    ->numeric(0)
+//                    ->suffix("Km"),
             ])
             ->defaultSort("date_to","desc")
             ->filters([
