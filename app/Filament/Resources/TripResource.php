@@ -36,17 +36,25 @@ class TripResource extends Resource
                     ])
                         ->columns(2)
                         ->heading(trans("ev.date")),
+                    Forms\Components\Section::make(trans("ev.odo"))
+                        ->schema([
+                            Forms\Components\TextInput::make('odo_from')
+                                ->default(fn()=>auth()->user()->vehicle->odo)
+                                ->required(),
+                            Forms\Components\TextInput::make('odo_to')
+                                ->required(),
+                        ])
+                        ->columns(2),
+                    Forms\Components\Section::make(trans("ev.soc"))
+                        ->schema([
+                            Forms\Components\TextInput::make('soc_from')
+                                ->default(fn()=>auth()->user()->vehicle->soc)
+                                ->required(),
+                            Forms\Components\TextInput::make('soc_to')
+                                ->required(),
+                        ])
+                        ->columns(2),
 
-                    Forms\Components\TextInput::make('odo_from')
-                        ->default(fn()=>auth()->user()->vehicle->odo)
-                        ->required(),
-                    Forms\Components\TextInput::make('odo_to')
-                        ->required(),
-                    Forms\Components\TextInput::make('soc_from')
-                        ->default(fn()=>auth()->user()->vehicle->soc)
-                        ->required(),
-                    Forms\Components\TextInput::make('soc_to')
-                        ->required(),
                     Forms\Components\TextInput::make('ac_from')
                         ->nullable(),
                     Forms\Components\TextInput::make('ac_to')
