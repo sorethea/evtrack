@@ -15,6 +15,8 @@ class Vehicle extends Model
         "model",
         "year",
         "vin",
+        "soc",
+        "odo",
         "specs",
         "user_id",
     ];
