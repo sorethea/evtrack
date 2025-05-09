@@ -95,12 +95,10 @@ class TripResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make(trans("ev.date") )
-                    ->toggleable(false)
-                    ->default(fn($record)=>Carbon::parse($record->date_from)->format("d M, Y")." to ".Carbon::parse($record->date_to)->format('d M, Y')),
-                Tables\Columns\TextColumn::make(trans("ev.duration"))
+                Tables\Columns\TextColumn::make(trans("ev.date"))
                     ->tooltip(fn($record)=>Carbon::parse($record->date_from)->format("d M, Y")." to ".Carbon::parse($record->date_to)->format('d M, Y'))
-                    ->default(fn($record)=>Carbon::parse($record->date_from)->diffInDays(Carbon::parse($record->date_to))+1),
+                    ->default(fn($record)=>Carbon::parse($record->date_from)->diffInDays(Carbon::parse($record->date_to))+1)
+                    ->suffix('day(s)'),
                 Tables\Columns\TextColumn::make(trans("ev.soc"))
                     ->suffix("%")
                     ->default(fn($record)=>$record->soc_from."-".$record->soc_to),
