@@ -26,10 +26,11 @@ class ChargeResource extends Resource
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make('date')
                         ->label(trans('ev.date'))
+                        ->default(now())
                         ->required(),
                     Forms\Components\Select::make('type')
                         ->options(trans("ev.charge_types"))
-                        ->default('home')
+                        ->default('ac')
                         ->required(),
                     Forms\Components\Fieldset::make("soc")
                         ->label(trans("ev.soc"))
