@@ -13,7 +13,8 @@ class ChargeCost extends ChartWidget
     protected function getData(): array
     {
         $data = Charge::selectRaw("MONTH(charges.date) AS `month`,SUM(price * qty) AS `cost`")
-            ->groupBy('month')
+            ->groupBy(['month','MONTH(charges.date)'])
+            ->orderBy('MONTH(charges.date)')
             ->pluck('cost','month');
 
         return [
