@@ -87,48 +87,48 @@ class ChargeCost extends ChartWidget
 
     protected function getOptions(): array
     {
-        return [
-            'plugins' => [
-                'legend' => [
-                    'position' => 'top',
-                ],
-                'tooltip' => [
-                    'usePointStyle' => true,
-//                    'callbacks' => [
-//                        'labelColor' => 'function(context) {
-//                        return {
-//                            borderColor: context.dataset.borderColor,
-//                            backgroundColor: context.dataset.backgroundColor
-//                        };
-//                    }'
-//                    ]
-                ]
-            ],
-            'scales' => [
-                'y' => [
-                    'grid' => [
-                        'display' => false
-                    ],
-//                    'title' => [
-//                        'display' => true,
-//                        'text' => 'Value'
+//        return [
+//            'plugins' => [
+//                'legend' => [
+//                    'position' => 'top',
+//                ],
+//                'tooltip' => [
+//                    'usePointStyle' => true,
+////                    'callbacks' => [
+////                        'labelColor' => 'function(context) {
+////                        return {
+////                            borderColor: context.dataset.borderColor,
+////                            backgroundColor: context.dataset.backgroundColor
+////                        };
+////                    }'
+////                    ]
+//                ]
+//            ],
+//            'scales' => [
+//                'y' => [
+//                    'grid' => [
+//                        'display' => false
 //                    ],
-//                  'beginAtZero' => true,
-//                    'ticks' => [
-//                        'callback' => 'function(value) {
-//                            if (context.datasetIndex === 0) {
-//                                return value + " kWh";
-//                            }
-//                            return "' . config('ev.currency_symbol') . '" + value;
-//                        }'
+////                    'title' => [
+////                        'display' => true,
+////                        'text' => 'Value'
+////                    ],
+////                  'beginAtZero' => true,
+////                    'ticks' => [
+////                        'callback' => 'function(value) {
+////                            if (context.datasetIndex === 0) {
+////                                return value + " kWh";
+////                            }
+////                            return "' . config('ev.currency_symbol') . '" + value;
+////                        }'
+////                    ]
+//                ],
+//                'x' => [
+//                    'grid' => [
+//                        'display' => false
 //                    ]
-                ],
-                'x' => [
-                    'grid' => [
-                        'display' => false
-                    ]
-                ]
-            ]
-        ];
+//                ]
+//            ]
+//        ];
     }
 }
