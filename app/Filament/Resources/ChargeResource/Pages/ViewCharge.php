@@ -3,13 +3,19 @@
 namespace App\Filament\Resources\ChargeResource\Pages;
 
 use App\Filament\Resources\ChargeResource;
+use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewCharge extends ViewRecord
 {
     protected static string $resource = ChargeResource::class;
-
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ChargeCost::class,
+        ];
+    }
     protected function getHeaderActions(): array
     {
         return [
