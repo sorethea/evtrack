@@ -160,6 +160,7 @@ class TripResource extends Resource
         return [
             'index' => Pages\ListTrips::route('/'),
             'create' => Pages\CreateTrip::route('/create'),
+            'view' => Pages\ViewTrip::route('/{record}'),
             'edit' => Pages\EditTrip::route('/{record}/edit'),
         ];
     }
