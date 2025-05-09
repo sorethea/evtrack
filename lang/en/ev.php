@@ -15,4 +15,6 @@ return [
     "gross"=>"Gross",
     "net"=>"Net",
     "capacity"=>"Capacity",
+    "range"=>"Range",
+    "consumption"=>"Consumption",
 ];

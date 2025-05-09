@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Observers\TripObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 #[ObservedBy(TripObserver::class)]
 class Trip extends Model
 {
@@ -37,4 +39,9 @@ class Trip extends Model
         "ad_from"=>'float',
         "comment",
     ];
+
+    public function vehicle(): BelongsTo
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
 }
