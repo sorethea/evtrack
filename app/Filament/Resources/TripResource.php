@@ -25,8 +25,10 @@ class TripResource extends Resource
             ->schema([
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make('date_from')
+                        ->default(fn()=>date())
                         ->required(),
                     Forms\Components\DatePicker::make('date_to')
+                        ->default(fn()=>date())
                         ->nullable(),
                 ])->columns(2),
             ]);
