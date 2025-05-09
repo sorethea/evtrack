@@ -52,7 +52,7 @@ class ChargeCost extends ChartWidget
     private function mapDataToLabels($data, $metric, $labels)
     {
         $mappedData = $data->mapWithKeys(fn ($item) => [
-            $item->month_name . ' ' . $item->year => $item->{$metric}
+            $item->month . ' ' . $item->year => $item->{$metric}
         ]);
 
         return $labels->map(fn ($label) => $mappedData[$label] ?? 0)->values();
