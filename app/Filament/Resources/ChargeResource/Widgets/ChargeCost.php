@@ -66,18 +66,18 @@ class ChargeCost extends ChartWidget
     protected function getOptions(): array
     {
         return [
-            'plugins' => [
-                'legend' => [
-                    'position' => 'top',
-                ],
-                'tooltip' => [
-                    'callbacks' => [
-                        'label' => 'function(context) {
-                            return context.dataset.label + ": " + context.parsed.y.toLocaleString();
-                        }'
-                    ]
-                ]
-            ],
+//            'plugins' => [
+//                'legend' => [
+//                    'position' => 'top',
+//                ],
+//                'tooltip' => [
+//                    'callbacks' => [
+//                        'label' => 'function(context) {
+//                            return context.dataset.label + ": " + context.parsed.y.toLocaleString();
+//                        }'
+//                    ]
+//                ]
+//            ],
             'scales' => [
                 'y' => [
                     'title' => [
