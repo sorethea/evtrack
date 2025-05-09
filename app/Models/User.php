@@ -50,6 +50,6 @@ class User extends Authenticatable
 
     public function vehicle(): HasOne
     {
-        return $this->hasMany(Vehicle::class)->where("is_default","=",true);
+        return $this->hasOne(Vehicle::class)->where("is_default","=",true);
     }
 }
