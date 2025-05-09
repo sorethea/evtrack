@@ -88,6 +88,7 @@ class ChargeResource extends Resource
             ->filters([
                 //
             ])
+            ->defaultSort('date','desc')
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
