@@ -104,7 +104,10 @@ class TripResource extends Resource
                     ->default(fn($record)=>$record->soc_from."-".$record->soc_to),
                 Tables\Columns\TextColumn::make(trans("ev.distance"))
                     ->default(fn($record)=>$record->odo_to - $record->odo_from)
-                    ->suffix('KM')
+                    ->suffix('KM'),
+                Tables\Columns\TextColumn::make(trans("ev.rb"))
+                    ->default(fn($record)=>$record->ac_to - $record->ac_from)
+                    ->suffix("kWh"),
             ])
             ->filters([
                 //

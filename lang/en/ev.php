@@ -11,4 +11,5 @@ return [
     "comment"=>"Comment",
     "duration"=>"duration",
     "distance"=>"Distance",
+    "rb"=>"Regenerative braking",
 ];
