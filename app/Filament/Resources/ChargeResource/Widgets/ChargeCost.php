@@ -87,6 +87,7 @@ class ChargeCost extends ChartWidget
 
     protected function getOptions(): array
     {
+        return [];
 //        return [
 //            'plugins' => [
 //                'legend' => [
