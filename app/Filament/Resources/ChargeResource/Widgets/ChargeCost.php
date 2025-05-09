@@ -39,7 +39,7 @@ class ChargeCost extends ChartWidget
 //                    'tension' => 0.4,
 //                ],
                 [
-                    'label' => 'Charging Cost (' . config('ev.currency') . ')',
+                    'label' => 'Home Charging Cost (' . config('ev.currency') . ')',
                     'data' => $costData,
                     'borderColor' => '#3b82f6', // Blue
                     'backgroundColor' => '#3b82f620',
