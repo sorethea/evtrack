@@ -49,8 +49,8 @@ class ChargeCost extends ChartWidget
                 [
                     'label' => 'Total Charging Cost (' . config('ev.currency') . ')',
                     'data' => $costData,
-                    'borderColor' => '#10b981', // Red
-                    'backgroundColor' => '#ef4444',
+                    'borderColor' => '#ef4444', // Red
+                    'backgroundColor' => '#fca5a5',
                     'tension' => 0.4,
                 ],
                 [
