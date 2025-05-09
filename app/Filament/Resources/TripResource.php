@@ -92,7 +92,10 @@ class TripResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make("date_from")
+                    ->label(trans("ev.date") +" "+trans("ev.from")),
+                Tables\Columns\TextColumn::make("date_to")
+                    ->label(trans("ev.date") +" "+trans("ev.to")),
             ])
             ->filters([
                 //
