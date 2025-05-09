@@ -49,6 +49,7 @@ class VehicleResource extends Resource
                 Tables\Columns\TextColumn::make("model")->searchable(),
                 Tables\Columns\TextColumn::make("year")->searchable(),
                 Tables\Columns\TextColumn::make("vin")->searchable(),
+                Tables\Columns\TextColumn::make("plate")->searchable(),
                 Tables\Columns\IconColumn::make("is_default")->boolean(),
             ])
             ->filters([
