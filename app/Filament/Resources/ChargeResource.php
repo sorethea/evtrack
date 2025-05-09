@@ -36,9 +36,11 @@ class ChargeResource extends Resource
                         ->label(trans("ev.soc"))
                         ->schema([
                         Forms\Components\TextInput::make("soc_from")
+                            ->label(trans("ev.from"))
                             ->default(0)
                             ->nullable(),
                         Forms\Components\TextInput::make("soc_to")
+                            ->label(trans("ev.to"))
                             ->default(0)
                             ->nullable(),
                     ]),
@@ -46,9 +48,11 @@ class ChargeResource extends Resource
                         ->label(trans("ev.accumulative"))
                         ->schema([
                         Forms\Components\TextInput::make("ac_from")
+                            ->label(trans("ev.from"))
                             ->default(0)
                             ->nullable(),
                         Forms\Components\TextInput::make("ac_to")
+                            ->label(trans("ev.to"))
                             ->default(0)
                             ->nullable(),
                     ]),
