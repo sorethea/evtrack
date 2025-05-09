@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\ChargeResource\Widgets;
 
+use App\Models\Charge;
+use Filament\Resources\Resource;
 use Filament\Widgets\ChartWidget;
 
 class ChargeCost extends ChartWidget
@@ -10,15 +12,16 @@ class ChargeCost extends ChartWidget
 
     protected function getData(): array
     {
+        $data = Charge::selectRaw("SELECT MONTH(charges.date) AS `month`, SUM(price * qty) AS `cost` FROM charges GROUP BY `month`")->pluck('cost','month');
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Blog posts created',
-                    'data' => [0, 10, 5, 2, 21, 32, 45, 74, 65, 45, 77, 89],
+                    'label' => 'Charging Cost',
+                    'data' => $data->values()->toArray(),
                 ],
             ],
-            'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            'labels' => $data->keys()->toArray(),
         ];
     }
 
