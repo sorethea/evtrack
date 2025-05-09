@@ -10,7 +10,7 @@ use Filament\Widgets\ChartWidget;
 class ChargeCost extends ChartWidget
 {
     protected static ?string $heading = ' EV Charging Cost (USD)';
-    protected static string $color = 'info';
+    //protected static string $color = 'info';
 
     protected function getData(): array
     {
@@ -94,7 +94,7 @@ class ChargeCost extends ChartWidget
             scales: {
                 y: {
                     ticks: {
-                        callback: (value) => '€' + value,
+                        callback: (value) => '$' + value,
                     },
                 },
             },
