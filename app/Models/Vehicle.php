@@ -20,6 +20,10 @@ class Vehicle extends Model
         "odo",
         "specs",
         "user_id",
+        "is_default",
+    ];
+    protected $casts =[
+        "is_default"=>'boolean',
     ];
 
     public function user(): BelongsTo
