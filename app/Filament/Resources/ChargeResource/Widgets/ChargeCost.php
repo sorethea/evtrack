@@ -24,6 +24,9 @@ class ChargeCost extends ChartWidget
                 [
                     'label' => 'Charging Cost',
                     'data' => $data->values()->toArray(),
+                    'backgroundColor' => '#3b82f6',
+                    'borderColor' => '#2563eb',
+                    'fill' => true,
                 ],
             ],
             'labels' => $data->keys()->toArray(),
