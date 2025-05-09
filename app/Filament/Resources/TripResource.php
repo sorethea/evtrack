@@ -81,7 +81,8 @@ class TripResource extends Resource
 
 
                         ]),
-                    Forms\Components\MarkdownEditor::make(trans("ev.comment"))
+                    Forms\Components\MarkdownEditor::make("comment")
+                        ->label(trans("ev.comment"))
                         ->columnSpan(2)
                         ->nullable(),
 
