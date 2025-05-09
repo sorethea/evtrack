@@ -8,4 +8,5 @@ return [
     "accumulative"=>"Accumulative",
     "charge"=>"Charge",
     "discharge"=>"Discharge",
+    "comment"=>"Comment",
 ];
