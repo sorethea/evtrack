@@ -23,7 +23,7 @@ class ChargeCost extends ChartWidget
         $labels = collect();
         $current = now()->startOfMonth()->subMonths(11);
         for ($i = 0; $i < 12; $i++) {
-            $labels->push($current->format('F Y'));
+            $labels->push($current->format('M Y'));
             $current->addMonth();
         }
         $energyData = $this->mapDataToLabels($data, 'energy', $labels);
