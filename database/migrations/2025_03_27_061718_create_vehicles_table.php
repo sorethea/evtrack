@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("model");
             $table->string("year");
             $table->string("vin")->nullable();
+            $table->string("plate")->nullable();
             $table->text("specs")->nullable();
             $table->float("odo")->nullable();
             $table->float("soc")->nullable();

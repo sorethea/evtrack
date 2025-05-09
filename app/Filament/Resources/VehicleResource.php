@@ -31,6 +31,7 @@ class VehicleResource extends Resource
                     Forms\Components\TextInput::make("soc")->name(trans("ev.soc"))->nullable(),
                     Forms\Components\TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
                     Forms\Components\TextInput::make("vin")->nullable(),
+                    Forms\Components\TextInput::make("plate")->nullable(),
                     Forms\Components\MarkdownEditor::make("specs")
                         ->columnSpan(2)
                         ->nullable(),

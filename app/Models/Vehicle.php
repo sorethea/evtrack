@@ -15,6 +15,7 @@ class Vehicle extends Model
         "model",
         "year",
         "vin",
+        "plate",
         "soc",
         "odo",
         "specs",
