@@ -31,13 +31,13 @@ class ChargeCost extends ChartWidget
         return [
             'labels' => $labels->toArray(),
             'datasets' => [
-                [
-                    'label' => 'Energy Consumption (kWh)',
-                    'data' => $energyData,
-                    'borderColor' => '#10b981', // Green
-                    'backgroundColor' => '#10b98120',
-                    'tension' => 0.4,
-                ],
+//                [
+//                    'label' => 'Energy Consumption (kWh)',
+//                    'data' => $energyData,
+//                    'borderColor' => '#10b981', // Green
+//                    'backgroundColor' => '#10b98120',
+//                    'tension' => 0.4,
+//                ],
                 [
                     'label' => 'Charging Cost (' . config('ev.currency') . ')',
                     'data' => $costData,
