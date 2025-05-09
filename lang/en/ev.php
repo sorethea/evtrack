@@ -7,6 +7,10 @@ return [
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",
     "charge"=>"Charge",
+    "charge_types"=>[
+        "ac"=>"AC",
+        "dc"=>"DC",
+    ],
     "discharge"=>"Discharge",
     "comment"=>"Comment",
     "duration"=>"duration",
@@ -17,4 +21,6 @@ return [
     "capacity"=>"Capacity",
     "range"=>"Range",
     "consumption"=>"Consumption",
+    "qty"=>"Quantity",
+    "price"=>"Price",
 ];

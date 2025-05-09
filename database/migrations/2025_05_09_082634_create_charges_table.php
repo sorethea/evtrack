@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('charges', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->string("type")->nullable();
+            $table->float("soc_from")->default(0);
+            $table->float("soc_to")->default(0);
+            $table->float("ac_from")->default(0);
+            $table->float("ac_to")->default(0);
+            $table->float("qty")->default(0);
+            $table->float("price")->default(0);
             $table->timestamps();
         });
     }
