@@ -72,21 +72,21 @@ class ChargeCost extends ChartWidget
                 ],
             ],
             'scales' => [
-                'y' => [
-//                    'title' => [
-//                        'display' => true,
-//                        'text' => 'Value'
-//                    ],
-                    'beginAtZero' => true,
-                    'ticks' => [
-                        'callback' => 'function(value) {
-                            if (context.datasetIndex === 0) {
-                                return value + " kWh";
-                            }
-                            return "' . config('ev.currency_symbol') . '" + value;
-                        }'
-                    ]
-                ],
+//                'y' => [
+////                    'title' => [
+////                        'display' => true,
+////                        'text' => 'Value'
+////                    ],
+//                    'beginAtZero' => true,
+//                    'ticks' => [
+//                        'callback' => 'function(value) {
+//                            if (context.datasetIndex === 0) {
+//                                return value + " kWh";
+//                            }
+//                            return "' . config('ev.currency_symbol') . '" + value;
+//                        }'
+//                    ]
+//                ],
                 'x' => [
                     'grid' => [
                         'display' => false
