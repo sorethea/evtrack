@@ -13,25 +13,49 @@ class ChargeCost extends ChartWidget
     protected function getData(): array
     {
         $rate = config("ev.usd_rate");
-        $data = Charge::selectRaw("MONTHNAME(charges.date) AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`")
+        $data = Charge::selectRaw("YEAR(charges.date) AS year, MONTHNAME(charges.date) AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(qty)AS energy")
             ->where('date','>=',now()->subMonth(12))
             ->where('type','=','ac')
-            ->groupBy(['month','month_num'])
+            ->groupBy(['year','month','month_num'])
+            ->orderBy('year')
             ->orderBy('month_num')
-            ->pluck('cost','month');
-
+            ->get();
+        $labels = collect();
+        $current = now()->startOfMonth()->subMonths(11);
+        for ($i = 0; $i < 12; $i++) {
+            $labels->push($current->format('F Y'));
+            $current->addMonth();
+        }
+        $energyData = $this->mapDataToLabels($data, 'energy', $labels);
+        $costData = $this->mapDataToLabels($data, 'cost', $labels);
         return [
+            'labels' => $labels->toArray(),
             'datasets' => [
                 [
-                    'label' => 'Charging Cost',
-                    'data' => $data->values()->toArray(),
-                    'backgroundColor' => '#3b82f6',
-                    'borderColor' => '#2563eb',
-                    'fill' => true,
+                    'label' => 'Energy Consumption (kWh)',
+                    'data' => $energyData,
+                    'borderColor' => '#10b981', // Green
+                    'backgroundColor' => '#10b98120',
+                    'tension' => 0.4,
+                ],
+                [
+                    'label' => 'Charging Cost (' . config('ev.currency') . ')',
+                    'data' => $costData,
+                    'borderColor' => '#3b82f6', // Blue
+                    'backgroundColor' => '#3b82f620',
+                    'tension' => 0.4,
                 ],
             ],
-            'labels' => $data->keys()->toArray(),
         ];
+    }
+
+    private function mapDataToLabels($data, $metric, $labels)
+    {
+        $mappedData = $data->mapWithKeys(fn ($item) => [
+            $item->month_name . ' ' . $item->year => $item->{$metric}
+        ]);
+
+        return $labels->map(fn ($label) => $mappedData[$label] ?? 0)->values();
     }
 
     protected function getType(): string
