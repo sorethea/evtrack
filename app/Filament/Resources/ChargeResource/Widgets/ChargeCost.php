@@ -13,7 +13,7 @@ class ChargeCost extends ChartWidget
     protected function getData(): array
     {
         $rate = config("ev.usd_rate");
-        $data = Charge::selectRaw("YEAR(charges.date) AS year, MONTHNAME(charges.date) AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(qty)AS energy")
+        $data = Charge::selectRaw("YEAR(charges.date) AS `year`, MONTHNAME(charges.date) AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(qty)AS `energy`")
             ->where('date','>=',now()->subMonth(12))
             ->where('type','=','ac')
             ->groupBy(['year','month','month_num'])
@@ -66,11 +66,37 @@ class ChargeCost extends ChartWidget
     protected function getOptions(): array
     {
         return [
+            'plugins' => [
+                'legend' => [
+                    'position' => 'top',
+                ],
+                'tooltip' => [
+                    'callbacks' => [
+                        'label' => 'function(context) {
+                            return context.dataset.label + ": " + context.parsed.y.toLocaleString();
+                        }'
+                    ]
+                ]
+            ],
             'scales' => [
                 'y' => [
+                    'title' => [
+                        'display' => true,
+                        'text' => 'Value'
+                    ],
                     'beginAtZero' => true,
                     'ticks' => [
-                        'precision' => 0
+                        'callback' => 'function(value) {
+                            if (context.datasetIndex === 0) {
+                                return value + " kWh";
+                            }
+                            return "' . config('ev.currency_symbol') . '" + value;
+                        }'
+                    ]
+                ],
+                'x' => [
+                    'grid' => [
+                        'display' => false
                     ]
                 ]
             ]
