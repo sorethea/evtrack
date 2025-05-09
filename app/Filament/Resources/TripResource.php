@@ -30,6 +30,11 @@ class TripResource extends Resource
                     Forms\Components\DatePicker::make('date_to')
                         ->default(now())
                         ->nullable(),
+                    Forms\Components\TextInput::make('soc_from')
+                        ->default(fn()=>auth()->user()->vehicle->soc)
+                        ->required(),
+                    Forms\Components\TextInput::make('soc_to')
+                        ->required(),
                 ])->columns(2),
             ]);
     }

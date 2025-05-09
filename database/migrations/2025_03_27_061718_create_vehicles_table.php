@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string("year");
             $table->string("vin")->nullable();
             $table->text("specs")->nullable();
+            $table->float("odo")->nullable();
+            $table->float("soc")->nullable();
+            $table->boolean("is_default")->default(false);
             $table->foreignId("user_id")->nullable();
             $table->timestamps();
         });
