@@ -33,7 +33,9 @@ class TripResource extends Resource
                             ->label(trans("ev.to"))
                             ->default(now())
                             ->nullable(),
-                    ])->heading(trans("ev.date")),
+                    ])
+                        ->columns(2)
+                        ->heading(trans("ev.date")),
 
                     Forms\Components\TextInput::make('odo_from')
                         ->default(fn()=>auth()->user()->vehicle->odo)
