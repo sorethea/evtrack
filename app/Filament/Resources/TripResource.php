@@ -95,21 +95,14 @@ class TripResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make("date_from")
-                    ->date('d M, Y')
-                    ->label(trans("ev.date") ." ".trans("ev.from")),
-                Tables\Columns\TextColumn::make("date_to")
-                    ->date('d M, Y')
-                    ->label(trans("ev.date") ." ".trans("ev.to")),
-                Tables\Columns\TextColumn::make("soc_from")
-                    ->suffix("%")
-                    ->label(trans("ev.soc") ." ".trans("ev.from")),
-                Tables\Columns\TextColumn::make("soc_to")
-                    ->suffix("%")
-                    ->label(trans("ev.soc") ." ".trans("ev.to")),
+                Tables\Columns\TextColumn::make(trans("ev.date") )
+                    ->default(fn($record)=>Carbon::parse($record->date_from)->format("d M, Y")." to ".Carbon::parse($record->date_to)->format('d M, Y')),
                 Tables\Columns\TextColumn::make(trans("ev.duration"))
                     ->default(fn($record)=>Carbon::parse($record->date_from)->diffInDays(Carbon::parse($record->date_to))+1),
-                Tables\Columns\TextColumn::make(trans("ev.Distance"))
+                Tables\Columns\TextColumn::make(trans("ev.soc"))
+                    ->suffix("%")
+                    ->default(fn($record)=>$record->soc_from."-".$record->soc_to),
+                Tables\Columns\TextColumn::make(trans("ev.distance"))
                     ->default(fn($record)=>$record->odo_to - $record->odo_from)
                     ->suffix('KM')
             ])
