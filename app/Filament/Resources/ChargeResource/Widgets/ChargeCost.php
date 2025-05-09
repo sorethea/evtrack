@@ -92,7 +92,8 @@ class ChargeCost extends ChartWidget
                 'legend' => [
                     'position' => 'top',
                 ],
-//                'tooltip' => [
+                'tooltip' => [
+                    'usePointStyle' => true,
 //                    'callbacks' => [
 //                        'labelColor' => 'function(context) {
 //                        return {
@@ -101,7 +102,7 @@ class ChargeCost extends ChartWidget
 //                        };
 //                    }'
 //                    ]
-//                ]
+                ]
             ],
             'scales' => [
                 'y' => [
@@ -112,7 +113,7 @@ class ChargeCost extends ChartWidget
 //                        'display' => true,
 //                        'text' => 'Value'
 //                    ],
-                  'beginAtZero' => true,
+//                  'beginAtZero' => true,
 //                    'ticks' => [
 //                        'callback' => 'function(value) {
 //                            if (context.datasetIndex === 0) {
