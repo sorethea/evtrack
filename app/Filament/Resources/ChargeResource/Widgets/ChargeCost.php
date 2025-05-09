@@ -89,36 +89,10 @@ class ChargeCost extends ChartWidget
 
     protected function getOptions(): array
     {
-
-        return [
-            'plugins' => [
-                'legend' => [
-                    'position' => 'top',
-                ],
-//                'colors'=>[
-//                    'enabled'=>false
-//                ]
-            ],
-            'scales' => [
-                'y' => [
-                    'grid' => [
-                        'display' => false
-                    ],
-//                    'title' => [
-//                        'display' => true,
-//                        'text' => 'Value'
-//                    ],
-//                  'beginAtZero' => true,
-                    'ticks' => [
-                        RawJs::make(''),
-                    ]
-                ],
-                'x' => [
-                    'grid' => [
-                        'display' => false
-                    ]
-                ]
-            ]
-        ];
+        return RawJs::make('plugins: {
+    colors: {
+      forceOverride: true
+    }
+  }');
     }
 }
