@@ -11,5 +11,8 @@ return [
     "comment"=>"Comment",
     "duration"=>"duration",
     "distance"=>"Distance",
-    "rb"=>"Regenerative braking",
+    "rb"=>"Regen",
+    "gross"=>"Gross",
+    "net"=>"Net",
+    "capacity"=>"Capacity",
 ];

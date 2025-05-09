@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text("specs")->nullable();
             $table->float("odo")->nullable();
             $table->float("soc")->nullable();
+            $table->float("capacity")->nullable();
             $table->boolean("is_default")->default(false);
             $table->foreignId("user_id")->nullable();
             $table->timestamps();

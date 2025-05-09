@@ -18,6 +18,7 @@ class Vehicle extends Model
         "plate",
         "soc",
         "odo",
+        "capacity",
         "specs",
         "user_id",
         "is_default",
