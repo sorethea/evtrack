@@ -4,11 +4,13 @@ namespace App\Filament\Resources\ChargeResource\Widgets;
 
 use App\Models\Charge;
 use Filament\Resources\Resource;
+use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
 
 class ChargeCost extends ChartWidget
 {
     protected static ?string $heading = ' EV Charging Cost (USD)';
+    protected static string $color = 'info';
 
     protected function getData(): array
     {
@@ -51,7 +53,6 @@ class ChargeCost extends ChartWidget
                     'data' => $costData,
                     'borderColor' => '#ef4444', // Red
                     'backgroundColor' => '#fca5a5',
-                    'color' => '#fca5a5',
                     'tension' => 0.4,
                 ],
                 [
@@ -59,7 +60,6 @@ class ChargeCost extends ChartWidget
                     'data' => $costAcData,
                     'borderColor' => '#10b981', // Green
                     'backgroundColor' => '#10b98120',
-                    'cole' => '#10b98120',
                     'tension' => 0.4,
                 ],
                 [
@@ -67,7 +67,6 @@ class ChargeCost extends ChartWidget
                     'data' => $costDcData,
                     'borderColor' => '#3b82f6', // Blue
                     'backgroundColor' => '#3b82f620',
-                    'code' => '#3b82f620',
                     'tension' => 0.4,
                 ],
             ],
@@ -110,14 +109,14 @@ class ChargeCost extends ChartWidget
 //                        'text' => 'Value'
 //                    ],
 //                  'beginAtZero' => true,
-//                    'ticks' => [
-//                        'callback' => 'function(value) {
-//                            if (context.datasetIndex === 0) {
-//                                return value + " kWh";
-//                            }
-//                            return "' . config('ev.currency_symbol') . '" + value;
-//                        }'
-//                    ]
+                    'ticks' => [
+                        RawJs::make('callback:function(value) {
+                            if (context.datasetIndex === 0) {
+                                return value + " kWh";
+                            }
+                            return "' . config('ev.currency_symbol') . '" + value;
+                        }')
+                    ]
                 ],
                 'x' => [
                     'grid' => [
