@@ -13,7 +13,7 @@ class ChargeCost extends ChartWidget
     protected function getData(): array
     {
         $rate = config("ev.usd_rate");
-        $data = Charge::selectRaw("YEAR(charges.date) AS `year`, MONTHNAME(charges.date) AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(ROUND(qty,0))AS `energy`")
+        $data = Charge::selectRaw("YEAR(charges.date) AS `year`, DATE_FORMAT(charges.date,'%b') AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(ROUND(qty,0))AS `energy`")
             ->where('date','>=',now()->subMonth(12))
             ->where('type','=','ac')
             ->groupBy(['year','month','month_num'])
