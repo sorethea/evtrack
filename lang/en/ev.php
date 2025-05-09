@@ -3,7 +3,7 @@ return [
     "date"=>"Date",
     "from"=>"From",
     "to"=>"To",
-    "soc"=>"SoC",
+    "soc"=>"State of charge",
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",
     "charge"=>"Charge",
