@@ -15,6 +15,7 @@ class ChargeCost extends ChartWidget
         $rate = config("ev.usd_rate");
         $data = Charge::selectRaw("MONTHNAME(charges.date) AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`")
             ->where('date','>=',now()->subMonth(12))
+            ->where('type','=','ac')
             ->groupBy(['month','month_num'])
             ->orderBy('month_num')
             ->pluck('cost','month');
