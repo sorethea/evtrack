@@ -24,12 +24,17 @@ class TripResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make([
-                    Forms\Components\DatePicker::make('date_from')
-                        ->default(now())
-                        ->required(),
-                    Forms\Components\DatePicker::make('date_to')
-                        ->default(now())
-                        ->nullable(),
+                    Forms\Components\Section::make([
+                        Forms\Components\DatePicker::make('date_from')
+                            ->label(trans("ev.from"))
+                            ->default(now())
+                            ->required(),
+                        Forms\Components\DatePicker::make('date_to')
+                            ->label(trans("ev.to"))
+                            ->default(now())
+                            ->nullable(),
+                    ])->label(trans("ev.date")),
+
                     Forms\Components\TextInput::make('odo_from')
                         ->default(fn()=>auth()->user()->vehicle->odo)
                         ->required(),
@@ -41,13 +46,13 @@ class TripResource extends Resource
                     Forms\Components\TextInput::make('soc_to')
                         ->required(),
                     Forms\Components\TextInput::make('ac_from')
-                        ->required(),
+                        ->nullable(),
                     Forms\Components\TextInput::make('ac_to')
-                        ->required(),
+                        ->nullable(),
                     Forms\Components\TextInput::make('ad_from')
-                        ->required(),
+                        ->nullable(),
                     Forms\Components\TextInput::make('ad_to')
-                        ->required(),
+                        ->nullable(),
                 ])->columns(2),
             ]);
     }
