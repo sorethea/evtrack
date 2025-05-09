@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ChargeResource\Pages;
 use App\Filament\Resources\ChargeResource\RelationManagers;
+use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use App\Models\Charge;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -98,6 +99,13 @@ class ChargeResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            ChargeCost::class,
+        ];
     }
 
     public static function getRelations(): array
