@@ -92,17 +92,27 @@ class ChargeCost extends ChartWidget
                 'legend' => [
                     'position' => 'top',
                 ],
+                'tooltip' => [
+                    'callbacks' => [
+                        'labelColor' => 'function(context) {
+                        return {
+                            borderColor: context.dataset.borderColor,
+                            backgroundColor: context.dataset.backgroundColor
+                        };
+                    }'
+                    ]
+                ]
             ],
             'scales' => [
                 'y' => [
                     'grid' => [
                         'display' => false
-                    ]
+                    ],
 //                    'title' => [
 //                        'display' => true,
 //                        'text' => 'Value'
 //                    ],
-//                    'beginAtZero' => true,
+                  'beginAtZero' => true,
 //                    'ticks' => [
 //                        'callback' => 'function(value) {
 //                            if (context.datasetIndex === 0) {
