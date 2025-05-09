@@ -5,4 +5,7 @@ return [
     "to"=>"To",
     "soc"=>"State of charge",
     "odo"=>"Odometer",
+    "accumulative"=>"Accumulative",
+    "charge"=>"Charge",
+    "discharge"=>"Discharge",
 ];

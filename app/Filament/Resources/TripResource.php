@@ -39,30 +39,49 @@ class TripResource extends Resource
                     Forms\Components\Section::make(trans("ev.odo"))
                         ->schema([
                             Forms\Components\TextInput::make('odo_from')
+                                ->label(trans("ev.from"))
                                 ->default(fn()=>auth()->user()->vehicle->odo)
                                 ->required(),
                             Forms\Components\TextInput::make('odo_to')
+                                ->label(trans("ev.to"))
                                 ->required(),
                         ])
                         ->columns(2),
                     Forms\Components\Section::make(trans("ev.soc"))
                         ->schema([
                             Forms\Components\TextInput::make('soc_from')
+                                ->label(trans("ev.from"))
                                 ->default(fn()=>auth()->user()->vehicle->soc)
                                 ->required(),
                             Forms\Components\TextInput::make('soc_to')
+                                ->label(trans("ev.to"))
                                 ->required(),
                         ])
                         ->columns(2),
+                    Forms\Components\Section::make(trans("ev.accumulative"))
+                        ->schema([
+                            Forms\Components\Fieldset::make(trans("ev.charge"))
+                                ->schema([
+                                    Forms\Components\TextInput::make('ac_from')
+                                        ->label(trans("ev.from"))
+                                        ->nullable(),
+                                    Forms\Components\TextInput::make('ac_to')
+                                        ->label(trans("ev.to"))
+                                        ->nullable(),
+                                ]),
+                            Forms\Components\Fieldset::make(trans("ev.discharge"))
+                                ->schema([
+                                    Forms\Components\TextInput::make('ad_from')
+                                        ->label(trans("ev.from"))
+                                        ->nullable(),
+                                    Forms\Components\TextInput::make('ad_to')
+                                        ->label(trans("ev.to"))
+                                        ->nullable(),
+                                ]),
 
-                    Forms\Components\TextInput::make('ac_from')
-                        ->nullable(),
-                    Forms\Components\TextInput::make('ac_to')
-                        ->nullable(),
-                    Forms\Components\TextInput::make('ad_from')
-                        ->nullable(),
-                    Forms\Components\TextInput::make('ad_to')
-                        ->nullable(),
+
+                        ]),
+
                 ])->columns(2),
             ]);
     }
