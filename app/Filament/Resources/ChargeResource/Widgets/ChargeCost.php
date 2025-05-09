@@ -110,12 +110,7 @@ class ChargeCost extends ChartWidget
 //                    ],
 //                  'beginAtZero' => true,
                     'ticks' => [
-                        RawJs::make('callback:function(value) {
-                            if (context.datasetIndex === 0) {
-                                return value + " kWh";
-                            }
-                            return "' . config('ev.currency_symbol') . '" + value;
-                        }')
+                        RawJs::make(''),
                     ]
                 ],
                 'x' => [
