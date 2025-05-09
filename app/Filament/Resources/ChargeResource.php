@@ -75,7 +75,6 @@ class ChargeResource extends Resource
                     ->date('d M, Y')
                     ->searchable(),
                 Tables\Columns\TextColumn::make("type")
-                    ->getStateUsing(fn($state)=>strtoupper($state))
                     ->searchable(),
                 Tables\Columns\TextColumn::make("qty")
                     ->label(trans("ev.qty"))
