@@ -102,7 +102,7 @@ class TripResource extends Resource
                     ->date('d M, Y')
                     ->label(trans("ev.date") ." ".trans("ev.to")),
                 Tables\Columns\TextColumn::make(trans("ev.duration"))
-                    ->default(fn($record)=>Carbon::parse($record->date_from)->diffInDays(Carbon::parse($record->date_to)))
+                    ->default(fn($record)=>Carbon::parse($record->date_from)->diffInDays(Carbon::parse($record->date_to))+1)
             ])
             ->filters([
                 //
