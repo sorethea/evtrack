@@ -28,6 +28,8 @@ class VehicleResource extends Resource
                     Forms\Components\TextInput::make("make")->required(),
                     Forms\Components\TextInput::make("model")->required(),
                     Forms\Components\TextInput::make("year")->required(),
+                    Forms\Components\TextInput::make("soc")->name(trans("ev.soc"))->nullable(),
+                    Forms\Components\TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
                     Forms\Components\TextInput::make("vin")->nullable(),
                     Forms\Components\MarkdownEditor::make("specs")
                         ->columnSpan(2)
