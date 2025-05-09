@@ -101,6 +101,12 @@ class TripResource extends Resource
                 Tables\Columns\TextColumn::make("date_to")
                     ->date('d M, Y')
                     ->label(trans("ev.date") ." ".trans("ev.to")),
+                Tables\Columns\TextColumn::make("soc_from")
+                    ->suffix("%")
+                    ->label(trans("ev.soc") ." ".trans("ev.from")),
+                Tables\Columns\TextColumn::make("soc_to")
+                    ->suffix("%")
+                    ->label(trans("ev.soc") ." ".trans("ev.to")),
                 Tables\Columns\TextColumn::make(trans("ev.duration"))
                     ->default(fn($record)=>Carbon::parse($record->date_from)->diffInDays(Carbon::parse($record->date_to))+1),
                 Tables\Columns\TextColumn::make(trans("ev.Distance"))
