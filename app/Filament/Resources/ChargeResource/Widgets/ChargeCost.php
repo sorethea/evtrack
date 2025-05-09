@@ -8,7 +8,7 @@ use Filament\Widgets\ChartWidget;
 
 class ChargeCost extends ChartWidget
 {
-    protected static ?string $heading = "EV Charging Cost  (' . config('ev.currency') . ')";
+    protected static ?string $heading = ' EV Charging Cost (USD)';
 
     protected function getData(): array
     {
