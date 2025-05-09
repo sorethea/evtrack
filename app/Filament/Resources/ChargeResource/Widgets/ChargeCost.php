@@ -13,9 +13,16 @@ class ChargeCost extends ChartWidget
     protected function getData(): array
     {
         $rate = config("ev.usd_rate");
-        $data = Charge::selectRaw("YEAR(charges.date) AS `year`, DATE_FORMAT(charges.date,'%b') AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(ROUND(qty,0))AS `energy`")
+        $acData = Charge::selectRaw("YEAR(charges.date) AS `year`, DATE_FORMAT(charges.date,'%b') AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(ROUND(qty,0))AS `energy`")
             ->where('date','>=',now()->subMonth(12))
             ->where('type','=','ac')
+            ->groupBy(['year','month','month_num'])
+            ->orderBy('year')
+            ->orderBy('month_num')
+            ->get();
+        $dcData = Charge::selectRaw("YEAR(charges.date) AS `year`, DATE_FORMAT(charges.date,'%b') AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(ROUND(qty,0))AS `energy`")
+            ->where('date','>=',now()->subMonth(12))
+            ->where('type','=','dc')
             ->groupBy(['year','month','month_num'])
             ->orderBy('year')
             ->orderBy('month_num')
@@ -26,21 +33,22 @@ class ChargeCost extends ChartWidget
             $labels->push($current->format('M Y'));
             $current->addMonth();
         }
-        $energyData = $this->mapDataToLabels($data, 'energy', $labels);
-        $costData = $this->mapDataToLabels($data, 'cost', $labels);
+
+        $costAcData = $this->mapDataToLabels($acData, 'cost', $labels);
+        $costDcData = $this->mapDataToLabels($dcData, 'cost', $labels);
         return [
             'labels' => $labels->toArray(),
             'datasets' => [
-//                [
-//                    'label' => 'Energy Consumption (kWh)',
-//                    'data' => $energyData,
-//                    'borderColor' => '#10b981', // Green
-//                    'backgroundColor' => '#10b98120',
-//                    'tension' => 0.4,
-//                ],
+                [
+                    'label' => 'Fast Charging Cost (' . config('ev.currency') . ')',
+                    'data' => $costAcData,
+                    'borderColor' => '#10b981', // Green
+                    'backgroundColor' => '#10b98120',
+                    'tension' => 0.4,
+                ],
                 [
                     'label' => 'Home Charging Cost (' . config('ev.currency') . ')',
-                    'data' => $costData,
+                    'data' => $costDcData,
                     'borderColor' => '#3b82f6', // Blue
                     'backgroundColor' => '#3b82f620',
                     'tension' => 0.4,
