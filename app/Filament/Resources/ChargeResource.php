@@ -70,7 +70,17 @@ class ChargeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make("date")
+                    ->date('d M, Y')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make("qty")
+                    ->label(trans("ev.qty"))
+                    ->suffix("kWh"),
+                Tables\Columns\TextColumn::make("price")
+                    ->label(trans("ev.price")),
+                Tables\Columns\TextColumn::make("total_price")
+                    ->default(fn($record)=>$record->qty * $record->price)
+                    ->label(trans("ev.total_price")),
             ])
             ->filters([
                 //

@@ -23,4 +23,5 @@ return [
     "consumption"=>"Consumption",
     "qty"=>"Quantity",
     "price"=>"Price",
+    "total_price"=>"Total Price",
 ];
