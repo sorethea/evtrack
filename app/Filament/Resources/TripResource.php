@@ -110,6 +110,7 @@ class TripResource extends Resource
                     ->suffix("kWh"),
                 Tables\Columns\TextColumn::make(trans("ev.net")." ".trans("ev.discharge"))
                     ->default(fn($record)=>$record->vehicle->capacity * ($record->soc_from - $record->soc_to)/100)
+                    ->numeric(0)
                     ->suffix("kWh"),
             ])
             ->filters([
