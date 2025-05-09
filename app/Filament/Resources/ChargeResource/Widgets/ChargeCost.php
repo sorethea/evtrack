@@ -13,6 +13,12 @@ class ChargeCost extends ChartWidget
     protected function getData(): array
     {
         $rate = config("ev.usd_rate");
+        $data = Charge::selectRaw("YEAR(charges.date) AS `year`, DATE_FORMAT(charges.date,'%b') AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(ROUND(qty,0))AS `energy`")
+            ->where('date','>=',now()->subMonth(12))
+            ->groupBy(['year','month','month_num'])
+            ->orderBy('year')
+            ->orderBy('month_num')
+            ->get();
         $acData = Charge::selectRaw("YEAR(charges.date) AS `year`, DATE_FORMAT(charges.date,'%b') AS `month`,MONTH(charges.date) AS `month_num`,SUM(ROUND(price * qty/{$rate},2)) AS `cost`,SUM(ROUND(qty,0))AS `energy`")
             ->where('date','>=',now()->subMonth(12))
             ->where('type','=','ac')
@@ -34,11 +40,19 @@ class ChargeCost extends ChartWidget
             $current->addMonth();
         }
 
+        $costData = $this->mapDataToLabels($acData, 'cost', $labels);
         $costAcData = $this->mapDataToLabels($acData, 'cost', $labels);
         $costDcData = $this->mapDataToLabels($dcData, 'cost', $labels);
         return [
             'labels' => $labels->toArray(),
             'datasets' => [
+                [
+                    'label' => 'Total Charging Cost (' . config('ev.currency') . ')',
+                    'data' => $costData,
+                    'borderColor' => '#10b981', // Red
+                    'backgroundColor' => '#ef4444',
+                    'tension' => 0.4,
+                ],
                 [
                     'label' => 'Home Charging Cost (' . config('ev.currency') . ')',
                     'data' => $costAcData,
