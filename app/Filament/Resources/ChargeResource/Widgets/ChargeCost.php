@@ -81,11 +81,14 @@ class ChargeCost extends ChartWidget
             ],
             'scales' => [
                 'y' => [
+                    'grid' => [
+                        'display' => false
+                    ]
 //                    'title' => [
 //                        'display' => true,
 //                        'text' => 'Value'
 //                    ],
-                    'beginAtZero' => true,
+//                    'beginAtZero' => true,
 //                    'ticks' => [
 //                        'callback' => 'function(value) {
 //                            if (context.datasetIndex === 0) {
