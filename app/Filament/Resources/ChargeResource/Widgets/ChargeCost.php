@@ -66,10 +66,10 @@ class ChargeCost extends ChartWidget
     protected function getOptions(): array
     {
         return [
-//            'plugins' => [
-//                'legend' => [
-//                    'position' => 'top',
-//                ],
+            'plugins' => [
+                'legend' => [
+                    'position' => 'top',
+                ],
 //                'tooltip' => [
 //                    'callbacks' => [
 //                        'label' => 'function(context) {
@@ -77,7 +77,7 @@ class ChargeCost extends ChartWidget
 //                        }'
 //                    ]
 //                ]
-//            ],
+            ],
             'scales' => [
                 'y' => [
                     'title' => [
@@ -96,7 +96,7 @@ class ChargeCost extends ChartWidget
                 ],
                 'x' => [
                     'grid' => [
-                        'display' => false
+                        'display' => true
                     ]
                 ]
             ]
