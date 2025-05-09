@@ -9,4 +9,5 @@ return [
     "charge"=>"Charge",
     "discharge"=>"Discharge",
     "comment"=>"Comment",
+    "duration"=>"duration",
 ];

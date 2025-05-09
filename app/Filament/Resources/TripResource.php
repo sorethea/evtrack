@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TripResource\Pages;
 use App\Filament\Resources\TripResource\RelationManagers;
 use App\Models\Trip;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -100,6 +101,8 @@ class TripResource extends Resource
                 Tables\Columns\TextColumn::make("date_to")
                     ->date('d M, Y')
                     ->label(trans("ev.date") ." ".trans("ev.to")),
+                Tables\Columns\TextColumn::make(trans("ev.duration"))
+                    ->default(fn($record)=>Carbon::parse($record->date_from)->diffInDays(Carbon::parse($record->date_to)))
             ])
             ->filters([
                 //
