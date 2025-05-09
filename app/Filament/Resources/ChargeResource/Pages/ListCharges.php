@@ -18,10 +18,4 @@ class ListCharges extends ListRecords
         ];
     }
 
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            ChargeCost::class,
-        ];
-    }
 }

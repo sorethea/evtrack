@@ -10,12 +10,6 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewCharge extends ViewRecord
 {
     protected static string $resource = ChargeResource::class;
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            ChargeCost::class,
-        ];
-    }
     protected function getHeaderActions(): array
     {
         return [
