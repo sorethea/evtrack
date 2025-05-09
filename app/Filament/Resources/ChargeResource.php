@@ -107,6 +107,7 @@ class ChargeResource extends Resource
         ];
     }
 
+
     public static function getPages(): array
     {
         return [

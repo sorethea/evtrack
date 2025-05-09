@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\VehicleResource\Pages;
 
+use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use App\Filament\Resources\VehicleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -14,6 +15,12 @@ class ListVehicles extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ChargeCost::class,
         ];
     }
 }
