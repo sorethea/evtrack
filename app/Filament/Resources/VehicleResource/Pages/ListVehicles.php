@@ -11,10 +11,11 @@ class ListVehicles extends ListRecords
 {
     protected static string $resource = VehicleResource::class;
 
-    protected function getHeaderWidgets(): array
+    protected function getHeaderActions(): array
     {
         return [
-            ChargeCost::class,
+            Actions\CreateAction::make(),
         ];
     }
+
 }

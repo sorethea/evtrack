@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ChargeResource\Pages;
 
 use App\Filament\Resources\ChargeResource;
+use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -14,6 +15,13 @@ class ListCharges extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ChargeCost::class,
         ];
     }
 }
