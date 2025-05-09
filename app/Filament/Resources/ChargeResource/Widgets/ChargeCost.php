@@ -40,7 +40,7 @@ class ChargeCost extends ChartWidget
             $current->addMonth();
         }
 
-        $costData = $this->mapDataToLabels($acData, 'cost', $labels);
+        $costData = $this->mapDataToLabels($data, 'cost', $labels);
         $costAcData = $this->mapDataToLabels($acData, 'cost', $labels);
         $costDcData = $this->mapDataToLabels($dcData, 'cost', $labels);
         return [
