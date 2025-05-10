@@ -129,11 +129,10 @@ class ChargeCost extends ChartWidget
                                     return context.dataset.label + ': {$currency}'+ value.toLocaleString();
                             },
                             footer: function(context){
-                                const dataIndex = context?.dataIndex ?? 0;
                                 let total = 0;
 
                                 context[0].dataset.data.forEach(dataset => {
-                                    console.log(dataset)
+                                    console.log(dataset.index)
                                     const value = dataset?.[dataIndex] ?? 0;
                                     total += Number(value) || 0;
                                 });
