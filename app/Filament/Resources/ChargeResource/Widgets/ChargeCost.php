@@ -91,7 +91,6 @@ class ChargeCost extends ChartWidget
 
     protected function getOptions(): RawJs
     {
-
         return RawJs::make(<<<JS
             {
                 plugins:{
@@ -109,9 +108,13 @@ class ChargeCost extends ChartWidget
                 },
                 scales:{
                     y:{
-                        display: false,
                         grid:{
                             display: false
+                        },
+                        ticks:{
+                            callbacks: function(value){
+                                return [0,100].includes(value)?value:'';
+                            }
                         }
                     },
                     x:{
