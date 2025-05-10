@@ -126,7 +126,7 @@ class ChargeCost extends ChartWidget
                         callbacks:{
                             label:  function (context){
                                     const value = context.parsed.y || 0;
-                                    return context.dataset.label + ': {$currency}'+ value.toLocaleString();
+                                    return context.dataset.label + ': $'+ value.toLocaleString();
                                 },
                             footer: function(context){
                                 const chart = context.chart;
@@ -138,7 +138,7 @@ class ChargeCost extends ChartWidget
                                     total += dataset.data[dataIndex] || 0;
                                 });
 
-                                return 'Grand Total: {$currency}' + total.toLocaleString();
+                                return 'Grand Total: $' + total.toLocaleString();
                             }
                         }
                     }
