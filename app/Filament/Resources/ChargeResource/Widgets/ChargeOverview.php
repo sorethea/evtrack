@@ -14,7 +14,9 @@ class ChargeOverview extends BaseWidget
     use InteractsWithPageTable;
     protected function getStats(): array
     {
-        $total = Charge::selectRaw('SUM(`qty`*`price`) as `cost`')->value('cost');
+        $total = Charge::selectRaw('SUM(`qty`*`price`) as `cost`')
+            ->where('date','>=',now()->subMonths(12))
+            ->value('cost');
         $currency = config("ev.currency");
         $rate = config("ev.usd_rate");
         $total_cost = round($total/$rate,2);
@@ -23,7 +25,8 @@ class ChargeOverview extends BaseWidget
             Stat::make("Total Charging Cost", $total_cost)
                 ->description("Total charging cost for the last 12 months")
                 ->icon('heroicon-o-currency-dollar')
-                ->color('success'),
+                ->color('success')
+                ->chart(),
         ];
     }
 }
