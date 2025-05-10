@@ -52,21 +52,21 @@ class ChargeCost extends ChartWidget
                     'label' => 'Total Cost',
                     'data' => $costData,
                     'borderColor' => '#ef4444', // Red
-                    'backgroundColor' => '#fca5a5',
+                    //'backgroundColor' => '#fca5a5',
                     'tension' => 0.4,
                 ],
                 [
                     'label' => 'Home Charging Cost',
                     'data' => $costAcData,
                     'borderColor' => '#10b981', // Green
-                    'backgroundColor' => '#10b98120',
+                    //'backgroundColor' => '#10b98120',
                     'tension' => 0.4,
                 ],
                 [
                     'label' => 'Fast Charging Cost',
                     'data' => $costDcData,
                     'borderColor' => '#3b82f6', // Blue
-                    'backgroundColor' => '#3b82f620',
+                    //'backgroundColor' => '#3b82f620',
                     'tension' => 0.4,
                 ],
             ],
