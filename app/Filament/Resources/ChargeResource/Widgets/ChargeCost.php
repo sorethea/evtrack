@@ -131,9 +131,9 @@ class ChargeCost extends ChartWidget
                             footer: function(context){
                                 let total = 0;
 
-                                context[0].dataset.data.forEach(dataset => {
-                                    console.log(dataset.index)
-                                    const value = dataset?.[dataIndex] ?? 0;
+                                context[0].dataset.data.forEach(value => {
+
+                                    //const value = dataset?.[dataIndex] ?? 0;
                                     total += Number(value) || 0;
                                 });
 
