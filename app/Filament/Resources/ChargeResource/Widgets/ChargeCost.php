@@ -134,12 +134,12 @@ class ChargeCost extends ChartWidget
                                 let total = 0;
 
                                 // Sum all dataset values at this index
-                                context.datasets.data.forEach(dataset => {
+                                chart.data.datasets.forEach(dataset => {
                                     total += dataset.data[dataIndex] || 0;
                                 });
                                 console.log(total);
 
-                                return 'Grand Total: $'; //+ total.toLocaleString();
+                                return 'Grand Total: $' + total.toLocaleString();
                             }
                         }
                     }
