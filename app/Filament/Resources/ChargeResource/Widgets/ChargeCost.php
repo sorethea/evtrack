@@ -11,14 +11,14 @@ use Illuminate\Contracts\Support\Htmlable;
 class ChargeCost extends ChartWidget
 {
     protected static ?string $heading = ' EV Charging Cost (USD)';
-    public function getHeading(): string|Htmlable|null
-    {
-        $rate = config("ev.usd_rate");
-        $total = Charge::selectRaw("SUM(ROUND(price * qty/{$rate},2)) AS `grand_total`")
-            ->where('date','>=',now()->subMonth(12))
-            ->value('grand_total');
-        return 'EV charging cost for the last 12 months ($'.$total.')';
-    }
+//    public function getHeading(): string|Htmlable|null
+//    {
+//        $rate = config("ev.usd_rate");
+//        $total = Charge::selectRaw("SUM(ROUND(price * qty/{$rate},2)) AS `grand_total`")
+//            ->where('date','>=',now()->subMonth(12))
+//            ->value('grand_total');
+//        return 'EV charging cost for the last 12 months ($'.$total.')';
+//    }
 
     protected function getData(): array
     {
