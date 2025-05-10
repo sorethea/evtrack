@@ -99,7 +99,7 @@ class ChargeCost extends ChartWidget
                         ticks:{
                             callback: (value)=>'$' + value
                         }
-                    }
+                    },
                     x:{
                         grid:{
                             display: false
