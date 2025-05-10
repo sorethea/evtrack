@@ -98,11 +98,21 @@ class ChargeCost extends ChartWidget
                     legend:{
                         position: 'top'
                     },
+                    tooltip:{
+                        callbacks:{
+                            label:{
+                                function (context){
+                                    const value = context.parsed.y || context.parsed;
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
                 },
                 scales:{
                     y:{
-                        ticks:{
-                            callback: (value)=>'$' + value
+                        grid:{
+                            display: false
                         }
                     },
                     x:{
