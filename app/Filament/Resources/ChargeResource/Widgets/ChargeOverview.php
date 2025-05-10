@@ -14,6 +14,12 @@ class ChargeOverview extends BaseWidget
     use InteractsWithPageTable;
     protected function getStats(): array
     {
+        $minOdo = Trip::selectRaw('MIN(odo_from) AS min_odo')
+            ->where('date_from','>=',now()->subMonths(12))
+            ->value('min_odo');
+        $maxOdo = Trip::selectRaw('MAX(odo_to) AS max_odo')
+            ->where('date_from','>=',now()->subMonths(12))
+            ->value('max_odo');
         $distance = Trip::selectRaw('MAX(odo_to)-MIN(odo_from) AS distance')
             ->where('date_from','>=',now()->subMonths(12))
             ->value('distance');
@@ -51,7 +57,7 @@ class ChargeOverview extends BaseWidget
                 ->color('warning')
                 ->chart($totalEnergyByMonth->toArray()),
             Stat::make("Total Driving Distance",Number::format($distance)."km")
-                ->description("Total driving distance for the last 12 months")
+                ->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-map')
                 ->color('success')
                 ->chart($distanceByMonth->toArray()),
