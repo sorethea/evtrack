@@ -109,6 +109,7 @@ class ChargeCost extends ChartWidget
                 },
                 scales:{
                     y:{
+                        display: false,
                         grid:{
                             display: false
                         }
