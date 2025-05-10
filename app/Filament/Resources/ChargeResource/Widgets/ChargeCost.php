@@ -52,6 +52,7 @@ class ChargeCost extends ChartWidget
                     'data' => $costData,
                     'borderColor' => '#ef4444', // Red
                     'backgroundColor' => '#fca5a5',
+                    'pointBackgroundColor' => '#fca5a5',
                     'tension' => 0.4,
                 ],
                 [
@@ -59,6 +60,7 @@ class ChargeCost extends ChartWidget
                     'data' => $costAcData,
                     'borderColor' => '#10b981', // Green
                     'backgroundColor' => '#10b98120',
+                    'pointBackgroundColor' => '#10b98120',
                     'tension' => 0.4,
                 ],
                 [
@@ -66,6 +68,7 @@ class ChargeCost extends ChartWidget
                     'data' => $costDcData,
                     'borderColor' => '#3b82f6', // Blue
                     'backgroundColor' => '#3b82f620',
+                    'pointBackgroundColor' => '#3b82f620',
                     'tension' => 0.4,
                 ],
             ],
