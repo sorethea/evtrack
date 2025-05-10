@@ -134,7 +134,7 @@ class ChargeCost extends ChartWidget
                                 context[0].dataset.data.forEach(value => {
                                     total += Number(value) || 0;
                                 });
-                                console.log(console[0]);
+                                console.log(context[0]);
                                 return 'Total '+context[0].chart+' : {$currency}' + total.toLocaleString();
                             }
                         }
