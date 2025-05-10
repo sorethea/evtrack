@@ -18,7 +18,7 @@ class ChargeOverview extends BaseWidget
         $currency = config("ev.currency_symbol");
         $rate = config("ev.usd_rate");
         $total_cost = $total/$rate;
-        $total_cost = Number::currency($total_cost,$currency);
+        //$total_cost = Number::currency($total_cost,$currency);
         return [
             Stat::make("Total Charging Cost", $total_cost),
         ];
