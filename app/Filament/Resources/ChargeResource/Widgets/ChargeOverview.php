@@ -29,7 +29,7 @@ class ChargeOverview extends BaseWidget
             Stat::make("Total Charging Cost", $total_cost)
                 ->description("Total charging cost for the last 12 months")
                 ->icon('heroicon-o-currency-dollar')
-                ->color('success')
+                ->color('danger')
                 ->chart($totalByMonth->toArray()),
         ];
     }
