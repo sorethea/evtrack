@@ -74,6 +74,9 @@ class DrivingLogResource extends Resource
                 Tables\Columns\TextColumn::make("odo")
                     ->label(trans('ev.odo'))
                     ->searchable(),
+                Tables\Columns\TextColumn::make("voltage")
+                    ->label(trans('ev.voltage'))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make("soc_from")
                     ->label(trans('ev.soc_from'))
                     ->searchable(),
