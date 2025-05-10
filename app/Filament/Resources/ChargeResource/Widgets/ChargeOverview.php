@@ -7,6 +7,7 @@ use Filament\Widgets\Concerns\InteractsWithPageTable;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Number;
 
 class ChargeOverview extends BaseWidget
 {
@@ -15,7 +16,7 @@ class ChargeOverview extends BaseWidget
     {
         $total_cost = Charge::sum(DB::raw('qty*price'));
         return [
-            Stat::make("Total Charging Cost", $total_cost)
+            Stat::make("Total Charging Cost", Number::currency($total_cost,config("ev.currency_symbol") );
         ];
     }
 }
