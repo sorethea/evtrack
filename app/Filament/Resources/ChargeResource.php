@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ChargeResource\Pages;
 use App\Filament\Resources\ChargeResource\RelationManagers;
 use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
+use App\Filament\Resources\ChargeResource\Widgets\ChargeOverview;
 use App\Models\Charge;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -106,7 +107,7 @@ class ChargeResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            ChargeCost::class,
+            ChargeOverview::class,
         ];
     }
 
