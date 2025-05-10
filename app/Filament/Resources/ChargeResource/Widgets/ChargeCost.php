@@ -98,14 +98,14 @@ class ChargeCost extends ChartWidget
                     legend:{
                         position: 'top'
                     },
-                    // tooltip:{
-                    //     callbacks:{
-                    //         label:  function (context){
-                    //                 const value = context.parsed.y || context.parsed;
-                    //                 return context.label + ': $' + value.toLocaleString();
-                    //             }
-                    //     }
-                    // }
+                    tooltip:{
+                        callbacks:{
+                            label:  function (context){
+                                    const value = context.parsed.y || context.parsed;
+                                    return label + ': $' + value.toLocaleString();
+                                }
+                        }
+                    }
                 },
                 scales:{
                     y:{
