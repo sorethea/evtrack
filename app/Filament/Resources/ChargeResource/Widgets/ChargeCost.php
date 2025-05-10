@@ -105,7 +105,7 @@ class ChargeCost extends ChartWidget
             {
                 plugins:{
                     legend:{
-                        position: 'top'/*,
+                        position: 'top',
                         labels: {
                             generateLabels: function(chart){
                                 return chart.data.datasets.map(function(dataset, i) {
@@ -120,7 +120,7 @@ class ChargeCost extends ChartWidget
                                 };
                             });
                             }
-                        }*/
+                        }
                     },
                     tooltip:{
                         callbacks:{
