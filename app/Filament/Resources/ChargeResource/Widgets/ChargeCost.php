@@ -113,7 +113,7 @@ class ChargeCost extends ChartWidget
                         },
                         ticks:{
                             callbacks: function(value){
-                                return [0,100].includes(value)?value:'';
+                                return [0,100];
                             }
                         }
                     },
