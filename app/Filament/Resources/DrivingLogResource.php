@@ -69,8 +69,7 @@ class DrivingLogResource extends Resource
                 Tables\Columns\TextColumn::make("soc_from")
                     ->label(trans('ev.soc_from'))
                     ->default(function (){
-                        $latestLog = DrivingLog::max('date')->value('soc_to');
-                        dd($latestLog);
+                        return 100;
                     })
                     ->searchable(),
                 Tables\Columns\TextColumn::make("soc_to")
