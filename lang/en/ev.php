@@ -3,6 +3,7 @@ return [
     "date"=>"Date",
     "from"=>"From",
     "to"=>"To",
+    "type"=>"Type",
     "soc"=>"State of charge",
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",
@@ -23,5 +24,6 @@ return [
     "consumption"=>"Consumption",
     "qty"=>"Quantity",
     "price"=>"Price",
+    "voltage"=>"Voltage",
     "total_price"=>"Total Price",
 ];
