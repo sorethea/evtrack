@@ -31,6 +31,7 @@ class ChargeOverview extends BaseWidget
                 ->icon('heroicon-o-currency-dollar')
                 ->color('danger')
                 ->chart($totalByMonth->toArray()),
+            Stat::make("Total Charging Energy"),
         ];
     }
 }
