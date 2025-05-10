@@ -105,6 +105,7 @@ class ChargeCost extends ChartWidget
             {
                 plugins:{
                     legend:{
+                        animation: false,
                         position: 'top',
                         labels: {
                             generateLabels: function(chart){
