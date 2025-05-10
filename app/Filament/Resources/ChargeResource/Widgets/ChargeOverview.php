@@ -3,10 +3,10 @@
 namespace App\Filament\Resources\ChargeResource\Widgets;
 
 use App\Models\Charge;
+use App\Models\Trip;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Number;
 
 class ChargeOverview extends BaseWidget
@@ -14,6 +14,13 @@ class ChargeOverview extends BaseWidget
     use InteractsWithPageTable;
     protected function getStats(): array
     {
+        $distance = Trip::selectRaw('MAX(odo_to)-MIN(odo_from) AS distance')
+            ->where('date_from','>=',now()->subMonths(12))
+            ->value('distance');
+        $distanceByMonth = Trip::selectRaw('MAX(odo_to)-MIN(odo_from) AS distance,MONTH(date_from) AS month')
+            ->where('date_from','>=',now()->subMonths(12))
+            ->groupBy('month')
+            ->pluck('distance');
         $total = Charge::selectRaw('SUM(`qty`*`price`) as `cost`')
             ->where('date','>=',now()->subMonths(12))
             ->value('cost');
@@ -43,6 +50,11 @@ class ChargeOverview extends BaseWidget
                 ->icon('heroicon-o-bolt')
                 ->color('warning')
                 ->chart($totalEnergyByMonth->toArray()),
+            Stat::make("Total Driving Distance",Number::format($distance)."km")
+                ->description("Total driving distance for the last 12 months")
+                ->icon('heroicon-o-map')
+                ->color('success')
+                ->chart($distanceByMonth->toArray()),
         ];
     }
 }
