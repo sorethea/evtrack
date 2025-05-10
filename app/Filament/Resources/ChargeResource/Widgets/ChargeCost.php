@@ -100,12 +100,10 @@ class ChargeCost extends ChartWidget
                     },
                     tooltip:{
                         callbacks:{
-                            label:{
-                                function (context){
+                            label:  function (context){
                                     const value = context.parsed.y || context.parsed;
                                     return '$' + value.toLocaleString();
                                 }
-                            }
                         }
                     }
                 },
