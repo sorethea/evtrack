@@ -105,7 +105,7 @@ class ChargeCost extends ChartWidget
                         'display' => false
                     ],
                     'ticks'=> [
-                        'callback'=>'(value)=>"$"+value'
+                        'callback'=>RawJS(<<<JS( value)=>"$"+value JS ),
                     ]
 //                    'title' => [
 //                        'display' => true,
