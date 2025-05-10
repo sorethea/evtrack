@@ -105,7 +105,7 @@ class ChargeCost extends ChartWidget
             {
                 plugins:{
                     legend:{
-                        position: 'top',
+                        position: 'top'/*,
                         labels: {
                             generateLabels: function(chart){
                                 return chart.data.datasets.map(function(dataset, i) {
@@ -120,7 +120,7 @@ class ChargeCost extends ChartWidget
                                 };
                             });
                             }
-                        }
+                        }*/
                     },
                     tooltip:{
                         callbacks:{
@@ -132,8 +132,6 @@ class ChargeCost extends ChartWidget
                                 let total = 0;
 
                                 context[0].dataset.data.forEach(value => {
-
-                                    //const value = dataset?.[dataIndex] ?? 0;
                                     total += Number(value) || 0;
                                 });
 
