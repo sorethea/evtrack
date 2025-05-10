@@ -34,7 +34,7 @@ class DrivingLogResource extends Resource
                         ->label(trans('ev.soc_from'))
                         ->default(function (){
                             $maxDate = DrivingLog::max('date');
-                            $log = DrivingLog::where("date",$maxDate)->first();
+                            $log = DrivingLog::where("date","=",$maxDate)->first();
                             return $maxDate;
                         })
                         ->nullable(),
