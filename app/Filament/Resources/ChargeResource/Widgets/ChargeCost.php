@@ -17,7 +17,7 @@ class ChargeCost extends ChartWidget
         $total = Charge::selectRaw("SUM(ROUND(price * qty/{$rate},2)) AS `grand_total`")
             ->where('date','>=',now()->subMonth(12))
             ->value('grand_total');
-        return 'EV charging cost ($'.$total.') for the last 12 months';
+        return 'EV charging cost for the last 12 months ($'.$total.')';
     }
 
     protected function getData(): array
