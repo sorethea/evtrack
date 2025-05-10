@@ -19,9 +19,10 @@ class ListCharges extends ListRecords
         ];
     }
 
-    public function getHeader(): ?View
+    protected function getHeaderWidgets(): array
     {
-        return "This is header";
+        return [
+            ChargeResource\Widgets\ChargeStats::class,
+        ];
     }
-
 }
