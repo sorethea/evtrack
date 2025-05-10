@@ -127,7 +127,7 @@ class ChargeCost extends ChartWidget
                             label:  function (context){
                                     const value = context.parsed.y || 0;
                                     return context.dataset.label + ': {$currency}'+ value.toLocaleString();
-                            }/*,
+                            },
                             footer: function(context){
                                 if (!context?.chart?.data?.datasets) return '';
 
@@ -140,7 +140,7 @@ class ChargeCost extends ChartWidget
                                 });
 
                                 return 'Grand Total: {$currency}' + total.toLocaleString();
-                            }*/
+                            }
                         }
                     }
                 },
