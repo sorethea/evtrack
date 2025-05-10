@@ -6,6 +6,7 @@ use App\Filament\Resources\ChargeResource;
 use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\View\View;
 
 class ListCharges extends ListRecords
 {
@@ -16,6 +17,11 @@ class ListCharges extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+
+    public function getHeader(): ?View
+    {
+        return "This is header";
     }
 
 }
