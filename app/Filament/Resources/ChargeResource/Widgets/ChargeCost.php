@@ -100,6 +100,7 @@ class ChargeCost extends ChartWidget
 
     protected function getOptions(): RawJs
     {
+        $currency = config("ev.currency_symbol");
         return RawJs::make(<<<JS
             {
                 plugins:{
@@ -127,6 +128,18 @@ class ChargeCost extends ChartWidget
                                     const value = context.parsed.y || 0;
                                     return context.dataset.label + ': $' + value.toLocaleString();
                                 }
+                            footer: function(context){
+                                const chart = context.chart;
+                                const dataIndex = context.dataIndex;
+                                let total = 0;
+
+                                // Sum all dataset values at this index
+                                chart.data.datasets.forEach(dataset => {
+                                    total += dataset.data[dataIndex] || 0;
+                                });
+
+                                return 'Grand Total: ' + $currency + total.toLocaleString();
+                            }
                         }
                     }
                 },
