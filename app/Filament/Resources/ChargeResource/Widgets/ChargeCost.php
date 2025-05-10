@@ -10,15 +10,15 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class ChargeCost extends ChartWidget
 {
-    protected static ?string $heading = ' EV Charging Cost (USD)';
-//    public function getHeading(): string|Htmlable|null
-//    {
-//        $rate = config("ev.usd_rate");
-//        $total = Charge::selectRaw("SUM(ROUND(price * qty/{$rate},2)) AS `grand_total`")
-//            ->where('date','>=',now()->subMonth(12))
-//            ->value('grand_total');
-//        return 'EV charging cost for the last 12 months ($'.$total.')';
-//    }
+    //protected static ?string $heading = ' EV Charging Cost (USD)';
+    public function getHeading(): string|Htmlable|null
+    {
+        $rate = config("ev.usd_rate");
+        $total = Charge::selectRaw("SUM(ROUND(price * qty/{$rate},2)) AS `grand_total`")
+            ->where('date','>=',now()->subMonth(12))
+            ->value('grand_total');
+        return 'EV charging cost for the last 12 months ($'.$total.')';
+    }
 
     protected function getData(): array
     {
@@ -106,41 +106,41 @@ class ChargeCost extends ChartWidget
                 plugins:{
                     legend:{
                         position: 'top'
-                        // labels: {
-                        //     generateLabels: function(chart){
-                        //         return chart.data.datasets.map(function(dataset, i) {
-                        //         const total = dataset.data.reduce((a, b) => a + b, 0);
-                        //         return {
-                        //             text: dataset.label + ': $' + total.toLocaleString(),
-                        //             fillStyle: dataset.backgroundColor,
-                        //             strokeStyle: dataset.borderColor,
-                        //             hidden: !chart.isDatasetVisible(i),
-                        //             lineWidth: 1,
-                        //             index: i
-                        //         };
-                        //     });
-                        //     }
-                        // }
+                        labels: {
+                            generateLabels: function(chart){
+                                return chart.data.datasets.map(function(dataset, i) {
+                                const total = dataset.data.reduce((a, b) => a + b, 0);
+                                return {
+                                    text: dataset.label + ': $' + total.toLocaleString(),
+                                    fillStyle: dataset.backgroundColor,
+                                    strokeStyle: dataset.borderColor,
+                                    hidden: !chart.isDatasetVisible(i),
+                                    lineWidth: 1,
+                                    index: i
+                                };
+                            });
+                            }
+                        }
                     },
                     tooltip:{
                         callbacks:{
                             label:  function (context){
                                     const value = context.parsed.y || 0;
                                     return context.dataset.label + ': {$currency}'+ value.toLocaleString();
-                                },
-                            footer: function(context){
-                                if (!context?.datasets?.data) return '';
-
-                                const dataIndex = context?.dataIndex ?? 0;
-                                let total = 0;
-
-                                context.datasets.data.forEach(dataset => {
-                                    const value = dataset?.data?.[dataIndex] ?? 0;
-                                    total += Number(value) || 0;
-                                });
-
-                                return 'Grand Total: {$currency}' + total.toLocaleString();
-                            }
+                                }
+//                            footer: function(context){
+//                                if (!context?.chart?.data?.datasets) return '';
+//
+//                                const dataIndex = context?.dataIndex ?? 0;
+//                                let total = 0;
+//
+//                                context.chart.data.datasets.forEach(dataset => {
+//                                    const value = dataset?.data?.[dataIndex] ?? 0;
+//                                    total += Number(value) || 0;
+//                                });
+//
+//                                return 'Grand Total: {$currency}' + total.toLocaleString();
+//                            }
                         }
                     }
                 },
