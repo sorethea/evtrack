@@ -17,7 +17,7 @@ class ChargeOverview extends BaseWidget
         $total = Charge::selectRaw('SUM(`qty`*`price`) as `cost`')->value('cost');
         $currency = config("ev.currency_symbol");
         $rate = config("ev.usd_rate");
-        $total_cost = $total/$rate;
+        $total_cost = round($total/$rate,2);
         //$total_cost = Number::currency($total_cost,$currency);
         return [
             Stat::make("Total Charging Cost", $total_cost),
