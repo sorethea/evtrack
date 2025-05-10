@@ -32,7 +32,7 @@ class DrivingLogResource extends Resource
                         ->required(),
                     Forms\Components\TextInput::make("soc_from")
                         ->label(trans('ev.soc_from'))
-                        ->default(fn()=>100)
+                        ->default(fn()=>DrivingLog::max('date')->value('soc_to'))
                         ->nullable(),
                     Forms\Components\TextInput::make("soc_to")
                         ->label(trans('ev.soc_to'))
