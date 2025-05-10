@@ -101,7 +101,7 @@ class ChargeCost extends ChartWidget
                     tooltip:{
                         callbacks:{
                             label: function (context){
-                                return context.dataset.label +': $'+ context.dataset.data.cost;
+                                return context.dataset.label +': $'+ context.dataset.data;
                             }
                         }
                     }
