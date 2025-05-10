@@ -6,10 +6,19 @@ use App\Models\Charge;
 use Filament\Resources\Resource;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ChargeCost extends ChartWidget
 {
     protected static ?string $heading = ' EV Charging Cost (USD)';
+    public function getHeading(): string|Htmlable|null
+    {
+        $rate = config("ev.usd_rate");
+        $totalcost = Charge::selectRaw("SUM(ROUND(price * qty/{$rate},2)) AS `total_cost`,")
+            ->where('date','>=',now()->subMonth(12))
+            ->sum();
+        return 'EV Charging Cost ($'.$totalcost.')';
+    }
 
     protected function getData(): array
     {
