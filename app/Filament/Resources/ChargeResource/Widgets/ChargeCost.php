@@ -127,8 +127,20 @@ class ChargeCost extends ChartWidget
                             label:  function (context){
                                     const value = context.parsed.y || 0;
                                     return context.dataset.label + ': {$currency}'+ value.toLocaleString();
-                                },
+                                }/*,
+                            footer: function(context){
+                                if (!context?.chart?.data?.datasets) return '';
 
+                                const dataIndex = context?.dataIndex ?? 0;
+                                let total = 0;
+
+                                context.chart.data.datasets.forEach(dataset => {
+                                    const value = dataset?.data?.[dataIndex] ?? 0;
+                                    total += Number(value) || 0;
+                                });
+
+                                return 'Grand Total: {$currency}' + total.toLocaleString();
+                            }*/
                         }
                     }
                 },
