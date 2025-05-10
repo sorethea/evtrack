@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\DrivingLog;
+use App\Models\Vehicle;
 
 class DrivingLogObserver
 {
@@ -11,7 +12,7 @@ class DrivingLogObserver
      */
     public function created(DrivingLog $drivingLog): void
     {
-       $vehicle = auth()->user()->vehicle();
+       $vehicle = Vehicle::where('user_id',auth()->id)->where('is_default',true);
        $vehicle->odo = $drivingLog->odo;
        $vehicle->save();
     }

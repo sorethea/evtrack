@@ -47,6 +47,9 @@ class DrivingLogResource extends Resource
                     Forms\Components\TextInput::make("ad")
                         ->label(trans('ev.discharge'))
                         ->nullable(),
+                    Forms\Components\TextInput::make("voltage")
+                        ->label(trans('ev.voltage'))
+                        ->nullable(),
                     Forms\Components\Select::make("type")
                         ->label(trans('ev.type'))
                         ->options(trans("ev.log_types"))
