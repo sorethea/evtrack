@@ -10,7 +10,7 @@ use Filament\Widgets\ChartWidget;
 class ChargeCost extends ChartWidget
 {
     protected static ?string $heading = ' EV Charging Cost (USD)';
-    //protected static string $color = 'info';
+    protected static string $color = 'info';
 
     protected function getData(): array
     {
@@ -87,18 +87,39 @@ class ChargeCost extends ChartWidget
         return 'line';
     }
 
-    protected function getOptions(): RawJs
+    protected function getOptions(): array
     {
-        return RawJs::make(<<<JS
-        {
-            scales: {
-                y: {
-                    ticks: {
-                        callback: (value) => '$' + value,
-                    },
-                },
-            },
-        }
-    JS);
+
+        return [
+            'plugins' => [
+                'legend' => [
+                    'position' => 'top',
+                ],
+//                'colors'=>[
+//                    'enabled'=>false
+//                ]
+            ],
+            'scales' => [
+                'y' => [
+                    'grid' => [
+                        'display' => false
+                    ],
+                    'ticks'=> [
+                        'callback'=>'(value)=>"$"+value'
+                    ]
+//                    'title' => [
+//                        'display' => true,
+//                        'text' => 'Value'
+//                    ],
+//                  'beginAtZero' => true,
+
+                ],
+                'x' => [
+                    'grid' => [
+                        'display' => false
+                    ]
+                ]
+            ]
+        ];
     }
 }
