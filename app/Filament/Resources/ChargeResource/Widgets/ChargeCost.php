@@ -100,6 +100,12 @@ class ChargeCost extends ChartWidget
                             callback: (value)=>'$' + value
                         }
                     }
+                    x:{
+                        grid:{
+                            display: false
+                        }
+
+                    }
                 }
             }
         JS);
