@@ -20,7 +20,10 @@ class ChargeOverview extends BaseWidget
         $total_cost = round($total/$rate,2);
         $total_cost = Number::currency($total_cost,$currency);
         return [
-            Stat::make("Total Charging Cost", $total_cost)->color('success'),
+            Stat::make("Total Charging Cost", $total_cost)
+                ->description("Total charging cost including home charging and fast charging")
+                ->icon('heroicon-o-currency-dollar')
+                ->color('success'),
         ];
     }
 }
