@@ -61,6 +61,7 @@ class DrivingLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make("type")
                     ->label(trans('ev.type'))
+                    ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.{$state}"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make("odo")
                     ->label(trans('ev.odo'))
