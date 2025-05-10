@@ -110,10 +110,10 @@ class ChargeCost extends ChartWidget
                                 return chart.data.datasets.map(function(dataset, i) {
                                 const total = dataset.data.reduce((a, b) => a + b, 0);
                                 return {
-                                    text: dataset.label + ': ' + total.toLocaleString(),
-                                    fillStyle: dataset.backgroundColor,
-                                    strokeStyle: dataset.borderColor,
-                                    hidden: !chart.isDatasetVisible(i),
+                                    text: dataset.label + ': $' + total.toLocaleString(),
+                                    // fillStyle: dataset.backgroundColor,
+                                    // strokeStyle: dataset.borderColor,
+                                    // hidden: !chart.isDatasetVisible(i),
                                     lineWidth: 1,
                                     index: i
                                 };
