@@ -127,7 +127,7 @@ class ChargeCost extends ChartWidget
                             label:  function (context){
                                     const value = context.parsed.y || 0;
                                     return context.dataset.label + ': $' + value.toLocaleString();
-                                }
+                                },
                             footer: function(context){
                                 const chart = context.chart;
                                 const dataIndex = context.dataIndex;
