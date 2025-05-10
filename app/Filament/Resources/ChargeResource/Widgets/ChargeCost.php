@@ -129,17 +129,17 @@ class ChargeCost extends ChartWidget
                                     return context.dataset.label + ': {$currency}'+ value.toLocaleString();
                                 },
                             footer: function(context){
-                                const chart = context.chart;
-                                const dataIndex = context.dataIndex;
+                                if (!context?.chart?.data?.datasets) return '';
+
+                                const dataIndex = context?.dataIndex ?? 0;
                                 let total = 0;
 
-                                // Sum all dataset values at this index
-                                chart.data.datasets.forEach(dataset => {
-                                    total += dataset.data[dataIndex] || 0;
+                                context.chart.data.datasets.forEach(dataset => {
+                                    const value = dataset?.data?.[dataIndex] ?? 0;
+                                    total += Number(value) || 0;
                                 });
-                                console.log(total);
 
-                                return 'Grand Total: $' + total.toLocaleString();
+                                return 'Total: ' + total.toLocaleString();
                             }
                         }
                     }
