@@ -104,7 +104,7 @@ class ChargeCost extends ChartWidget
             {
                 plugins:{
                     legend:{
-                        position: 'top',
+                        // position: 'top',
                         labels: {
                             generateLabels: function(chart){
                                 return chart.data.datasets.map(function(dataset, i) {
@@ -113,7 +113,7 @@ class ChargeCost extends ChartWidget
                                     text: dataset.label + ': $' + total.toLocaleString(),
                                     fillStyle: dataset.backgroundColor,
                                     strokeStyle: dataset.borderColor,
-                                    // hidden: !chart.isDatasetVisible(i),
+                                    hidden: !chart.isDatasetVisible(i),
                                     lineWidth: 1,
                                     index: i
                                 };
