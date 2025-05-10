@@ -134,7 +134,7 @@ class ChargeCost extends ChartWidget
                                 const dataIndex = context?.dataIndex ?? 0;
                                 let total = 0;
 
-                                context[0].dataset.forEach(dataset => {
+                                context[0].dataset.data.forEach(dataset => {
                                     const value = dataset?.data?.[dataIndex] ?? 0;
                                     total += Number(value) || 0;
                                 });
