@@ -33,7 +33,8 @@ class DrivingLogResource extends Resource
                     Forms\Components\TextInput::make("soc_from")
                         ->label(trans('ev.soc_from'))
                         ->default(function (){
-                            return DrivingLog::lastest("date")->first()->value("soc_to");
+                            $maxDate = DrivingLog::max('date');
+                            return DrivingLog::where("date",$maxDate)->first()->value("soc_to");
                         })
                         ->nullable(),
                     Forms\Components\TextInput::make("soc_to")
