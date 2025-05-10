@@ -32,6 +32,7 @@ class DrivingLogResource extends Resource
                         ->required(),
                     Forms\Components\TextInput::make("soc_from")
                         ->label(trans('ev.soc_from'))
+                        ->default(fn()=>100)
                         ->nullable(),
                     Forms\Components\TextInput::make("soc_to")
                         ->label(trans('ev.soc_to'))
@@ -68,7 +69,6 @@ class DrivingLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make("soc_from")
                     ->label(trans('ev.soc_from'))
-                    ->getStateUsing(fn()=>100)
                     ->searchable(),
                 Tables\Columns\TextColumn::make("soc_to")
                     ->label(trans('ev.soc_to'))
