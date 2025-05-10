@@ -111,11 +111,8 @@ class ChargeCost extends ChartWidget
                         grid:{
                             display: false
                         },
-                        ticks:{
-                            callbacks: function(value){
-                                return [0,200];
-                            }
-                        }
+                        suggestedMin: 0,
+                        suggestedMax: 100
                     },
                     x:{
                         grid:{
