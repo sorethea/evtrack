@@ -14,6 +14,10 @@ return [
         "ac"=>"AC",
         "dc"=>"DC",
     ],
+    "log_types"=>[
+        "log"=>"Log",
+        "charge"=>"Charge",
+    ],
     "discharge"=>"Discharge",
     "comment"=>"Comment",
     "duration"=>"duration",
