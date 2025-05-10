@@ -86,55 +86,19 @@ class ChargeCost extends ChartWidget
         return 'line';
     }
 
-    protected function getOptions(): array
+    protected function getOptions(): RawJs
     {
 
-        return [
-            'plugins' => [
-                'legend' => [
-                    'position' => 'top',
-                ],
-                'tooltip' => [
-                    'callbacks' => [
-                        'labelColor' => RawJs::make(<<<JS
-                            function(context) {
-                                return {
-                                    borderColor: context.dataset.borderColor,
-                                    backgroundColor: context.dataset.borderColor,
-                                    borderWidth: 2
-                                };
-                            }
-                        JS)
-                    ]
-                ]
-            ],
-            'scales' => [
-                'y' => [
-                    'grid' => [
-                        'display' => false,
-                    ],
-
-                    RawJs::make(<<<JS
-                        ticks: {
-                            callback: (value) => '€' + value,
-                        },
-                    JS),
-
-
-
-//                    'title' => [
-//                        'display' => true,
-//                        'text' => 'Value'
-//                    ],
-//                  'beginAtZero' => true,
-
-                ],
-                'x' => [
-                    'grid' => [
-                        'display' => false
-                    ]
-                ]
-            ]
-        ];
+        return RawJs::make(<<<JS
+            {
+                scales:{
+                    y:{
+                        ticks:{
+                            callback: (value)=>'$' + value
+                        }
+                    }
+                }
+            }
+        JS);
     }
 }
