@@ -135,7 +135,7 @@ class ChargeCost extends ChartWidget
                                     total += Number(value) || 0;
                                 });
 
-                                return 'Total '+context.chart.label.toLocaleString()+' : {$currency}' + total.toLocaleString();
+                                return 'Total '+context[0].chart.label.toLocaleString()+' : {$currency}' + total.toLocaleString();
                             }
                         }
                     }
