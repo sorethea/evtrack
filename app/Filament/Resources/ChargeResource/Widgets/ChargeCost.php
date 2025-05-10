@@ -113,13 +113,15 @@ class ChargeCost extends ChartWidget
                     'grid' => [
                         'display' => false
                     ],
-                    'ticks'=> [
-                        'callback'=>RawJs::make(<<<JS
-                            function (value) {
-                                return "$"+value
-                            }
-                        JS)
-                    ]
+                    'ticks'=>RawJs::make(<<<JS
+{
+    callback:(value)=>"$"+value
+}
+
+JS),
+
+
+
 //                    'title' => [
 //                        'display' => true,
 //                        'text' => 'Value'
