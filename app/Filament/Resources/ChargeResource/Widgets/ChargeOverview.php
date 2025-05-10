@@ -17,6 +17,10 @@ class ChargeOverview extends BaseWidget
         $total = Charge::selectRaw('SUM(`qty`*`price`) as `cost`')
             ->where('date','>=',now()->subMonths(12))
             ->value('cost');
+        $totalByMonth = Charge::selectRaw('SUM(`qty`*`price`) as `cost`, MONTH(date) as month')
+            ->where('date','>=',now()->subMonths(12))
+            ->groupBy('month')
+            ->pluck('cost');
         $currency = config("ev.currency");
         $rate = config("ev.usd_rate");
         $total_cost = round($total/$rate,2);
@@ -26,7 +30,7 @@ class ChargeOverview extends BaseWidget
                 ->description("Total charging cost for the last 12 months")
                 ->icon('heroicon-o-currency-dollar')
                 ->color('success')
-                ->chart([]),
+                ->chart($totalByMonth->toArray()),
         ];
     }
 }
