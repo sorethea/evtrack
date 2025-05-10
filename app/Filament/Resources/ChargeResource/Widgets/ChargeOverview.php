@@ -12,7 +12,7 @@ class ChargeOverview extends BaseWidget
     use InteractsWithPageTable;
     protected function getStats(): array
     {
-        $total_cost = Charge::selectRaw("(qty*price)AS cost")->sum('cost');
+        $total_cost = Charge::sum(DB::raw('qty*price'));
         return [
             Stat::make("Total Charging Cost", $total_cost)
         ];
