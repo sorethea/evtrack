@@ -14,9 +14,10 @@ class ChargeOverview extends BaseWidget
     use InteractsWithPageTable;
     protected function getStats(): array
     {
-        $total_cost = Charge::sum(DB::raw('qty*price'))/config("ev.usd_rate");
+        $total_cost = Charge::sum(DB::raw('qty*price'));
+        $rate = config("ev.usd_rate");
         return [
-            Stat::make("Total Charging Cost", Number::currency($total_cost,config("ev.currency_symbol")) ),
+            Stat::make("Total Charging Cost", Number::currency($total_cost/$rate,config("ev.currency_symbol")) ),
         ];
     }
 }
