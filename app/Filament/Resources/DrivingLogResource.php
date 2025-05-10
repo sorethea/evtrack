@@ -68,9 +68,7 @@ class DrivingLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make("soc_from")
                     ->label(trans('ev.soc_from'))
-                    ->default(function (){
-                        return 100;
-                    })
+                    ->getStateUsing(fn()=>100)
                     ->searchable(),
                 Tables\Columns\TextColumn::make("soc_to")
                     ->label(trans('ev.soc_to'))
