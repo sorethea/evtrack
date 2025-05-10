@@ -130,12 +130,10 @@ class ChargeCost extends ChartWidget
                             },
                             footer: function(context){
                                 let total = 0;
-
                                 context[0].dataset.data.forEach(value => {
                                     total += Number(value) || 0;
                                 });
-                                console.log(context[0]);
-                                return 'Total '+context[0].dataset.label.toLocaleString()+' : {$currency}' + total.toLocaleString();
+                                return 'Grand Total: {$currency}' + total.toLocaleString();
                             }
                         }
                     }
