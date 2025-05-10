@@ -96,7 +96,14 @@ class ChargeCost extends ChartWidget
             {
                 plugins:{
                     legend:{
-                        position:top
+                        position: 'top'
+                    },
+                    tooltip:{
+                        callbacks:{
+                            label: function (context){
+                                return context.dataset.label +": "+context.parsed.y.toLocaleString();
+                            }
+                        }
                     }
                 },
                 scales:{
