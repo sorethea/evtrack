@@ -134,7 +134,7 @@ class ChargeCost extends ChartWidget
                                 let total = 0;
 
                                 // Sum all dataset values at this index
-                                chart.data.datasets.forEach(dataset => {
+                                context.datasets.data.forEach(dataset => {
                                     total += dataset.data[dataIndex] || 0;
                                 });
                                 console.log(total);
