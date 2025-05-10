@@ -21,6 +21,13 @@ class ChargeOverview extends BaseWidget
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('cost');
+        $totalEnergy = Charge::selectRaw('SUM(`qty`) as `energy`')
+            ->where('date','>=',now()->subMonths(12))
+            ->value('energy');
+        $totalEnergyByMonth = Charge::selectRaw('SUM(`qty`) as `energy`, MONTH(date) as month')
+            ->where('date','>=',now()->subMonths(12))
+            ->groupBy('month')
+            ->pluck('energy');
         $currency = config("ev.currency");
         $rate = config("ev.usd_rate");
         $total_cost = round($total/$rate,2);
@@ -31,10 +38,11 @@ class ChargeOverview extends BaseWidget
                 ->icon('heroicon-o-currency-dollar')
                 ->color('danger')
                 ->chart($totalByMonth->toArray()),
-            Stat::make("Total Charging Energy",0)
+            Stat::make("Total Charging Energy",Number::format(round($totalEnergy,0)).'kWh')
                 ->description("Total charging energy for the last 12 months")
                 ->icon('heroicon-o-bolt')
-                ->color('danger'),
+                ->color('warning')
+                ->chart($totalEnergyByMonth->toArray()),
         ];
     }
 }
