@@ -139,7 +139,7 @@ class ChargeCost extends ChartWidget
                                 });
                                 console.log(total);
 
-                                //return 'Grand Total: $' + total.toLocaleString();
+                                return 'Grand Total: $'; //+ total.toLocaleString();
                             }
                         }
                     }
