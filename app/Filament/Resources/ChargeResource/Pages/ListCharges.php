@@ -22,7 +22,7 @@ class ListCharges extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            ChargeResource\Widgets\ChargeStats::class,
+            ChargeResource\Widgets\ChargeStats::make(),
         ];
     }
 }
