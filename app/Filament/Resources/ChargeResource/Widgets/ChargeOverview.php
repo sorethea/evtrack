@@ -15,10 +15,10 @@ class ChargeOverview extends BaseWidget
     protected function getStats(): array
     {
         $total = Charge::selectRaw('SUM(`qty`*`price`) as `cost`')->value('cost');
-        $currency = config("ev.currency_symbol");
+        $currency = config("ev.currency");
         $rate = config("ev.usd_rate");
         $total_cost = round($total/$rate,2);
-        $total_cost = Number::currency($total_cost);
+        $total_cost = Number::currency($total_cost,$currency);
         return [
             Stat::make("Total Charging Cost", $total_cost),
         ];
