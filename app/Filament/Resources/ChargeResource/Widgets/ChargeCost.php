@@ -57,7 +57,7 @@ class ChargeCost extends ChartWidget
             'labels' => $labels->toArray(),
             'datasets' => [
                 [
-                    'label' => 'Total Cost',
+                    'label' => 'Charging Cost',
                     'data' => $costData,
                     'borderColor' => '#ef4444', // Red
                     'backgroundColor' => '#fca5a5',
@@ -135,7 +135,7 @@ class ChargeCost extends ChartWidget
                                     total += Number(value) || 0;
                                 });
 
-                                return 'Total: {$currency}' + total.toLocaleString();
+                                return 'Total '+context.chart.label.toLocaleString()+' : {$currency}' + total.toLocaleString();
                             }
                         }
                     }
