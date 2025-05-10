@@ -17,7 +17,7 @@ class DrivingLogResource extends Resource
 {
     protected static ?string $model = DrivingLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
     public static function form(Form $form): Form
     {
