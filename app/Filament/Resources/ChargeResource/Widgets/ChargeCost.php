@@ -94,6 +94,11 @@ class ChargeCost extends ChartWidget
 
         return RawJs::make(<<<JS
             {
+                plugins:{
+                    legend:{
+                        position:top
+                    }
+                },
                 scales:{
                     y:{
                         ticks:{
