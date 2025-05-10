@@ -105,22 +105,22 @@ class ChargeCost extends ChartWidget
             {
                 plugins:{
                     legend:{
-                        position: 'top'
-                        // labels: {
-                        //     generateLabels: function(chart){
-                        //         return chart.data.datasets.map(function(dataset, i) {
-                        //         const total = dataset.data.reduce((a, b) => a + b, 0);
-                        //         return {
-                        //             text: dataset.label + ': $' + total.toLocaleString(),
-                        //             fillStyle: dataset.backgroundColor,
-                        //             strokeStyle: dataset.borderColor,
-                        //             hidden: !chart.isDatasetVisible(i),
-                        //             lineWidth: 1,
-                        //             index: i
-                        //         };
-                        //     });
-                        //     }
-                        // }
+                        position: 'top',
+                        labels: {
+                            generateLabels: function(chart){
+                                return chart.data.datasets.map(function(dataset, i) {
+                                const total = dataset.data.reduce((a, b) => a + b, 0);
+                                return {
+                                    text: dataset.label + ': $' + total.toLocaleString(),
+                                    fillStyle: dataset.backgroundColor,
+                                    strokeStyle: dataset.borderColor,
+                                    hidden: !chart.isDatasetVisible(i),
+                                    lineWidth: 1,
+                                    index: i
+                                };
+                            });
+                            }
+                        }
                     },
                     tooltip:{
                         callbacks:{
@@ -129,7 +129,8 @@ class ChargeCost extends ChartWidget
                                     return context.dataset.label + ': {$currency}'+ value.toLocaleString();
                             },
                             footer: function(context){
-                                if (!context?.chart?.data?.datasets) return '';
+                                console.log(context.data.dataset)
+                                /*if (!context?.chart?.data?.datasets) return '';
 
                                 const dataIndex = context?.dataIndex ?? 0;
                                 let total = 0;
@@ -139,7 +140,7 @@ class ChargeCost extends ChartWidget
                                     total += Number(value) || 0;
                                 });
 
-                                return 'Grand Total: {$currency}' + total.toLocaleString();
+                                return 'Grand Total: {$currency}' + total.toLocaleString();*/
                             }
                         }
                     }
