@@ -26,7 +26,7 @@ class ChargeOverview extends BaseWidget
                 ->description("Total charging cost for the last 12 months")
                 ->icon('heroicon-o-currency-dollar')
                 ->color('success')
-                ->chart(),
+                ->chart([]),
         ];
     }
 }
