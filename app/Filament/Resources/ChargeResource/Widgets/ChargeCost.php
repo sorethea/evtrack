@@ -10,7 +10,6 @@ use Filament\Widgets\ChartWidget;
 class ChargeCost extends ChartWidget
 {
     protected static ?string $heading = ' EV Charging Cost (USD)';
-    protected static string $color = 'info';
 
     protected function getData(): array
     {
@@ -52,21 +51,21 @@ class ChargeCost extends ChartWidget
                     'label' => 'Total Cost',
                     'data' => $costData,
                     'borderColor' => '#ef4444', // Red
-                    //'backgroundColor' => '#fca5a5',
+                    'backgroundColor' => '#fca5a5',
                     'tension' => 0.4,
                 ],
                 [
                     'label' => 'Home Charging Cost',
                     'data' => $costAcData,
                     'borderColor' => '#10b981', // Green
-                    //'backgroundColor' => '#10b98120',
+                    'backgroundColor' => '#10b98120',
                     'tension' => 0.4,
                 ],
                 [
                     'label' => 'Fast Charging Cost',
                     'data' => $costDcData,
                     'borderColor' => '#3b82f6', // Blue
-                    //'backgroundColor' => '#3b82f620',
+                    'backgroundColor' => '#3b82f620',
                     'tension' => 0.4,
                 ],
             ],
@@ -87,19 +86,49 @@ class ChargeCost extends ChartWidget
         return 'line';
     }
 
-    protected function getOptions(): RawJs
+    protected function getOptions(): array
     {
 
-        return RawJs::make(<<<JS
-            {
-                scales: {
-                    y: {
-                        ticks: {
-                            callback: (value) => '$' + value,
-                        },
-                    },
-                },
-            }
-        JS);
+        return [
+            'plugins' => [
+                'legend' => [
+                    'position' => 'top',
+                ],
+                'tooltip' => [
+                    'callbacks' => [
+                        'labelColor' => RawJs::make(<<<JS
+                            function(context) {
+                                return {
+                                    borderColor: context.dataset.borderColor,
+                                    backgroundColor: context.dataset.borderColor,
+                                    borderWidth: 2
+                                };
+                            }
+                        JS)
+                    ]
+                ]
+            ],
+            'scales' => [
+                'y' => [
+                    'grid' => [
+                        'display' => false
+                    ],
+                    'ticks'=> [
+                        'callback'=>'(value)=>"$"+value'
+                    ]
+//                    'title' => [
+//                        'display' => true,
+//                        'text' => 'Value'
+//                    ],
+//                  'beginAtZero' => true,
+
+                ],
+                'x' => [
+                    'grid' => [
+                        'display' => false
+                    ]
+                ]
+            ]
+        ];
     }
 }
