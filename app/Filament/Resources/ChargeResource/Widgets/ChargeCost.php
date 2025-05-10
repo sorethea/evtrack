@@ -101,7 +101,7 @@ class ChargeCost extends ChartWidget
                     tooltip:{
                         callbacks:{
                             label: function (context){
-                                return context.dataset.label +": "+context.parsed.y.toLocaleString();
+                                return context.dataset.label ;
                             }
                         }
                     }
