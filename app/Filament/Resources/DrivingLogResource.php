@@ -73,6 +73,7 @@ class DrivingLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make("odo")
                     ->label(trans('ev.odo'))
+                    ->numeric()
                     ->searchable(),
                 Tables\Columns\TextColumn::make("voltage")
                     ->label(trans('ev.voltage'))
@@ -85,9 +86,11 @@ class DrivingLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make("ac")
                     ->label(trans('ev.charge'))
+                    ->numeric()
                     ->searchable(),
                 Tables\Columns\TextColumn::make("ad")
                     ->label(trans('ev.discharge'))
+                    ->numeric()
                     ->searchable(),
             ])
             ->filters([
