@@ -12,10 +12,13 @@ class DrivingLogObserver
      */
     public function created(DrivingLog $drivingLog): void
     {
-       $vehicle = Vehicle::where('user_id',auth()->id)->where('is_default',true);
-       $vehicle->odo = $drivingLog->odo;
-       $vehicle->soc = $drivingLog->soc_to;
-       $vehicle->save();
+        $vehicle = Vehicle::where('user_id',auth()->user()->id)->where('is_default',true)->first();
+        if($drivingLog->odo>$vehicle->odo){
+            $vehicle->odo = $drivingLog->odo;
+            $vehicle->soc = $drivingLog->soc_to;
+            $vehicle->save();
+        }
+
     }
 
     /**
@@ -23,10 +26,7 @@ class DrivingLogObserver
      */
     public function updated(DrivingLog $drivingLog): void
     {
-        $vehicle = Vehicle::where('user_id',auth()->user()->id)->where('is_default',true)->first();
-        $vehicle->odo = $drivingLog->odo;
-        $vehicle->soc = $drivingLog->soc_to;
-        $vehicle->save();
+
     }
 
     /**
