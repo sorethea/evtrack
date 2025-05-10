@@ -46,10 +46,11 @@ class ChargeOverview extends BaseWidget
         $currency = config("ev.currency");
         $rate = config("ev.usd_rate");
         $total_cost = round($total/$rate,2);
+        $cost100km = Number::currency(100*$total_cost/$distance,$currency);
         $total_cost = Number::currency($total_cost,$currency);
         return [
             Stat::make("Total Charging Cost", $total_cost)
-                ->description("Total charging cost for the last 12 months")
+                ->description("Average charging cost per 100km: {$cost100km}")
                 ->icon('heroicon-o-currency-dollar')
                 ->color('danger')
                 ->chart($totalByMonth->toArray()),
