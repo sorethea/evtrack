@@ -106,22 +106,7 @@ class ChargeCost extends ChartWidget
                 plugins:{
                     legend:{
                         animation: false,
-                        position: 'top',
-                        labels: {
-                            generateLabels: function(chart){
-                                return chart.data.datasets.map(function(dataset, i) {
-                                const total = dataset.data.reduce((a, b) => a + b, 0);
-                                return {
-                                    text: dataset.label + ': $' + total.toLocaleString(),
-                                    fillStyle: dataset.backgroundColor,
-                                    strokeStyle: dataset.borderColor,
-                                    hidden: !chart.isDatasetVisible(i),
-                                    lineWidth: 1,
-                                    index: i
-                                };
-                            });
-                            }
-                        }
+                        position: 'top'
                     },
                     tooltip:{
                         callbacks:{
