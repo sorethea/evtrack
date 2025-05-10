@@ -14,7 +14,7 @@ class ChargeCost extends ChartWidget
     public function getHeading(): string|Htmlable|null
     {
         $rate = config("ev.usd_rate");
-        $total = Charge::selectRaw('SUM(ROUND(price * qty/{$rate},2)) AS `grand_total`')
+        $total = Charge::selectRaw("SUM(ROUND(price * qty/{$rate},2)) AS `grand_total`")
             ->where('date','>=',now()->subMonth(12))
             ->value('grand_total');
         return 'EV Charging Cost ($'.$total.')';
