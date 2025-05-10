@@ -41,10 +41,10 @@ class DrivingLogResource extends Resource
                     ->label(trans('ev.odo'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make("soc_from")
-                    ->label(trans('ev.soc').' '.trans('ev.from'))
+                    ->label(trans('ev.soc_from'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make("soc_to")
-                    ->label(trans('ev.soc').' '.trans('ev.to'))
+                    ->label(trans('ev.soc_to'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make("ac")
                     ->label(trans('ev.charge'))
