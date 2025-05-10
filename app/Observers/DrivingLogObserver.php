@@ -14,6 +14,7 @@ class DrivingLogObserver
     {
        $vehicle = Vehicle::where('user_id',auth()->id)->where('is_default',true);
        $vehicle->odo = $drivingLog->odo;
+       $vehicle->soc = $drivingLog->soc_to;
        $vehicle->save();
     }
 
@@ -22,7 +23,10 @@ class DrivingLogObserver
      */
     public function updated(DrivingLog $drivingLog): void
     {
-        //
+        $vehicle = Vehicle::where('user_id',auth()->id)->where('is_default',true);
+        $vehicle->odo = $drivingLog->odo;
+        $vehicle->soc = $drivingLog->soc_to;
+        $vehicle->save();
     }
 
     /**
