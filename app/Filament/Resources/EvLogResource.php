@@ -68,8 +68,10 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
-                    ->default(fn ($record)=>Number::format(!empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo,0)."km")
-                    ->searchable(),
+                    ->default(fn ($record)=>Number::format(!empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo,0)."km"),
+                Tables\Columns\TextColumn::make('charge')
+                    ->label(trans('ev.charge'))
+                    ->default(fn ($record)=>Number::format(!empty($record?->parent?->soc)?$record->soc - $record?->parent?->soc:0,0)."km"),
             ])
             ->filters([
                 //
