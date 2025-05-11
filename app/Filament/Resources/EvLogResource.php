@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Number;
 
 class EvLogResource extends Resource
 {
@@ -64,6 +65,10 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make("type")
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.{$state}"))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('distance')
+                    ->label(trans('ev.distance'))
+                    ->default(fn ($record)=>Number::format($record->odo - $record->parent->odo,0)."km")
                     ->searchable(),
             ])
             ->filters([
