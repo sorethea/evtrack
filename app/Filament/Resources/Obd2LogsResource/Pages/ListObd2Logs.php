@@ -26,7 +26,7 @@ class ListObd2Logs extends ListRecords
                         ->orWhere('pid','like','[VCU] Odometer%')
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
-                    $drivingLogLastest = DrivingLog::Max('date')->first();
+                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
                     $drivingLog = new DrivingLog();
                     $drivingLog->date = now()->format('Y-m-d');
                     $drivingLog->type = "driving";
