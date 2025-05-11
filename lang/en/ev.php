@@ -17,6 +17,7 @@ return [
     "log_types"=>[
         "log"=>"Log",
         "charge"=>"Charge",
+        "driving"=>"Driving",
     ],
     "discharge"=>"Discharge",
     "comment"=>"Comment",
