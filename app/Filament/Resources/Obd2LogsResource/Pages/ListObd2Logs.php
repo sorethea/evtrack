@@ -22,7 +22,7 @@ class ListObd2Logs extends ListRecords
                     $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
                         ->distinct()
                         ->where('pid','like','[BMS]%')
-                        ->whereOr('pid','like','[VCU] Odometer%')
+                        ->orWhere('pid','like','[VCU] Odometer%')
                         ->groupBy('pid')
                         ->pluck('value','pid');
                     logger(json_encode($log->toArray()));
