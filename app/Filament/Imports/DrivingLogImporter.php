@@ -27,7 +27,6 @@ class DrivingLogImporter extends Importer
         //     'email' => $this->data['email'],
         // ]);
 
-        dd($this->data);
         return new DrivingLog();
     }
 
