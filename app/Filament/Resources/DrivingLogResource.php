@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Imports\DrivingLogImporter;
 use App\Filament\Resources\DrivingLogResource\Pages;
 use App\Filament\Resources\DrivingLogResource\RelationManagers;
 use App\Filament\Resources\DrivingLogResource\Widgets\DrivingOverview;
 use App\Models\DrivingLog;
+use Filament\Actions\ImportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -100,6 +102,9 @@ class DrivingLogResource extends Resource
             ->defaultSort('date','desc')
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                ImportAction::make()->importer(DrivingLogImporter::class)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
