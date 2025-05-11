@@ -14,7 +14,8 @@ class DrivingLogImporter extends Importer
     public static function getColumns(): array
     {
         return [
-            //
+            ImportColumn::make("date")
+                ->requiredMapping(),
         ];
     }
 
