@@ -16,10 +16,24 @@ class ListObd2Logs extends ListRecords
     {
         return [
             //Actions\CreateAction::make(),
-            Actions\Action::make("truncate")
-                ->label("Truncate Logs")
+            Actions\Action::make("log_driving")
+                ->label("Log Driving")
                 ->action(function (){
-                    Obd2Logs::truncate();
+                    Obd2Logs::selectRaw("SELECT
+                          t1.pid,
+                          t1.value,
+                          t1.seconds
+                        FROM obd2_logs t1
+                        INNER JOIN (
+                          SELECT
+                            pid,
+                            MIN(seconds) AS min_seconds
+                          FROM obd2_logs
+                          WHERE pid LIKE '[BMS]%' OR pid LIKE '[VCU] Odometer%' -- Filter for BMS parameters
+                          GROUP BY pid
+                        ) t2 ON t1.pid = t2.pid AND t1.seconds = t2.min_seconds
+                        ORDER BY t1.seconds DESC;");
+                    //Obd2Logs::truncate();
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)
