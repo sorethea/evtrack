@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Obd2LogsResource\Pages;
 
 use App\Filament\Imports\Obd2LogsImporter;
 use App\Filament\Resources\Obd2LogsResource;
+use App\Models\DrivingLog;
 use App\Models\Obd2Logs;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -24,9 +25,18 @@ class ListObd2Logs extends ListRecords
                         ->where('pid','like','[BMS]%')
                         ->orWhere('pid','like','[VCU] Odometer%')
                         ->groupBy('pid')
-                        ->pluck('value','pid');
-                    logger(json_encode($log->toArray()));
-                    //Obd2Logs::truncate();
+                        ->pluck('value','pid')->toArray();
+                    $drivingLogLastest = DrivingLog::lastest()->first();
+                    $drivingLog = new DrivingLog();
+                    $drivingLog->date = now()->format('Y-m-d');
+                    $drivingLog->type = "driving";
+                    $drivingLog->soc_from = $drivingLogLastest->soc_to;
+                    $drivingLog->soc_to = $log[config("ev.obd2logs.soc_to")];
+                    $drivingLog->ac = $log[config("ev.obd2logs.ac")];
+                    $drivingLog->ad = $log[config("ev.obd2logs.ad")];
+                    $drivingLog->odo = $log[config("ev.obd2logs.odo")];
+                    $drivingLog->voltage = $log[config("ev.obd2logs.voltage")];
+                    $drivingLog->save();
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)
