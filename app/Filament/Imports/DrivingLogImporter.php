@@ -13,9 +13,10 @@ class DrivingLogImporter extends Importer
 
     public static function getColumns(): array
     {
+
         return [
             ImportColumn::make("date")
-                ->requiredMapping(),
+                ->rules(['required','date']),
         ];
     }
 
@@ -26,6 +27,7 @@ class DrivingLogImporter extends Importer
         //     'email' => $this->data['email'],
         // ]);
 
+        dd($this->data);
         return new DrivingLog();
     }
 

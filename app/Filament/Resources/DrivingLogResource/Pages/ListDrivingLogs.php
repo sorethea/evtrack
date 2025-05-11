@@ -17,7 +17,10 @@ class ListDrivingLogs extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
-            Actions\ImportAction::make()->importer(DrivingLogImporter::class)
+            Actions\ImportAction::make()
+                ->importer(DrivingLogImporter::class)
+                ->csvDelimiter(";")
+                ->chunkSize(22),
         ];
     }
     protected function getHeaderWidgets(): array
