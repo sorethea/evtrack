@@ -31,8 +31,8 @@ class ListObd2Logs extends ListRecords
                           WHERE pid LIKE '[BMS]%' OR pid LIKE '[VCU] Odometer%' -- Filter for BMS parameters
                           GROUP BY pid
                         ) t2 ON t1.pid = t2.pid AND t1.seconds = t2.min_seconds
-                        ORDER BY t1.seconds DESC")->pluck("value","pid");
-                    logger(json_encode($log));
+                        ORDER BY t1.seconds DESC");
+                    logger(json_encode($log->toArray()));
                     //Obd2Logs::truncate();
                 }),
             Actions\ImportAction::make()
