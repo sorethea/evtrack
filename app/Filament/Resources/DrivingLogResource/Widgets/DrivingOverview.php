@@ -14,14 +14,14 @@ class DrivingOverview extends BaseWidget
     protected function getStats(): array
     {
         $vehicle = auth()->user()->vehicle;
-        $weeklyConsumptions = DrivingLog::selectRaw("(soc_to-soc_from)*{$vehicle->capacity}/100 AS consumption")
+        $weeklyConsumptions = DrivingLog::selectRaw("(soc_from-soc_to)*{$vehicle->capacity}/100 AS consumption")
             ->where("date",">=",now()->subWeek())
             ->pluck("consumption");
         $totalWeeklyConsumption = array_sum($weeklyConsumptions->toArray());
         $averageWeeklyConsumption = $totalWeeklyConsumption/count($weeklyConsumptions->toArray());
         return [
-            Stat::make("Total Weekly Consumption", $totalWeeklyConsumption)
-                ->description("Average weekly consumption: {$averageWeeklyConsumption}")
+            Stat::make("Total Weekly Consumption", Number::format($totalWeeklyConsumption,2).'kWh')
+                ->description("Average weekly consumption: ".Number::format($averageWeeklyConsumption,2).'kWh')
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
                 ->chart($weeklyConsumptions->toArray()),
