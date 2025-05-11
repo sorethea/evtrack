@@ -19,8 +19,7 @@ class ListDrivingLogs extends ListRecords
             Actions\CreateAction::make(),
             Actions\ImportAction::make()
                 ->importer(DrivingLogImporter::class)
-                ->csvDelimiter(";")
-                ->maxRows(22),
+                ->csvDelimiter(";"),
         ];
     }
     protected function getHeaderWidgets(): array
