@@ -16,7 +16,7 @@ class ListObd2Logs extends ListRecords
     {
         return [
             //Actions\CreateAction::make(),
-            Actions\Action::make()
+            Actions\Action::make("truncate")
                 ->label("Truncate Logs")
                 ->action(function (){
                     Obd2Logs::truncate();
