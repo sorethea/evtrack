@@ -71,7 +71,7 @@ class EvLogResource extends Resource
                     ->default(fn ($record)=>Number::format(!empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo,0)."km"),
                 Tables\Columns\TextColumn::make('charge')
                     ->label(trans('ev.charge'))
-                    ->default(fn ($record)=>Number::format(!empty($record?->parent?->soc)?$record->soc - $record?->parent?->soc:0,0)."km"),
+                    ->default(fn ($record)=>Number::format(!empty($record?->parent?->soc)?$record->soc - $record?->parent?->soc:0,1)."%"),
             ])
             ->filters([
                 //
