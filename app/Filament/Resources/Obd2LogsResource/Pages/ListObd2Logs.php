@@ -17,9 +17,7 @@ class ListObd2Logs extends ListRecords
             //Actions\CreateAction::make(),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)
-                ->csvDelimiter(";")
-                ->nonQueued()
-                ->skipHeader(),
+                ->csvDelimiter(";"),
         ];
     }
 }
