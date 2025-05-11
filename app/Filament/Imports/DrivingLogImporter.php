@@ -22,11 +22,11 @@ class DrivingLogImporter extends Importer
 
     public function resolveRecord(): ?DrivingLog
     {
+        logger($this->data);
         // return DrivingLog::firstOrNew([
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-        logger(json_encode($this->data));
         return new DrivingLog();
     }
 

@@ -20,7 +20,7 @@ class ListDrivingLogs extends ListRecords
             Actions\ImportAction::make()
                 ->importer(DrivingLogImporter::class)
                 ->csvDelimiter(";")
-                ->chunkSize(22),
+                ->chunkSize(1),
         ];
     }
     protected function getHeaderWidgets(): array
