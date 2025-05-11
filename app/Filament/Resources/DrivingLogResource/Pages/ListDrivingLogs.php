@@ -17,7 +17,7 @@ class ListDrivingLogs extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
-            DrivingLogImporter::class,
+            Actions\ImportAction::make()->importer(DrivingLogImporter::class)
         ];
     }
     protected function getHeaderWidgets(): array
