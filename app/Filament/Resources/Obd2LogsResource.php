@@ -32,7 +32,7 @@ class Obd2LogsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make("seconds")
-                    ->time()
+                    ->dateTime()
                     ->searchable(),
                 Tables\Columns\TextColumn::make("pid")
                     ->searchable(),
