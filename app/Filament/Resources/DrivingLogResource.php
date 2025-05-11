@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DrivingLogResource\Pages;
 use App\Filament\Resources\DrivingLogResource\RelationManagers;
+use App\Filament\Resources\DrivingLogResource\Widgets\DrivingOverview;
 use App\Models\DrivingLog;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -111,6 +112,12 @@ class DrivingLogResource extends Resource
     {
         return [
             //
+        ];
+    }
+    public static function getWidgets(): array
+    {
+        return [
+            DrivingOverview::class,
         ];
     }
 

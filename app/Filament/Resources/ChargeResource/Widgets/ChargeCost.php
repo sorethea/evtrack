@@ -6,10 +6,12 @@ use App\Models\Charge;
 use Filament\Resources\Resource;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
+use Filament\Widgets\Concerns\InteractsWithPageTable;
 use Illuminate\Contracts\Support\Htmlable;
 
 class ChargeCost extends ChartWidget
 {
+    use InteractsWithPageTable;
     protected static ?string $heading = ' EV Charging Cost (USD)';
 //    public function getHeading(): string|Htmlable|null
 //    {
