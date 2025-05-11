@@ -16,11 +16,12 @@ class Obd2LogsImporter extends Importer
         return [
             ImportColumn::make('seconds')
                 ->requiredMapping()
-                ->rules(['required']),
+                ->label('SECONDS'),
             ImportColumn::make('pid')
-                ->requiredMapping()
-                ->rules(['required']),
+                ->label("PID")
+                ->requiredMapping(),
             ImportColumn::make('value')
+                ->label("VALUE")
                 ->requiredMapping(),
         ];
     }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("pid");
             $table->double("value")->default(0);
-            $table->time('seconds')->nullable();
+            $table->string('seconds')->nullable();
             $table->timestamps();
         });
     }
