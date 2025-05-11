@@ -26,7 +26,7 @@ class DrivingLogImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-
+        logger(json_encode($this->data));
         return new DrivingLog();
     }
 
