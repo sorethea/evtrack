@@ -15,8 +15,7 @@ class DrivingLogImporter extends Importer
     {
 
         return [
-            ImportColumn::make("date")
-                ->rules(['required','date']),
+
         ];
     }
 
