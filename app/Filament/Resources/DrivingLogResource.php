@@ -94,15 +94,16 @@ class DrivingLogResource extends Resource
                     ->numeric()
                     ->searchable(),
             ])
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(DrivingLogImporter::class)
+            ])
             ->filters([
                 //
             ])
             ->defaultSort('date','desc')
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-            ->headerActions([
-                ImportAction::make()->importer(DrivingLogImporter::class)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -123,6 +124,7 @@ class DrivingLogResource extends Resource
             DrivingOverview::class,
         ];
     }
+
 
     public static function getPages(): array
     {
