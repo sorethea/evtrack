@@ -34,7 +34,7 @@ class EvLogResource extends Resource
                         ->label(trans('ev.odo'))
                         ->required(),
                     Forms\Components\TextInput::make("soc")
-                        ->label(trans('ev.soc_to'))
+                        ->label(trans('ev.soc'))
                         ->required(),
                     Forms\Components\TextInput::make("ac")
                         ->label(trans('ev.charge'))
@@ -58,7 +58,13 @@ class EvLogResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\TextColumn::make("date")
+                    ->date('d M, Y')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make("type")
+                    ->label(trans('ev.type'))
+                    ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.{$state}"))
+                    ->searchable(),
             ])
             ->filters([
                 //

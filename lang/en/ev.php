@@ -1,6 +1,7 @@
 <?php
 return [
     "date"=>"Date",
+    "time"=>"Time",
     "from"=>"From",
     "to"=>"To",
     "type"=>"Type",
@@ -15,8 +16,7 @@ return [
         "dc"=>"DC",
     ],
     "log_types"=>[
-        "log"=>"Log",
-        "charge"=>"Charge",
+        "charging"=>"Charging",
         "driving"=>"Driving",
     ],
     "discharge"=>"Discharge",

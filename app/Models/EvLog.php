@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\EvLogObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ObservedBy([EvLogObserver::class])]
 class EvLog extends Model
 {
     protected $fillable =[
@@ -18,4 +22,9 @@ class EvLog extends Model
         "voltage",
         "remark",
     ];
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class,'parent_id');
+    }
 }
