@@ -17,7 +17,7 @@ class Obd2LogsResource extends Resource
 {
     protected static ?string $model = Obd2Logs::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-cloud-arrow-down';
 
     public static function form(Form $form): Form
     {
