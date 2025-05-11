@@ -45,6 +45,7 @@ class Obd2LogsResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
+            ->defaultSort('id','desc')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

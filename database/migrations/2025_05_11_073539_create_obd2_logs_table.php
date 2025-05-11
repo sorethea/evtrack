@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('obd2_logs', function (Blueprint $table) {
             $table->id();
             $table->string("pid");
-            $table->double("value")->default(0);
+            $table->string("value")->default(0);
             $table->string('seconds')->nullable();
             $table->timestamps();
         });
