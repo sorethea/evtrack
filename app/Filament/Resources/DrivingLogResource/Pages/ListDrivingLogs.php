@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\DrivingLogResource\Pages;
 
+use App\Filament\Imports\DrivingLogImporter;
 use App\Filament\Resources\DrivingLogResource;
 use Filament\Actions;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
@@ -16,6 +17,7 @@ class ListDrivingLogs extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            DrivingLogImporter::class,
         ];
     }
     protected function getHeaderWidgets(): array
