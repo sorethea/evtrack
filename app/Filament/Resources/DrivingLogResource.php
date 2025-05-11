@@ -2,18 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Imports\DrivingLogImporter;
 use App\Filament\Resources\DrivingLogResource\Pages;
 use App\Filament\Resources\DrivingLogResource\RelationManagers;
 use App\Filament\Resources\DrivingLogResource\Widgets\DrivingOverview;
 use App\Models\DrivingLog;
-use Filament\Actions\ImportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use PhpParser\Node\Expr\Array_;
+use Illuminate\Support\Number;
 
 class DrivingLogResource extends Resource
 {
@@ -73,8 +71,12 @@ class DrivingLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make("odo")
-                    ->label(trans('ev.odo'))
+                Tables\Columns\TextColumn::make("distance")
+                    ->label(trans('ev.distance'))
+                    ->default(function ($record){
+                        $preRecord = DrivingLog::find($record->id -1);
+                        return Number::format($record->odo - $preRecord->odo,0).'km';
+                    })
                     ->numeric()
                     ->searchable(),
                 Tables\Columns\TextColumn::make("voltage")
