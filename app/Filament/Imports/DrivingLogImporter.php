@@ -16,6 +16,12 @@ class DrivingLogImporter extends Importer
 
         return [
 
+            ImportColumn::make('ac')
+                ->label('[BMS] Accumulated charge energy')
+                ->requiredMapping(),
+            ImportColumn::make('ad')
+                ->label('[BMS] Accumulated discharge energy')
+                ->requiredMapping(),
         ];
     }
 
