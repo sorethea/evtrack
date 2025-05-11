@@ -13,6 +13,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use PhpParser\Node\Expr\Array_;
 
 class DrivingLogResource extends Resource
 {
@@ -94,16 +95,14 @@ class DrivingLogResource extends Resource
                     ->numeric()
                     ->searchable(),
             ])
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(DrivingLogImporter::class)
-            ])
             ->filters([
                 //
             ])
             ->defaultSort('date','desc')
+
             ->actions([
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -111,11 +110,16 @@ class DrivingLogResource extends Resource
                 ]),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [
             //
+        ];
+    }
+    public static function getHeaderActions(): array
+    {
+        return [
+            ImportAction::make()->importer(DrivingLogImporter::class)
         ];
     }
     public static function getWidgets(): array
