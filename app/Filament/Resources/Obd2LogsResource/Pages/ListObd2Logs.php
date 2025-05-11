@@ -19,7 +19,7 @@ class ListObd2Logs extends ListRecords
             Actions\Action::make("log_driving")
                 ->label("Log Driving")
                 ->action(function (){
-                    $log = Obd2Logs::selectRaw('pid,FIRST(value) AS value')
+                    $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
                         ->distinct()
                         ->groupBy('pid')
                         ->pluck('value','pid');
