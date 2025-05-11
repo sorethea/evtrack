@@ -21,7 +21,8 @@ class ListObd2Logs extends ListRecords
                 ->action(function (){
                     $log = Obd2Logs::selectRaw("SELECT
                           t1.pid,
-                          t1.value
+                          t1.value,
+                          t1.seconds
                         FROM obd2_logs t1
                         INNER JOIN (
                           SELECT
@@ -31,7 +32,7 @@ class ListObd2Logs extends ListRecords
                           WHERE pid LIKE '[BMS]%' OR pid LIKE '[VCU] Odometer%' -- Filter for BMS parameters
                           GROUP BY pid
                         ) t2 ON t1.pid = t2.pid AND t1.seconds = t2.min_seconds
-                        ORDER BY t1.seconds DESC")->get();
+                        ORDER BY t1.seconds DESC")->pluck('value','pid');
                     logger(json_encode($log->toArray()));
                     //Obd2Logs::truncate();
                 }),
