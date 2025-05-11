@@ -116,12 +116,12 @@ class DrivingLogResource extends Resource
             //
         ];
     }
-    public static function getHeaderActions(): array
-    {
-        return [
-            ImportAction::make()->importer(DrivingLogImporter::class)
-        ];
-    }
+//    public static function getHeaderActions(): array
+//    {
+//        return [
+//            ImportAction::make()->importer(DrivingLogImporter::class)
+//        ];
+//    }
     public static function getWidgets(): array
     {
         return [
