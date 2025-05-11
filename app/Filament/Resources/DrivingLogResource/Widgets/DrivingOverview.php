@@ -21,7 +21,7 @@ class DrivingOverview extends BaseWidget
         $averageWeeklyConsumption = $totalWeeklyConsumption/count($weeklyConsumptions->toArray());
         return [
             Stat::make("Total Weekly Consumption", Number::format($totalWeeklyConsumption,2).'kWh')
-                ->description("Average daily consumption in this week: ".Number::format($averageWeeklyConsumption,2).'kWh')
+                ->description("Average daily consumption: ".Number::format($averageWeeklyConsumption,2).'kWh')
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
                 ->chart($weeklyConsumptions->toArray()),
