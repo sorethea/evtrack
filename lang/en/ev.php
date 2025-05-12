@@ -12,12 +12,18 @@ return [
     "accumulative"=>"Accumulative",
     "charge"=>"Charge",
     "charge_types"=>[
-        "ac"=>"AC",
-        "dc"=>"DC",
+        "name"=>"Charge Types",
+        "options"=>[
+            "ac"=>"AC",
+            "dc"=>"DC",
+        ]
     ],
     "log_types"=>[
-        "charging"=>"Charging",
-        "driving"=>"Driving",
+        "options"=>[
+            "charging"=>"Charging",
+            "driving"=>"Driving",
+            ],
+        "name"=>"Log Types"
     ],
     "parent"=>"Parent",
     "discharge"=>"Discharge",

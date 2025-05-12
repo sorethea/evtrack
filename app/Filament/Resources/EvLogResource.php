@@ -41,10 +41,10 @@ class EvLogResource extends Resource
                         ->default(fn()=>EvLog::max('id'))
                         ->searchable(['id','date'])
                         ->nullable(),
-                    Forms\Components\Select::make("type")
+                    Forms\Components\Select::make("log_type")
                         ->label(trans('ev.type'))
-                        ->options(trans("ev.log_types"))
-                        ->default('log')
+                        ->options(trans("ev.log_types.options"))
+                        ->default('driving')
                         ->nullable(),
                     Forms\Components\TextInput::make("odo")
                         ->label(trans('ev.odo'))
@@ -54,6 +54,12 @@ class EvLogResource extends Resource
                         ->required(),
                     Forms\Components\TextInput::make("ac")
                         ->label(trans('ev.charge'))
+                        ->nullable(),
+                    Forms\Components\TextInput::make("ad")
+                        ->label(trans('ev.discharge'))
+                        ->nullable(),
+                    Forms\Components\TextInput::make("charge_type")
+                        ->label(trans('ev.charge_types'))
                         ->nullable(),
                     Forms\Components\TextInput::make("ad")
                         ->label(trans('ev.discharge'))
