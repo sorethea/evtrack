@@ -105,6 +105,7 @@ class EvLogResource extends Resource
                     ->default(fn ($record)=>Number::format(!empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo,0)."km"),
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
+                    ->formatStateUsing(fn($state)=>$state."%")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('capacity')
                     ->label(trans('ev.capacity'))
