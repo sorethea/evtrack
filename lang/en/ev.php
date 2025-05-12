@@ -19,6 +19,7 @@ return [
         "charging"=>"Charging",
         "driving"=>"Driving",
     ],
+    "parent"=>"Parent",
     "discharge"=>"Discharge",
     "comment"=>"Comment",
     "duration"=>"duration",
