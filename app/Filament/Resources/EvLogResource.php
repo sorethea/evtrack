@@ -27,6 +27,7 @@ class EvLogResource extends Resource
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make("date")
                         ->label(trans('ev.date'))
+                        ->default(date())
                         ->required(),
                     Forms\Components\TimePicker::make("seconds")
                         ->label(trans('ev.time'))
