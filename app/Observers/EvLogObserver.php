@@ -11,8 +11,10 @@ class EvLogObserver
      */
     public function created(EvLog $evLog): void
     {
-//        $evLog->parent_id = $evLog->id -1;
-//        $evLog->save();
+        DB:mysqli_commit();
+        $evLog->vehicle_id = auth()->user->vehicle->id;
+        $evLog->save();
+        Db:mysqli_rollback();
     }
 
     /**

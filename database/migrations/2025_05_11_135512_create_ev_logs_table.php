@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ev_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_id');
+            $table->foreignId('vehicle_id')->nullable();
             $table->string('log_type');
             $table->date('date');
             $table->time('seconds')->nullable();
