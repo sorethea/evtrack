@@ -35,7 +35,8 @@ class EvLogResource extends Resource
                         ->nullable(),
                     Forms\Components\Select::make("parent_id")
                         ->label(trans('ev.parent'))
-                        ->relationship('parent',Carbon::parse('date')->format('d M, Y'))
+                        ->relationship('parent','date')
+                        ->formatStateUsing(fn($state)=>Carbon::parse($state)->format('d/M/Y'))
                         ->default(fn()=>EvLog::max('id'))
                         ->searchable()
                         ->nullable(),
