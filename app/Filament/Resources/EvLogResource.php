@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -58,7 +59,8 @@ class EvLogResource extends Resource
                     Forms\Components\Fieldset::make()->label(trans('ev.accumulative'))
                     ->schema([
                         Forms\Components\TextInput::make("ac")
-                            ->live()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('charge_capacity',$state - EvLog::find($get('parent_id')->ac)))
                             ->label(trans('ev.charge'))
                             ->nullable(),
                         Forms\Components\TextInput::make("ad")
@@ -72,9 +74,10 @@ class EvLogResource extends Resource
                         ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
                     Forms\Components\TextInput::make("charge_capacity")
+                        ->reactive()
                         ->label(trans('ev.charge_capacity'))
-                        ->dehydrateStateUsing(fn(Get $get)=>$get("ac")? $get("ac") - EvLog::find($get('parent_id')->ac):0 )
-                        //->default(fn(Get $get)=>$get("ac")? $get("ac") - EvLog::find($get('parent_id')->ac):0 )
+                        /*->dehydrateStateUsing(fn(Get $get)=>$get("ac")? $get("ac") - EvLog::find($get('parent_id')->ac):0 )
+                        //->default(fn(Get $get)=>$get("ac")? $get("ac") - EvLog::find($get('parent_id')->ac):0 )*/
                         ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
                     Forms\Components\TextInput::make("voltage")
