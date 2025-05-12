@@ -15,11 +15,13 @@ class EvLog extends Model
         "date",
         "seconds",
         "odo",
-        "type",
+        "log_type",
         "soc",
         "ac",
         "ad",
         "voltage",
+        "charge_type",
+        "charge_capacity",
         "remark",
     ];
 
