@@ -28,7 +28,7 @@ class EvLogResource extends Resource
             ->schema([
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make("date")
-                        ->formatStateUsing(fn($state)=>Carbon::parse($state)->format('d/m/Y'))
+                        ->formatStateUsing(fn($state)=>Carbon::parse($state)->format('dd/mm/yyyy'))
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d'))
                         ->required(),
