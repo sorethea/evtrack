@@ -52,18 +52,22 @@ class EvLogResource extends Resource
                     Forms\Components\TextInput::make("soc")
                         ->label(trans('ev.soc'))
                         ->required(),
-                    Forms\Components\TextInput::make("ac")
-                        ->label(trans('ev.charge'))
-                        ->nullable(),
-                    Forms\Components\TextInput::make("ad")
-                        ->label(trans('ev.discharge'))
-                        ->nullable(),
+                    Forms\Components\Fieldset::make()->label(trans('ev.accumulative'))
+                    ->schema([
+                        Forms\Components\TextInput::make("ac")
+                            ->label(trans('ev.charge'))
+                            ->nullable(),
+                        Forms\Components\TextInput::make("ad")
+                            ->label(trans('ev.discharge'))
+                            ->nullable(),
+                    ]),
+
                     Forms\Components\Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))
                         ->nullable(),
-                    Forms\Components\TextInput::make("ad")
-                        ->label(trans('ev.discharge'))
+                    Forms\Components\TextInput::make("charge_capacity")
+                        ->label(trans('ev.charge_capacity'))
                         ->nullable(),
                     Forms\Components\TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
