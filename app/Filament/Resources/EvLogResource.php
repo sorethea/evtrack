@@ -36,6 +36,7 @@ class EvLogResource extends Resource
                         ->label(trans('ev.time'))
                         ->nullable(),
                     Forms\Components\Select::make("parent_id")
+                        ->live()
                         ->label(trans('ev.parent'))
                         ->relationship('parent','date')
                         ->getOptionLabelFromRecordUsing(fn (Model $record) =>"{$record->id}-". Carbon::parse($record->date)->format('dmY'))
