@@ -42,7 +42,7 @@ class EvLogResource extends Resource
                         ->searchable(['id','date'])
                         ->nullable(),
                     Forms\Components\Select::make("log_type")
-                        ->label(trans('ev.type'))
+                        ->label(trans('ev.log_types.name'))
                         ->options(trans("ev.log_types.options"))
                         ->default('driving')
                         ->nullable(),
