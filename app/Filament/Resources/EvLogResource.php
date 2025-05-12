@@ -112,7 +112,12 @@ class EvLogResource extends Resource
                     ->formatStateUsing(fn(float $state, Model $record) =>Number::format($state * 100/$record->vehicle->capacity,1)."kWh"),
                 Tables\Columns\TextColumn::make('consumption')
                     ->label(trans('ev.consumption'))
-                    ->default(fn(Model $record)=>Number::format(($record->odo - $record->parent->od)>0?$record->capacity /($record->odo - $record->parent->odo)* 100/$record->vehicle->capacity:0,0)."kWh/100km"),
+                    ->default(function(Model $record){
+                        $distance = $record->odo - $record->parent->odo;
+                        $capacity = $record->capacity * 100/$record->vehicle->capacity;
+                        $consumption = $distance > 0 ? $capacity/$distance * 100: 0;
+                        return Number::format($consumption,0)."kWh/100km";
+                    }),
             ])
             ->filters([
                 //
