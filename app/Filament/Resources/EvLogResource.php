@@ -98,7 +98,7 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make("log_type")
                     ->label(trans('ev.type'))
-                    ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.{$state}"))
+                    ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
