@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EvLogResource\Pages;
 use App\Filament\Resources\EvLogResource\RelationManagers;
 use App\Models\EvLog;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -34,7 +35,7 @@ class EvLogResource extends Resource
                         ->nullable(),
                     Forms\Components\Select::make("parent_id")
                         ->label(trans('ev.parent'))
-                        ->relationship('parent','date')
+                        ->relationship('parent',Carbon::parse('date')->format('d M, Y'))
                         ->default(fn()=>EvLog::max('id'))
                         ->searchable()
                         ->nullable(),
