@@ -28,7 +28,6 @@ class EvLogResource extends Resource
             ->schema([
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make("date")
-                        ->displayFormat("d/M/Y")
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d'))
                         ->required(),
@@ -40,7 +39,7 @@ class EvLogResource extends Resource
                         ->relationship('parent')
                         ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->id}-".Carbon::parse($record->date)->format('Ymd'))
                         ->default(fn()=>EvLog::max('id'))
-                        ->searchable()
+                        ->searchable(['id','date'])
                         ->nullable(),
                     Forms\Components\Select::make("type")
                         ->label(trans('ev.type'))
