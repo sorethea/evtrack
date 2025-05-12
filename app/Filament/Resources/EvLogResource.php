@@ -60,7 +60,7 @@ class EvLogResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make("ac")
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('charge_capacity',$state - EvLog::find($get('parent_id'))->ac))
+                            ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('charge_capacity', EvLog::find($get('parent_id'))->ac))
                             ->label(trans('ev.charge'))
                             ->nullable(),
                         Forms\Components\TextInput::make("ad")
