@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ev_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_id');
-            $table->string('type');
+            $table->string('log_type');
             $table->date('date');
             $table->time('seconds')->nullable();
             $table->double('odo')->nullable();
@@ -22,6 +22,8 @@ return new class extends Migration
             $table->double('ac')->nullable();
             $table->double('ad')->nullable();
             $table->double('voltage')->nullable();
+            $table->string('charge_type')->nullable();
+            $table->double('charge_capacity')->nullable();
             $table->tinyText('remark')->nullable();
             $table->timestamps();
         });

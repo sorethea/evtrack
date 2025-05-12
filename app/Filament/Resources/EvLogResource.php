@@ -31,6 +31,16 @@ class EvLogResource extends Resource
                     Forms\Components\TimePicker::make("seconds")
                         ->label(trans('ev.time'))
                         ->nullable(),
+                    Forms\Components\Select::make("parent_id")
+                        ->label(trans('ev.parent'))
+                        ->relationship('parent','date')
+                        ->searchable()
+                        ->nullable(),
+                    Forms\Components\Select::make("type")
+                        ->label(trans('ev.type'))
+                        ->options(trans("ev.log_types"))
+                        ->default('log')
+                        ->nullable(),
                     Forms\Components\TextInput::make("odo")
                         ->label(trans('ev.odo'))
                         ->required(),
@@ -46,11 +56,7 @@ class EvLogResource extends Resource
                     Forms\Components\TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
                         ->nullable(),
-                    Forms\Components\Select::make("type")
-                        ->label(trans('ev.type'))
-                        ->options(trans("ev.log_types"))
-                        ->default('log')
-                        ->nullable(),
+
                 ])->columns(2)
             ]);
     }
@@ -72,8 +78,8 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('charge')
-                    ->label(trans('ev.charge'))
+                Tables\Columns\TextColumn::make('consumption')
+                    ->label(trans('ev.consumption'))
                     ->default(fn ($record)=>Number::format(!empty($record?->parent?->soc)?$record->soc - $record?->parent?->soc:0,1)."%"),
             ])
             ->filters([

@@ -11,8 +11,8 @@ class EvLogObserver
      */
     public function created(EvLog $evLog): void
     {
-        $evLog->parent_id = $evLog->id -1;
-        $evLog->save();
+//        $evLog->parent_id = $evLog->id -1;
+//        $evLog->save();
     }
 
     /**
