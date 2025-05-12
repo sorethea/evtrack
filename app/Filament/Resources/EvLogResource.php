@@ -108,8 +108,9 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('capacity')
                     ->label(trans('ev.capacity'))
-                    ->description(fn(Model $record):string =>$record->capacity )
-                    ->suffix('%'),
+                    ->formatStateUsing(fn(float $state, Model $record) =>$state * 100/$record->vehicle->capacity)
+                    //->description(fn(Model $record):string =>$record->capacity )
+                    ->suffix('kWh'),
             ])
             ->filters([
                 //
