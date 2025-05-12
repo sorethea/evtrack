@@ -23,7 +23,7 @@ return new class extends Migration
             $table->double('ad')->nullable();
             $table->double('voltage')->nullable();
             $table->string('charge_type')->nullable();
-            $table->double('charge_capacity')->nullable();
+            $table->double('capacity')->nullable();
             $table->tinyText('remark')->nullable();
             $table->timestamps();
         });

@@ -54,13 +54,13 @@ class EvLogResource extends Resource
                         ->label(trans('ev.odo'))
                         ->required(),
                     Forms\Components\TextInput::make("soc")
+                        ->live(onBlur: true)
+                        ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('charge_capacity',EvLog::find($get('parent_id'))->soc-$state))
                         ->label(trans('ev.soc'))
                         ->required(),
                     Forms\Components\Fieldset::make()->label(trans('ev.accumulative'))
                     ->schema([
                         Forms\Components\TextInput::make("ac")
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('charge_capacity', $state - EvLog::find($get('parent_id'))->ac))
                             ->label(trans('ev.charge'))
                             ->nullable(),
                         Forms\Components\TextInput::make("ad")
@@ -73,12 +73,10 @@ class EvLogResource extends Resource
                         ->options(trans("ev.charge_types.options"))
                         ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
-                    Forms\Components\TextInput::make("charge_capacity")
+                    Forms\Components\TextInput::make("capacity")
                         ->reactive()
-                        ->label(trans('ev.charge_capacity'))
-                        /*->dehydrateStateUsing(fn(Get $get)=>$get("ac")? $get("ac") - EvLog::find($get('parent_id')->ac):0 )
-                        //->default(fn(Get $get)=>$get("ac")? $get("ac") - EvLog::find($get('parent_id')->ac):0 )*/
-                        ->hidden(fn(Get $get)=>$get("log_type")!="charging")
+                        ->label(trans('ev.capacity'))
+                        ->helperText('Negative represent charging capacity and positive represent discharging capacity. Unit %')
                         ->nullable(),
                     Forms\Components\TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
