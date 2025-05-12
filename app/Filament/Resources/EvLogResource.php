@@ -35,7 +35,7 @@ class EvLogResource extends Resource
                     Forms\Components\Select::make("parent_id")
                         ->label(trans('ev.parent'))
                         ->relationship('parent','date')
-                        ->default(fn()=>EvLog::max('date'))
+                        ->default(fn()=>EvLog::max('id'))
                         ->searchable()
                         ->nullable(),
                     Forms\Components\Select::make("type")
