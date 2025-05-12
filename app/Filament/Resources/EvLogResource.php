@@ -58,8 +58,9 @@ class EvLogResource extends Resource
                     Forms\Components\TextInput::make("ad")
                         ->label(trans('ev.discharge'))
                         ->nullable(),
-                    Forms\Components\TextInput::make("charge_type")
-                        ->label(trans('ev.charge_types'))
+                    Forms\Components\Select::make("charge_type")
+                        ->label(trans('ev.charge_types.name'))
+                        ->options(trans("ev.charge_types.options"))
                         ->nullable(),
                     Forms\Components\TextInput::make("ad")
                         ->label(trans('ev.discharge'))
