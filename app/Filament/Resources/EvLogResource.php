@@ -28,7 +28,7 @@ class EvLogResource extends Resource
             ->schema([
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make("date")
-                        ->format("d/M/Y")
+                        ->displayFormat("d/M/Y")
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d'))
                         ->required(),
