@@ -34,6 +34,7 @@ return [
     "gross"=>"Gross",
     "net"=>"Net",
     "capacity"=>"Capacity",
+    "charge_capacity"=>"Charge Capacity",
     "range"=>"Range",
     "consumption"=>"Consumption",
     "qty"=>"Quantity",
