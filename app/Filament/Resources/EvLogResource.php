@@ -73,6 +73,7 @@ class EvLogResource extends Resource
                         ->nullable(),
                     Forms\Components\TextInput::make("charge_capacity")
                         ->label(trans('ev.charge_capacity'))
+                        ->dehydrateStateUsing(fn(Get $get)=>$get("ac")? $get("ac") - EvLog::find($get('parent_id')->ac):0 )
                         ->default(fn(Get $get)=>$get("ac")? $get("ac") - EvLog::find($get('parent_id')->ac):0 )
                         ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
