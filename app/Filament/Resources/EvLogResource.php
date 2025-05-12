@@ -75,6 +75,9 @@ class EvLogResource extends Resource
                     Forms\Components\TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
                         ->nullable(),
+                    Forms\Components\TextInput::make("remark")
+                        ->label(trans('ev.remark'))
+                        ->nullable(),
 
                 ])->columns(2)
             ]);

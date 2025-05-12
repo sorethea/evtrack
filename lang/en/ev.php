@@ -40,5 +40,6 @@ return [
     "qty"=>"Quantity",
     "price"=>"Price",
     "voltage"=>"Voltage",
+    "remark"=>"Remark",
     "total_price"=>"Total Price",
 ];
