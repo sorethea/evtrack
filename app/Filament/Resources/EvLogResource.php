@@ -42,6 +42,7 @@ class EvLogResource extends Resource
                         ->searchable(['id','date'])
                         ->nullable(),
                     Forms\Components\Select::make("log_type")
+                        ->live()
                         ->label(trans('ev.log_types.name'))
                         ->options(trans("ev.log_types.options"))
                         ->default('driving')
@@ -65,9 +66,11 @@ class EvLogResource extends Resource
                     Forms\Components\Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))
+                        ->hidden(fn(Forms\Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
                     Forms\Components\TextInput::make("charge_capacity")
                         ->label(trans('ev.charge_capacity'))
+                        ->hidden(fn(Forms\Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
                     Forms\Components\TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
