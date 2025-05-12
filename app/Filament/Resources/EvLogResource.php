@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Number;
 
@@ -36,7 +37,7 @@ class EvLogResource extends Resource
                     Forms\Components\Select::make("parent_id")
                         ->label(trans('ev.parent'))
                         ->relationship('parent')
-                        ->getOptionLabelFromRecord(fn(Model $record)=>$record->date->format('d/m/Y'))
+                        ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->id} {$record->date}")
                         ->default(fn()=>EvLog::max('id'))
                         ->searchable()
                         ->nullable(),
