@@ -110,12 +110,19 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('capacity')
                     ->label(trans('ev.capacity'))
                     ->formatStateUsing(fn(float $state, Model $record) =>Number::format($state * $record->vehicle->capacity/100,1)."kWh"),
+
                 Tables\Columns\TextColumn::make('consumption')
                     ->label(trans('ev.consumption'))
                     ->default(function(Model $record){
                         $distance = $record->odo - $record->parent->odo;
                         $capacity = $record->capacity * $record->vehicle->capacity/100;
                         return $distance>0 ? Number::format($capacity/$distance * 100,0)."kWh/100km":"";
+                    }),
+                Tables\Columns\TextColumn::make('range')
+                    ->label(trans('ev.range'))
+                    ->default(function(Model $record){
+                        $distance = $record->odo - $record->parent->odo;
+                        return $distance>0 ? Number::format($distance/$record->capacity * 100,0)."km":"";
                     }),
             ])
             ->filters([
