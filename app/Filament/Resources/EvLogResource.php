@@ -55,7 +55,7 @@ class EvLogResource extends Resource
                         ->required(),
                     Forms\Components\TextInput::make("soc")
                         ->live(onBlur: true)
-                        ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('capacity',EvLog::find($get('parent_id'))->soc-$state))
+                        ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('capacity',round(EvLog::find($get('parent_id'))->soc-$state,1)))
                         ->label(trans('ev.soc'))
                         ->required(),
                     Forms\Components\Fieldset::make()->label(trans('ev.accumulative'))
