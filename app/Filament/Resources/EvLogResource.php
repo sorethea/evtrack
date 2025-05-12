@@ -106,9 +106,9 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('consumption')
-                    ->label(trans('ev.consumption'))
-                    ->default(fn ($record)=>Number::format(!empty($record?->parent?->soc)?$record->soc - $record?->parent?->soc:0,1)."%"),
+                Tables\Columns\TextColumn::make('capacity')
+                    ->label(trans('ev.capacity'))
+                    ->suffix('%'),
             ])
             ->filters([
                 //
