@@ -8,6 +8,7 @@ use App\Models\EvLog;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -56,6 +57,7 @@ class EvLogResource extends Resource
                     Forms\Components\Fieldset::make()->label(trans('ev.accumulative'))
                     ->schema([
                         Forms\Components\TextInput::make("ac")
+                            ->live()
                             ->label(trans('ev.charge'))
                             ->nullable(),
                         Forms\Components\TextInput::make("ad")
@@ -66,11 +68,12 @@ class EvLogResource extends Resource
                     Forms\Components\Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))
-                        ->hidden(fn(Forms\Get $get)=>$get("log_type")!="charging")
+                        ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
                     Forms\Components\TextInput::make("charge_capacity")
                         ->label(trans('ev.charge_capacity'))
-                        ->hidden(fn(Forms\Get $get)=>$get("log_type")!="charging")
+                        ->default(fn(Get $get)=>$get("ac") - EvLog::find($get('parent_id')->ac) )
+                        ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
                     Forms\Components\TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
