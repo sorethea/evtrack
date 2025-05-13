@@ -29,6 +29,11 @@ class ListObd2Logs extends ListRecords
                             ->label(trans('ev.parent'))
                             ->options(EvLog::orderBy('id','desc')->select(['id','date'])->get()->pluck('date','id'))
                             ->searchable(['id','date']),
+                        Select::make("log_type")
+                            ->live()
+                            ->label(trans('ev.log_types.name'))
+                            ->options(trans("ev.log_types.options"))
+                            ->default('driving')
                     ])->columns(2)
 
                 ])
