@@ -138,7 +138,9 @@ class EvLogResource extends Resource
                     }),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('log_type')
+                    ->label(trans('ev.log_types.name'))
+                    ->options(trans('ev.log_types.options'))
             ])
             ->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc'))
             ->actions([
