@@ -16,6 +16,17 @@ class EvLogObserver
     }
 
     /**
+     * Handle the EvLog "created" event.
+     */
+    public function saving(EvLog $evLog): void
+    {
+        $evLog->distance = $evLog->odo - $evLog->parent->odo;
+        $evLog->save();
+    }
+
+
+
+    /**
      * Handle the EvLog "updated" event.
      */
     public function updated(EvLog $evLog): void
