@@ -63,9 +63,9 @@ class ListObd2Logs extends ListRecords
                     $evLog->parent_id=$parent;
                     $evLog->log_type=$data["log_type"];
                     $evLog->charge_type=$data["charge_type"]??"";
-                    foreach ($obd2Logs as $key=>$value){
-                        $evLog->$value=$log[$key];
-                    }
+//                    foreach ($obd2Logs as $key=>$value){
+//                        $evLog->$value=$log[$key];
+//                    }
                     //$evLog->distance = round($evLog->odo - $parent->odo,1);
                     $evLog->save();
 
