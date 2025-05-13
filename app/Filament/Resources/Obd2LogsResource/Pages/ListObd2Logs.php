@@ -55,7 +55,7 @@ class ListObd2Logs extends ListRecords
                    $logData = array_combine(array_values($obd2Logs),array_values($log));
                    $logData["parent_id"]=$data["parent_id"];
                    $logData["log_type"]=$data["log_type"];
-                   $logData["charge_type"]=$data["charge_type"];
+                   $logData["charge_type"]=$data["charge_type"]??"";
                    dump($logData);
 
 //                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
