@@ -24,7 +24,7 @@ class ListObd2Logs extends ListRecords
             Actions\Action::make("log_driving")
                 ->label("Log Driving")
                 ->form([
-                    Fieldset::make([
+                    Fieldset::make()->schema([
                         Select::make('parent_id')
                             ->label(trans('ev.parent'))
                             ->options(EvLog::orderBy('id','desc')->select(['id','date'])->get()->pluck('date','id'))
