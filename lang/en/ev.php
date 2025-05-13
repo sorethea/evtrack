@@ -37,6 +37,7 @@ return [
     "charge_capacity"=>"Charge Capacity",
     "range"=>"Range",
     "consumption"=>"Consumption",
+    "obd2"=>"OBD2",
     "qty"=>"Quantity",
     "price"=>"Price",
     "voltage"=>"Voltage",
