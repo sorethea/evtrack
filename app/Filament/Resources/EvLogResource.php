@@ -138,12 +138,14 @@ class EvLogResource extends Resource
                     }),
             ])
             ->filters([
+                Tables\Filters\QueryBuilder\Constraints\DateConstraint::make("date"),
                 Tables\Filters\SelectFilter::make('log_type')
                     ->label(trans('ev.log_types.name'))
                     ->options(trans('ev.log_types.options')),
                 Tables\Filters\SelectFilter::make('charge_type')
                     ->label(trans('ev.charge_types.name'))
                     ->options(trans('ev.charge_types.options')),
+
             ])
             ->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc'))
             ->actions([
