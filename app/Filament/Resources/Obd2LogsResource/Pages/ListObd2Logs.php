@@ -57,13 +57,14 @@ class ListObd2Logs extends ListRecords
                         ->whereIn('pid', array_keys($obd2Logs))
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
+                    $logData =[];
                     $logData["date"]=$data["date"];
                     $logData["parent_id"]=$data["parent_id"];
                     $logData["log_type"]=$data["log_type"];
                     $logData["charge_type"]=$data["charge_type"]??"";
-                    foreach ($obd2Logs as $key=>$value){
-                        $logData[$value]=$log[$key];
-                    }
+//                    foreach ($obd2Logs as $key=>$value){
+//                        $logData[$value]=$log[$key];
+//                    }
 
                    //dump($logData);
                    EvLog::query()->create($logData);
@@ -79,7 +80,7 @@ class ListObd2Logs extends ListRecords
 //                    $drivingLog->odo = $log[config("ev.obd2logs.odo")];
 //                    $drivingLog->voltage = $log[config("ev.obd2logs.voltage")];
 //                    $drivingLog->save();
-                    Obd2Logs::truncate();
+                    //Obd2Logs::truncate();
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)
