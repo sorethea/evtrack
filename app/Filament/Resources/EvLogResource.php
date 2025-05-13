@@ -114,8 +114,8 @@ class EvLogResource extends Resource
                     ->label(trans('ev.soc'))
                     ->formatStateUsing(fn($state)=>$state."%")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('capacity')
-                    ->label(trans('ev.capacity'))
+                Tables\Columns\TextColumn::make('power')
+                    ->label(trans('ev.power'))
                     ->default(function(Model $record){
                         $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
                         return Number::format($capacity,1)."kWh";

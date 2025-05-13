@@ -39,6 +39,7 @@ return [
     "consumption"=>"Consumption",
     "obd2"=>"OBD2",
     "qty"=>"Quantity",
+    "power"=>"Power",
     "price"=>"Price",
     "voltage"=>"Voltage",
     "total_voltage"=>"Total Voltage",
