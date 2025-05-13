@@ -24,6 +24,9 @@ return new class extends Migration
             $table->double('voltage')->nullable();
             $table->string('charge_type')->nullable();
             $table->double('capacity')->nullable();
+            $table->double('power')->nullable();
+            $table->double('power_charge')->nullable();
+            $table->double('power_discharge')->nullable();
             $table->double('distance')->nullable();
             $table->tinyText('remark')->nullable();
             $table->timestamps();
