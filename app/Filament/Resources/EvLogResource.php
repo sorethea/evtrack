@@ -111,7 +111,8 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
-                    ->default(fn ($record)=>Number::format(!empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo,0)."km"),
+                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
                     ->formatStateUsing(fn($state)=>$state."%")
@@ -119,15 +120,7 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('capacity')
                     ->label(trans('ev.capacity'))
                     ->formatStateUsing(fn($state)=>$state."%")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make())
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('power')
-                    ->label(trans('ev.power'))
-                    ->state(function(Model $record){
-                        $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
-                        return Number::format($capacity,1)."kWh";
-                    }),
-                    //->formatStateUsing(fn(float $state, Model $record) =>Number::format($state * $record->vehicle->capacity/100,1)."kWh"),
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
 
                 Tables\Columns\TextColumn::make('consumption')
                     ->label(trans('ev.consumption'))
