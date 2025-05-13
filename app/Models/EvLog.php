@@ -23,6 +23,7 @@ class EvLog extends Model
         "voltage",
         "charge_type",
         "capacity",
+        "distance",
         "remark",
     ];
 
