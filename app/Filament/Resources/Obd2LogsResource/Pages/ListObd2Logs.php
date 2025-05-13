@@ -8,6 +8,7 @@ use App\Models\DrivingLog;
 use App\Models\EvLog;
 use App\Models\Obd2Logs;
 use Filament\Actions;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -26,6 +27,10 @@ class ListObd2Logs extends ListRecords
                 ->label("Log Driving")
                 ->form([
                     Fieldset::make()->schema([
+                        DateTimePicker::make('date')
+                            ->label(trans('ev.date'))
+                            ->format('Y-m-d h:i')
+                            ->required(),
                         Select::make('parent_id')
                             ->label(trans('ev.parent'))
                             ->options(EvLog::orderBy('id','desc')->select(['id','date'])->get()->pluck('date','id'))
@@ -53,6 +58,7 @@ class ListObd2Logs extends ListRecords
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
                    $logData = array_combine(array_values($obd2Logs),array_values($log));
+                   $logData["date"]=$data["date"];
                    $logData["parent_id"]=$data["parent_id"];
                    $logData["log_type"]=$data["log_type"];
                    $logData["charge_type"]=$data["charge_type"]??"";
