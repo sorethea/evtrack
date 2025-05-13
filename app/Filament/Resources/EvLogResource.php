@@ -6,6 +6,7 @@ use App\Filament\Resources\EvLogResource\Pages;
 use App\Filament\Resources\EvLogResource\RelationManagers;
 use App\Models\EvLog;
 use Carbon\Carbon;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Number;
+use Symfony\Component\Mime\Encoder\QpContentEncoder;
 
 class EvLogResource extends Resource
 {
@@ -138,7 +140,10 @@ class EvLogResource extends Resource
                     }),
             ])
             ->filters([
-                Tables\Filters\QueryBuilder\Constraints\DateConstraint::make("date"),
+                Tables\Filters\QueryBuilder::make()
+                    ->constraints([
+                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('date'),
+                    ]),
                 Tables\Filters\SelectFilter::make('log_type')
                     ->label(trans('ev.log_types.name'))
                     ->options(trans('ev.log_types.options')),
