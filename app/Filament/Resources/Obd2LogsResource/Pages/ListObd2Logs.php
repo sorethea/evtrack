@@ -46,8 +46,8 @@ class ListObd2Logs extends ListRecords
                         ->orWhere('pid','like','[VCU] Odometer%')
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
-                    $logData = array_flip(config('ev.obd2logs'),$log);
-                    var_dump($logData);
+                   $logData = array_combine(array_values(config("ev.obd2logs")),array_values($log));
+                   dump($logData);
 //                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
 //                    $drivingLog = new DrivingLog();
 //                    $drivingLog->date = now()->format('Y-m-d');
