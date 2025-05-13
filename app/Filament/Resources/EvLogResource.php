@@ -126,7 +126,7 @@ class EvLogResource extends Resource
                     ->label(trans('ev.consumption'))
                     ->default(function(Model $record){
                         $distance = !empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo;
-                        $capacity = $record->capacity * $record->vehicle->capacity/100;
+                        $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
                         return $distance>0 ? Number::format($capacity/$distance * 100,0)."kWh/100km":"";
                     }),
                 Tables\Columns\TextColumn::make('range')
