@@ -134,7 +134,7 @@ class EvLogResource extends Resource
                     ->default(function(Model $record){
                         $distance = !empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo;
                         $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
-                        return $distance>0 ? Number::format($distance/$capacity * 100,0)."km":"";
+                        return $capacity>0? Number::format($distance/$capacity * 100,0)."km":"";
                     }),
             ])
             ->filters([
