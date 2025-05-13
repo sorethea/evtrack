@@ -8,6 +8,7 @@ use App\Models\DrivingLog;
 use App\Models\EvLog;
 use App\Models\Obd2Logs;
 use Filament\Actions;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
@@ -23,7 +24,7 @@ class ListObd2Logs extends ListRecords
             Actions\Action::make("log_driving")
                 ->label("Log Driving")
                 ->form([
-                    Section::make([
+                    Fieldset::make([
                         Select::make('parent_id')
                             ->label(trans('ev.parent'))
                             ->options(EvLog::orderBy('id','desc')->select(['id','date'])->get()->pluck('date','id'))
