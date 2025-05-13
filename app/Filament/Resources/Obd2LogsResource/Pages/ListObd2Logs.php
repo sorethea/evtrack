@@ -33,7 +33,7 @@ class ListObd2Logs extends ListRecords
                             ->required(),
                         Select::make('parent_id')
                             ->label(trans('ev.parent'))
-                            ->options(EvLog::orderBy('id','desc')->select(['id','date'])->where('date','IS NOT NULL')->get()->pluck('date','id'))
+                            ->options(EvLog::orderBy('id','desc')->select(['id','date'])->where('date','!= ',null)->get()->pluck('date','id'))
                             ->searchable(['id','date'])
                             ->required(),
                         Select::make("log_type")
