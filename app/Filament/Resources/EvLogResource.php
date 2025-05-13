@@ -58,13 +58,22 @@ class EvLogResource extends Resource
                         ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('capacity',round(EvLog::find($get('parent_id'))->soc-$state,1)))
                         ->label(trans('ev.soc'))
                         ->required(),
-                    Forms\Components\Fieldset::make()->label(trans('ev.accumulative'))
+                    Forms\Components\Fieldset::make()->label(trans('ev.obd2'))
                     ->schema([
                         Forms\Components\TextInput::make("ac")
                             ->label(trans('ev.charge'))
                             ->nullable(),
                         Forms\Components\TextInput::make("ad")
                             ->label(trans('ev.discharge'))
+                            ->nullable(),
+                        Forms\Components\TextInput::make("min_cell_voltage")
+                            ->label(trans('ev.min_cell_voltage'))
+                            ->nullable(),
+                        Forms\Components\TextInput::make("max_cell_voltage")
+                            ->label(trans('ev.max_cell_voltage'))
+                            ->nullable(),
+                        Forms\Components\TextInput::make("voltage")
+                            ->label(trans('ev.voltage'))
                             ->nullable(),
                     ]),
 
@@ -73,14 +82,12 @@ class EvLogResource extends Resource
                         ->options(trans("ev.charge_types.options"))
                         ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
-                    Forms\Components\TextInput::make("capacity")
-                        ->reactive()
-                        ->label(trans('ev.capacity'))
-                        ->helperText('Negative represent charging capacity and positive represent discharging capacity. Unit %')
-                        ->nullable(),
-                    Forms\Components\TextInput::make("voltage")
-                        ->label(trans('ev.voltage'))
-                        ->nullable(),
+//                    Forms\Components\TextInput::make("capacity")
+//                        ->reactive()
+//                        ->label(trans('ev.capacity'))
+//                        ->helperText('Negative represent charging capacity and positive represent discharging capacity. Unit %')
+//                        ->nullable(),
+
                     Forms\Components\TextInput::make("remark")
                         ->label(trans('ev.remark'))
                         ->nullable(),

@@ -40,6 +40,9 @@ return [
     "qty"=>"Quantity",
     "price"=>"Price",
     "voltage"=>"Voltage",
+    "total_voltage"=>"Total Voltage",
+    "min_cell_voltage"=>"Min Cell Voltage",
+    "max_cell_voltage"=>"Max Cell Voltage",
     "remark"=>"Remark",
     "total_price"=>"Total Price",
 ];
