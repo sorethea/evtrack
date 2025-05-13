@@ -43,7 +43,7 @@ class ListObd2Logs extends ListRecords
                     $obd2Logs = config('ev.obd2logs');
                     $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
                         ->distinct()
-                        ->where('pid','in', array_keys($obd2Logs))
+                        ->whereIn('pid', array_keys($obd2Logs))
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
                    //$logData = array_combine(array_values($obd2Logs),array_values($log));
