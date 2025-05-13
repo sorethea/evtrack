@@ -69,6 +69,7 @@ class ListObd2Logs extends ListRecords
                     $evLog->distance = round($evLog->odo - $parent->odo,1);
                     $evLog->power = round($parent->soc - $evLog->soc,1);
                     $evLog->save();
+                    Obd2Logs::truncat();
 
                 }),
             Actions\ImportAction::make()
