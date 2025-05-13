@@ -16,8 +16,7 @@ return new class extends Migration
             $table->foreignId('parent_id');
             $table->foreignId('vehicle_id')->nullable();
             $table->string('log_type');
-            $table->date('date');
-            $table->time('seconds')->nullable();
+            $table->dateTime('date');
             $table->double('odo')->nullable();
             $table->double('soc')->nullable();
             $table->double('ac')->nullable();
@@ -25,6 +24,7 @@ return new class extends Migration
             $table->double('voltage')->nullable();
             $table->string('charge_type')->nullable();
             $table->double('capacity')->nullable();
+            $table->double('distance')->nullable();
             $table->tinyText('remark')->nullable();
             $table->timestamps();
         });

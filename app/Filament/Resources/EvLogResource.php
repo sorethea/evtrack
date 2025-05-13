@@ -34,7 +34,7 @@ class EvLogResource extends Resource
                 Forms\Components\Section::make([
                     Forms\Components\DatePicker::make("date")
                         ->label(trans('ev.date'))
-                        ->default(now()->format('Y-m-d'))
+                        ->default(now()->format('Y-m-d h i'))
                         ->required(),
                     Forms\Components\TimePicker::make("seconds")
                         ->label(trans('ev.time'))
@@ -104,7 +104,7 @@ class EvLogResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make("date")
-                    ->date('d M, Y')
+                    ->date('d M, Y h i')
                     ->searchable(),
                 Tables\Columns\TextColumn::make("log_type")
                     ->label(trans('ev.type'))
@@ -151,7 +151,7 @@ class EvLogResource extends Resource
                     ->options(trans('ev.charge_types.options')),
 
             ])
-            ->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc')->orderBy(DB::Raw('COALESCE(id,parent_id)'),'desc'))
+            ->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc'))
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
