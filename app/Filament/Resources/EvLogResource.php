@@ -111,7 +111,7 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
-                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->formatStateUsing(fn($state)=>$state."km")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
