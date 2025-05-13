@@ -66,7 +66,7 @@ class ListObd2Logs extends ListRecords
                         $evLog->$value=$log[$key];
                     }
 
-                    //$evLog->save();
+                    $evLog->save();
 
 //                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
 //                    $drivingLog = new DrivingLog();
