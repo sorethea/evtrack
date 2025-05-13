@@ -58,6 +58,11 @@ class EvLogResource extends Resource
 //                        ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('capacity',round(EvLog::find($get('parent_id'))->soc-$state,1)))
                         ->label(trans('ev.soc'))
                         ->required(),
+                    Forms\Components\Select::make("charge_type")
+                        ->label(trans('ev.charge_types.name'))
+                        ->options(trans("ev.charge_types.options"))
+                        ->hidden(fn(Get $get)=>$get("log_type")!="charging")
+                        ->nullable(),
                     Forms\Components\Fieldset::make()->label(trans('ev.obd2'))
                     ->schema([
                         Forms\Components\TextInput::make("ac")
@@ -76,20 +81,9 @@ class EvLogResource extends Resource
                             ->label(trans('ev.voltage'))
                             ->nullable(),
                     ]),
-
-                    Forms\Components\Select::make("charge_type")
-                        ->label(trans('ev.charge_types.name'))
-                        ->options(trans("ev.charge_types.options"))
-                        ->hidden(fn(Get $get)=>$get("log_type")!="charging")
-                        ->nullable(),
-//                    Forms\Components\TextInput::make("capacity")
-//                        ->reactive()
-//                        ->label(trans('ev.capacity'))
-//                        ->helperText('Negative represent charging capacity and positive represent discharging capacity. Unit %')
-//                        ->nullable(),
-
-                    Forms\Components\TextInput::make("remark")
+                    Forms\Components\Textarea::make("remark")
                         ->label(trans('ev.remark'))
+                        ->columnSpan(2)
                         ->nullable(),
 
                 ])->columns(2)
