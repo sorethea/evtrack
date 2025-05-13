@@ -5,7 +5,7 @@ return [
     "from"=>"From",
     "to"=>"To",
     "type"=>"Type",
-    "soc"=>"State of charge",
+    "soc"=>"SoC",
     "soc_from"=>"SoC from",
     "soc_to"=>"SoC to",
     "odo"=>"Odometer",
