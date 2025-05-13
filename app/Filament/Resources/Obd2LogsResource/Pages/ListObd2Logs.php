@@ -60,13 +60,13 @@ class ListObd2Logs extends ListRecords
                     $parent =EvLog::find($data["parent_id"]);
                     $evLog = new EvLog();
                     $evLog->date=$data["date"];
-                    $evLog->parent_id=$parent;
+                    $evLog->parent_id=$parent->id;
                     $evLog->log_type=$data["log_type"];
                     $evLog->charge_type=$data["charge_type"]??"";
-//                    foreach ($obd2Logs as $key=>$value){
-//                        $evLog->$value=$log[$key];
-//                    }
-                    //$evLog->distance = round($evLog->odo - $parent->odo,1);
+                    foreach ($obd2Logs as $key=>$value){
+                        $evLog->$value=$log[$key];
+                    }
+                    $evLog->distance = round($evLog->odo - $parent->odo,1);
                     $evLog->save();
 
                 }),
