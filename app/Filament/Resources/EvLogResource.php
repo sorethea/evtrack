@@ -140,7 +140,7 @@ class EvLogResource extends Resource
             ->filters([
                 //
             ])
-            ->defaultSort('date','desc')
+            ->defaultSort(['id','date'],'desc')
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
