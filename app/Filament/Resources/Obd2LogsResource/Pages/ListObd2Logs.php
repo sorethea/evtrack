@@ -56,7 +56,7 @@ class ListObd2Logs extends ListRecords
                    $logData["parent_id"]=$data["parent_id"];
                    $logData["log_type"]=$data["log_type"];
                    $logData["charge_type"]=$data["charge_type"]??"";
-                   dump($logData);
+                   EvLog::query()->create($logData);
 
 //                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
 //                    $drivingLog = new DrivingLog();
