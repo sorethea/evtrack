@@ -118,12 +118,10 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('power')
                     ->label(trans('ev.power'))
-                    ->default(function(Model $record){
+                    ->state(function(Model $record){
                         $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
                         return Number::format($capacity,1)."kWh";
-                    })->summarize(Tables\Columns\Summarizers\Sum::make(function(Model $record){
-                        return $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
-                    })),
+                    })->summarize(Tables\Columns\Summarizers\Sum::make()),
                     //->formatStateUsing(fn(float $state, Model $record) =>Number::format($state * $record->vehicle->capacity/100,1)."kWh"),
 
                 Tables\Columns\TextColumn::make('consumption')
