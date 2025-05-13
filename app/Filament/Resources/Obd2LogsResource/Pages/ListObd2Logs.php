@@ -51,22 +51,22 @@ class ListObd2Logs extends ListRecords
 
                 ])
                 ->action(function (array $data){
-//                    $obd2Logs = config('ev.obd2logs');
-//                    $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
-//                        ->distinct()
-//                        ->whereIn('pid', array_keys($obd2Logs))
-//                        ->groupBy('pid')
-//                        ->pluck('value','pid')->toArray();
-//                    $evLog = new EvLog();
-//                    $evLog->date=$data["date"];
-//                    $evLog->parent_id=$data["parent_id"];
-//                    $evLog->log_type=$data["log_type"];
-//                    $evLog->charge_type=$data["charge_type"]??"";
-//                    foreach ($obd2Logs as $key=>$value){
-//                        $evLog->$value=$log[$key];
-//                    }
-//
-//                  // $evLog->save();
+                    $obd2Logs = config('ev.obd2logs');
+                    $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
+                        ->distinct()
+                        ->whereIn('pid', array_keys($obd2Logs))
+                        ->groupBy('pid')
+                        ->pluck('value','pid')->toArray();
+                    $evLog = new EvLog();
+                    $evLog->date=$data["date"];
+                    $evLog->parent_id=$data["parent_id"];
+                    $evLog->log_type=$data["log_type"];
+                    $evLog->charge_type=$data["charge_type"]??"";
+                    foreach ($obd2Logs as $key=>$value){
+                        $evLog->$value=$log[$key];
+                    }
+
+                    $evLog->save();
 
 //                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
 //                    $drivingLog = new DrivingLog();
@@ -79,7 +79,7 @@ class ListObd2Logs extends ListRecords
 //                    $drivingLog->odo = $log[config("ev.obd2logs.odo")];
 //                    $drivingLog->voltage = $log[config("ev.obd2logs.voltage")];
 //                    $drivingLog->save();
-                    //Obd2Logs::truncate();
+                    Obd2Logs::truncate();
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)
