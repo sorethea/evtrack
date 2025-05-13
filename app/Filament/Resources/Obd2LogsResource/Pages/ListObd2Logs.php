@@ -79,7 +79,7 @@ class ListObd2Logs extends ListRecords
 //                    $drivingLog->odo = $log[config("ev.obd2logs.odo")];
 //                    $drivingLog->voltage = $log[config("ev.obd2logs.voltage")];
 //                    $drivingLog->save();
-//                    Obd2Logs::truncate();
+                    Obd2Logs::truncate();
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)

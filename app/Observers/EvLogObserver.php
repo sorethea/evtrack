@@ -26,10 +26,10 @@ class EvLogObserver
      */
     public function updated(EvLog $evLog): void
     {
-        $evLog->distance = $evLog->odo - $evLog->parent->odo;
-        $evLog->power = $evLog->parent->soc - $evLog->soc;
-        if($evLog->parent->soc>$evLog->soc) $evLog->power_discharge = $evLog->parent->soc - $evLog->soc;
-        else $evLog->power_charge = $evLog->soc - $evLog->parent->soc;
+//        $evLog->distance = $evLog->odo - $evLog->parent->odo;
+//        $evLog->power = $evLog->parent->soc - $evLog->soc;
+//        if($evLog->parent->soc>$evLog->soc) $evLog->power_discharge = $evLog->parent->soc - $evLog->soc;
+//        else $evLog->power_charge = $evLog->soc - $evLog->parent->soc;
         $evLog->save();
     }
 
