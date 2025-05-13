@@ -109,25 +109,33 @@ class EvLogResource extends Resource
                     ->label(trans('ev.soc'))
                     ->formatStateUsing(fn($state)=>$state."%")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('capacity')
-                    ->label(trans('ev.capacity'))
+                Tables\Columns\TextColumn::make('power')
+                    ->label(trans('ev.power'))
+                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('power_charge')
+                    ->label(trans('ev.charge'))
+                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('power_discharge')
+                    ->label(trans('ev.discharge'))
                     ->formatStateUsing(fn($state)=>$state."%")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
 
-                Tables\Columns\TextColumn::make('consumption')
-                    ->label(trans('ev.consumption'))
-                    ->default(function(Model $record){
-                        $distance = !empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo;
-                        $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
-                        return $distance>0 ? Number::format($capacity/$distance * 100,0)."kWh/100km":"";
-                    }),
-                Tables\Columns\TextColumn::make('range')
-                    ->label(trans('ev.range'))
-                    ->default(function(Model $record){
-                        $distance = !empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo;
-                        $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
-                        return $capacity>0? Number::format($distance/$capacity * 100,0)."km":"";
-                    }),
+//                Tables\Columns\TextColumn::make('consumption')
+//                    ->label(trans('ev.consumption'))
+//                    ->default(function(Model $record){
+//                        $distance = !empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo;
+//                        $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
+//                        return $distance>0 ? Number::format($capacity/$distance * 100,0)."kWh/100km":"";
+//                    }),
+//                Tables\Columns\TextColumn::make('range')
+//                    ->label(trans('ev.range'))
+//                    ->default(function(Model $record){
+//                        $distance = !empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo;
+//                        $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
+//                        return $capacity>0? Number::format($distance/$capacity * 100,0)."km":"";
+//                    }),
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()
