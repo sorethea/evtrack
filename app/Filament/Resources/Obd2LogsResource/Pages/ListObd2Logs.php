@@ -25,7 +25,7 @@ class ListObd2Logs extends ListRecords
                     Select::make('parent_id')
                         ->label(trans('ev.parent'))
                         ->options(EvLog::orderBy('id','desc')->select(['id','date'])->get()->pluck('date','id'))
-                        ->searchable(),
+                        ->searchable(['id','date']),
                 ])
                 ->action(function (){
                     $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
