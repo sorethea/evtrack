@@ -24,7 +24,7 @@ class ListObd2Logs extends ListRecords
                 ->form([
                     Select::make('parent_id')
                         ->label(trans('ev.parent'))
-                        ->options(EvLog::orderBy('id','desc')->all(['id','date'])->pluck('date','id'))
+                        ->options(EvLog::orderBy('id','desc')->select(['id','date'])->get()->pluck('date','id'))
                         ->searchable(),
                 ])
                 ->action(function (){
