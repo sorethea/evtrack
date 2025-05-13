@@ -36,9 +36,6 @@ class EvLogResource extends Resource
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d h i'))
                         ->required(),
-                    Forms\Components\TimePicker::make("seconds")
-                        ->label(trans('ev.time'))
-                        ->nullable(),
                     Forms\Components\Select::make("parent_id")
                         ->live()
                         ->label(trans('ev.parent'))

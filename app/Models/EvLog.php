@@ -14,7 +14,6 @@ class EvLog extends Model
         "parent_id",
         "vehicle_id",
         "date",
-        "seconds",
         "odo",
         "log_type",
         "soc",
