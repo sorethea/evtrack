@@ -57,29 +57,19 @@ class ListObd2Logs extends ListRecords
                         ->whereIn('pid', array_keys($obd2Logs))
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
+                    $parent =EvLog::find($data["parent_id"]);
                     $evLog = new EvLog();
                     $evLog->date=$data["date"];
-                    $evLog->parent_id=$data["parent_id"];
+                    $evLog->parent_id=$parent;
                     $evLog->log_type=$data["log_type"];
                     $evLog->charge_type=$data["charge_type"]??"";
                     foreach ($obd2Logs as $key=>$value){
                         $evLog->$value=$log[$key];
                     }
+                    $evLog->distance = $evLog->odo - $parent->odo;
 
                     $evLog->save();
 
-//                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
-//                    $drivingLog = new DrivingLog();
-//                    $drivingLog->date = now()->format('Y-m-d');
-//                    $drivingLog->type = "driving";
-//                    $drivingLog->soc_from = $drivingLogLastest->soc_to;
-//                    $drivingLog->soc_to = $log[config("ev.obd2logs.soc_to")];
-//                    $drivingLog->ac = $log[config("ev.obd2logs.ac")];
-//                    $drivingLog->ad = $log[config("ev.obd2logs.ad")];
-//                    $drivingLog->odo = $log[config("ev.obd2logs.odo")];
-//                    $drivingLog->voltage = $log[config("ev.obd2logs.voltage")];
-//                    $drivingLog->save();
-                    //Obd2Logs::truncate();
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)

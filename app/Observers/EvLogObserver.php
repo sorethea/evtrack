@@ -15,8 +15,6 @@ class EvLogObserver
         $evLog->save();
     }
 
-
-
     /**
      * Handle the EvLog "updated" event.
      */
