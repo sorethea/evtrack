@@ -5,8 +5,10 @@ namespace App\Filament\Resources\Obd2LogsResource\Pages;
 use App\Filament\Imports\Obd2LogsImporter;
 use App\Filament\Resources\Obd2LogsResource;
 use App\Models\DrivingLog;
+use App\Models\EvLog;
 use App\Models\Obd2Logs;
 use Filament\Actions;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
 
 class ListObd2Logs extends ListRecords
@@ -19,6 +21,12 @@ class ListObd2Logs extends ListRecords
             //Actions\CreateAction::make(),
             Actions\Action::make("log_driving")
                 ->label("Log Driving")
+                ->form([
+                    Select::make('parent_id')
+                        ->label(trans('ev.parent'))
+                        ->options(EvLog::all(['id','date'])->pluck('date','id'))
+                        ->searchable(),
+                ])
                 ->action(function (){
                     $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
                         ->distinct()
