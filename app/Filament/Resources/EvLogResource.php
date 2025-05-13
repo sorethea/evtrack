@@ -71,11 +71,17 @@ class EvLogResource extends Resource
                         Forms\Components\TextInput::make("ad")
                             ->label(trans('ev.discharge'))
                             ->nullable(),
-                        Forms\Components\TextInput::make("min_cell_voltage")
-                            ->label(trans('ev.min_cell_voltage'))
+                        Forms\Components\TextInput::make("highest_temp_cell")
+                            ->label(trans('ev.highest_temp_cell'))
                             ->nullable(),
-                        Forms\Components\TextInput::make("max_cell_voltage")
-                            ->label(trans('ev.max_cell_voltage'))
+                        Forms\Components\TextInput::make("lowest_temp_cell")
+                            ->label(trans('ev.lowest_temp_cell'))
+                            ->nullable(),
+                        Forms\Components\TextInput::make("highest_volt_cell")
+                            ->label(trans('ev.highest_volt_cell'))
+                            ->nullable(),
+                        Forms\Components\TextInput::make("lowest_volt_cell")
+                            ->label(trans('ev.lowest_volt_cell'))
                             ->nullable(),
                         Forms\Components\TextInput::make("voltage")
                             ->label(trans('ev.voltage'))
