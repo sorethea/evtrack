@@ -11,6 +11,7 @@ use Filament\Actions;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Get;
 use Filament\Resources\Pages\ListRecords;
 
 class ListObd2Logs extends ListRecords
@@ -36,6 +37,11 @@ class ListObd2Logs extends ListRecords
                             ->options(trans("ev.log_types.options"))
                             ->default('driving')
                             ->required(),
+                        Select::make("charge_type")
+                            ->label(trans('ev.charge_types.name'))
+                            ->options(trans("ev.charge_types.options"))
+                            ->hidden(fn(Get $get)=>$get("log_type")!="charging")
+                            ->nullable(),
                     ])->columns(2)
 
                 ])
@@ -47,7 +53,10 @@ class ListObd2Logs extends ListRecords
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
                    $logData = array_combine(array_values($obd2Logs),array_values($log));
+                   $logData["parent_id"]=$data["parent_id"];
+                   $logData["log_type"]=$data["log_type"];
                    dump($logData);
+
 //                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
 //                    $drivingLog = new DrivingLog();
 //                    $drivingLog->date = now()->format('Y-m-d');
