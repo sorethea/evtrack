@@ -46,8 +46,8 @@ class ListObd2Logs extends ListRecords
                         ->whereIn('pid', array_keys($obd2Logs))
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
-                   //$logData = array_combine(array_values($obd2Logs),array_values($log));
-                   dump($log);
+                   $logData = array_combine(array_values($obd2Logs),array_values($log));
+                   dump($logData);
 //                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
 //                    $drivingLog = new DrivingLog();
 //                    $drivingLog->date = now()->format('Y-m-d');
