@@ -31,22 +31,22 @@ class ListObd2Logs extends ListRecords
                             ->label(trans('ev.date'))
                             ->format('Y-m-d h:i')
                             ->required(),
-                        Select::make('parent_id')
-                            ->label(trans('ev.parent'))
-                            ->options(EvLog::select(['id','date'])->whereNotNull('date')->orderBy('id','desc')->get()->pluck('date','id'))
-                            ->searchable(['id','date'])
-                            ->required(),
-                        Select::make("log_type")
-                            ->live()
-                            ->label(trans('ev.log_types.name'))
-                            ->options(trans("ev.log_types.options"))
-                            ->default('driving')
-                            ->required(),
-                        Select::make("charge_type")
-                            ->label(trans('ev.charge_types.name'))
-                            ->options(trans("ev.charge_types.options"))
-                            ->hidden(fn(Get $get)=>$get("log_type")!="charging")
-                            ->nullable(),
+//                        Select::make('parent_id')
+//                            ->label(trans('ev.parent'))
+//                            ->options(EvLog::select(['id','date'])->whereNotNull('date')->orderBy('id','desc')->get()->pluck('date','id'))
+//                            ->searchable(['id','date'])
+//                            ->required(),
+//                        Select::make("log_type")
+//                            ->live()
+//                            ->label(trans('ev.log_types.name'))
+//                            ->options(trans("ev.log_types.options"))
+//                            ->default('driving')
+//                            ->required(),
+//                        Select::make("charge_type")
+//                            ->label(trans('ev.charge_types.name'))
+//                            ->options(trans("ev.charge_types.options"))
+//                            ->hidden(fn(Get $get)=>$get("log_type")!="charging")
+//                            ->nullable(),
                     ])->columns(2)
 
                 ])
