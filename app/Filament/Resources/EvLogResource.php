@@ -140,7 +140,7 @@ class EvLogResource extends Resource
             ->filters([
                 //
             ])
-            ->defaultSort(['id','date'],'desc')
+            ->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc'))
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
