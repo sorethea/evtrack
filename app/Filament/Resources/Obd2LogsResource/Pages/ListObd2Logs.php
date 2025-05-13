@@ -39,13 +39,15 @@ class ListObd2Logs extends ListRecords
                     ])->columns(2)
 
                 ])
-                ->action(function (){
-//                    $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
-//                        ->distinct()
-//                        ->where('pid','like','[BMS]%')
-//                        ->orWhere('pid','like','[VCU] Odometer%')
-//                        ->groupBy('pid')
-//                        ->pluck('value','pid')->toArray();
+                ->action(function (array $data){
+                    $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
+                        ->distinct()
+                        ->where('pid','like','[BMS]%')
+                        ->orWhere('pid','like','[VCU] Odometer%')
+                        ->groupBy('pid')
+                        ->pluck('value','pid')->toArray();
+                    $logData = array_flip(config('ev.obd2logs'),$log);
+                    var_dump($logData);
 //                    $drivingLogLastest = DrivingLog::orderBy('date','desc')->first();
 //                    $drivingLog = new DrivingLog();
 //                    $drivingLog->date = now()->format('Y-m-d');
