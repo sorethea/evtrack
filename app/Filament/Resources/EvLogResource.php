@@ -150,7 +150,7 @@ class EvLogResource extends Resource
                     ->options(trans('ev.charge_types.options')),
 
             ])
-            ->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc'))
+            ->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc')->groupBy('parent_id'))
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
