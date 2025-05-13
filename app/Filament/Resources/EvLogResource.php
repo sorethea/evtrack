@@ -32,7 +32,7 @@ class EvLogResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make([
-                    Forms\Components\DatePicker::make("date")
+                    Forms\Components\DateTimePicker::make("date")
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d h i'))
                         ->required(),
