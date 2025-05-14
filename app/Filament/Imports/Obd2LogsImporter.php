@@ -30,7 +30,7 @@ class Obd2LogsImporter extends Importer
 
     public function resolveRecord(): ?Obd2Logs
     {
-        dump($this->record->newQuery()->limit(10)->get());
+        logger($this->record->newQuery()->limit(10)->get());
         // return Obd2Logs::firstOrNew([
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
