@@ -97,23 +97,23 @@ class EvLogResource extends Resource
                 ])->columns(2)
             ]);
     }
-    protected function getTableQuery(): Builder|Relation|null
-    {
-        return parent::getEloquentQuery()->selectRaw("
-        ROUND(odo - COALESCE(parent.odo,0),0) AS trip_distance,
-        CASE
-                WHEN parent.soc IS NOT NULL AND soc > parent.soc
-                THEN soc - parent.soc
-                ELSE 0
-            END as charge,
-            CASE
-                WHEN parent.soc IS NOT NULL AND parent.soc > soc
-                THEN parent.soc - soc
-                ELSE 0
-            END as discharge
-        ")
-        ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
-    }
+//    protected function getTableQuery(): Builder|Relation|null
+//    {
+//        return parent::getEloquentQuery()->selectRaw("
+//        ROUND(odo - COALESCE(parent.odo,0),0) AS trip_distance,
+//        CASE
+//                WHEN parent.soc IS NOT NULL AND soc > parent.soc
+//                THEN soc - parent.soc
+//                ELSE 0
+//            END as charge,
+//            CASE
+//                WHEN parent.soc IS NOT NULL AND parent.soc > soc
+//                THEN parent.soc - soc
+//                ELSE 0
+//            END as discharge
+//        ")
+//        ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
+//    }
 //    public static function getEloquentQuery(): Builder
 //    {
 ////        return parent::getEloquentQuery()->selectRaw("
@@ -152,6 +152,24 @@ class EvLogResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query
+                ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
+                ->selectRaw('
+                ev_logs.*,
+                ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
+                CASE
+                    WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
+                    THEN ev_logs.soc - parent.soc
+                    ELSE 0
+                END as charge,
+                CASE
+                    WHEN parent.soc IS NOT NULL AND parent.soc > ev_logs.soc
+                    THEN parent.soc - ev_logs.soc
+                    ELSE 0
+                END as discharge
+            ')
+                ->addSelect('ev_logs.id as id') // Explicit ID selection
+            )
             ->columns([
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y h i')
