@@ -8,6 +8,7 @@ use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Artisan;
 
 class Obd2LogsImporter extends Importer
 {
@@ -40,7 +41,11 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-
+        if($this->count > $this->limit){
+            throw new RowImportFailedException("Over limit {$this->limit} of imported data allowed.");
+            Artisan::call("queue:clear");
+        }
+        $this->count ++;
         return new Obd2Logs();
 
     }
