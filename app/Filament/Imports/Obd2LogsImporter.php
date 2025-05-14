@@ -3,6 +3,7 @@
 namespace App\Filament\Imports;
 
 use App\Models\Obd2Logs;
+use Filament\Actions\Imports\Exceptions\RowImportFailedException;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
@@ -12,7 +13,7 @@ class Obd2LogsImporter extends Importer
 {
     protected static ?string $model = Obd2Logs::class;
 
-    protected int $count = 0;
+    protected int $n = 0;
     protected int $limit =50;
 
 
@@ -39,8 +40,10 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-        logger($this->count);
-        $this->count++;
+        if($this->n>=$this->limit){
+            throw new RowImportFailedException("The import only {$this->limit} rows allow.");
+        }
+        $this->n++;
         return new Obd2Logs();
 
     }
