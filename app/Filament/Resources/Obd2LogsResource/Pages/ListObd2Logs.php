@@ -67,8 +67,8 @@ class ListObd2Logs extends ListRecords
                     foreach ($obd2Logs as $key=>$value){
                         $evLog->$value=$log[$key];
                     }
-                    $evLog->distance = round($evLog->odo - $parent->odo,1);
-                    $evLog->power = round($parent->soc - $evLog->soc,1);
+                    //$evLog->distance = round($evLog->odo - $parent->odo,1);
+                    //$evLog->power = round($parent->soc - $evLog->soc,1);
                     $evLog->save();
                     Obd2Logs::truncate();
 
