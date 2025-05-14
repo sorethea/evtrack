@@ -38,12 +38,18 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-        if($this->count <= $this->limit){
-            return new Obd2Logs();
-        }else{
-            null;
-        }
-        $this->count++;
+
+        return new Obd2Logs();
+
+    }
+
+    /**
+     * @param Import $import
+     */
+    public function setImport(Import $import): void
+    {
+        logger($import);
+        $this->import = $import;
     }
 
     public static function getCompletedNotificationBody(Import $import): string
