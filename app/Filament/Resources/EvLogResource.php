@@ -16,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Number;
@@ -23,6 +24,7 @@ use Symfony\Component\Mime\Encoder\QpContentEncoder;
 
 class EvLogResource extends Resource
 {
+    use Tables\Concerns\InteractsWithTable;
     protected static ?string $model = EvLog::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
@@ -94,6 +96,23 @@ class EvLogResource extends Resource
 
                 ])->columns(2)
             ]);
+    }
+    protected function getTableQuery(Builder $query): Builder|Relation|null
+    {
+        return $query->selectRaw("
+        ROUND(odo - COALESCE(parent.odo,0),0) AS trip_distance,
+        CASE
+                WHEN parent.soc IS NOT NULL AND soc > parent.soc
+                THEN soc - parent.soc
+                ELSE 0
+            END as charge,
+            CASE
+                WHEN parent.soc IS NOT NULL AND parent.soc > soc
+                THEN parent.soc - soc
+                ELSE 0
+            END as discharge
+        ")
+        ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
     }
 //    public static function getEloquentQuery(): Builder
 //    {
