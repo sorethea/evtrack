@@ -27,11 +27,6 @@ class EvLog extends Model
         "lowest_temp_cell",
         "voltage",
         "charge_type",
-        "power",
-        "power_charge",
-        "power_discharge",
-        "capacity",
-        "distance",
         "remark",
     ];
 
