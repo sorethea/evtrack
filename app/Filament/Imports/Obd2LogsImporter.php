@@ -32,13 +32,6 @@ class Obd2LogsImporter extends Importer
         ];
     }
 
-    /**
-     * @param Import $import
-     */
-    public function setImport(Import $import): void
-    {
-        $this->import = $import->newQuery()->limit(50);
-    }
 
     public function resolveRecord(): ?Obd2Logs
     {
@@ -47,10 +40,7 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-//        if($this->count>=$this->limit){
-//            throw new RowImportFailedException("The import only {$this->limit} rows allow.");
-//        }
-//        $this->count ++;
+
         return new Obd2Logs();
 
     }
