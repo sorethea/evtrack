@@ -56,10 +56,11 @@ class EvLogResource extends Resource
                         ->label(trans('ev.odo'))
                         ->required(),
                     Forms\Components\TextInput::make("soc")
-//                        ->live(onBlur: true)
-//                        ->afterStateUpdated(fn(Set $set,?float $state,Get $get)=>$set('capacity',round(EvLog::find($get('parent_id'))->soc-$state,1)))
                         ->label(trans('ev.soc'))
-                        ->required(),
+                        ->nullable(),
+                    Forms\Components\TextInput::make("soc_actual")
+                        ->label(trans('ev.soc_actual'))
+                        ->nullable(),
                     Forms\Components\Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))

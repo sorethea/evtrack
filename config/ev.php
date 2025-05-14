@@ -12,7 +12,8 @@ return [
         "[BMS] Accumulated discharge power [Ah]"=>"ad_power",
         "[BMS] Accumulated charge energy"=>"ac",
         "[BMS] Accumulated discharge energy"=>"ad",
-        "[BMS] State of charge actual"=>"soc",
+        "[BMS] State of charge"=>"soc",
+        "[BMS] State of charge actual"=>"soc_actual",
         "[VCU] Odometer"=>"odo",
         "[BMS] Battery total voltage"=>"voltage",
     ]

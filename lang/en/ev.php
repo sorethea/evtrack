@@ -6,6 +6,7 @@ return [
     "to"=>"To",
     "type"=>"Type",
     "soc"=>"SoC",
+    "soc_actual"=>"SoC Actual",
     "soc_from"=>"SoC from",
     "soc_to"=>"SoC to",
     "odo"=>"Odometer",

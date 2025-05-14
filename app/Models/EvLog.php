@@ -17,6 +17,7 @@ class EvLog extends Model
         "odo",
         "log_type",
         "soc",
+        "soc_actual",
         "ac",
         "ad",
         "ac_power",
