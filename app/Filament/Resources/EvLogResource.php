@@ -97,7 +97,11 @@ class EvLogResource extends Resource
     }
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->selectRaw("ev_logs.*,ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance")->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
+        return parent::getEloquentQuery()->selectRaw("ev_logs.*,
+        ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance,
+        ROUND(COALESCE(parent.soc - ev_logs.soc,2),0) AS trip_energy,
+        ")
+            ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
     }
 
     public static function table(Table $table): Table
@@ -111,14 +115,19 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('trip_distance')
-                    ->label(trans('ev.distance'))
-                    ->formatStateUsing(fn($state)=>$state."km")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
                     ->formatStateUsing(fn($state)=>$state."%")
                     ->searchable(),
+                Tables\Columns\TextColumn::make('trip_energy')
+                    ->label(trans('ev.energy'))
+                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('trip_distance')
+                    ->label(trans('ev.distance'))
+                    ->formatStateUsing(fn($state)=>$state."km")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+
 
 //                Tables\Columns\TextColumn::make('consumption')
 //                    ->label(trans('ev.consumption'))
