@@ -97,7 +97,7 @@ class EvLogResource extends Resource
     }
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->selectRaw("ev_logs.*,(ev_logs.odo - COALESCE(parent.odo,0)) AS distance")->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
+        return parent::getEloquentQuery()->selectRaw("ev_logs.*,(ev_logs.odo - COALESCE(parent.odo,0)) AS trip_distance")->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
     }
 
     public static function table(Table $table): Table
@@ -111,7 +111,7 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('distance')
+                Tables\Columns\TextColumn::make('trip_distance')
                     ->label(trans('ev.distance'))
                     ->formatStateUsing(fn($state)=>$state."km")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
@@ -119,18 +119,6 @@ class EvLogResource extends Resource
                     ->label(trans('ev.soc'))
                     ->formatStateUsing(fn($state)=>$state."%")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('power')
-                    ->label(trans('ev.power'))
-                    ->formatStateUsing(fn($state)=>$state."%")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-                Tables\Columns\TextColumn::make('power_charge')
-                    ->label(trans('ev.charge'))
-                    ->formatStateUsing(fn($state)=>$state."%")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-                Tables\Columns\TextColumn::make('power_discharge')
-                    ->label(trans('ev.discharge'))
-                    ->formatStateUsing(fn($state)=>$state."%")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
 
 //                Tables\Columns\TextColumn::make('consumption')
 //                    ->label(trans('ev.consumption'))
