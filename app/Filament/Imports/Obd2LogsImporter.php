@@ -43,7 +43,7 @@ class Obd2LogsImporter extends Importer
         // ]);
         if($this->count > $this->limit){
             throw new RowImportFailedException("Over limit {$this->limit} of imported data allowed.");
-            Artisan::call("queue:clear");
+            //Artisan::call("queue:clear");
         }
         $this->count ++;
         return new Obd2Logs();
