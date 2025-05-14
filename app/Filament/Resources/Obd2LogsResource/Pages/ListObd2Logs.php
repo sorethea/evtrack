@@ -31,7 +31,6 @@ class ListObd2Logs extends ListRecords
                     Fieldset::make()->schema([
                         TextInput::make('date')
                             ->label(trans('ev.date'))
-                            ->format('Y-m-d h:i:s')
                             ->required(),
                         Select::make('parent_id')
                             ->label(trans('ev.parent'))
