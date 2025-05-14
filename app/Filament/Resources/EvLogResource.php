@@ -110,7 +110,6 @@ class EvLogResource extends Resource
                 ELSE 0
             END as discharge
         ")
-            ->addSelect('ev_logs.id as id')
             ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
     }
 
