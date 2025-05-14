@@ -10,6 +10,13 @@ use Filament\Actions\Imports\Models\Import;
 class Obd2LogsImporter extends Importer
 {
     protected static ?string $model = Obd2Logs::class;
+    protected $count = 0;
+    protected $limit = 50;
+    public function model(array $rows)
+    {
+        if ($this->count >= $this->limit) return null;
+        $this->count ++;
+    }
 
     public static function getColumns(): array
     {
