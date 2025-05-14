@@ -97,9 +97,9 @@ class EvLogResource extends Resource
                 ])->columns(2)
             ]);
     }
-    protected function getTableQuery(Builder $query): Builder|Relation|null
+    protected function getTableQuery(): Builder|Relation|null
     {
-        return $query->selectRaw("
+        return parent::getEloquentQuery()->selectRaw("
         ROUND(odo - COALESCE(parent.odo,0),0) AS trip_distance,
         CASE
                 WHEN parent.soc IS NOT NULL AND soc > parent.soc
