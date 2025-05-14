@@ -12,6 +12,9 @@ class Obd2LogsImporter extends Importer
 {
     protected static ?string $model = Obd2Logs::class;
 
+    protected int $count = 0;
+    protected int $limit =50;
+
     public static function getColumns(): array
     {
         return [
@@ -30,12 +33,17 @@ class Obd2LogsImporter extends Importer
 
     public function resolveRecord(): ?Obd2Logs
     {
-        logger($this->data);
+
         // return Obd2Logs::firstOrNew([
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
+        if($this->count <= $this->limit){
             return new Obd2Logs();
+        }else{
+            null;
+        }
+        $this->count++;
     }
 
     public static function getCompletedNotificationBody(Import $import): string
