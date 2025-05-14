@@ -38,11 +38,12 @@ class Obd2LogsImporter extends Importer
     }
 
     /**
-     * @param array $data
+     * @return array
      */
-    public function setData(array $data): void
+    public function getOriginalData(): array
     {
-        $this->data = array_chunk($data,50);
+        dump($this->originalData,10);
+        return array_chunk($this->originalData,50);
     }
 
     public static function getCompletedNotificationBody(Import $import): string
