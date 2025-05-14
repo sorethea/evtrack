@@ -58,7 +58,7 @@ class ListObd2Logs extends ListRecords
                         ->whereIn('pid', array_keys($obd2Logs))
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
-                    $parent =EvLog::find($data["parent_id"]);
+                    $parent =$data["parent_id"]?EvLog::find($data["parent_id"]):null;
                     $evLog = new EvLog();
                     $evLog->date=$data["date"];
                     $evLog->parent_id=$parent->id;
