@@ -6,11 +6,13 @@ use App\Models\Obd2Logs;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
+use Illuminate\Database\Eloquent\Model;
 
 class Obd2LogsImporter extends Importer
 {
     protected static ?string $model = Obd2Logs::class;
-
+    protected $count = 0;
+    protected $limit = 50;
 
     public static function getColumns(): array
     {
@@ -33,8 +35,11 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
+        if($this->count<=$this->limit){
+            return new Obd2Logs();
+        }
+        $this->count ++;
 
-        return new Obd2Logs();
     }
 
     public static function getCompletedNotificationBody(Import $import): string
