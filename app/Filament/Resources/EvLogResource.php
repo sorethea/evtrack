@@ -36,7 +36,7 @@ class EvLogResource extends Resource
                 Forms\Components\Section::make([
                     Forms\Components\DateTimePicker::make("date")
                         ->label(trans('ev.date'))
-                        ->default(now()->format('Y-m-d h i'))
+                        ->default(now()->format('Y-m-d H i'))
                         ->required(),
                     Forms\Components\Select::make("parent_id")
                         ->live()
