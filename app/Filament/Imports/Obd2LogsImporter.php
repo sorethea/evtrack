@@ -28,9 +28,9 @@ class Obd2LogsImporter extends Importer
                 ->requiredMapping(),
         ];
     }
-    public function getData(): array
+    public function getRecord(): array
     {
-        return array_chunk($this->data, 50);
+        return array_chunk($this->record, 50);
     }
 
     public function resolveRecord(): ?Obd2Logs
