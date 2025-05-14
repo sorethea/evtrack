@@ -136,7 +136,7 @@ class EvLogResource extends Resource
     {
         return $table
             ->modifyQueryUsing(function (\Illuminate\Database\Query\Builder $builder){
-                return ->newQuery()
+                return $builder->newQuery()
                     ->selectRaw("ev_logs.*,
         ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance,
         CASE
