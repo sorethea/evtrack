@@ -135,7 +135,7 @@ class EvLogResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(function ( $builder){
+            ->query(function ( $builder){
                 return $builder->newQuery()
                     ->selectRaw("ev_logs.*,
         ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance,
