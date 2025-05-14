@@ -99,7 +99,7 @@ class EvLogResource extends Resource
     {
         return parent::getEloquentQuery()->selectRaw("ev_logs.*,
         ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance,
-        ROUND(COALESCE(parent.soc - ev_logs.soc,2),0) AS trip_energy,
+        ROUND(COALESCE(parent.soc - ev_logs.soc,0),2) AS trip_energy,
         ")
             ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
     }
