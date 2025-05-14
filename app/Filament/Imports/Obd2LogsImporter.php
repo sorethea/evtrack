@@ -39,7 +39,8 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-        if($this->import->successful_rows>=$this->limit){
+        logger($this->import->processed_rows);
+        if($this->import->processed_rows>=$this->limit){
             throw new RowImportFailedException("The import only {$this->limit} rows allow.");
         }
         return new Obd2Logs();
