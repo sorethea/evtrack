@@ -99,7 +99,16 @@ class EvLogResource extends Resource
     {
         return parent::getEloquentQuery()->selectRaw("ev_logs.*,
         ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance,
-        ROUND(COALESCE(parent.soc - ev_logs.soc,0),2) AS trip_energy
+        CASE
+                WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
+                THEN ev_logs.soc - parent.soc
+                ELSE 0
+            END as charge,
+            CASE
+                WHEN parent.soc IS NOT NULL AND parent.soc > ev_logs.soc
+                THEN parent.soc - ev_logs.soc
+                ELSE 0
+            END as discharge
         ")
             ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
     }
@@ -119,8 +128,12 @@ class EvLogResource extends Resource
                     ->label(trans('ev.soc'))
                     ->formatStateUsing(fn($state)=>$state."%")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('trip_energy')
-                    ->label(trans('ev.energy'))
+                Tables\Columns\TextColumn::make('charge')
+                    ->label(trans('ev.charge'))
+                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('discharge')
+                    ->label(trans('ev.discharge'))
                     ->formatStateUsing(fn($state)=>$state."%")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('trip_distance')
