@@ -109,8 +109,8 @@ class EvLogResource extends Resource
                 THEN parent.soc - soc
                 ELSE 0
             END as discharge
-        ");
-            ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id')
+        ")
+            ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
             //->joinRelationship('parent');
     }
 
