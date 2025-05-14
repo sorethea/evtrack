@@ -13,6 +13,7 @@ class Obd2LogsImporter extends Importer
 {
     protected static ?string $model = Obd2Logs::class;
 
+    protected int $count =0;
     protected int $limit =50;
 
 
@@ -39,10 +40,10 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-        logger($this->import->processed_rows);
-        if($this->import->processed_rows>=$this->limit){
+        if($this->count>=$this->limit){
             throw new RowImportFailedException("The import only {$this->limit} rows allow.");
         }
+        $this->count ++;
         return new Obd2Logs();
 
     }
