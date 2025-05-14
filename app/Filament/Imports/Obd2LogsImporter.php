@@ -39,7 +39,8 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-
+        logger($this->count);
+        $this->count++;
         return new Obd2Logs();
 
     }

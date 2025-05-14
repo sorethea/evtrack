@@ -75,8 +75,7 @@ class ListObd2Logs extends ListRecords
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)
-                ->csvDelimiter(";")
-                ->record(fn(Model $record)=>$record->newQuery()->limit(50)),
+                ->csvDelimiter(";"),
         ];
     }
 }
