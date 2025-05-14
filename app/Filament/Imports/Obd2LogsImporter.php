@@ -41,11 +41,11 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-        if($this->count > $this->limit){
-            throw new RowImportFailedException("Over limit {$this->limit} of imported data allowed.");
-            //Artisan::call("queue:clear");
-        }
-        $this->count ++;
+//        if($this->count > $this->limit){
+//            throw new RowImportFailedException("Over limit {$this->limit} of imported data allowed.");
+//            //Artisan::call("queue:clear");
+//        }
+//        $this->count ++;
         return new Obd2Logs();
 
     }
