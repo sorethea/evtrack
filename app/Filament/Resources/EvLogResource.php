@@ -114,7 +114,7 @@ class EvLogResource extends Resource
             //->joinRelationship('parent');
         return parent::getEloquentQuery()->newQuery()
             ->selectRaw("
-        ROUND(odo - COALESCE(parent.odo,0),0) AS trip_distance,
+        ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance,
         CASE
                 WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
                 THEN ev_logs.soc - parent.soc
