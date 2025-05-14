@@ -14,6 +14,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Get;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Model;
 
 class ListObd2Logs extends ListRecords
 {
@@ -74,8 +75,8 @@ class ListObd2Logs extends ListRecords
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)
-
-                ->csvDelimiter(";"),
+                ->csvDelimiter(";")
+                ->record(fn(Model $model)=>$model->newQuery()->limit(50)),
         ];
     }
 }

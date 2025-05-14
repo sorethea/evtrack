@@ -15,6 +15,7 @@ class Obd2LogsImporter extends Importer
     protected int $count = 0;
     protected int $limit =50;
 
+
     public static function getColumns(): array
     {
         return [
@@ -41,15 +42,6 @@ class Obd2LogsImporter extends Importer
 
         return new Obd2Logs();
 
-    }
-
-    /**
-     * @param Import $import
-     */
-    public function setImport(Import $import): void
-    {
-        logger($import);
-        $this->import = $import;
     }
 
     public static function getCompletedNotificationBody(Import $import): string
