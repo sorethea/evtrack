@@ -28,6 +28,10 @@ class Obd2LogsImporter extends Importer
                 ->requiredMapping(),
         ];
     }
+    public function getData(): array
+    {
+        return array_chunk($this->data, 50);
+    }
 
     public function resolveRecord(): ?Obd2Logs
     {
@@ -35,11 +39,7 @@ class Obd2LogsImporter extends Importer
         //     // Update existing records, matching them by `$this->data['column_name']`
         //     'email' => $this->data['email'],
         // ]);
-        if($this->count<=$this->limit){
             return new Obd2Logs();
-        }
-        $this->count ++;
-
     }
 
     public static function getCompletedNotificationBody(Import $import): string
