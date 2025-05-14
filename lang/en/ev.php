@@ -44,8 +44,10 @@ return [
     "price"=>"Price",
     "voltage"=>"Voltage",
     "total_voltage"=>"Total Voltage",
-    "min_cell_voltage"=>"Min Cell Voltage",
-    "max_cell_voltage"=>"Max Cell Voltage",
+    "highest_temp_cell"=>"Highest Temperature Cell",
+    "lowest_temp_cell"=>"Lowest Temperature Cell",
+    "highest_volt_cell"=>"Highest Voltage Cell",
+    "lowest_volt_cell"=>"Lowest Voltage Cell",
     "remark"=>"Remark",
     "total_price"=>"Total Price",
 ];
