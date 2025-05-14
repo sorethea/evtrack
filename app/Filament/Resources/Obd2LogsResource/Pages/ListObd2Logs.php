@@ -12,6 +12,7 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Model;
@@ -28,9 +29,9 @@ class ListObd2Logs extends ListRecords
                 ->label("Log Driving")
                 ->form([
                     Fieldset::make()->schema([
-                        DateTimePicker::make('date')
+                        TextInput::make('date')
                             ->label(trans('ev.date'))
-                            ->format('Y-m-d h:i')
+                            ->format('Y-m-d h:i:s')
                             ->required(),
                         Select::make('parent_id')
                             ->label(trans('ev.parent'))
