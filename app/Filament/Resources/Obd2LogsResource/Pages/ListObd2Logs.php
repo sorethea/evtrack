@@ -36,13 +36,13 @@ class ListObd2Logs extends ListRecords
                             ->label(trans('ev.parent'))
                             ->options(EvLog::select(['id','date'])->orderBy('id','desc')->get()->pluck('date','id'))
                             ->searchable(['id','date'])
-                            ->required(),
+                            ->nullable(),
                         Select::make("log_type")
                             ->live()
                             ->label(trans('ev.log_types.name'))
                             ->options(trans("ev.log_types.options"))
                             ->default('driving')
-                            ->required(),
+                            ->nullable(),
                         Select::make("charge_type")
                             ->label(trans('ev.charge_types.name'))
                             ->options(trans("ev.charge_types.options"))
