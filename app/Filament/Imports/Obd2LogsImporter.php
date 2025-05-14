@@ -32,10 +32,12 @@ class Obd2LogsImporter extends Importer
         ];
     }
 
-    public function getImport(): Import
+    /**
+     * @param Import $import
+     */
+    public function setImport(Import $import): void
     {
-        return parent::getImport()
-            ->newQuery()->limit(50);
+        $this->import = $import->newQuery()->limit(50);
     }
 
     public function resolveRecord(): ?Obd2Logs
