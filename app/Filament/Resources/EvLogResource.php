@@ -97,7 +97,7 @@ class EvLogResource extends Resource
     }
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->selectRaw("ev_logs.*,ROUND(ev_logs.odo - COALESCE(parent.odo,0),2) AS trip_distance")->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
+        return parent::getEloquentQuery()->selectRaw("ev_logs.*,ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance")->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
     }
 
     public static function table(Table $table): Table
