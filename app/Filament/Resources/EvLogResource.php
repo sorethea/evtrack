@@ -95,25 +95,47 @@ class EvLogResource extends Resource
                 ])->columns(2)
             ]);
     }
-    public static function getEloquentQuery(): Builder
-    {
-//        return parent::getEloquentQuery()->selectRaw("
-//        ROUND(odo - COALESCE(parent.odo,0),0) AS trip_distance,
+//    public static function getEloquentQuery(): Builder
+//    {
+////        return parent::getEloquentQuery()->selectRaw("
+////        ROUND(odo - COALESCE(parent.odo,0),0) AS trip_distance,
+////        CASE
+////                WHEN parent.soc IS NOT NULL AND soc > parent.soc
+////                THEN soc - parent.soc
+////                ELSE 0
+////            END as charge,
+////            CASE
+////                WHEN parent.soc IS NOT NULL AND parent.soc > soc
+////                THEN parent.soc - soc
+////                ELSE 0
+////            END as discharge
+////        ")
+////            ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
+//            //->joinRelationship('parent');
+//        return parent::getEloquentQuery()->newQuery()
+//            ->selectRaw("ev_logs.*,
+//        ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance,
 //        CASE
-//                WHEN parent.soc IS NOT NULL AND soc > parent.soc
-//                THEN soc - parent.soc
+//                WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
+//                THEN ev_logs.soc - parent.soc
 //                ELSE 0
 //            END as charge,
 //            CASE
-//                WHEN parent.soc IS NOT NULL AND parent.soc > soc
-//                THEN parent.soc - soc
+//                WHEN parent.soc IS NOT NULL AND parent.soc > ev_logs.soc
+//                THEN parent.soc - ev_logs.soc
 //                ELSE 0
 //            END as discharge
 //        ")
 //            ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
-            //->joinRelationship('parent');
-        return parent::getEloquentQuery()->newQuery()
-            ->selectRaw("ev_logs.*,
+//    }
+
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->modifyQueryUsing(function (\Illuminate\Database\Query\Builder $builder){
+                $builder->newQuery()
+                    ->selectRaw("ev_logs.*,
         ROUND(ev_logs.odo - COALESCE(parent.odo,0),0) AS trip_distance,
         CASE
                 WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
@@ -126,13 +148,8 @@ class EvLogResource extends Resource
                 ELSE 0
             END as discharge
         ")
-            ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
-    }
-
-
-    public static function table(Table $table): Table
-    {
-        return $table
+                    ->leftJoin('ev_logs as parent','ev_logs.parent_id','=','parent.id');
+            })
             ->columns([
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y h i')
