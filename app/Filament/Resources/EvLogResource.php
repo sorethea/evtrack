@@ -167,9 +167,7 @@ class EvLogResource extends Resource
                     THEN parent.soc - ev_logs.soc
                     ELSE 0
                 END as discharge
-            ')
-                ->addSelect('ev_logs.id as id') // Explicit ID selection
-            )
+            '))
             ->columns([
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y h i')
