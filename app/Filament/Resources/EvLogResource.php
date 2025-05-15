@@ -131,19 +131,19 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
-                    //->formatStateUsing(fn($state)=>$state."%")
+                    ->formatStateUsing(fn($state)=>$state."%")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('charge')
                     ->label(trans('ev.charge'))
-                    //->formatStateUsing(fn($state)=>$state."kWh")
+                    ->formatStateUsing(fn($state)=>$state."kWh")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('gross_charge')
                     ->label(trans('ev.gross_charge'))
-                    //->formatStateUsing(fn($state)=>$state."kWh")
+                    ->formatStateUsing(fn($state)=>$state."kWh")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('discharge')
                     ->label(trans('ev.discharge'))
-                    //->formatStateUsing(fn($state)=>$state."kWh")
+                    ->formatStateUsing(fn($state)=>$state."kWh")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('gross_discharge')
                     ->label(trans('ev.gross_discharge'))
@@ -151,7 +151,7 @@ class EvLogResource extends Resource
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('trip_distance')
                     ->label(trans('ev.distance'))
-                    //->formatStateUsing(fn($state)=>$state."km")
+                    ->formatStateUsing(fn($state)=>$state."km")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
 
 
