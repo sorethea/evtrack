@@ -108,8 +108,8 @@ class EvLogResource extends Resource
                 ->selectRaw('
                 ev_logs.*,
                 ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
-                (ev_logs.ac - parent.ac) AS gross_charge,
-                (ev_logs.ad - parent.ad) AS gross_discharge,
+                (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
+                (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
                 CASE
                     WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
                     THEN ev_logs.soc - parent.soc
