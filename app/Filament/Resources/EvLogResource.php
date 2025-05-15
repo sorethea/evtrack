@@ -135,7 +135,7 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('charge')
                     ->label(trans('ev.charge'))
-                    ->formatStateUsing(fn($state)=>$state."kWh")
+                    ->formatStateUsing(fn($state)=>$state."%")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('gross_charge')
                     ->label(trans('ev.gross_charge'))
@@ -143,7 +143,7 @@ class EvLogResource extends Resource
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('discharge')
                     ->label(trans('ev.discharge'))
-                    ->formatStateUsing(fn($state)=>$state."kWh")
+                    ->formatStateUsing(fn($state)=>$state."%")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('gross_discharge')
                     ->label(trans('ev.gross_discharge'))
