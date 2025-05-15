@@ -33,6 +33,8 @@ return [
     "distance"=>"Distance",
     "rb"=>"Regen",
     "gross"=>"Gross",
+    "gross_charge"=>"Gross Charge",
+    "gross_discharge"=>"Gross Discharge",
     "net"=>"Net",
     "capacity"=>"Capacity",
     "charge_capacity"=>"Charge Capacity",
