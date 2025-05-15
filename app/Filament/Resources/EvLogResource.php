@@ -42,9 +42,9 @@ class EvLogResource extends Resource
                         ->live()
                         ->label(trans('ev.parent'))
                         ->relationship('parent','date')
-                        ->getOptionLabelFromRecordUsing(fn (Model $record) =>"{$record->id}-". Carbon::parse($record->date)->format('dmY'))
+                        //->getOptionLabelFromRecordUsing(fn (Model $record) =>"{$record->id}-". Carbon::parse($record->date)->format('dmY'))
                         ->default(fn()=>EvLog::max('id'))
-                        ->searchable(['id','date'])
+                        ->searchable()
                         ->nullable(),
                     Forms\Components\Select::make("log_type")
                         ->live()
