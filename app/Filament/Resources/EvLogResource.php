@@ -118,7 +118,7 @@ class EvLogResource extends Resource
                 END as charge,
                 CASE
                     WHEN parent.soc IS NOT NULL AND parent.soc > ev_logs.soc
-                    THEN parent.(soc - ev_logs.soc)  * v.capacity/100
+                    THEN (parent.soc - ev_logs.soc)  * v.capacity/100
                     ELSE 0
                 END as discharge
             '))
