@@ -105,7 +105,6 @@ class EvLogResource extends Resource
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
-                ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
                 ->selectRaw('
                 ev_logs.*,
                 ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
@@ -113,12 +112,12 @@ class EvLogResource extends Resource
                 (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
                 CASE
                     WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
-                    THEN (ev_logs.soc - parent.soc) * v.capacity/100
+                    THEN ev_logs.soc - parent.soc
                     ELSE 0
                 END as charge,
                 CASE
                     WHEN parent.soc IS NOT NULL AND parent.soc > ev_logs.soc
-                    THEN (parent.soc - ev_logs.soc)  * v.capacity/100
+                    THEN parent.soc - ev_logs.soc
                     ELSE 0
                 END as discharge
             '))
@@ -132,19 +131,19 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
-                    ->formatStateUsing(fn($state)=>$state."%")
+                    //->formatStateUsing(fn($state)=>$state."%")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('charge')
                     ->label(trans('ev.charge'))
-                    ->formatStateUsing(fn($state)=>$state."kWh")
+                    //->formatStateUsing(fn($state)=>$state."kWh")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('gross_charge')
                     ->label(trans('ev.gross_charge'))
-                    ->formatStateUsing(fn($state)=>$state."kWh")
+                    //->formatStateUsing(fn($state)=>$state."kWh")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('discharge')
                     ->label(trans('ev.discharge'))
-                    ->formatStateUsing(fn($state)=>$state."kWh")
+                    //->formatStateUsing(fn($state)=>$state."kWh")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('gross_discharge')
                     ->label(trans('ev.gross_discharge'))
@@ -152,7 +151,7 @@ class EvLogResource extends Resource
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('trip_distance')
                     ->label(trans('ev.distance'))
-                    ->formatStateUsing(fn($state)=>$state."km")
+                    //->formatStateUsing(fn($state)=>$state."km")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
 
 
