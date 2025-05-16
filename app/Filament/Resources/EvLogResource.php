@@ -110,6 +110,7 @@ class EvLogResource extends Resource
                 ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
                 (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
                 (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
+                100*(ev_logs.ac - ev_logs.ad)/ev_logs.ac as gap_zero,
                 CASE
                     WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
                     THEN ev_logs.soc - parent.soc
@@ -153,6 +154,9 @@ class EvLogResource extends Resource
                     ->label(trans('ev.distance'))
                     ->formatStateUsing(fn($state)=>$state."km")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('gap_zero')
+                    ->label(trans('ev.gap_zero'))
+                    ->formatStateUsing(fn($state)=>$state."km"),
 
 
 //                Tables\Columns\TextColumn::make('consumption')
