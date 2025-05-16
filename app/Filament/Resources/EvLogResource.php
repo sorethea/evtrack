@@ -105,12 +105,13 @@ class EvLogResource extends Resource
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
+                ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
                 ->selectRaw('
-                ev_logs.*,
+                ev_logs.*, v.capacity,
                 ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
                 (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
                 (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
-                ROUND(100*(ev_logs.ac - ev_logs.ad)/ev_logs.ac,2) as gap_zero,
+                ev_logs.soc_actual - ROUND(100*(ev_logs.ac - ev_logs.ad)/v.capacity,1) as gap_zero,
                 CASE
                     WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
                     THEN ev_logs.soc - parent.soc
