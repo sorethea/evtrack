@@ -111,7 +111,7 @@ class EvLogResource extends Resource
                 ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
                 (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
                 (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
-                ev_logs.soc_actual - ROUND(100*(ev_logs.ac - ev_logs.ad)/v.capacity,1) as gap_zero,
+                ev_logs.soc - ROUND(100*(ev_logs.ac - ev_logs.ad)/v.capacity,1) as gap_zero,
                 CASE
                     WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
                     THEN ev_logs.soc - parent.soc
