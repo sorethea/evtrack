@@ -12,9 +12,9 @@ class EvLogObserver
     public function created(EvLog $evLog): void
     {
         $maxDate = EvLog::max('date');
-
         if($evLog->date >=$maxDate){
-            $evLog->vehicle->soc = $evLog->soc;
+            $evLog->vehicle->soc = $evLog->soc_actual;
+            $evLog->vehicle->odo = $evLog->odo;
             $evLog->vehicle->save();
         }
         $evLog->vehicle_id = auth()->user()->vehicle->id;
@@ -27,9 +27,9 @@ class EvLogObserver
     public function updated(EvLog $evLog): void
     {
         $maxDate = EvLog::max('date');
-        logger($maxDate);
         if($evLog->date >=$maxDate){
             $evLog->vehicle->soc = $evLog->soc_actual;
+            $evLog->vehicle->odo = $evLog->odo;
             $evLog->vehicle->save();
         }
     }
