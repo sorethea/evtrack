@@ -59,7 +59,7 @@ class DrivingLogResource extends Resource
                 ])->columns(2)
             ]);
     }
-
+    protected static bool $shouldRegisterNavigation = false;
     public static function table(Table $table): Table
     {
         return $table

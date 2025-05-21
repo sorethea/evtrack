@@ -26,6 +26,7 @@ return [
             ],
         "name"=>"Log Types"
     ],
+    "trips"=>"Trips",
     "parent"=>"Parent",
     "discharge"=>"Discharge",
     "comment"=>"Comment",

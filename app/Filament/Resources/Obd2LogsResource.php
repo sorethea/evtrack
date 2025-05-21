@@ -10,12 +10,19 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class Obd2LogsResource extends Resource
 {
     protected static ?string $model = Obd2Logs::class;
+
+    public static function navigationLabel(?string $label): void
+    {
+        trans('ev.trips');
+    }
 
     protected static ?string $navigationIcon = 'heroicon-o-cloud-arrow-down';
 
