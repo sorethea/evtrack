@@ -51,18 +51,17 @@ class ListObd2Logs extends ListRecords
                     ])->columns(2)
 
                 ])
-                ->action(function (array $data){
+                ->action(function ( array $data){
                     $obd2Logs = config('ev.obd2logs');
                     $log = Obd2Logs::selectRaw('pid,MIN(value) AS value')
                         ->distinct()
                         ->whereIn('pid', array_keys($obd2Logs))
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
-                    $evLog = new EvLog();
                     foreach ($obd2Logs as $key=>$value){
                         $data[$value]=$log[$key]??null;
                     }
-                    $evLog->create($data);
+                    EvLog::create($data);
                     Obd2Logs::truncate();
 
                 }),
