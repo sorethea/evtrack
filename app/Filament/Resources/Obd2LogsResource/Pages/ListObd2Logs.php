@@ -59,16 +59,10 @@ class ListObd2Logs extends ListRecords
                         ->groupBy('pid')
                         ->pluck('value','pid')->toArray();
                     $evLog = new EvLog();
-                    $evLog->date=$data["date"];
-                    $evLog->parent_id=$data["parent_id"];
-                    $evLog->log_type=$data["log_type"];
-                    $evLog->charge_type=$data["charge_type"]??"";
                     foreach ($obd2Logs as $key=>$value){
-                        $evLog->$value=$log[$key]??null;
+                        $data[$value]=$log[$key]??null;
                     }
-                    //$evLog->distance = round($evLog->odo - $parent->odo,1);
-                    //$evLog->power = round($parent->soc - $evLog->soc,1);
-                    $evLog->save();
+                    $evLog->create($data);
                     Obd2Logs::truncate();
 
                 }),
