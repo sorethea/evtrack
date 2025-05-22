@@ -61,7 +61,10 @@ class ListObd2Logs extends ListRecords
                     foreach ($obd2Logs as $key=>$value){
                         $data[$value]=$log[$key]??null;
                     }
-                    EvLog::create($data);
+                    $maxEvLog = EvLog::max('date');
+                    $evLog = EvLog::create($data);
+                    if($evLog->date >=$maxEvLog)
+                        $evLog->vehicle(['soc'=>$evLog->soc_actual,'odo'=>$evLog->odo])->save();
                     Obd2Logs::truncate();
 
                 }),
