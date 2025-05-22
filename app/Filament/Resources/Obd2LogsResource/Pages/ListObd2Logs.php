@@ -7,6 +7,7 @@ use App\Filament\Resources\Obd2LogsResource;
 use App\Models\DrivingLog;
 use App\Models\EvLog;
 use App\Models\Obd2Logs;
+use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
@@ -63,7 +64,7 @@ class ListObd2Logs extends ListRecords
                     }
                     $maxEvLog = EvLog::max('date');
                     $evLog = EvLog::create($data);
-                    if($evLog->date >=$maxEvLog)
+                    if(Carbon::parse($evLog->date) >=Carbon::parse($maxEvLog))
                         $evLog->vehicle->save(['soc'=>$evLog->soc_actual,'odo'=>$evLog->odo]);
                     Obd2Logs::truncate();
 
