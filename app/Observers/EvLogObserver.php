@@ -58,7 +58,7 @@ class EvLogObserver
         //
     }
 
-    public function save(EvLog $evLog):void
+    public function saved(EvLog $evLog):void
     {
         $maxDate = EvLog::max('date');
         if($evLog->date >=$maxDate){
