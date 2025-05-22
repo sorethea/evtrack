@@ -57,4 +57,14 @@ class EvLogObserver
     {
         //
     }
+
+    public function save(EvLog $evLog):void
+    {
+        $maxDate = EvLog::max('date');
+        if($evLog->date >=$maxDate){
+            $evLog->vehicle->soc = $evLog->soc_actual;
+            $evLog->vehicle->odo = $evLog->odo;
+            $evLog->vehicle->save();
+        }
+    }
 }
