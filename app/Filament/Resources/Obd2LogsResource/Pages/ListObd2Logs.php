@@ -64,7 +64,7 @@ class ListObd2Logs extends ListRecords
                     }
                     $maxEvLog = EvLog::max('date');
                     $evLog = EvLog::create($data);
-                    if(Carbon::parse($evLog->date) >=Carbon::parse($maxEvLog))
+                    if($evLog->date >=Carbon::parse($maxEvLog))
                         $evLog->vehicle->save(['soc'=>$evLog->soc_actual,'odo'=>$evLog->odo]);
                     Obd2Logs::truncate();
 
