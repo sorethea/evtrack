@@ -25,6 +25,7 @@ class EvLogOverview extends BaseWidget
             ->whereYear('date',now()->year)
             ->value('max_odo');
         $distanceByMonth = EvLog::selectRaw('SUM(ev_logs.odo - COALESCE(parent.odo, 0)) AS distance,MONTH(date) AS month')
+            ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('distance')->toArray();
