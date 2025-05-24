@@ -28,19 +28,15 @@ class EvLogOverview extends BaseWidget
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('distance')->toArray();
-        $chargeThisMonth =array_sum(EvLog::selectRaw('ev_logs.ac - COALESCE(parent.ac, 0) AS charge')
-            ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
-            ->where('ev_logs.log_type','charging')
-            ->whereMonth('ev_logs.date',now()->month)
-            ->pluck('charge')->toArray());
-        $chargeByMonth = EvLog::selectRaw('SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,MONTH(ev_logs.date) AS month')
+        $chargeByMonth = EvLog::selectRaw('count(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge_count,SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,MONTH(ev_logs.date) AS month')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('ev_logs.log_type','=','charging')
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
-            ->pluck('charge')->toArray();
+            ->pluck('charge','charge_count')->toArray();
         $distance = end($distanceByMonth);
         $charge = end($chargeByMonth);
+        $chargeCount = array_key_last($chargeByMonth);
         $thisMonth = now()->format('M, Y');
         $currency = config("ev.currency");
         return [
@@ -50,7 +46,7 @@ class EvLogOverview extends BaseWidget
                 ->color('success')
                 ->chart($distanceByMonth),
             Stat::make("Total charging for: {$thisMonth}",Number::format($charge)."kWh")
-                //->description("Odometer start from {$minOdo} to {$maxOdo}")
+                ->description("Total number charge in {$thisMonth}")
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
                 ->chart($chargeByMonth),
