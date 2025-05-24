@@ -35,7 +35,7 @@ class EvLogOverview extends BaseWidget
             ->groupBy('month')
             ->pluck('charge','charge_count')->toArray();
         $dischargeByMonth = EvLog::selectRaw('
-                SUM(ev_logs.ad - COALESCE(parent.ad, 0) -
+                SUM(COALESCE(parent.ad, 0) - ev_logs.ad -
                 CASE
                     WHEN ev_logs.log_type like \'driving\'
                     THEN ev_logs.ac - parent.ac
