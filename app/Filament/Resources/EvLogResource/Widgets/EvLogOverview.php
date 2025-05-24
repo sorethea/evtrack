@@ -40,13 +40,13 @@ class EvLogOverview extends BaseWidget
         $thisMonth = now()->format('M, Y');
         $currency = config("ev.currency");
         return [
-            Stat::make("Total driving for: {$thisMonth}",Number::format($distance)."km")
+            Stat::make("Total driving in: {$thisMonth}",Number::format($distance)."km")
                 ->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-map')
                 ->color('success')
                 ->chart($distanceByMonth),
             Stat::make("Total charging for: {$thisMonth}",Number::format($charge)."kWh")
-                ->description("Total number charge in {$thisMonth}")
+                ->description("Total number  charge in: {$thisMonth} {$chargeCount}")
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
                 ->chart($chargeByMonth),
