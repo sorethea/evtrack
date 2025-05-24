@@ -5,6 +5,7 @@ namespace App\Filament\Resources\EvLogResource\Widgets;
 use App\Models\Charge;
 use App\Models\DrivingLog;
 use App\Models\EvLog;
+use Carbon\Carbon;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -28,10 +29,9 @@ class EvLogOverview extends BaseWidget
             ->groupBy('month')
             ->pluck('distance')->toArray();
         $distance = end($distanceByMonth);
-        $days = now()->daysInMonth;
         $currency = config("ev.currency");
         return [
-            Stat::make("Total driving for: ({$days}) ".now()->format('M, Y'),Number::format($distance)."km")
+            Stat::make("Total driving for: ".now()->format('M, Y'),Number::format($distance)."km")
                 ->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-map')
                 ->color('success')
