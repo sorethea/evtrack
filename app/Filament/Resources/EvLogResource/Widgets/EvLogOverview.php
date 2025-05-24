@@ -28,10 +28,15 @@ class EvLogOverview extends BaseWidget
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('distance')->toArray();
+        $chargeThisMonth = EvLog::selectRow('ev_logs.ac - COALESCE(parent.ac, 0) AS charge')
+            ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
+            ->where('ev_logs.log_type','>=','charging')
+            ->whereMonth('date',now()->month)
+            ->sum('charge');
         $chargeByMonth = EvLog::selectRaw('SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,MONTH(ev_logs.date) AS month')
+            ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('ev_logs.log_type','>=','charging')
             ->where('ev_logs.date','>=',now()->subMonths(12))
-            ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->groupBy('month')
             ->pluck('charge')->toArray();
         $distance = end($distanceByMonth);
@@ -44,7 +49,7 @@ class EvLogOverview extends BaseWidget
                 ->icon('heroicon-o-map')
                 ->color('success')
                 ->chart($distanceByMonth),
-            Stat::make("Total charging for: {$thisMonth}",Number::format($charge)."kWh")
+            Stat::make("Total charging for: {$thisMonth}",Number::format($chargeThisMonth)."kWh")
                 //->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
