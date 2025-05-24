@@ -28,7 +28,7 @@ class EvLogOverview extends BaseWidget
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('distance')->toArray();
-        $chargeThisMonth = EvLog::selectRow('ev_logs.ac - COALESCE(parent.ac, 0) AS charge')
+        $chargeThisMonth = EvLog::selectRaw('ev_logs.ac - COALESCE(parent.ac, 0) AS charge')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('ev_logs.log_type','>=','charging')
             ->whereMonth('date',now()->month)
