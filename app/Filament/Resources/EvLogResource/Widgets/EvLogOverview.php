@@ -16,10 +16,12 @@ class EvLogOverview extends BaseWidget
     protected function getStats(): array
     {
         $minOdo = EvLog::selectRaw('MIN(odo) AS min_odo')
-                ->where('date','=',now()->subMonths(12))
+                ->whereMonth('date',now()->month)
+                ->whereYear('date',now()->month)
                 ->value('min_odo');
         $maxOdo = EvLog::selectRaw('MAX(odo) AS max_odo')
-            ->where('date','>=',now()->subMonths(12))
+            ->whereMonth('date',now()->month)
+            ->whereYear('date',now()->month)
             ->value('max_odo');
         $distanceByMonth = EvLog::selectRaw('MAX(odo)-MIN(odo) AS distance,MONTH(date) AS month')
             ->where('date','>=',now()->subMonths(12))
@@ -29,7 +31,7 @@ class EvLogOverview extends BaseWidget
 
         $currency = config("ev.currency");
         return [
-            Stat::make("Total driving for: ".now()->format('M'),Number::format($distance)."km")
+            Stat::make("Total driving for: ".now()->format('M, Y'),Number::format($distance)."km")
                 ->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-map')
                 ->color('success')
