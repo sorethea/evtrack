@@ -34,19 +34,39 @@ class EvLogOverview extends BaseWidget
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('charge','charge_count')->toArray();
+        $dischargeByMonth = EvLog::selectRaw('
+                SUM(ev_logs.ad - COALESCE(parent.ad, 0) -
+                CASE
+                    WHEN ev_logs.log_type =="driving"
+                    THEN ev_logs.ac - parent.ac
+                    ELSE 0
+                END
+                ) AS discharge,
+                MONTH(ev_logs.date) AS month')
+            ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
+            ->where('ev_logs.log_type','=','charging')
+            ->where('ev_logs.date','>=',now()->subMonths(12))
+            ->groupBy('month')
+            ->pluck('discharge')->toArray();
         $distance = end($distanceByMonth);
         $charge = end($chargeByMonth);
+        $discharge = end($dischargeByMonth);
         $chargeCount = array_key_last($chargeByMonth);
         $thisMonth = now()->format('M, Y');
         $currency = config("ev.currency");
         return [
-            Stat::make("Total driving in: {$thisMonth}",Number::format($distance)."km")
+            Stat::make("Total driving in {$thisMonth}",Number::format($distance)."km")
                 ->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-map')
                 ->color('success')
                 ->chart($distanceByMonth),
-            Stat::make("Total charging for: {$thisMonth}",Number::format($charge)."kWh")
+            Stat::make("Total charging in {$thisMonth}",Number::format($charge)."kWh")
                 ->description("Charged {$chargeCount} time(s)")
+                ->icon('heroicon-o-bolt')
+                ->color('danger')
+                ->chart($chargeByMonth),
+            Stat::make("Total discharge in {$thisMonth}",Number::format($discharge)."kWh")
+                //->description("Charged {$chargeCount} time(s)")
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
                 ->chart($chargeByMonth),
