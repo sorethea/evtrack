@@ -24,15 +24,15 @@ class EvLogOverview extends BaseWidget
         $distanceByMonth = EvLog::selectRaw('MAX(odo)-MIN(odo) AS distance,MONTH(date) AS month')
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
-            ->pluck('distance');
-        $distance = end($distanceByMonth->toArray());
+            ->pluck('distance')->toArray();
+        $distance = end($distanceByMonth);
         $currency = config("ev.currency");
         return [
             Stat::make("Total driving for this month",Number::format($distance)."km")
                 ->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-map')
                 ->color('success')
-                ->chart($distanceByMonth->toArray()),
+                ->chart($distanceByMonth),
         ];
     }
 }
