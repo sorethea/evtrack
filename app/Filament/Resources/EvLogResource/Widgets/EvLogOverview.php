@@ -41,6 +41,7 @@ class EvLogOverview extends BaseWidget
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('discharge')->toArray();
+        logger($dischargeByMonth);
         $distance = $maxOdo - $minOdo;
         $charge = end($chargeByMonth);
         $discharge = end($dischargeByMonth);
