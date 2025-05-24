@@ -41,7 +41,6 @@ class EvLogOverview extends BaseWidget
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('discharge')->toArray();
-        logger($dischargeByMonth);
         $distance = $maxOdo - $minOdo;
         $charge = end($chargeByMonth);
         $discharge = end($dischargeByMonth);
@@ -59,11 +58,11 @@ class EvLogOverview extends BaseWidget
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
                 ->chart($chargeByMonth),
-            Stat::make("Total discharge in {$thisMonth}",Number::format($discharge)."kWh")
-                //->description("Charged {$chargeCount} time(s)")
-                ->icon('heroicon-o-bolt-slash')
-                ->color('danger')
-                ->chart($chargeByMonth),
+//            Stat::make("Total discharge in {$thisMonth}",Number::format($discharge)."kWh")
+//                //->description("Charged {$chargeCount} time(s)")
+//                ->icon('heroicon-o-bolt-slash')
+//                ->color('danger')
+//                ->chart($chargeByMonth),
         ];
     }
 }
