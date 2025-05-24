@@ -24,7 +24,7 @@ class EvLogOverview extends BaseWidget
             ->whereMonth('date',now()->month)
             ->whereYear('date',now()->year)
             ->value('max_odo');
-        $distanceByMonth = EvLog::selectRaw('MAX(odo)-MIN(odo) AS distance,MONTH(date) AS month')
+        $distanceByMonth = EvLog::selectRaw('SUM(ev_logs.odo - COALESCE(parent.odo, 0)) AS distance,MONTH(date) AS month')
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('distance')->toArray();
@@ -41,7 +41,7 @@ class EvLogOverview extends BaseWidget
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('discharge')->toArray();
-        $distance = $maxOdo - $minOdo;
+        $distance = end($distanceByMonth);
         $charge = end($chargeByMonth);
         $discharge = end($dischargeByMonth);
         $chargeCount = array_key_last($chargeByMonth);
