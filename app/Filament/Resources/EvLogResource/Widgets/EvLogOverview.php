@@ -46,6 +46,7 @@ class EvLogOverview extends BaseWidget
                 DATE_FORMAT(ev_logs.date,"%Y-%m") AS month')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('ev_logs.date','>=',now()->subMonths(12))
+            ->where('ev_logs.type','driving')
             ->groupBy('month')
             ->orderBy('month')
             ->pluck('discharge','month')
@@ -68,7 +69,7 @@ class EvLogOverview extends BaseWidget
                 ->color('danger')
                 ->chart($chargeByMonth),
             Stat::make("Total discharge in {$thisMonth}",Number::format($discharge)."kWh")
-                //->description("Charged {$chargeCount} time(s)")
+                ->description("Charged {$chargeCount} time(s)")
                 ->icon('heroicon-o-bolt-slash')
                 ->color('danger')
                 ->chart($chargeByMonth),
