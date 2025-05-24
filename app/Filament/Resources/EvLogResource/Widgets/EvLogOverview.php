@@ -37,7 +37,7 @@ class EvLogOverview extends BaseWidget
         $dischargeByMonth = EvLog::selectRaw('
                 SUM(ev_logs.ad - COALESCE(parent.ad, 0) -
                 CASE
-                    WHEN ev_logs.log_type =="driving"
+                    WHEN ev_logs.log_type like \'driving\'
                     THEN ev_logs.ac - parent.ac
                     ELSE 0
                 END
