@@ -25,9 +25,10 @@ class EvLogOverview extends BaseWidget
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('distance');
+        $distance = end($distanceByMonth->toArray());
         $currency = config("ev.currency");
         return [
-            Stat::make("Total driving for this month",Number::format(end($distanceByMonth->toArray()))."km")
+            Stat::make("Total driving for this month",Number::format($distance)."km")
                 ->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-map')
                 ->color('success')
