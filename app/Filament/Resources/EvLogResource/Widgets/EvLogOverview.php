@@ -24,17 +24,21 @@ class EvLogOverview extends BaseWidget
             ->whereMonth('date',now()->month)
             ->whereYear('date',now()->year)
             ->value('max_odo');
-        $distanceByMonth = EvLog::selectRaw('SUM(ev_logs.odo - COALESCE(parent.odo, 0)) AS distance,DATE_FORMAT(ev_logs.date,"%Y-%m") AS month')
+        $distanceByMonth = EvLog::selectRaw('SUM(ev_logs.odo - COALESCE(parent.odo, 0)) AS distance,
+        DATE_FORMAT(ev_logs.date,"%Y-%m") AS month')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->orderBy('month')
             ->pluck('distance','month')->toArray();
-        $chargeByMonth = EvLog::selectRaw('COUNT(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge_count,SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,MONTH(ev_logs.date) AS month')
+        $chargeByMonth = EvLog::selectRaw('COUNT(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge_count,
+        SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,
+        DATE_FORMAT(ev_logs.date,"%Y-%m") AS month')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('ev_logs.log_type','=','charging')
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
+            ->orderBy('month')
             ->pluck('charge','charge_count')->toArray();
         $dischargeByMonth = EvLog::selectRaw('
                 SUM(ev_logs.ad - COALESCE(parent.ad, 0)) AS discharge,
