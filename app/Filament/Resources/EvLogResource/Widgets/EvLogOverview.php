@@ -31,7 +31,7 @@ class EvLogOverview extends BaseWidget
         $chargeThisMonth =array_sum(EvLog::selectRaw('ev_logs.ac - COALESCE(parent.ac, 0) AS charge')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('ev_logs.log_type','>=','charging')
-            ->whereMonth('date',now()->month)
+            ->whereMonth('ev_logs.date',now()->month)
             ->pluck('charge')->toArray());
         $chargeByMonth = EvLog::selectRaw('SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,MONTH(ev_logs.date) AS month')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
