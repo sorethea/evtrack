@@ -46,7 +46,7 @@ class EvLogOverview extends BaseWidget
                 ->color('success')
                 ->chart($distanceByMonth),
             Stat::make("Total charging for: {$thisMonth}",Number::format($charge)."kWh")
-                ->description("Charged {$chargeCount} time(s) in: {$thisMonth} ")
+                ->description("Charged {$chargeCount} time(s)")
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
                 ->chart($chargeByMonth),
