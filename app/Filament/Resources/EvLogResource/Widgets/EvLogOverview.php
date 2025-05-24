@@ -28,11 +28,11 @@ class EvLogOverview extends BaseWidget
             ->where('date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->pluck('distance')->toArray();
-        $chargeByMonth = EvLog::selectRaw('ev_logs.ac - COALESCE(parent.ac, 0) AS charge,MONTH(ev_logs.date) AS month')
-            ->where('ev_logs.date','>=',now()->subMonths(12))
+        $chargeByMonth = EvLog::selectRaw('SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,MONTH(ev_logs.date) AS month')
             ->where('ev_logs.log_type','>=','charging')
+            ->where('ev_logs.date','>=',now()->subMonths(12))
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
-            //->groupBy('month')
+            ->groupBy('month')
             ->pluck('charge')->toArray();
         $distance = end($distanceByMonth);
         $charge = end($chargeByMonth);
