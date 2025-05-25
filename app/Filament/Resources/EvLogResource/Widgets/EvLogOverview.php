@@ -54,7 +54,7 @@ class EvLogOverview extends BaseWidget
         $distance = end($distanceByMonthArray);
         $chargeByMonthArray = $chargeByMonth->pluck("charge","charge_count")->toArray();
         $charge = end($chargeByMonthArray);
-        $dischargeByMonthArray = $dischargeByMonth->pluch('discharge','month')->toArray();
+        $dischargeByMonthArray = $dischargeByMonth->pluck('discharge','month')->toArray();
         $regenArray = $dischargeByMonth->pluck('regen','month')->toArray();
         $regen = end($regenArray);
         $discharge = end($dischargeByMonthArray);
