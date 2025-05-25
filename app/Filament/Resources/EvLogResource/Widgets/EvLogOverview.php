@@ -35,11 +35,9 @@ class EvLogOverview extends BaseWidget
         SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,
         DATE_FORMAT(ev_logs.date,"%Y-%m") AS month')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
-            ->where('ev_logs.log_type','=','charging')
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+            ->orderBy('month');
         $dischargeByMonth = EvLog::selectRaw('
                 SUM(ev_logs.ac-COALESCE(parent.ac, 0)) AS regen,
                 SUM(ev_logs.ad - COALESCE(parent.ad, 0)-(ev_logs.ac-COALESCE(parent.ac, 0))) AS discharge,
@@ -52,8 +50,14 @@ class EvLogOverview extends BaseWidget
             ->get();
         $distanceByMonthArray=$distanceByMonth->pluck("distance","month")->toArray();
         $distance = end($distanceByMonthArray);
-        $chargeByMonthArray = $chargeByMonth->pluck("charge","month")->toArray();
+        $chargeByMonthArray = $chargeByMonth
+            ->where('ev_logs.log_type','=','charging')
+            ->pluck("charge","month")->toArray();
+        $regenByMonthArray = $chargeByMonth
+            ->where('ev_logs.log_type','=','driving')
+            ->pluck("charge","month")->toArray();
         $charge = end($chargeByMonthArray);
+        $regen = end($regenByMonthArray);
         $dischargeByMonthArray = $dischargeByMonth->pluck('discharge','month')->toArray();
         $regenArray = $dischargeByMonth->pluck('regen','month')->toArray();
         $regen = end($regenArray);
@@ -69,12 +73,12 @@ class EvLogOverview extends BaseWidget
                 ->color('success')
                 ->chart($distanceByMonthArray),
             Stat::make("Total charging in {$thisMonth}",Number::format($charge)."kWh")
-                ->description("Charged {$chargeCount} time(s)")
+                ->description("Total regenerative braking: {$regen}kWh")
                 ->icon('heroicon-o-bolt')
                 ->color('danger')
                 ->chart($chargeByMonthArray),
             Stat::make("Total discharge in {$thisMonth}",Number::format($discharge)."kWh")
-                ->description("Gross discharge {$grossDischarge}kWh, and braking {$regen}kWh")
+                ->description("Total gross discharge {$grossDischarge}kWh")
                 ->icon('heroicon-o-bolt-slash')
                 ->color('warning')
                 ->chart($dischargeByMonthArray),
