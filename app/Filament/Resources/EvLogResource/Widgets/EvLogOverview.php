@@ -64,7 +64,7 @@ class EvLogOverview extends BaseWidget
                 ->description("Odometer start from {$minOdo} to {$maxOdo}")
                 ->icon('heroicon-o-map')
                 ->color('success')
-                ->chart($distanceByMonth),
+                ->chart($distanceByMonthArray),
             Stat::make("Total charging in {$thisMonth}",Number::format($charge)."kWh")
                 ->description("Charged {$chargeCount} time(s)")
                 ->icon('heroicon-o-bolt')
