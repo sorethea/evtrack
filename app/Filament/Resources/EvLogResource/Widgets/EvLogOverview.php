@@ -74,9 +74,9 @@ class EvLogOverview extends BaseWidget
                 ->color('danger')
                 ->chart($chargeByMonthArray),
             Stat::make("Total discharge in {$thisMonth}",Number::format($discharge)."kWh")
-                ->description("Gross discharge {$grossDischarge}, and regenerative braking {$regen} kWh")
+                ->description("Gross discharge {$grossDischarge}kWh, and regenerative {$regen}kWh")
                 ->icon('heroicon-o-bolt-slash')
-                ->color('danger')
+                ->color('warning')
                 ->chart($dischargeByMonthArray),
         ];
     }
