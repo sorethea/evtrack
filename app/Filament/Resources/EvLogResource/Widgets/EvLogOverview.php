@@ -46,13 +46,13 @@ class EvLogOverview extends BaseWidget
                 DATE_FORMAT(ev_logs.date,"%Y-%m") AS month')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
             ->where('ev_logs.date','>=',now()->subMonths(12))
-            ->where('ev_logs.log_type','driving')
+            ->where('ev_logs.log_type','=','driving')
             ->groupBy('month')
             ->orderBy('month')
             ->get();
         $distanceByMonthArray=$distanceByMonth->pluck("distance","month")->toArray();
         $distance = end($distanceByMonthArray);
-        $chargeByMonthArray = $chargeByMonth->pluck("charge","charge_count")->toArray();
+        $chargeByMonthArray = $chargeByMonth->pluck("charge","month")->toArray();
         $charge = end($chargeByMonthArray);
         $dischargeByMonthArray = $dischargeByMonth->pluck('discharge','month')->toArray();
         $regenArray = $dischargeByMonth->pluck('regen','month')->toArray();
