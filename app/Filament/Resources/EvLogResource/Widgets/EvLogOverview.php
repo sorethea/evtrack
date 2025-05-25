@@ -41,7 +41,7 @@ class EvLogOverview extends BaseWidget
             ->orderBy('month')
             ->get();
         $dischargeByMonth = EvLog::selectRaw('
-                SUM(ev_logs.ac-COALESCE(parent.ac, 0)) AS regen
+                SUM(ev_logs.ac-COALESCE(parent.ac, 0)) AS regen,
                 SUM(ev_logs.ad - COALESCE(parent.ad, 0)-regen) AS discharge,
                 DATE_FORMAT(ev_logs.date,"%Y-%m") AS month')
             ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
