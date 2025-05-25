@@ -55,7 +55,7 @@ class EvLogOverview extends BaseWidget
         $chargeByMonthArray = $chargeByMonth->pluck("charge","charge_count")->toArray();
         $charge = end($chargeByMonthArray);
         $dischargeByMonthArray = $dischargeByMonth->pluch('discharge','month')->toArray();
-        $regenArray = $dischargeByMonth->pluch('regen','month')->toArray();
+        $regenArray = $dischargeByMonth->pluck('regen','month')->toArray();
         $regen = end($regenArray);
         $discharge = end($dischargeByMonthArray);
         $chargeCount = array_key_last($chargeByMonthArray);
