@@ -58,6 +58,7 @@ class EvLogOverview extends BaseWidget
         $regenArray = $dischargeByMonth->pluck('regen','month')->toArray();
         $regen = end($regenArray);
         $discharge = end($dischargeByMonthArray);
+        $grossDischarge = $discharge + $regen;
         $chargeCount = array_key_last($chargeByMonthArray);
         $thisMonth = now()->format('M, Y');
         $currency = config("ev.currency");
@@ -73,7 +74,7 @@ class EvLogOverview extends BaseWidget
                 ->color('danger')
                 ->chart($chargeByMonthArray),
             Stat::make("Total discharge in {$thisMonth}",Number::format($discharge)."kWh")
-                ->description("Regenerative braking {$regen} kWh")
+                ->description("Gross discharge {$grossDischarge}, and regenerative braking {$regen} kWh")
                 ->icon('heroicon-o-bolt-slash')
                 ->color('danger')
                 ->chart($dischargeByMonthArray),
