@@ -58,7 +58,7 @@ class EvLogOverview extends BaseWidget
         $chargeByMonthArray = $chargeByMonth->pluck("charge","charge_count")->toArray();
         $charge = end($chargeByMonthArray);
         $discharge = end($dischargeByMonth);
-        $chargeCount = array_key_last($chargeByMonth);
+        $chargeCount = array_key_last($chargeByMonthArray);
         $thisMonth = now()->format('M, Y');
         $currency = config("ev.currency");
         return [
