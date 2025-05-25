@@ -30,7 +30,8 @@ class EvLogOverview extends BaseWidget
             ->where('ev_logs.date','>=',now()->subMonths(12))
             ->groupBy('month')
             ->orderBy('month')
-            ->pluck('distance','month')->toArray();
+            ->get();
+            //->pluck('distance','month')->toArray();
         $chargeByMonth = EvLog::selectRaw('COUNT(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge_count,
         SUM(ev_logs.ac - COALESCE(parent.ac, 0)) AS charge,
         DATE_FORMAT(ev_logs.date,"%Y-%m") AS month')
@@ -51,7 +52,8 @@ class EvLogOverview extends BaseWidget
             ->orderBy('month')
             ->pluck('discharge','month')
             ->toArray();
-        $distance = end($distanceByMonth);
+        $distanceByMonthArray=$distanceByMonth->pluck("distance","month")->toArray();
+        $distance = end($distanceByMonthArray);
         $charge = end($chargeByMonth);
         $discharge = end($dischargeByMonth);
         $chargeCount = array_key_last($chargeByMonth);
@@ -69,7 +71,7 @@ class EvLogOverview extends BaseWidget
                 ->color('danger')
                 ->chart($chargeByMonth),
             Stat::make("Total discharge in {$thisMonth}",Number::format($discharge)."kWh")
-                ->description("Charged {$chargeCount} time(s)")
+                //->description("Charged {$chargeCount} time(s)")
                 ->icon('heroicon-o-bolt-slash')
                 ->color('danger')
                 ->chart($chargeByMonth),
