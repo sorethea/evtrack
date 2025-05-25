@@ -76,7 +76,7 @@ class EvLogOverview extends BaseWidget
                 //->description("Charged {$chargeCount} time(s)")
                 ->icon('heroicon-o-bolt-slash')
                 ->color('danger')
-                ->chart($chargeByMonth),
+                ->chart($dischargeByMonth),
         ];
     }
 }
