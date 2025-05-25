@@ -57,12 +57,12 @@ class EvLogOverview extends BaseWidget
             ->where('ev_logs.log_type','=','driving')
             ->pluck("charge","month")->toArray();
         $charge = end($chargeByMonthArray);
-        $regen = end($regenByMonthArray);
+        //$regen = end($regenByMonthArray);
         $dischargeByMonthArray = $dischargeByMonth->pluck('discharge','month')->toArray();
         $regenArray = $dischargeByMonth->pluck('regen','month')->toArray();
         $regen = end($regenArray);
         $discharge = end($dischargeByMonthArray);
-        $averageConsumption = $discharge/$distance * 100;
+        $averageConsumption = round($discharge/$distance * 100);
         $grossDischarge = $discharge + $regen;
         $chargeCount = array_key_last($chargeByMonthArray);
         $thisMonth = now()->format('M, Y');
