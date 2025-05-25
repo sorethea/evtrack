@@ -62,13 +62,14 @@ class EvLogOverview extends BaseWidget
         $regenArray = $dischargeByMonth->pluck('regen','month')->toArray();
         $regen = end($regenArray);
         $discharge = end($dischargeByMonthArray);
+        $averageConsumption = $discharge/$distance * 100;
         $grossDischarge = $discharge + $regen;
         $chargeCount = array_key_last($chargeByMonthArray);
         $thisMonth = now()->format('M, Y');
         $currency = config("ev.currency");
         return [
             Stat::make("Total driving in {$thisMonth}",Number::format($distance)."km")
-                ->description("Odometer start from {$minOdo} to {$maxOdo}")
+                ->description("Average consumption: {$averageConsumption}kWh/100km")
                 ->icon('heroicon-o-map')
                 ->color('success')
                 ->chart($distanceByMonthArray),
