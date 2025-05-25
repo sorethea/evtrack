@@ -213,6 +213,7 @@ class EvLogResource extends Resource
             'index' => Pages\ListEvLogs::route('/'),
             'create' => Pages\CreateEvLog::route('/create'),
             'edit' => Pages\EditEvLog::route('/{record}/edit'),
+            'view' => Pages\ViewEvLog::route('/{record}'),
         ];
     }
 }
