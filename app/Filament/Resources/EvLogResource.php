@@ -113,20 +113,16 @@ class EvLogResource extends Resource
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->from('ev_logs','l')
                 ->leftJoin('ev_logs as p', 'l.parent_id', 'p.id')
-                ->leftJoinLateral(DB::table('ev_logs')
-                    ->whereColumn('cycle_id','l.id')
-                    ->orderBy('l.date','desc')
-                    ->limit(1)
-                    ,'c')
+//                ->leftJoinLateral(DB::table('ev_logs')
+//                    ->whereColumn('cycle_id','l.id')
+//                    ->orderBy('l.date','desc')
+//                    ->limit(1)
+//                    ,'c')
                 ->leftJoin('vehicles as v', 'l.vehicle_id', 'v.id')
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
                 l.*, v.capacity,
-                CASE
-                    WHEN l.log_type LIKE \'driving\'
-                    THEN ROUND(l.odo - COALESCE(p.odo, 0), 0)
-                    ELSE ROUND(l.odo - c.odo, 0)
-                 END AS trip_distance,
+                ROUND(l.odo - COALESCE(p.odo, 0), 0) AS trip_distance,
                 (l.ac - COALESCE(p.ac, 0)) AS gross_charge,
                 (l.ad - COALESCE(p.ad, 0)) AS gross_discharge,
                 l.soc - ROUND(100*(l.ac - l.ad)/v.capacity,1) as gap_zero,
