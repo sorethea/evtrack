@@ -113,7 +113,7 @@ class EvLogResource extends Resource
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
                 ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
-                ->where('ev_logs.log_type','charging')
+                //->where('ev_logs.log_type','charging')
                 ->selectRaw('
                 ev_logs.*, v.capacity,
                 ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
