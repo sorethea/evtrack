@@ -46,11 +46,14 @@ class ChargingCycleResource extends Resource
                 Tables\Columns\TextColumn::make('discharge')
                     ->label('Discharge (%)'),
                 Tables\Columns\TextColumn::make('a_regen')
-                    ->label('Regen'),
+                    ->label('Regen')
+                    ->toggleable(true),
                 Tables\Columns\TextColumn::make('a_charge')
-                    ->label('Acc Charge'),
+                    ->label('Acc Charge')
+                    ->toggleable(true),
                 Tables\Columns\TextColumn::make('a_discharge')
-                    ->label('Acc Discharge'),
+                    ->label('Acc Discharge')
+                    ->toggleable(true),
                 Tables\Columns\TextColumn::make('consumption')
                     ->label('kWh/100km'),
                 Tables\Columns\TextColumn::make('distance')
