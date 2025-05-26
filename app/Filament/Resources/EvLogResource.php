@@ -112,7 +112,7 @@ class EvLogResource extends Resource
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
-                ->join('ev_logs as cycle', 'ev_logs.cycle_id', 'cycle.id')
+                ->leftJoin('ev_logs as cycle', 'ev_logs.cycle_id', 'cycle.id')
                 ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
