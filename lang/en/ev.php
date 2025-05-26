@@ -5,6 +5,7 @@ return [
     "from"=>"From",
     "to"=>"To",
     "type"=>"Type",
+    "cycle"=>"Cycle",
     "soc"=>"SoC",
     "soc_actual"=>"SoC Actual",
     "soc_from"=>"SoC from",
