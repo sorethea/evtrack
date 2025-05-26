@@ -37,6 +37,10 @@ class ChargingCycleResource extends Resource
                 Tables\Columns\TextColumn::make('to_date')
                     ->date('d/m/y')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('from_soc')
+                    ->suffix('%'),
+                Tables\Columns\TextColumn::make('to_soc')
+                    ->suffix('%'),
             ])
             ->defaultSort('to_date','DESC')
             ->filters([
