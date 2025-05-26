@@ -55,7 +55,7 @@ class EvLogResource extends Resource
                         ->reactive()
                         ->label(trans('ev.cycle'))
                         ->relationship('cycle','date')
-                        ->hidden(fn(Get $get)=>$get->log_type=="driving")
+                        ->hidden(fn(Get $get)=>$get["log_type"]=="driving")
                         ->default(fn()=>EvLog::where("log_type","charging")->max('id'))
                         ->searchable()
                         ->nullable(),
