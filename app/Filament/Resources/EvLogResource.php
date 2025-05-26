@@ -131,8 +131,8 @@ class EvLogResource extends Resource
                 END AS trip_distance,
                 CASE
                     WHEN l.log_type =\'driving\'
-                    THEN (l.ac - COALESCE(p.ac, 0))
-                    ELSE c.odo - l.odo,0)
+                    THEN l.ac - COALESCE(p.ac, 0)
+                    ELSE c.odo - l.odo
                 END AS gross_charge,
                 (l.ad - COALESCE(p.ad, 0)) AS gross_discharge,
                 l.soc - ROUND(100*(l.ac - l.ad)/v.capacity,1) as gap_zero,
