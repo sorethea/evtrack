@@ -36,6 +36,7 @@ class ListObd2Logs extends ListRecords
                         Select::make('parent_id')
                             ->label(trans('ev.parent'))
                             ->options(EvLog::select(['id','date'])->orderBy('date','desc')->get()->pluck('date','id'))
+                            ->default(fn()=>EvLog::max('date'))
                             ->searchable(['id','date'])
                             ->nullable(),
                         Select::make("log_type")
