@@ -120,7 +120,7 @@ class EvLogResource extends Resource
                 CASE
                     WHEN ev_logs.log_type LIKE \'driving\'
                     THEN ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0)
-                    ELSE ROUND(COALESCE(cycle.odo, 0) - ev_logs.odo, 0)
+                    ELSE ROUND(cycle.odo - ev_logs.odo, 0)
                  END AS trip_distance,
                 (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
                 (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
