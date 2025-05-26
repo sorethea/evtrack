@@ -38,21 +38,21 @@ class ChargingCycleResource extends Resource
                     ->date('d/m/y')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('from_soc')
-                    ->description('%'),
+                    ->label('From SOC(%)'),
                 Tables\Columns\TextColumn::make('to_soc')
-                    ->description('%'),
+                    ->label('To SOC (%)'),
                 Tables\Columns\TextColumn::make('charge')
-                    ->description('%'),
+                    ->label('Charge (%)'),
                 Tables\Columns\TextColumn::make('discharge')
-                    ->description('%'),
+                    ->label('Discharge (%)'),
                 Tables\Columns\TextColumn::make('a_charge')
-                    ->description('kWh'),
+                    ->label('Acc Charge'),
                 Tables\Columns\TextColumn::make('a_discharge')
-                    ->description('kWh'),
+                    ->label('Acc Discharge'),
                 Tables\Columns\TextColumn::make('consumption')
-                    ->description('kWh/100km'),
+                    ->label('kWh/100km'),
                 Tables\Columns\TextColumn::make('distance')
-                    ->description('km'),
+                    ->label('Distance (km)'),
             ])
             ->defaultSort('to_date','DESC')
             ->filters([
