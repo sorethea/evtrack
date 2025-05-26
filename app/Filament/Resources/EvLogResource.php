@@ -112,7 +112,7 @@ class EvLogResource extends Resource
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
-                ->leftJoinLateral('SELECT c.odo AS c_odo FROM ev_logs WHERE c.cycle_id  = id ORDER BY date DESC LIMIT 1','c')
+                ->leftJoinLateral('SELECT c.odo AS c_odo FROM ev_logs WHERE c.cycle_id  = ev_logs.id ORDER BY ev_logs.date DESC LIMIT 1','c')
                 ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
