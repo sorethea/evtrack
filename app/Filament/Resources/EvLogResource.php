@@ -192,19 +192,19 @@ class EvLogResource extends Resource
 //                    }),
             ])
             ->filters([
-                Tables\Filters\QueryBuilder::make()
-                    ->constraints([
-                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('date'),
-                    ]),
-                Tables\Filters\SelectFilter::make('ev_logs.log_type')
-                    ->label(trans('ev.log_types.name'))
-                    ->options(trans('ev.log_types.options')),
-                Tables\Filters\SelectFilter::make('ev_logs.charge_type')
-                    ->label(trans('ev.charge_types.name'))
-                    ->options(trans('ev.charge_types.options')),
+//                Tables\Filters\QueryBuilder::make()
+//                    ->constraints([
+//                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('date'),
+//                    ]),
+//                Tables\Filters\SelectFilter::make('ev_logs.log_type')
+//                    ->label(trans('ev.log_types.name'))
+//                    ->options(trans('ev.log_types.options')),
+//                Tables\Filters\SelectFilter::make('ev_logs.charge_type')
+//                    ->label(trans('ev.charge_types.name'))
+//                    ->options(trans('ev.charge_types.options')),
 
             ])
-            ->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc'))
+            //->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc'))
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
