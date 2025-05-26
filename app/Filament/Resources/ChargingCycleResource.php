@@ -45,6 +45,8 @@ class ChargingCycleResource extends Resource
                     ->label('Charge (%)'),
                 Tables\Columns\TextColumn::make('discharge')
                     ->label('Discharge (%)'),
+                Tables\Columns\TextColumn::make('a_regen')
+                    ->label('Regen'),
                 Tables\Columns\TextColumn::make('a_charge')
                     ->label('Acc Charge'),
                 Tables\Columns\TextColumn::make('a_discharge')
