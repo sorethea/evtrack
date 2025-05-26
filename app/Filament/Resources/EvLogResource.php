@@ -110,69 +110,62 @@ class EvLogResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-//            ->modifyQueryUsing(fn (Builder $query) => $query
-//                ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
-//                ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
-//                ->where('ev_logs.log_type','charging')
-//                ->selectRaw('
-//                ev_logs.*, v.capacity,
-//                ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
-//                (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
-//                (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
-//                ev_logs.soc - ROUND(100*(ev_logs.ac - ev_logs.ad)/v.capacity,1) as gap_zero,
-//                CASE
-//                    WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
-//                    THEN ev_logs.soc - parent.soc
-//                    ELSE 0
-//                END as charge,
-//                CASE
-//                    WHEN parent.soc IS NOT NULL AND parent.soc > ev_logs.soc
-//                    THEN parent.soc - ev_logs.soc
-//                    ELSE 0
-//                END as discharge
-//            '))
-            ->modifyQueryUsing(fn (Builder $query)=>
-            $query
-                ->selectRaw("ev_logs.cycle_id")
-                ->leftJoin("ev_logs as p","ev_logs.parent_id","p.id")
-                ->leftJoin("vehicles as v","ev_logs.vehicle_id","v.id")
-                ->groupBy("ev_logs.cycle_id")
-            ->where("ev_logs.log_type","charging"))
+            ->modifyQueryUsing(fn (Builder $query) => $query
+                ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
+                ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
+                ->where('ev_logs.log_type','charging')
+                ->selectRaw('
+                ev_logs.*, v.capacity,
+                ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0) AS trip_distance,
+                (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
+                (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
+                ev_logs.soc - ROUND(100*(ev_logs.ac - ev_logs.ad)/v.capacity,1) as gap_zero,
+                CASE
+                    WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
+                    THEN ev_logs.soc - parent.soc
+                    ELSE 0
+                END as charge,
+                CASE
+                    WHEN parent.soc IS NOT NULL AND parent.soc > ev_logs.soc
+                    THEN parent.soc - ev_logs.soc
+                    ELSE 0
+                END as discharge
+            '))
             ->columns([
-//                Tables\Columns\TextColumn::make("date")
-//                    ->date('d M, Y')
-//                    ->searchable(),
-//                Tables\Columns\TextColumn::make("log_type")
-//                    ->label(trans('ev.type'))
-//                    ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
-//                    ->searchable(),
-//                Tables\Columns\TextColumn::make('soc')
-//                    ->label(trans('ev.soc'))
-//                    ->formatStateUsing(fn($state)=>$state."%")
-//                    ->searchable(),
-//                Tables\Columns\TextColumn::make('charge')
-//                    ->label(trans('ev.charge'))
-//                    ->formatStateUsing(fn($state)=>$state."%")
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-//                Tables\Columns\TextColumn::make('gross_charge')
-//                    ->label(trans('ev.gross_charge'))
-//                    ->formatStateUsing(fn($state)=>$state."kWh")
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-//                Tables\Columns\TextColumn::make('discharge')
-//                    ->label(trans('ev.discharge'))
-//                    ->formatStateUsing(fn($state)=>$state."%")
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-//                Tables\Columns\TextColumn::make('gross_discharge')
-//                    ->label(trans('ev.gross_discharge'))
-//                    ->formatStateUsing(fn($state)=>$state."kWh")
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-//                Tables\Columns\TextColumn::make('trip_distance')
-//                    ->label(trans('ev.distance'))
-//                    ->formatStateUsing(fn($state)=>$state."km")
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-//                Tables\Columns\TextColumn::make('gap_zero')
-//                    ->label(trans('ev.gap_zero'))
-//                    ->formatStateUsing(fn($state)=>$state."%"),
+                Tables\Columns\TextColumn::make("date")
+                    ->date('d M, Y')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make("log_type")
+                    ->label(trans('ev.type'))
+                    ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('soc')
+                    ->label(trans('ev.soc'))
+                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('charge')
+                    ->label(trans('ev.charge'))
+                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('gross_charge')
+                    ->label(trans('ev.gross_charge'))
+                    ->formatStateUsing(fn($state)=>$state."kWh")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('discharge')
+                    ->label(trans('ev.discharge'))
+                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('gross_discharge')
+                    ->label(trans('ev.gross_discharge'))
+                    ->formatStateUsing(fn($state)=>$state."kWh")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('trip_distance')
+                    ->label(trans('ev.distance'))
+                    ->formatStateUsing(fn($state)=>$state."km")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('gap_zero')
+                    ->label(trans('ev.gap_zero'))
+                    ->formatStateUsing(fn($state)=>$state."%"),
 
 
 //                Tables\Columns\TextColumn::make('consumption')
@@ -191,19 +184,19 @@ class EvLogResource extends Resource
 //                    }),
             ])
             ->filters([
-//                Tables\Filters\QueryBuilder::make()
-//                    ->constraints([
-//                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('date'),
-//                    ]),
-//                Tables\Filters\SelectFilter::make('ev_logs.log_type')
-//                    ->label(trans('ev.log_types.name'))
-//                    ->options(trans('ev.log_types.options')),
-//                Tables\Filters\SelectFilter::make('ev_logs.charge_type')
-//                    ->label(trans('ev.charge_types.name'))
-//                    ->options(trans('ev.charge_types.options')),
+                Tables\Filters\QueryBuilder::make()
+                    ->constraints([
+                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('date'),
+                    ]),
+                Tables\Filters\SelectFilter::make('ev_logs.log_type')
+                    ->label(trans('ev.log_types.name'))
+                    ->options(trans('ev.log_types.options')),
+                Tables\Filters\SelectFilter::make('ev_logs.charge_type')
+                    ->label(trans('ev.charge_types.name'))
+                    ->options(trans('ev.charge_types.options')),
 
             ])
-            //->defaultSort(fn(Builder $query)=>$query->orderBy('date','desc')->orderBy('id','desc'))
+            ->defaultSort(fn(Builder $query)=>$query->orderBy('ev_logs.date','desc')->orderBy('ev_logs.id','desc'))
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
