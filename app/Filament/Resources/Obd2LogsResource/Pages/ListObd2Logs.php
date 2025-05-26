@@ -36,7 +36,7 @@ class ListObd2Logs extends ListRecords
                         Select::make('parent_id')
                             ->label(trans('ev.parent'))
                             ->options(EvLog::select(['id','date'])->orderBy('date','desc')->get()->pluck('date','id'))
-                            ->default(fn()=>EvLog::max('date'))
+                            ->default(fn()=>EvLog::max('id'))
                             ->searchable(['id','date'])
                             ->nullable(),
                         Select::make("log_type")
@@ -51,8 +51,8 @@ class ListObd2Logs extends ListRecords
                             ->options(EvLog::select(['id','date'])->where('log_type','charging')->orderBy('date','desc')->get()->pluck('date','id'))
                             //->relationship('cycle','date')
                             ->hidden(fn(Get $get)=>$get("log_type")!="driving")
-                            ->default(fn()=>EvLog::where("log_type","charging")->max('date'))
-                            ->searchable()
+                            ->default(fn()=>EvLog::where("log_type","charging")->max('id'))
+                            ->searchable(['id','date'])
                             ->nullable(),
                         Select::make("charge_type")
                             ->label(trans('ev.charge_types.name'))
