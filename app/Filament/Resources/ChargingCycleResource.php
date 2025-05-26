@@ -38,24 +38,20 @@ class ChargingCycleResource extends Resource
                     ->date('d/m/y')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('from_soc')
-                    ->label('From SOC(%)')->toggleable()
-                    ->toggledHiddenByDefault(false),
+                    ->label('From SOC(%)')
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('to_soc')
                     ->label('To SOC (%)')
-                    ->toggleable()
-                    ->toggledHiddenByDefault(false),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('charge')
                     ->label('Charge (%)')
-                    ->toggleable()
-                    ->toggledHiddenByDefault(false),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('discharge')
                     ->label('Discharge (%)')
-                    ->toggleable()
-                    ->toggledHiddenByDefault(false),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('a_regen')
                     ->label('Regen(kWh)')
-                    ->toggleable()
-                    ->toggledHiddenByDefault(false),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('a_charge')
                     ->label('Acc Charge')
                     ->toggleable()
