@@ -13,7 +13,7 @@ class ManageChargingCycles extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->hidden(),
         ];
     }
 }
