@@ -42,7 +42,7 @@ class EvLogResource extends Resource
                         ->live()
                         ->label(trans('ev.parent'))
                         ->relationship('parent','date')
-                        ->default(fn()=>EvLog::max('id'))
+                        ->default(fn()=>EvLog::max('date'))
                         ->searchable()
                         ->nullable(),
                     Forms\Components\Select::make("log_type")
@@ -56,7 +56,7 @@ class EvLogResource extends Resource
                         ->label(trans('ev.cycle'))
                         ->relationship('cycle','date')
                         ->hidden(fn(Get $get)=>$get("log_type")!="driving")
-                        ->default(fn()=>EvLog::where("log_type","charging")->max('id'))
+                        ->default(fn()=>EvLog::where("log_type","charging")->max('date'))
                         ->searchable()
                         ->nullable(),
                     Forms\Components\TextInput::make("odo")
