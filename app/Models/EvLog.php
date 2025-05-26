@@ -13,6 +13,7 @@ class EvLog extends Model
     protected $fillable =[
         "parent_id",
         "vehicle_id",
+        "cycle_id",
         "date",
         "odo",
         "log_type",
@@ -34,6 +35,10 @@ class EvLog extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class,'parent_id');
+    }
+    public function cycle(): BelongsTo
+    {
+        return $this->belongsTo(self::class,'cycle_id')->where("log_type","charging");
     }
     public function vehicle(): BelongsTo
     {
