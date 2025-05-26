@@ -118,7 +118,7 @@ class EvLogResource extends Resource
                 ->selectRaw('
                 ev_logs.*, v.capacity,
                 CASE
-                    WHEN ev_logs.log_type LIKE \'charging\'
+                    WHEN ev_logs.log_type LIKE \'driving\'
                     THEN ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0)
                     ELSE ROUND(COALESCE(cycle.odo, 0) - ev_logs.odo, 0)
                  END AS trip_distance,
