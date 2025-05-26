@@ -34,7 +34,7 @@ return [
     "duration"=>"Duration",
     "distance"=>"Distance",
     "gap_zero"=>"Gap Zero",
-    "rb"=>"Regen",
+    "rb"=>"Regenerative",
     "gross"=>"Gross",
     "gross_charge"=>"Gross Charge",
     "gross_discharge"=>"Gross Discharge",

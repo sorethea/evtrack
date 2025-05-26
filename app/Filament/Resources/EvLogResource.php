@@ -129,11 +129,12 @@ class EvLogResource extends Resource
                     THEN ROUND(l.odo - COALESCE(p.odo, 0), 0)
                     ELSE ROUND(c.odo - l.odo,0)
                 END AS trip_distance,
+                l.ac - COALESCE(p.ac, 0) AS gross_charge,
                 CASE
                     WHEN l.log_type =\'driving\'
                     THEN l.ac - COALESCE(p.ac, 0)
                     ELSE c.ac - l.ac
-                END AS gross_charge,
+                END AS regen_charge,
                 (l.ad - COALESCE(p.ad, 0)) AS gross_discharge,
                 l.soc - ROUND(100*(l.ac - l.ad)/v.capacity,1) as gap_zero,
                 CASE
@@ -163,13 +164,17 @@ class EvLogResource extends Resource
                     ->label(trans('ev.charge'))
                     ->formatStateUsing(fn($state)=>$state."%")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
-                Tables\Columns\TextColumn::make('gross_charge')
-                    ->label(trans('ev.gross_charge'))
-                    ->formatStateUsing(fn($state)=>$state."kWh")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('discharge')
                     ->label(trans('ev.discharge'))
                     ->formatStateUsing(fn($state)=>$state."%")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('regen_charge')
+                    ->label(trans('ev.rb'))
+                    ->formatStateUsing(fn($state)=>$state."kWh")
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('gross_charge')
+                    ->label(trans('ev.gross_charge'))
+                    ->formatStateUsing(fn($state)=>$state."kWh")
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('gross_discharge')
                     ->label(trans('ev.gross_discharge'))
