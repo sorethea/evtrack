@@ -49,6 +49,10 @@ class ChargingCycleResource extends Resource
                     ->suffix('kWh'),
                 Tables\Columns\TextColumn::make('a_discharge')
                     ->suffix('kWh'),
+                Tables\Columns\TextColumn::make('consumption')
+                    ->suffix('kWh/100km'),
+                Tables\Columns\TextColumn::make('distance')
+                    ->suffix('km'),
             ])
             ->defaultSort('to_date','DESC')
             ->filters([
