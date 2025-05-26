@@ -124,7 +124,11 @@ class EvLogResource extends Resource
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
                 l.*, v.capacity,
-                ROUND(l.odo - COALESCE(p.odo, 0), 0) AS trip_distance,
+                CASE
+                    WHEN l.log_type=\'driving\'
+                    THEN ROUND(l.odo - COALESCE(p.odo, 0), 0)
+                    ELSE ROUND(c.odo - l.odo,0)
+                 END AS trip_distance,
                 (l.ac - COALESCE(p.ac, 0)) AS gross_charge,
                 (l.ad - COALESCE(p.ad, 0)) AS gross_discharge,
                 l.soc - ROUND(100*(l.ac - l.ad)/v.capacity,1) as gap_zero,
