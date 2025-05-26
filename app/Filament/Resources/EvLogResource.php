@@ -149,7 +149,7 @@ class EvLogResource extends Resource
                 CASE
                     WHEN p.soc IS NOT NULL AND p.soc > l.soc
                     THEN p.soc - l.soc
-                    ELSE 0
+                    ELSE l.soc - c.soc
                 END as discharge
             '))
             ->columns([
