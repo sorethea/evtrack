@@ -123,7 +123,7 @@ class EvLogResource extends Resource
                       )) c'),'l.id','c.cycle_id')
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
-                l.*, l.log_type =\'driving\' AS is_driving v.capacity,
+                l.*, l.log_type =\'driving\' AS is_driving, v.capacity,
                 CASE
                     WHEN is_driving
                     THEN ROUND(l.odo - COALESCE(p.odo, 0), 0)
