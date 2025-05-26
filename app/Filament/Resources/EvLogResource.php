@@ -132,7 +132,9 @@ class EvLogResource extends Resource
 //                END as discharge
 //            '))
             ->modifyQueryUsing(fn (Builder $query)=>
-            $query->selectRaw("c.cycle_id FROM ev_logs AS c")
+            $query
+                ->from('ev_logs AS c')
+                ->selectRaw("c.cycle_id")
                 ->leftJoin("ev_logs as p","c.parent_id","p.id")
                 ->leftJoin("vehicles as v","c.vehicle_id","v.id")
                 ->groupBy("c.cycle_id")
