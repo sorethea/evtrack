@@ -112,7 +112,7 @@ class EvLogResource extends Resource
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
-                ->leftJoin('ev_logs as cycle', 'ev_logs.cycle_id', 'cycle.id')
+                ->leftJoinLateral('SELECT c.odo AS c_odo FROM ev_logs AS c WHERE c.cycle_id  = id ORDER BY date DESC LIMIT 1')
                 ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
@@ -120,7 +120,7 @@ class EvLogResource extends Resource
                 CASE
                     WHEN ev_logs.log_type LIKE \'driving\'
                     THEN ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0)
-                    ELSE ROUND(ev_logs.odo - COALESCE(cycle.odo, 0), 0)
+                    ELSE ROUND(ev_logs.odo - c_odo, 0)
                  END AS trip_distance,
                 (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
                 (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
