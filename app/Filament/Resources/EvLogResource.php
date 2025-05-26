@@ -132,7 +132,7 @@ class EvLogResource extends Resource
                 CASE
                     WHEN l.log_type =\'driving\'
                     THEN l.ac - COALESCE(p.ac, 0)
-                    ELSE c.odo - l.odo
+                    ELSE c.ac - l.ac
                 END AS gross_charge,
                 (l.ad - COALESCE(p.ad, 0)) AS gross_discharge,
                 l.soc - ROUND(100*(l.ac - l.ad)/v.capacity,1) as gap_zero,
