@@ -27,7 +27,7 @@ class EvLogResource extends Resource
     use Tables\Concerns\InteractsWithTable;
     protected static ?string $model = EvLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-code-bracket';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar';
 
     public static function form(Form $form): Form
     {
