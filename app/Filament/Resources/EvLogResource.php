@@ -113,11 +113,14 @@ class EvLogResource extends Resource
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->from('ev_logs','l')
                 ->leftJoin('ev_logs as p', 'l.parent_id', 'p.id')
-                ->leftJoinLateral(DB::table('ev_logs')
-                    ->whereColumn('c.cycle_id','l.id')
-                    ->orderBy('c.date','desc')
-                    ->limit(1)
-                    ,'c')
+                ->leftJoin(DB::raw('(SELECT *
+                    FROM ev_logs
+                    WHERE cycle_id = l.id
+                    ORDER BY `date` DESC
+                    LIMIT 1) AS c')
+                    ,function ($join){
+                        $join->on('l.id','=','c.cycle_id');
+                    })
                 ->leftJoin('vehicles as v', 'l.vehicle_id', 'v.id')
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
