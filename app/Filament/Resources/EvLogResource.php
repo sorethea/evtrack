@@ -114,6 +114,13 @@ class EvLogResource extends Resource
                 ->from('ev_logs','l')
                 ->leftJoin('ev_logs as p', 'l.parent_id', 'p.id')
                 ->leftJoin('vehicles as v', 'l.vehicle_id', 'v.id')
+                ->leftJoin(DB::raw('(SELECT *
+                      FROM ev_logs
+                      WHERE (cycle_id, soc) IN (
+                        SELECT cycle_id, MIN(soc)
+                        FROM ev_logs
+                        GROUP BY cycle_id
+                      )) c'),'l.id','c.cycle_id')
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
                 l.*, v.capacity,
