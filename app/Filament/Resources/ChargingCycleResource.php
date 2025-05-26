@@ -41,6 +41,10 @@ class ChargingCycleResource extends Resource
                     ->suffix('%'),
                 Tables\Columns\TextColumn::make('to_soc')
                     ->suffix('%'),
+                Tables\Columns\TextColumn::make('charge')
+                    ->suffix('%'),
+                Tables\Columns\TextColumn::make('discharge')
+                    ->suffix('%'),
             ])
             ->defaultSort('to_date','DESC')
             ->filters([
