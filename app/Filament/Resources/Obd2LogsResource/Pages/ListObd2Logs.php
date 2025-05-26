@@ -44,6 +44,14 @@ class ListObd2Logs extends ListRecords
                             ->options(trans("ev.log_types.options"))
                             ->default('driving')
                             ->nullable(),
+                        Select::make("cycle_id")
+                            ->reactive()
+                            ->label(trans('ev.cycle'))
+                            ->relationship('cycle','date')
+                            ->hidden(fn(Get $get)=>$get("log_type")!="driving")
+                            ->default(fn()=>EvLog::where("log_type","charging")->max('date'))
+                            ->searchable()
+                            ->nullable(),
                         Select::make("charge_type")
                             ->label(trans('ev.charge_types.name'))
                             ->options(trans("ev.charge_types.options"))
