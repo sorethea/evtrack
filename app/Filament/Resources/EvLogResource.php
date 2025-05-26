@@ -114,7 +114,7 @@ class EvLogResource extends Resource
                 ->from('ev_logs','l')
                 ->leftJoin('ev_logs as p', 'l.parent_id', 'p.id')
                 ->leftJoinLateral(DB::table('ev_logs')
-                    ->whereColumn('cycle_id','l.id')
+                    ->whereColumn('c.cycle_id','l.id')
                     ->orderBy('l.date','desc')
                     ->limit(1)
                     ,'c')
