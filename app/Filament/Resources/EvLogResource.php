@@ -111,32 +111,33 @@ class EvLogResource extends Resource
     {
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query
-                ->leftJoin('ev_logs as parent', 'ev_logs.parent_id', 'parent.id')
+                ->from('ev_logs','l')
+                ->leftJoin('ev_logs as p', 'l.parent_id', 'p.id')
                 ->leftJoinLateral(DB::table('ev_logs')
-                    ->whereColumn('cycle_id','ev_logs.id')
-                    ->orderBy('ev_logs.date','desc')
+                    ->whereColumn('cycle_id','l.id')
+                    ->orderBy('l.date','desc')
                     ->limit(1)
-                    ,'children')
-                ->leftJoin('vehicles as v', 'ev_logs.vehicle_id', 'v.id')
+                    ,'c')
+                ->leftJoin('vehicles as v', 'l.vehicle_id', 'v.id')
                 //->where('ev_logs.log_type','charging')
                 ->selectRaw('
-                ev_logs.*, v.capacity,
+                l.*, v.capacity,
                 CASE
-                    WHEN ev_logs.log_type LIKE \'driving\'
-                    THEN ROUND(ev_logs.odo - COALESCE(parent.odo, 0), 0)
-                    ELSE ROUND(ev_logs.odo - children.odo, 0)
+                    WHEN l.log_type LIKE \'driving\'
+                    THEN ROUND(l.odo - COALESCE(p.odo, 0), 0)
+                    ELSE ROUND(l.odo - c.odo, 0)
                  END AS trip_distance,
-                (ev_logs.ac - COALESCE(parent.ac, 0)) AS gross_charge,
-                (ev_logs.ad - COALESCE(parent.ad, 0)) AS gross_discharge,
-                ev_logs.soc - ROUND(100*(ev_logs.ac - ev_logs.ad)/v.capacity,1) as gap_zero,
+                (l.ac - COALESCE(p.ac, 0)) AS gross_charge,
+                (l.ad - COALESCE(p.ad, 0)) AS gross_discharge,
+                l.soc - ROUND(100*(l.ac - l.ad)/v.capacity,1) as gap_zero,
                 CASE
-                    WHEN parent.soc IS NOT NULL AND ev_logs.soc > parent.soc
-                    THEN ev_logs.soc - parent.soc
+                    WHEN p.soc IS NOT NULL AND l.soc > p.soc
+                    THEN l.soc - p.soc
                     ELSE 0
                 END as charge,
                 CASE
-                    WHEN parent.soc IS NOT NULL AND parent.soc > ev_logs.soc
-                    THEN parent.soc - ev_logs.soc
+                    WHEN p.soc IS NOT NULL AND p.soc > l.soc
+                    THEN p.soc - l.soc
                     ELSE 0
                 END as discharge
             '))
@@ -195,17 +196,17 @@ class EvLogResource extends Resource
             ->filters([
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
-                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('date'),
+                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('l.date'),
                     ]),
-                Tables\Filters\SelectFilter::make('ev_logs.log_type')
+                Tables\Filters\SelectFilter::make('l.log_type')
                     ->label(trans('ev.log_types.name'))
                     ->options(trans('ev.log_types.options')),
-                Tables\Filters\SelectFilter::make('ev_logs.charge_type')
+                Tables\Filters\SelectFilter::make('l.charge_type')
                     ->label(trans('ev.charge_types.name'))
                     ->options(trans('ev.charge_types.options')),
 
             ])
-            ->defaultSort(fn(Builder $query)=>$query->orderBy('ev_logs.date','desc')->orderBy('ev_logs.id','desc'))
+            ->defaultSort(fn(Builder $query)=>$query->orderBy('l.date','desc')->orderBy('l.id','desc'))
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
