@@ -13,9 +13,21 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement('CREATE VIEW charging_cycles_view AS
-        SELECT p.date AS from_date, c.date AS to_date, ROUND(c.odo - p.odo,0 )as distance
+        SELECT
+        p.date AS from_date,
+        c.date AS to_date,
+        p.soc AS from_soc,
+        c.soc AS to_soc,
+        ROUND(p.soc - cp.soc,1)AS charge,
+        ROUND(p.soc - c.soc,1)AS discharge,
+        ROUND(p.ac - cp.ac,0)AS a_charge,
+        ROUND(c.ac - p.ac,0)AS a_regen,
+        ROUND(c.ad - p.ad,0)AS a_discharge,
+        ROUND(100*(ROUND(c.ad - p.ad,0)-ROUND(c.ac - p.ac,0))/ROUND(c.odo - p.odo,0 ),0)AS consumption,
+        ROUND(c.odo - p.odo,0 )as distance
         FROM ev_logs p
-
+        LEFT JOIN ev_logs cp ON p.parent_id = cp.id
+        LEFT JOIN ev_logs v ON p.vehicle_id = v.id
         LEFT JOIN (
           SELECT *
           FROM ev_logs
