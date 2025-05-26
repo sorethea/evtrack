@@ -45,18 +45,19 @@ class EvLogResource extends Resource
                         ->default(fn()=>EvLog::max('id'))
                         ->searchable()
                         ->nullable(),
-                    Forms\Components\Select::make("cycle_id")
-                        ->live()
-                        ->label(trans('ev.cycle'))
-                        ->relationship('cycle','date')
-                        ->default(fn()=>EvLog::where("log_type","charging")->max('id'))
-                        ->searchable()
-                        ->nullable(),
                     Forms\Components\Select::make("log_type")
                         ->live()
                         ->label(trans('ev.log_types.name'))
                         ->options(trans("ev.log_types.options"))
                         ->default('driving')
+                        ->nullable(),
+                    Forms\Components\Select::make("cycle_id")
+                        ->reactive()
+                        ->label(trans('ev.cycle'))
+                        ->relationship('cycle','date')
+                        ->hidden(fn(Get $get)=>$get->log_type=="driving")
+                        ->default(fn()=>EvLog::where("log_type","charging")->max('id'))
+                        ->searchable()
                         ->nullable(),
                     Forms\Components\TextInput::make("odo")
                         ->label(trans('ev.odo'))
