@@ -14,7 +14,7 @@ return new class extends Migration
     {
         DB::statement('CREATE VIEW charging_cycles_view AS
         SELECT
-        ROW_NUMBER() OVER () AS id,
+        p.id AS id,
         p.date AS from_date,
         c.date AS to_date,
         p.soc AS from_soc,
