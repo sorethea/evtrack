@@ -38,7 +38,7 @@ class ChargingCycleResource extends Resource
                     ->date('d/m/y')
                     ->searchable(),
             ])
-            ->defaultSort('to_date','DESC')
+            //->defaultSort('to_date','DESC')
             ->filters([
                 //
             ])
