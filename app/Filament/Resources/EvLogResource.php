@@ -133,12 +133,11 @@ class EvLogResource extends Resource
 //            '))
             ->modifyQueryUsing(fn (Builder $query)=>
             $query
-                ->from('ev_logs AS c')
-                ->selectRaw("c.cycle_id")
-                ->leftJoin("ev_logs as p","c.parent_id","p.id")
-                ->leftJoin("vehicles as v","c.vehicle_id","v.id")
-                ->groupBy("c.cycle_id")
-            ->where("c.log_type","charging"))
+                ->selectRaw("ev_logs.cycle_id")
+                ->leftJoin("ev_logs as p","ev_logs.parent_id","p.id")
+                ->leftJoin("vehicles as v","ev_logs.vehicle_id","v.id")
+                ->groupBy("ev_logs.cycle_id")
+            ->where("ev_logs.log_type","charging"))
             ->columns([
 //                Tables\Columns\TextColumn::make("date")
 //                    ->date('d M, Y')
