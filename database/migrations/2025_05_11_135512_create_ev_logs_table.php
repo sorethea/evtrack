@@ -28,7 +28,6 @@ return new class extends Migration
             $table->double('power')->nullable();
             $table->double('power_charge')->nullable();
             $table->double('power_discharge')->nullable();
-            $table->double('distance')->nullable();
             $table->double('highest_volt_cell')->nullable();
             $table->double('lowest_volt_cell')->nullable();
             $table->double('highest_temp_cell')->nullable();
