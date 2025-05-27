@@ -32,10 +32,10 @@ class ChargingCycleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('from_date')
-                    ->date('d/m/y h:i')
+                    ->date('d/m/y H:i')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('to_date')
-                    ->date('d/m/y h:i')
+                    ->date('d/m/y H:i')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('from_soc')
                     ->label('From SOC(%)')
