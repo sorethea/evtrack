@@ -162,21 +162,17 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc')
                     ->label(trans('ev.soc'))
-                    ->numeric()
-                    ->formatStateUsing(fn($state)=>$state."%")
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."%")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('odo')
                     ->label(trans('ev.odo'))
-                    ->numeric()
-                    ->formatStateUsing(fn($state)=>$state."km"),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."km"),
                 Tables\Columns\TextColumn::make('ac')
                     ->label(trans('ev.charge'))
-                    ->numeric()
-                    ->formatStateUsing(fn($state)=>$state."kWh"),
+                    ->formatStateUsing(fn($state)=>Number::format($state,0)."kWh"),
                 Tables\Columns\TextColumn::make('ad')
                     ->label(trans('ev.discharge'))
-                    ->numeric()
-                    ->formatStateUsing(fn($state)=>$state."kWh"),
+                    ->formatStateUsing(fn($state)=>Number::format($state,0)."kWh"),
 //                Tables\Columns\TextColumn::make('gross_charge')
 //                    ->label(trans('ev.gross_charge'))
 //                    ->formatStateUsing(fn($state)=>$state."kWh")
