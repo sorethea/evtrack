@@ -68,7 +68,8 @@ class ChargingCycleResource extends Resource
                 Tables\Columns\TextColumn::make('consumption')
                     ->label('kWh/100km'),
                 Tables\Columns\TextColumn::make('distance')
-                    ->label('Distance (km)'),
+                    ->label('Distance (km)')
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
             ])
             ->defaultSort('from_date','DESC')
             ->filters([
