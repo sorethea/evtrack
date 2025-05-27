@@ -166,16 +166,13 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('odo')
                     ->label(trans('ev.odo'))
-                    ->formatStateUsing(fn($state)=>$state."km")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                    ->formatStateUsing(fn($state)=>$state."km"),
                 Tables\Columns\TextColumn::make('ac')
                     ->label(trans('ev.charge'))
-                    ->formatStateUsing(fn($state)=>$state."kWh")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                    ->formatStateUsing(fn($state)=>$state."kWh"),
                 Tables\Columns\TextColumn::make('ad')
                     ->label(trans('ev.discharge'))
-                    ->formatStateUsing(fn($state)=>$state."kWh")
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                    ->formatStateUsing(fn($state)=>$state."kWh"),
 //                Tables\Columns\TextColumn::make('gross_charge')
 //                    ->label(trans('ev.gross_charge'))
 //                    ->formatStateUsing(fn($state)=>$state."kWh")
