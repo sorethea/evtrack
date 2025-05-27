@@ -156,6 +156,10 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
                     ->searchable(),
+                Tables\Columns\TextColumn::make("cycle.date")
+                    ->label('Cycle')
+                    ->date('d M, Y H:i')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make("log_type")
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
