@@ -208,7 +208,7 @@ class EvLogResource extends Resource
             ->filters([
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
-                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('l.date'),
+                       Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('date'),
                     ]),
                 Tables\Filters\SelectFilter::make('log_type')
                     ->label(trans('ev.log_types.name'))
