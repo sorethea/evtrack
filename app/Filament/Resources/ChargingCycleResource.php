@@ -40,7 +40,7 @@ class ChargingCycleResource extends Resource
                     ->date('d/m/y H:i')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('days')
-                    ->formatStateUsing(fn($record)=>Number::format(Carbon::parse($record->from_date)->startOfDay()->diffInDays(Carbon::parse($record->to_date)->startOfDay())).'day(s)'),
+                    ->getStateUsing(fn($record)=>Number::format(Carbon::parse($record->from_date)->startOfDay()->diffInDays(Carbon::parse($record->to_date)->startOfDay())).'day(s)'),
                 Tables\Columns\TextColumn::make('from_soc')
                     ->label('From SOC(%)')
                     ->toggleable(true),
