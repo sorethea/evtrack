@@ -65,7 +65,7 @@ class ChargingCycleResource extends Resource
                 Tables\Columns\TextColumn::make('distance')
                     ->label('Distance (km)'),
             ])
-            ->defaultSort('to_date','DESC')
+            ->defaultSort('from_date','DESC')
             ->filters([
                 //
             ])
