@@ -154,7 +154,7 @@ class EvLogResource extends Resource
 //            '))
             ->columns([
                 Tables\Columns\TextColumn::make("date")
-                    ->date('d M, Y H')
+                    ->date('d M, Y H:i')
                     ->searchable(),
                 Tables\Columns\TextColumn::make("log_type")
                     ->label(trans('ev.type'))
