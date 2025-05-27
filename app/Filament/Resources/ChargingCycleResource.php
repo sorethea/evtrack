@@ -55,7 +55,8 @@ class ChargingCycleResource extends Resource
                     ->toggleable(true),
                 Tables\Columns\TextColumn::make('a_regen')
                     ->label('Regen(kWh)')
-                    ->toggleable(true),
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('a_charge')
                     ->label('Acc Charge')
                     ->toggleable()
