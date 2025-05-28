@@ -25,6 +25,7 @@ return new class extends Migration
         ROUND(c.ac - p.ac,0)AS a_regen,
         ROUND(c.ad - p.ad,0)AS a_discharge,
         ROUND(100*(ROUND(c.ad - p.ad,0)-ROUND(c.ac - p.ac,0))/ROUND(c.odo - p.odo,0 ),0)AS consumption,
+        ROUND(p.soc - 100*(p.ac - p.ad)/v.capacity,1) AS gap_zero,
         ROUND(c.odo - p.odo,0 )as distance
         FROM ev_logs p
         LEFT JOIN ev_logs cp ON p.parent_id = cp.id

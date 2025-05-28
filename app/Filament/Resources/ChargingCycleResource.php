@@ -65,6 +65,10 @@ class ChargingCycleResource extends Resource
                     ->label('Acc Discharge')
                     ->toggleable()
                     ->toggledHiddenByDefault(),
+                Tables\Columns\TextColumn::make('gap_zero')
+                    ->label('Gap Zero')
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('consumption')
                     ->label('kWh/100km'),
                 Tables\Columns\TextColumn::make('distance')
