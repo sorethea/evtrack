@@ -29,7 +29,7 @@ return new class extends Migration
         ROUND(c.odo - p.odo,0 )as distance
         FROM ev_logs p
         LEFT JOIN ev_logs cp ON p.parent_id = cp.id
-        LEFT JOIN vehicle v ON p.vehicle_id = v.id
+        LEFT JOIN vehicles v ON p.vehicle_id = v.id
         LEFT JOIN (
           SELECT *
           FROM ev_logs
