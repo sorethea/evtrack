@@ -110,73 +110,34 @@ class EvLogResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-//            ->modifyQueryUsing(fn (Builder $query) => $query
-//                ->from('ev_logs','l')
-//                ->leftJoin('ev_logs as p', 'l.parent_id', 'p.id')
-//                ->leftJoin('vehicles as v', 'l.vehicle_id', 'v.id')
-//                ->leftJoin(DB::raw('(SELECT *
-//                      FROM ev_logs
-//                      WHERE (cycle_id, soc) IN (
-//                        SELECT cycle_id, MIN(soc)
-//                        FROM ev_logs
-//                        GROUP BY cycle_id
-//                      )) c'),'l.id','c.cycle_id')
-//                //->where('ev_logs.log_type','charging')
-//                ->selectRaw('
-//                l.*, v.capacity,
-//                CASE
-//                    WHEN l.log_type =\'driving\'
-//                    THEN ROUND(l.odo - COALESCE(p.odo, 0), 0)
-//                    ELSE ROUND(c.odo - l.odo,0)
-//                END AS trip_distance,
-//                l.ac - COALESCE(p.ac, 0) AS gross_charge,
-//                CASE
-//                    WHEN l.log_type =\'driving\'
-//                    THEN l.ac - COALESCE(p.ac, 0)
-//                    ELSE c.ac - l.ac
-//                END AS regen_charge,
-//                CASE
-//                    WHEN l.log_type =\'driving\'
-//                    THEN l.ad - COALESCE(p.ad, 0)
-//                    ELSE c.ad - l.ad
-//                END AS gross_discharge,
-//                l.soc - ROUND(100*(l.ac - l.ad)/v.capacity,1) as gap_zero,
-//                CASE
-//                    WHEN p.soc IS NOT NULL AND l.soc > p.soc
-//                    THEN l.soc - p.soc
-//                    ELSE 0
-//                END as charge,
-//                CASE
-//                    WHEN p.soc IS NOT NULL AND p.soc > l.soc
-//                    THEN p.soc - l.soc
-//                    ELSE l.soc - c.soc
-//                END as discharge
-//            '))
+            ->modifyQueryUsing(fn(Builder $query)=>$query
+                ->from('daily_logs_view')
+            )
             ->columns([
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
                     ->searchable(),
-                Tables\Columns\TextColumn::make("cycle.date")
-                    ->label('Cycle')
-                    ->date('d M, Y H:i')
-                    ->searchable(),
+//                //Tables\Columns\TextColumn::make("cycle.date")
+//                    ->label('Cycle')
+//                    ->date('d M, Y H:i')
+//                    ->searchable(),
                 Tables\Columns\TextColumn::make("log_type")
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('soc')
-                    ->label(trans('ev.soc'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."%")
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('odo')
-                    ->label(trans('ev.odo'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."km"),
-                Tables\Columns\TextColumn::make('ac')
-                    ->label(trans('ev.charge'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,0)."kWh"),
-                Tables\Columns\TextColumn::make('ad')
-                    ->label(trans('ev.discharge'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,0)."kWh"),
+//                Tables\Columns\TextColumn::make('soc')
+//                    ->label(trans('ev.soc'))
+//                    ->formatStateUsing(fn($state)=>Number::format($state,1)."%")
+//                    ->searchable(),
+//                Tables\Columns\TextColumn::make('odo')
+//                    ->label(trans('ev.odo'))
+//                    ->formatStateUsing(fn($state)=>Number::format($state,1)."km"),
+//                Tables\Columns\TextColumn::make('ac')
+//                    ->label(trans('ev.charge'))
+//                    ->formatStateUsing(fn($state)=>Number::format($state,0)."kWh"),
+//                Tables\Columns\TextColumn::make('ad')
+//                    ->label(trans('ev.discharge'))
+//                    ->formatStateUsing(fn($state)=>Number::format($state,0)."kWh"),
 //                Tables\Columns\TextColumn::make('gross_charge')
 //                    ->label(trans('ev.gross_charge'))
 //                    ->formatStateUsing(fn($state)=>$state."kWh")
