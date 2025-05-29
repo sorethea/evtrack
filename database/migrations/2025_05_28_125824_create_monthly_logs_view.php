@@ -22,7 +22,7 @@ return new class extends Migration
         SUM(distance) AS distance
         FROM charging_cycles_view v
         WHERE YEAR(v.from_date) = YEAR(NOW())
-        GROUP BY `month`, MONTH(v.from_date)
+        GROUP BY `month`, MONTH(v.from_date),vehicle_id
         ORDER BY MONTH(v.from_date) DESC
         ');
     }
