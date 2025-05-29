@@ -125,10 +125,12 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-//                Tables\Columns\TextColumn::make('soc')
-//                    ->label(trans('ev.soc'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,1)."%")
-//                    ->searchable(),
+                Tables\Columns\TextColumn::make('from_soc')
+                    ->label(trans('ev.soc_from'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
+                Tables\Columns\TextColumn::make('to_soc')
+                    ->label(trans('ev.soc_to'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
 //                Tables\Columns\TextColumn::make('odo')
 //                    ->label(trans('ev.odo'))
 //                    ->formatStateUsing(fn($state)=>Number::format($state,1)."km"),
