@@ -129,19 +129,22 @@ class EvLogResource extends Resource
                     ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
                 Tables\Columns\TextColumn::make('energy')
                     ->label(trans('ev.energy'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('a_charge')
                     ->label(trans('ev.charge'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('a_discharge')
                     ->label(trans('ev.discharge'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('consumption')
-                    ->label(trans('ev.consumption'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                    ->label(trans('ev.soc'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('a_consumption')
-                    ->label(trans('ev.consumption'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                    ->label(trans('ev.accumulative'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
+                Tables\Columns\TextColumn::make('distance')
+                    ->label(trans('ev.distance'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
 
 
 
