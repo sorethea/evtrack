@@ -15,6 +15,7 @@ return new class extends Migration
         DB::statement('CREATE VIEW charging_cycles_view AS
         SELECT
         p.id AS id,
+        p.vehicle_id AS vehicle_id,
         p.date AS from_date,
         c.date AS to_date,
         p.soc AS from_soc,
