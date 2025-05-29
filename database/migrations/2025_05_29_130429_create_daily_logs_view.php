@@ -15,6 +15,7 @@ return new class extends Migration
         DB::statement('CREATE VIEW daily_logs_view AS
         SELECT
         l.id,
+        l.vehicle_id,
         l.date,
         l.log_type,
         p.soc AS from_soc,
