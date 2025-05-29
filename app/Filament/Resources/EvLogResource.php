@@ -111,8 +111,7 @@ class EvLogResource extends Resource
     {
         return $table
             ->modifyQueryUsing(fn(Builder $query)=>$query
-                ->from('daily_logs_view')
-                ->as('l')
+                ->from('daily_logs_view','l')
             )
             ->columns([
                 Tables\Columns\TextColumn::make("date")
