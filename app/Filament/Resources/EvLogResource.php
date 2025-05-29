@@ -117,10 +117,6 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
                     ->searchable(),
-//                //Tables\Columns\TextColumn::make("cycle.date")
-//                    ->label('Cycle')
-//                    ->date('d M, Y H:i')
-//                    ->searchable(),
                 Tables\Columns\TextColumn::make("log_type")
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
@@ -131,30 +127,22 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('to_soc')
                     ->label(trans('ev.soc_to'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
-//                Tables\Columns\TextColumn::make('odo')
-//                    ->label(trans('ev.odo'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,1)."km"),
-//                Tables\Columns\TextColumn::make('ac')
-//                    ->label(trans('ev.charge'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,0)."kWh"),
-//                Tables\Columns\TextColumn::make('ad')
-//                    ->label(trans('ev.discharge'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,0)."kWh"),
-//                Tables\Columns\TextColumn::make('gross_charge')
-//                    ->label(trans('ev.gross_charge'))
-//                    ->formatStateUsing(fn($state)=>$state."kWh")
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-//                Tables\Columns\TextColumn::make('gross_discharge')
-//                    ->label(trans('ev.gross_discharge'))
-//                    ->formatStateUsing(fn($state)=>$state."kWh")
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-//                Tables\Columns\TextColumn::make('trip_distance')
-//                    ->label(trans('ev.distance'))
-//                    ->formatStateUsing(fn($state)=>$state."km")
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-//                Tables\Columns\TextColumn::make('gap_zero')
-//                    ->label(trans('ev.gap_zero'))
-//                    ->formatStateUsing(fn($state)=>$state."%"),
+                Tables\Columns\TextColumn::make('energy')
+                    ->label(trans('ev.energy'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                Tables\Columns\TextColumn::make('a_charge')
+                    ->label(trans('ev.charge'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                Tables\Columns\TextColumn::make('a_discharge')
+                    ->label(trans('ev.discharge'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                Tables\Columns\TextColumn::make('consumption')
+                    ->label(trans('ev.consumption'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+                Tables\Columns\TextColumn::make('a_consumption')
+                    ->label(trans('ev.consumption'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)."kWh"),
+
 
 
 //                Tables\Columns\TextColumn::make('consumption')

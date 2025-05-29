@@ -10,6 +10,7 @@ return [
     "soc_actual"=>"SoC Actual",
     "soc_from"=>"SoC from",
     "soc_to"=>"SoC to",
+    "energy"=>"Energy",
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",
     "charge"=>"Charge",
