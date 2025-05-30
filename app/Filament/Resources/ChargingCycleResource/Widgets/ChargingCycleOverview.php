@@ -11,7 +11,7 @@ class ChargingCycleOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        dd($this);
+        dd($this->getViewData());
         return [
             Stat::make('Distance','100km')
         ];
