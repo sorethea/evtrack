@@ -142,7 +142,7 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('daily.a_discharge')
                     ->label(trans('ev.discharge'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->summarize(Tables\Columns\Summarizers\Summarizer::make()),
+                    ->summarize(Tables\Columns\Summarizers\Summarizer::make()->column('daily.a_discharge')),
                 Tables\Columns\TextColumn::make('daily.consumption')
                     ->label(trans('ev.consumption'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
