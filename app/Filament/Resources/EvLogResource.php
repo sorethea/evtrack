@@ -142,6 +142,9 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('daily.a_consumption')
                     ->label(trans('ev.accumulative'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
+                Tables\Columns\TextColumn::make('daily.gap_zero')
+                    ->label(trans('ev.gap_zero'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('daily.distance')
                     ->label(trans('ev.distance'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
