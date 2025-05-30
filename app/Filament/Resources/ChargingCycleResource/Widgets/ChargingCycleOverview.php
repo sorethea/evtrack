@@ -28,7 +28,7 @@ class ChargingCycleOverview extends BaseWidget
             Stat::make('Total distance',Number::format($this->record->distance??0).'km')
                 ->icon('heroicon-o-map')
                 ->color('success')
-                ->description("From {$from_date} to {$to_date}")
+                ->description("From {$from_date} to {$to_date} ({$this->record->days} days)")
                 ->chart($distancesArray),
         ];
     }
