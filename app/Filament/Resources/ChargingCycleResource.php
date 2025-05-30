@@ -8,6 +8,7 @@ use App\Models\ChargingCycle;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,6 +18,7 @@ use Illuminate\Support\Number;
 
 class ChargingCycleResource extends Resource
 {
+    use ExposesTableToWidgets;
     protected static ?string $model = ChargingCycle::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-bolt';
