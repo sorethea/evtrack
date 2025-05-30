@@ -13,7 +13,7 @@ class DailyLog extends Model
     public $timestamps = false;
 
     public $incrementing = false;
-    public function log(): BelongsTo
+    public function evLog(): BelongsTo
     {
         return $this->belongsTo(EvLog::class,'id','id');
     }
