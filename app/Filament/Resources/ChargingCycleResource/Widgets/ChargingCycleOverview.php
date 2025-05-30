@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChargingCycleOverview extends BaseWidget
 {
-    use InteractsWithRecord;
+    //use InteractsWithRecord;
     public string|int|null|Model $record = null;
 
     protected function getStats(): array
