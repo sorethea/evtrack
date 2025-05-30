@@ -137,10 +137,12 @@ class EvLogResource extends Resource
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('daily.a_charge')
                     ->label(trans('ev.charge'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->summarize(Tables\Columns\Summarizers\Summarizer::make()),
                 Tables\Columns\TextColumn::make('daily.a_discharge')
                     ->label(trans('ev.discharge'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->summarize(Tables\Columns\Summarizers\Summarizer::make()),
                 Tables\Columns\TextColumn::make('daily.consumption')
                     ->label(trans('ev.consumption'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
@@ -156,7 +158,8 @@ class EvLogResource extends Resource
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('daily.distance')
                     ->label(trans('ev.distance'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->summarize(Tables\Columns\Summarizers\Summarizer::make()),
 
 
 
