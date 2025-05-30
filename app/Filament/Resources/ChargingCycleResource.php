@@ -18,7 +18,6 @@ use Illuminate\Support\Number;
 
 class ChargingCycleResource extends Resource
 {
-    use ExposesTableToWidgets;
     protected static ?string $model = ChargingCycle::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-bolt';
