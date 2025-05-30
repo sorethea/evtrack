@@ -15,6 +15,6 @@ class DailyLog extends Model
     public $incrementing = false;
     public function evLog(): BelongsTo
     {
-        return $this->belongsTo(EvLog::class,'id','id');
+        return $this->belongsTo(EvLog::class,'parent_id','id');
     }
 }

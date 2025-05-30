@@ -39,7 +39,7 @@ class EvLog extends Model
     }
     public function daily(): HasOne
     {
-        return $this->hasOne(DailyLog::class,'id','id');
+        return $this->hasOne(DailyLog::class,'parent_id','id');
     }
     public function cycle(): BelongsTo
     {
