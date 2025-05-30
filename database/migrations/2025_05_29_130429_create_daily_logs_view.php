@@ -15,6 +15,7 @@ return new class extends Migration
         DB::statement('CREATE VIEW daily_logs_view AS
         SELECT
         l.id as parent_id,
+        l.cycle_id,
         p.soc AS from_soc,
         l.soc AS to_soc,
         ROUND(v.capacity * (p.soc - l.soc)/100,1) AS energy,

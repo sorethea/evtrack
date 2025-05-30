@@ -15,6 +15,6 @@ class ChargingCycle extends Model
     public $incrementing = false;
     public function children():HasMany
     {
-        return $this->hasMany(EvLog::class,'cycle_id','id');
+        return $this->hasMany(DailyLog::class,'cycle_id','id');
     }
 }

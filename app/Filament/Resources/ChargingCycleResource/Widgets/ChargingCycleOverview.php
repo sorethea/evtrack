@@ -19,12 +19,13 @@ class ChargingCycleOverview extends BaseWidget
 
     protected function getStats(): array
     {
+        $distancesArray = $this->record->children->pluck('distance')->toArray();
 
         return [
             Stat::make('Total distance',Number::format($this->record->distance??0).'km')
                 ->icon('heroicon-o-map')
                 ->color('success')
-                ->chart($this->record->children->pluck('distance')->toArray()),
+                ->chart($distancesArray),
         ];
     }
 }
