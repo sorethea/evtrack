@@ -11,15 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 class ChargingCycleOverview extends BaseWidget
 {
     use InteractsWithRecord;
-
-//    public function getRecord(): Model
-//    {
-//        return $this->record;
-//    }
+    public string|int|null|Model $record = null;
 
     protected function getStats(): array
     {
-        dd($_GET);
+        dd($this->record);
         return [
             Stat::make('Distance','100km')
         ];
