@@ -14,7 +14,7 @@ class ViewChargingCycle extends ViewRecord
     {
         return [
             ChargingCycleResource\Widgets\ChargingCycleOverview::make([
-                'record_id'=>$this->record->id,
+                'record'=>$this->record,
             ]),
         ];
     }

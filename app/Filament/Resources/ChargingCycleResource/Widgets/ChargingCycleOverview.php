@@ -13,14 +13,14 @@ class ChargingCycleOverview extends BaseWidget
 {
     //use InteractsWithRecord;
 
-    public int $record_id;
+    public Model $record;
 
 
     protected function getStats(): array
     {
 
         return [
-            Stat::make('Distance',$this->record_id??0)
+            Stat::make('Distance',$this->record->id??0)
         ];
     }
 }
