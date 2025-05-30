@@ -117,13 +117,14 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
                     ->searchable(),
-                Tables\Columns\IconColumn::make("log_type")
+                Tables\Columns\TextColumn::make("log_type")
+                    ->badge()
                     ->color(fn(string $state) => match ($state){
                         'charging'=>'success',
                         'driving'=>'info',
                     })
                     ->label(trans('ev.type'))
-                    //->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
+                    ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('daily.from_soc')
                     ->label(trans('ev.soc_from'))
