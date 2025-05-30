@@ -13,7 +13,7 @@ class ChargingCycleOverview extends BaseWidget
 {
     //use InteractsWithRecord;
 
-    public ? ChargingCycle $record = null;
+    public ? ChargingCycle $record;
     protected function getStats(): array
     {
 
