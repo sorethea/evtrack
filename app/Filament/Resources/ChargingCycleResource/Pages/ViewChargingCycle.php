@@ -9,4 +9,13 @@ use Filament\Resources\Pages\ViewRecord;
 class ViewChargingCycle extends ViewRecord
 {
     protected static string $resource = ChargingCycleResource::class;
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ChargingCycleResource\Widgets\ChargingCycleOverview::make([
+                'record_id'=>$this->record->id,
+            ]),
+        ];
+    }
 }
