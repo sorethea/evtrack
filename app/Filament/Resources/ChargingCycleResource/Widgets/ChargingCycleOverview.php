@@ -20,7 +20,7 @@ class ChargingCycleOverview extends BaseWidget
     {
 
         return [
-            Stat::make('Distance',$this->record->id??0)
+            Stat::make('Distance',$this->record->distance??0)
         ];
     }
 }
