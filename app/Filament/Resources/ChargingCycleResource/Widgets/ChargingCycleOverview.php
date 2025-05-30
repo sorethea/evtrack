@@ -22,7 +22,7 @@ class ChargingCycleOverview extends BaseWidget
 
         return [
             Stat::make('Total distance',Number::format($this->record->distance??0).'km')
-                ->chart($this->record->children->plug('distance')->toArray()),
+                ->chart($this->record->children->pluck('distance')->toArray()),
         ];
     }
 }
