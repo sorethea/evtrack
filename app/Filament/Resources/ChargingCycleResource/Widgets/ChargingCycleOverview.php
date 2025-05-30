@@ -15,10 +15,6 @@ class ChargingCycleOverview extends BaseWidget
 
     public ? ChargingCycle $record;
 
-    protected function getViewData(): array
-    {
-        return $this->record;
-    }
 
     protected function getStats(): array
     {

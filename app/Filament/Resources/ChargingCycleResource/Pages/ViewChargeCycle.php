@@ -16,7 +16,9 @@ class ViewChargeCycle extends ViewRecord
     protected function getHeaderWidgets(): array
     {
         return  [
-            ChargingCycleResource\Widgets\ChargingCycleOverview::make(),
+            ChargingCycleResource\Widgets\ChargingCycleOverview::make([
+                'record'=>$this->record
+            ]),
         ];
     }
     protected function getHeaderActions(): array
