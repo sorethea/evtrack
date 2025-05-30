@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ChargingCycleResource\Widgets;
 
+use App\Models\ChargingCycle;
 use Filament\Forms\Get;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -11,13 +12,13 @@ use Illuminate\Database\Eloquent\Model;
 class ChargingCycleOverview extends BaseWidget
 {
     //use InteractsWithRecord;
-    public string|int|null|Model $record = null;
 
+    public ? ChargingCycle $record = null;
     protected function getStats(): array
     {
-        dd($this->record);
+
         return [
-            Stat::make('Distance','100km')
+            Stat::make('Distance',$this->record->distance)
         ];
     }
 }
