@@ -21,8 +21,8 @@ class ChargingCycleOverview extends BaseWidget
     protected function getStats(): array
     {
         $distancesArray = $this->record->children->pluck('distance')->toArray();
-        $from_date = Carbon::parse($this->record->children->min('date'))->format('d M, Y');
-        $to_date = Carbon::parse($this->record->children->max('date'))->format('d M, Y');
+        $from_date = Carbon::parse($this->record->from_date)->format('d M, Y');
+        $to_date = Carbon::parse($this->record->to_date)->format('d M, Y');
 
         return [
             Stat::make('Total distance',Number::format($this->record->distance??0).'km')
