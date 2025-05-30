@@ -110,9 +110,9 @@ class EvLogResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn(Builder $query)=>$query
-                ->from('daily_logs_view','l')
-            )
+//            ->modifyQueryUsing(fn(Builder $query)=>$query
+//                ->from('daily_logs_view','l')
+//            )
             ->columns([
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
@@ -121,28 +121,28 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('from_soc')
+                Tables\Columns\TextColumn::make('daily.from_soc')
                     ->label(trans('ev.soc_from'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
-                Tables\Columns\TextColumn::make('to_soc')
+                Tables\Columns\TextColumn::make('daily.to_soc')
                     ->label(trans('ev.soc_to'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
-                Tables\Columns\TextColumn::make('energy')
+                Tables\Columns\TextColumn::make('daily.energy')
                     ->label(trans('ev.energy'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
-                Tables\Columns\TextColumn::make('a_charge')
+                Tables\Columns\TextColumn::make('daily.a_charge')
                     ->label(trans('ev.charge'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
-                Tables\Columns\TextColumn::make('a_discharge')
+                Tables\Columns\TextColumn::make('daily.a_discharge')
                     ->label(trans('ev.discharge'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
-                Tables\Columns\TextColumn::make('consumption')
+                Tables\Columns\TextColumn::make('daily.consumption')
                     ->label(trans('ev.soc'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
-                Tables\Columns\TextColumn::make('a_consumption')
+                Tables\Columns\TextColumn::make('daily.a_consumption')
                     ->label(trans('ev.accumulative'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
-                Tables\Columns\TextColumn::make('distance')
+                Tables\Columns\TextColumn::make('daily.distance')
                     ->label(trans('ev.distance'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
 
