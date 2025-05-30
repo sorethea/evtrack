@@ -13,12 +13,6 @@ class ViewChargeCycle extends ViewRecord
     protected static string $resource = ChargingCycleResource::class;
     use ExposesTableToWidgets;
 
-    protected function getHeaderWidgets(): array
-    {
-        return  [
-            ChargingCycleResource\Widgets\ChargingCycleOverview::class(),
-        ];
-    }
     protected function getHeaderActions(): array
     {
         return [
