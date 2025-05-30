@@ -123,7 +123,7 @@ class EvLogResource extends Resource
                         'driving'=>'info',
                     })
                     ->label(trans('ev.type'))
-                    ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
+                    //->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('daily.from_soc')
                     ->label(trans('ev.soc_from'))
