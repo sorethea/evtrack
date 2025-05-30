@@ -117,7 +117,11 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
                     ->searchable(),
-                Tables\Columns\TextColumn::make("log_type")
+                Tables\Columns\IconColumn::make("log_type")
+                    ->color(fn(string $state) => match ($state){
+                        'charging'=>'success',
+                        'driving'=>'info',
+                    })
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
@@ -137,11 +141,15 @@ class EvLogResource extends Resource
                     ->label(trans('ev.discharge'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('daily.consumption')
-                    ->label(trans('ev.soc'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
+                    ->label(trans('ev.consumption'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('daily.a_consumption')
-                    ->label(trans('ev.accumulative'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
+                    ->label(trans("ev.accumulative")." ".trans('ev.consumption'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('daily.gap_zero')
                     ->label(trans('ev.gap_zero'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
