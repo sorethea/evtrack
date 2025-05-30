@@ -95,7 +95,7 @@ class ChargingCycleResource extends Resource
     {
         return [
             'index' => Pages\ManageChargingCycles::route('/'),
-            //'view' => Pages\ViewChargeCycle::route('/{record}'),
+            'view' =>  Pages\ViewChargingCycle::route('/{record}'),
         ];
     }
 }
