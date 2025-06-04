@@ -69,7 +69,7 @@ class EvLogOverview extends BaseWidget
         $currency = config("ev.currency");
 
         return [
-            Stat::make("Total distance",Number::format(EvLog::get()->daily->distance->sum())."km")
+            Stat::make("Total distance",Number::format(sum($distanceByMonthArray))."km")
                 ->description("Average consumption: {$averageConsumption}kWh/100km")
                 ->icon('heroicon-o-map')
                 ->color('success')
