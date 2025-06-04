@@ -68,7 +68,7 @@ class EvLogOverview extends BaseWidget
         $thisMonth = now()->format('M, Y');
         $currency = config("ev.currency");
 
-        $query = EvLog::get();
+        $query = EvLog::all();
         return [
             Stat::make("Total distance",Number::format($query->daily->distance->sum())."km")
                 ->description("Average consumption: {$averageConsumption}kWh/100km")
