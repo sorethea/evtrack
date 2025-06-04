@@ -67,9 +67,8 @@ class EvLogOverview extends BaseWidget
         $chargeCount = array_key_last($chargeByMonthArray);
         $thisMonth = now()->format('M, Y');
         $currency = config("ev.currency");
-
         return [
-            Stat::make("Total distance",Number::format(array_sum($distanceByMonthArray))."km")
+            Stat::make("Total driving in {$thisMonth}",Number::format($distance)."km")
                 ->description("Average consumption: {$averageConsumption}kWh/100km")
                 ->icon('heroicon-o-map')
                 ->color('success')
