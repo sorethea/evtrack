@@ -132,23 +132,19 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('daily.to_soc')
                     ->label(trans('ev.soc_to'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)."%")
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.energy')
                     ->label(trans('ev.energy'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.a_charge')
                     ->label(trans('ev.charge'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.a_discharge')
                     ->label(trans('ev.discharge'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.consumption')
                     ->label(trans('ev.consumption'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
