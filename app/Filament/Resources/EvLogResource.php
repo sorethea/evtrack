@@ -147,7 +147,7 @@ class EvLogResource extends Resource
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('daily.a_consumption')
-                    ->label(trans("ev.accumulative")." ".trans('ev.consumption'))
+                    ->label(trans('ev.a_consumption'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->toggleable()
                     ->toggledHiddenByDefault(),

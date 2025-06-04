@@ -75,7 +75,13 @@ class ListObd2Logs extends ListRecords
                     $maxEvLog = EvLog::max('date');
                     $evLog = EvLog::create($data);
                     if($evLog->date>=$maxEvLog){
-                        $evLog->vehicle()->update(['soc'=>$evLog->soc_actual,'odo'=>$evLog->odo]);
+                        $evLog->vehicle()->update([
+                            'soc'=>$evLog->soc_actual,
+                            'ac'=>$evLog->ac,
+                            'ad'=>$evLog->ad,
+                            'odo'=>$evLog->odo,
+
+                        ]);
                     }
 
                     Obd2Logs::truncate();
