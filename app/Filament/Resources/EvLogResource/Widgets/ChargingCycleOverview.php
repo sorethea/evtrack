@@ -17,7 +17,7 @@ class ChargingCycleOverview extends BaseWidget
         $discharge = 0;
         foreach ($lastChargingCycle->children as $child){
             $distance +=$child->daily->distance;
-            $discharge +=$child->daily->discharge;
+            $discharge +=($child->daily->a_discharge-$child->daily->a_charge);
         }
         return [
             Stat::make('Total Charge',Number::format($lastChargingCycle->daily->energy,1).'kWh'),
