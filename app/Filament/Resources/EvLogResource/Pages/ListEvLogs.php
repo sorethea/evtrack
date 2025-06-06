@@ -25,7 +25,8 @@ class ListEvLogs extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            EvLogResource\Widgets\EvLogOverview::class,
+            //EvLogResource\Widgets\EvLogOverview::class,
+            EvLogResource\Widgets\ChargingCycleOverview::make(),
         ];
     }
 }
