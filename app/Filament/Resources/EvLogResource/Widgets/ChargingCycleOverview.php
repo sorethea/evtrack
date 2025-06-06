@@ -13,7 +13,7 @@ class ChargingCycleOverview extends BaseWidget
     {
         $lastChargingCycle = EvLog::where('log_type','charging')->orderBy('date','desc')->first();
         return [
-            Stat::make('Last charging date',$lastChargingCycle->date->format('M dd, Y'))
+            Stat::make('Last charging date',$lastChargingCycle->date)
         ];
     }
 }
