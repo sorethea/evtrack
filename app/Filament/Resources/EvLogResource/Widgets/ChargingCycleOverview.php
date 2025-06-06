@@ -13,8 +13,13 @@ class ChargingCycleOverview extends BaseWidget
     protected function getStats(): array
     {
         $lastChargingCycle = EvLog::where('log_type','charging')->orderBy('date','desc')->first();
+        $distance = 0;
+        foreach ($lastChargingCycle->cycle as $cycle){
+            $distance +=$cycle->daily->distance;
+        }
         return [
-            Stat::make('Total Charge',Number::format($lastChargingCycle->daily->energy,1).'kWh')
+            Stat::make('Total Charge',Number::format($lastChargingCycle->daily->energy,1).'kWh'),
+            Stat::make('Total distance', Number::format($distance,1).'km')
         ];
     }
 }
