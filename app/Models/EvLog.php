@@ -6,6 +6,7 @@ use App\Observers\EvLogObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[ObservedBy([EvLogObserver::class])]
@@ -44,6 +45,10 @@ class EvLog extends Model
     public function cycle(): BelongsTo
     {
         return $this->belongsTo(self::class,'cycle_id')->where("log_type","charging");
+    }
+    public function children(): HasMany
+    {
+        return $this->hasMany(self::class, 'cycle_id')->where('log_type','driving');
     }
     public function vehicle(): BelongsTo
     {
