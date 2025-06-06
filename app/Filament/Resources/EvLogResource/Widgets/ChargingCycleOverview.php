@@ -19,10 +19,12 @@ class ChargingCycleOverview extends BaseWidget
             $distance +=$child->daily->distance;
             $discharge +=($child->daily->a_discharge-$child->daily->a_charge);
         }
+        $gapZero = $lastChargingCycle->daily->gap_zero;
         return [
             Stat::make('Total Charge',Number::format($lastChargingCycle->daily->energy,1).'kWh'),
             Stat::make('Total distance', Number::format($distance,1).'km'),
-            Stat::make('Total discharge', Number::format($discharge,1).'kWh')
+            Stat::make('Total discharge', Number::format($discharge,1).'kWh'),
+            Stat::make('Gap zero', Number::format($gapZero,1).'kWh'),
         ];
     }
 }
