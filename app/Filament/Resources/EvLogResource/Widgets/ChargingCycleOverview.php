@@ -5,6 +5,7 @@ namespace App\Filament\Resources\EvLogResource\Widgets;
 use App\Models\EvLog;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Number;
 
 class ChargingCycleOverview extends BaseWidget
 {
@@ -13,7 +14,7 @@ class ChargingCycleOverview extends BaseWidget
     {
         $lastChargingCycle = EvLog::where('log_type','charging')->orderBy('date','desc')->first();
         return [
-            Stat::make('Last charging date',$lastChargingCycle->date)
+            Stat::make('Total Charge',Number::format($lastChargingCycle->daily->energy,1).'kWh')
         ];
     }
 }
