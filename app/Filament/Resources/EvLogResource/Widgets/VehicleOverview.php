@@ -4,6 +4,7 @@ namespace App\Filament\Resources\EvLogResource\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Number;
 
 class VehicleOverview extends BaseWidget
 {
@@ -13,7 +14,8 @@ class VehicleOverview extends BaseWidget
         $log = $vehicle->latestLog;
 
         return [
-            Stat::make(trans('ev.odo'),\Illuminate\Support\Number::format($log->odo).'km'),
+            Stat::make(trans('ev.odo'),Number::format($log->odo).'km'),
+            Stat::make(trans('ev.soc'),Number::format($log->soc_actual).'%')
         ];
     }
 }
