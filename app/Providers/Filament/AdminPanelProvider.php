@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use App\Filament\Resources\ChargeResource\Widgets\ChargeOverview;
+use App\Filament\Resources\EvLogResource\Widgets\VehicleOverview;
 use App\Filament\Resources\TripResource\Widgets\TripOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -40,9 +41,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                ChargeOverview::class,
-                TripOverview::class,
-                ChargeCost::class,
+                VehicleOverview::make(),
+                //ChargeOverview::class,
+                //TripOverview::class,
+                //ChargeCost::class,
                 //Widgets\AccountWidget::class,
                 //Widgets\FilamentInfoWidget::class,
 
