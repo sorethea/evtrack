@@ -15,7 +15,9 @@ class VehicleOverview extends BaseWidget
 
         return [
             Stat::make(trans('ev.odo'),Number::format($log->odo).'km'),
-            Stat::make(trans('ev.soc'),Number::format($log->soc_actual).'%')
+            Stat::make(trans('ev.soc'),Number::format($log->soc_actual).'%'),
+            Stat::make(trans('ev.soc'),Number::format($log->soc_actual).'%'),
+            Stat::make(trans('ev.soc'),Number::format($log->soc_actual).'%'),
         ];
     }
 }
