@@ -31,7 +31,7 @@ class Vehicle extends Model
     ];
     public function latestLog(): HasOne
     {
-        return $this->hasOne(EvLog::class)->whereRaw('date=Max(date)',);
+        return $this->hasOne(EvLog::class)->lastestOfMany('date');
     }
     public function logs(): HasMany
     {
