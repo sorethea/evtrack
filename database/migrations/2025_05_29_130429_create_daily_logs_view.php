@@ -34,6 +34,7 @@ return new class extends Migration
                 0
         END AS a_consumption,
         ROUND(l.soc - 100*(l.ac - l.ad)/v.capacity,1) AS gap_zero,
+        l.highest_volt_cell - l.lower_volt_cell AS voltage_spread,
         ROUND(l.odo - COALESCE(p.odo,0),1) AS distance
         FROM ev_logs l
         LEFT JOIN ev_logs p ON l.parent_id = p.id
