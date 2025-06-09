@@ -31,6 +31,7 @@ return [
     ],
     "trips"=>"Trips",
     "parent"=>"Parent",
+    "voltage_spread"=>"Voltage Spread",
     "discharge"=>"Discharge",
     "comment"=>"Comment",
     "duration"=>"Duration",

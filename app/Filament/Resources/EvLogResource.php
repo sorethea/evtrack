@@ -146,6 +146,10 @@ class EvLogResource extends Resource
                     ->label(trans('ev.discharge'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('daily.voltage_spread')
+                    ->label(trans('ev.voltage_spread'))
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.consumption')
                     ->label(trans('ev.consumption'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
