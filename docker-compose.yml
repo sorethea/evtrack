@@ -32,8 +32,7 @@ services:
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - ./nginx/nginx.key:/etc/ssl/private/nginx.key
-      - ./nginx/nginx.crt:/etc/ssl/certs/nginx.crt
+      - ./nginx/ssl:/etc/nginx/ssl
     networks:
       - app-network
 #  node:
