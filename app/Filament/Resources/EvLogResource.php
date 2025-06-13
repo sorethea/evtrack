@@ -123,6 +123,7 @@ class EvLogResource extends Resource
                     ->color(fn(string $state) => match ($state){
                         'charging'=>'success',
                         'driving'=>'info',
+                        'packing'=>'warning',
                     })
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
