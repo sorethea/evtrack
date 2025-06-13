@@ -39,7 +39,6 @@ return new class extends Migration
         FROM ev_logs l
         LEFT JOIN ev_logs p ON l.parent_id = p.id
         LEFT JOIN vehicles v ON l.vehicle_id = v.id
-        WHERE YEAR(l.date) = YEAR(NOW())
         ORDER BY l.date DESC
         ');
     }
