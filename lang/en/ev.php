@@ -26,6 +26,7 @@ return [
         "options"=>[
             "charging"=>"Charging",
             "driving"=>"Driving",
+            "packing"=>"Packing",
             ],
         "name"=>"Log Types"
     ],
