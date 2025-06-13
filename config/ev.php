@@ -16,5 +16,6 @@ return [
         "[BMS] State of charge actual"=>"soc_actual",
         "[VCU] Odometer"=>"odo",
         "[BMS] Battery total voltage"=>"voltage",
-    ]
+    ],
+
 ];

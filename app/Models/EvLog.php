@@ -38,6 +38,10 @@ class EvLog extends Model
     {
         return $this->belongsTo(self::class,'parent_id');
     }
+    public function items(): HasMany
+    {
+        return $this->hasMany(EvLogItem::class,'log_id','id');
+    }
     public function daily(): HasOne
     {
         return $this->hasOne(DailyLog::class,'parent_id','id');
