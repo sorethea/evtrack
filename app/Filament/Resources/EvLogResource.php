@@ -149,6 +149,8 @@ class EvLogResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.voltage_spread')
                     ->label(trans('ev.voltage_spread'))
+                    ->badge()
+                    ->color(fn(string $state) => $state<0.1?'success':($state<2?'warning':'danger'))
                     ->formatStateUsing(fn($state)=>Number::format($state,4))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.consumption')
