@@ -41,11 +41,11 @@ class EvLog extends Model
 
     public function getSocToAttribute()
     {
-        return $this?->items()?->where('item_id',10)->value('value');
+        return $this?->items?->where('item_id',10)->value('value');
     }
     public function getSocFromAttribute()
     {
-        return $this?->parent()?->items()?->where('item_id',10)->value('value');
+        return $this?->parent?->items?->where('item_id',10)->value('value');
     }
     public function parent(): BelongsTo
     {
