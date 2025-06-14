@@ -87,7 +87,7 @@ class ListObd2Logs extends ListRecords
                         ]);
                     }
 
-                    //Obd2Logs::truncate();
+                    Obd2Logs::truncate();
 
                 }),
             Actions\ImportAction::make()
