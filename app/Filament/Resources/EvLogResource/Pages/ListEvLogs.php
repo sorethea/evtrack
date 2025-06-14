@@ -64,6 +64,7 @@ class ListEvLogs extends ListRecords
                             ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                             ->nullable(),
                         FileUpload::make('obd_file')
+                            ->storeFileNamesIn()
                             ->disk('local')
                             ->directory('obd2'),
                     ])->columns(2),
@@ -72,8 +73,8 @@ class ListEvLogs extends ListRecords
                 ->action(function (array $data){
 
                     $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
-                    $file = fopen(Storage::path($data['obd_file']),'r');
-                    logger($file);
+                    $fileName = $data['obd_file'];
+
                     $csv->setDelimiter(';');
                     unset($data['obd_file']);
                     $evLog = EvLog::create($data);
