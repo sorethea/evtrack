@@ -75,8 +75,11 @@ class EvLogResource extends Resource
                         ->nullable(),
                     Forms\Components\Repeater::make('items')
                         ->relationship('items')
+                        ->orderColumn(column: 'item_id')
                         ->schema([
-                            Forms\Components\Select::make('item_id')->relationship('item','pid')->required(),
+                            Forms\Components\Select::make('item_id')
+                                ->relationship('item','pid')
+                                ->required(),
                             Forms\Components\TextInput::make('value')->default(0)
                         ])
                         ->columns(2)
