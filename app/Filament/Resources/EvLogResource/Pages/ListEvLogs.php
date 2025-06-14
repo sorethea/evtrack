@@ -79,10 +79,8 @@ class ListEvLogs extends ListRecords
                     foreach ($csv->getRecords() as $index=>$record){
                         if($index >=200) break;
                         $item = ObdItem::where('pid',$record[1])->first();
-                        logger($item);
                         if(!empty($item) && $item->id){
-                            EvLogItem::firstOrNew([
-                                'log_id'=>$evLog->id,
+                            $evLog->items()->updateOrCreate([
                                 'item_id'=>$item->id,
                                 'value'=>$record[2],
                             ]);
