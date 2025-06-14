@@ -39,6 +39,7 @@ class EvLog extends Model
             'soc_to',
             'soc_derivation',
             'soc_middle',
+            'distances',
         ];
 
     public function getSocToAttribute()
@@ -48,6 +49,10 @@ class EvLog extends Model
     public function getSocFromAttribute()
     {
         return $this?->parent?->items?->where('item_id',11)->value('value');
+    }
+    public function getDistanceAttribute()
+    {
+        return $this?->items?->where('item_id',1)->value('value')-$this?->parent?->items?->where('item_id',1)->value('value');
     }
     public function getSocDerivationAttribute()
     {

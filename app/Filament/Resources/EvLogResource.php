@@ -184,7 +184,7 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('daily.gap_zero')
                     ->label(trans('ev.gap_zero'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
-                Tables\Columns\TextColumn::make('daily.distance')
+                Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
 
