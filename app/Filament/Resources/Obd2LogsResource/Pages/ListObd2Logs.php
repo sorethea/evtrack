@@ -90,29 +90,29 @@ class ListObd2Logs extends ListRecords
                     //Obd2Logs::truncate();
 
                 }),
-//            Actions\ImportAction::make()
-//                ->importer(Obd2LogsImporter::class)
+            Actions\ImportAction::make()
+                ->importer(Obd2LogsImporter::class)
 //                ->maxRows(100)
-//                ->csvDelimiter(";"),
-/*            Actions\Action::make('importObd')
-                ->label('Import Obd2')
-                ->form([
-                    FileUpload::make('obd_file')
-                        ->disk('local')
-                        ->directory('obd2'),
-                ])
-                ->action(function (array $data){
-                    $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
-                    $csv->setDelimiter(';');
-                    foreach ($csv->getRecords() as $index=>$record){
-                        if($index >=100) break;
-                        Obd2Logs::where('pid',$record[1])->update([
-                            'seconds' => $record[0],
-                            'value' => $record[2],
-                        ]);
-                    }
-
-                }),*/
+                ->csvDelimiter(";"),
+//            Actions\Action::make('importObd')
+//                ->label('Import Obd2')
+//                ->form([
+//                    FileUpload::make('obd_file')
+//                        ->disk('local')
+//                        ->directory('obd2'),
+//                ])
+//                ->action(function (array $data){
+//                    $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
+//                    $csv->setDelimiter(';');
+//                    foreach ($csv->getRecords() as $index=>$record){
+//                        if($index >=100) break;
+//                        Obd2Logs::where('pid',$record[1])->update([
+//                            'seconds' => $record[0],
+//                            'value' => $record[2],
+//                        ]);
+//                    }
+//
+//                }),
         ];
     }
 }
