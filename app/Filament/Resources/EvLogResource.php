@@ -73,30 +73,36 @@ class EvLogResource extends Resource
                         ->options(trans("ev.charge_types.options"))
                         ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
-                    Forms\Components\Fieldset::make()->label(trans('ev.obd2'))
-                    ->schema([
-                        Forms\Components\TextInput::make("ac")
-                            ->label(trans('ev.charge'))
-                            ->nullable(),
-                        Forms\Components\TextInput::make("ad")
-                            ->label(trans('ev.discharge'))
-                            ->nullable(),
-                        Forms\Components\TextInput::make("highest_temp_cell")
-                            ->label(trans('ev.highest_temp_cell'))
-                            ->nullable(),
-                        Forms\Components\TextInput::make("lowest_temp_cell")
-                            ->label(trans('ev.lowest_temp_cell'))
-                            ->nullable(),
-                        Forms\Components\TextInput::make("highest_volt_cell")
-                            ->label(trans('ev.highest_volt_cell'))
-                            ->nullable(),
-                        Forms\Components\TextInput::make("lowest_volt_cell")
-                            ->label(trans('ev.lowest_volt_cell'))
-                            ->nullable(),
-                        Forms\Components\TextInput::make("voltage")
-                            ->label(trans('ev.voltage'))
-                            ->nullable(),
-                    ]),
+                    Forms\Components\Repeater::make('items')
+                        ->relationship('items')
+                        ->schema([
+                            Forms\Components\Select::make('item_id')->relationship('item','pid')->required(),
+                            Forms\Components\TextInput::make('value')->default(0)
+                        ]),
+//                    Forms\Components\Fieldset::make()->label(trans('ev.obd2'))
+//                    ->schema([
+//                        Forms\Components\TextInput::make("ac")
+//                            ->label(trans('ev.charge'))
+//                            ->nullable(),
+//                        Forms\Components\TextInput::make("ad")
+//                            ->label(trans('ev.discharge'))
+//                            ->nullable(),
+//                        Forms\Components\TextInput::make("highest_temp_cell")
+//                            ->label(trans('ev.highest_temp_cell'))
+//                            ->nullable(),
+//                        Forms\Components\TextInput::make("lowest_temp_cell")
+//                            ->label(trans('ev.lowest_temp_cell'))
+//                            ->nullable(),
+//                        Forms\Components\TextInput::make("highest_volt_cell")
+//                            ->label(trans('ev.highest_volt_cell'))
+//                            ->nullable(),
+//                        Forms\Components\TextInput::make("lowest_volt_cell")
+//                            ->label(trans('ev.lowest_volt_cell'))
+//                            ->nullable(),
+//                        Forms\Components\TextInput::make("voltage")
+//                            ->label(trans('ev.voltage'))
+//                            ->nullable(),
+//                    ]),
                     Forms\Components\Textarea::make("remark")
                         ->label(trans('ev.remark'))
                         ->columnSpan(2)
