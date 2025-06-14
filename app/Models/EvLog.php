@@ -31,6 +31,7 @@ class EvLog extends Model
         "lowest_temp_cell",
         "voltage",
         "charge_type",
+        "obd_file",
         "remark",
     ];
 
