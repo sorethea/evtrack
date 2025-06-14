@@ -217,7 +217,7 @@ class EvLogResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('obd_import')
-                    ->label(trans('Obd Import'))
+                    ->label(trans('ODB2'))
                     ->form([
                         FileUpload::make('obd_file')
                             ->preserveFilenames()
