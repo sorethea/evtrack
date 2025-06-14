@@ -78,7 +78,7 @@ class EvLogResource extends Resource
                         ->schema([
                             Forms\Components\Select::make('item_id')->relationship('item','pid')->required(),
                             Forms\Components\TextInput::make('value')->default(0)
-                        ]),
+                        ])->columnSpan(2),
 //                    Forms\Components\Fieldset::make()->label(trans('ev.obd2'))
 //                    ->schema([
 //                        Forms\Components\TextInput::make("ac")
