@@ -34,7 +34,19 @@ class EvLog extends Model
         "obd_file",
         "remark",
     ];
+    protected $appends=[
+            'soc_from',
+            'soc_to',
+        ];
 
+    public function getAttributeSocTo()
+    {
+        return $this->items()->where('item',10)->value('value');
+    }
+    public function getAttributeSocFrom()
+    {
+        return $this->parent()->items()->where('item',10)->value('value');
+    }
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class,'parent_id');
