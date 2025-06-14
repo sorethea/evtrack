@@ -231,8 +231,13 @@ class EvLogResource extends Resource
                     ->action(function (array $data,Model $record){
                         $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
                         $csv->setDelimiter(';');
+                        $obdFile = $data['obd_file'];
+                        $obdFileArray =explode("/",$obdFile);
+                        $obdFileName =end($obdFileArray);
+                        $obdFileNameArray = explode(".",$obdFileName);
                         $record->update([
-                            'obd_file'=>$data['obd_file'],
+                            'date' => $obdFileNameArray[0],
+                            'obd_file'=>$obdFile,
                         ]);
                         foreach ($csv->getRecords() as $index=>$row){
 
@@ -244,7 +249,7 @@ class EvLogResource extends Resource
                         }
                     }),
                 Tables\Actions\ViewAction::make(),
-                //Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->hidden(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
