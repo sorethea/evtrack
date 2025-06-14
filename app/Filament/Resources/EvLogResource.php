@@ -149,7 +149,7 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('soc_to')
                     ->label(trans('ev.soc_to'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
-                Tables\Columns\TextColumn::make('daily.energy')
+                Tables\Columns\TextColumn::make('soc_derivation')
                     ->label(trans('ev.energy'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->toggleable(),

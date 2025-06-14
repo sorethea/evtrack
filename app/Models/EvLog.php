@@ -37,6 +37,7 @@ class EvLog extends Model
     protected $appends=[
             'soc_from',
             'soc_to',
+            'soc_derivation',
         ];
 
     public function getSocToAttribute()
@@ -46,6 +47,10 @@ class EvLog extends Model
     public function getSocFromAttribute()
     {
         return $this?->parent?->items?->where('item_id',10)->value('value');
+    }
+    public function getSocDerivationAttribute()
+    {
+        return $this?->soc_from - $this->soc_to;
     }
     public function parent(): BelongsTo
     {
