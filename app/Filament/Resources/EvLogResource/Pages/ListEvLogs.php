@@ -5,6 +5,7 @@ namespace App\Filament\Resources\EvLogResource\Pages;
 use App\Filament\Resources\EvLogResource;
 use App\Models\EvLog;
 use App\Models\Obd2Logs;
+use App\Models\ObdItem;
 use Filament\Actions;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
@@ -32,6 +33,9 @@ class ListEvLogs extends ListRecords
                 ->label('Obd Import')
                 ->form([
                     Fieldset::make()->schema([
+                        TextInput::make('date')
+                            ->label(trans('ev.date'))
+                            ->required(),
                         Select::make("log_type")
                         ->live()
                         ->label(trans('ev.log_types.name'))
@@ -65,14 +69,21 @@ class ListEvLogs extends ListRecords
 
                 ])
                 ->action(function (array $data){
+
                     $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
                     $csv->setDelimiter(';');
+                    unset($data['obd_file']);
+
+                    $evLog = EvLog::create($data);
                     foreach ($csv->getRecords() as $index=>$record){
                         if($index >=200) break;
-                        Obd2Logs::where('pid',$record[1])->update([
-                            'seconds' => $record[0],
-                            'value' => $record[2],
-                        ]);
+                        $item = ObdItem::where('pid',$record[1])->first();
+                        if($item->id){
+                            $evLog->items()->firstOrNew([
+                               'item_id'=>$item->id,
+                               'value'=>$record[2],
+                            ]);
+                        }
                     }
 
                 }),
