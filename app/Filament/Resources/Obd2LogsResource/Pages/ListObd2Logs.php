@@ -89,6 +89,7 @@ class ListObd2Logs extends ListRecords
                 }),
             Actions\ImportAction::make()
                 ->importer(Obd2LogsImporter::class)
+                ->maxRows(100)
                 ->csvDelimiter(";"),
         ];
     }
