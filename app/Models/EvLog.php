@@ -39,7 +39,7 @@ class EvLog extends Model
             'soc_to',
             'soc_derivation',
             'soc_middle',
-            'distances',
+            'distance',
         ];
 
     public function getSocToAttribute()
