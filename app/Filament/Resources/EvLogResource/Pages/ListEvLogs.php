@@ -64,7 +64,7 @@ class ListEvLogs extends ListRecords
                             ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                             ->nullable(),
                         FileUpload::make('obd_file')
-                            ->storeFileNamesIn()
+                            ->storeFileNamesIn('logs')
                             ->disk('local')
                             ->directory('obd2'),
                     ])->columns(2),
