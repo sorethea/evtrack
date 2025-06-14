@@ -80,7 +80,8 @@ class ListEvLogs extends ListRecords
                         if($index >=200) break;
                         $item = ObdItem::where('pid',$record[1])->first();
                         if(!empty($item) && $item->id){
-                            $evLog->items()->updateOrCreate([
+
+                            $evLog->items()->firstOrCreate([
                                 'item_id'=>$item->id,
                                 'value'=>$record[2],
                             ]);
