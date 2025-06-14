@@ -8,6 +8,7 @@ use App\Models\EvLog;
 use Carbon\Carbon;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -215,6 +216,17 @@ class EvLogResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('obd_import')
+                    ->label(trans('Obd Import'))
+                    ->form([
+                        FileUpload::make('obd_file')
+                            ->preserveFilenames()
+                            ->disk('local')
+                            ->directory('obd2'),
+                    ])
+                    ->action(function (Model $record){
+
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
