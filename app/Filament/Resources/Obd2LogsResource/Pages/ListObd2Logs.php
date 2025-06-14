@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -84,13 +85,20 @@ class ListObd2Logs extends ListRecords
                         ]);
                     }
 
-                    Obd2Logs::truncate();
+                    //Obd2Logs::truncate();
 
                 }),
-            Actions\ImportAction::make()
-                ->importer(Obd2LogsImporter::class)
-                ->maxRows(100)
-                ->csvDelimiter(";"),
+//            Actions\ImportAction::make()
+//                ->importer(Obd2LogsImporter::class)
+//                ->maxRows(100)
+//                ->csvDelimiter(";"),
+            Actions\Action::make('importObd')
+                ->label('Import Obd2')
+                ->form([
+                    FileUpload::make('obd_file')
+                        ->disk('local')
+                        ->directory('obd2'),
+                ])
         ];
     }
 }
