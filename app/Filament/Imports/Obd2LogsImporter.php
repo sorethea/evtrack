@@ -40,7 +40,7 @@ class Obd2LogsImporter extends Importer
     public function resolveRecord(): ?Obd2Logs
     {
 
-            return Obd2Logs::firstOrCreate(['pid'=>$this->data['PID'],'value' => $this->data['VALUE']]);
+            return Obd2Logs::query()->where('pid',$this->data['PID'])->first();
 
 //        return new Obd2Logs();
 
