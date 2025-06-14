@@ -102,7 +102,7 @@ class ListObd2Logs extends ListRecords
                         ->directory('obd2'),
                 ])
                 ->action(function (array $data){
-                    $csv = Reader::createFromPath(Storage::path($data['csv_file']),'r');
+                    $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
                     $csv->setDelimiter(';');
                     foreach ($csv->getRecords() as $index=>$record){
                         if($index >=100) break;
