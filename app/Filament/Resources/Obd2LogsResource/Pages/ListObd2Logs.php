@@ -94,7 +94,7 @@ class ListObd2Logs extends ListRecords
 //                ->importer(Obd2LogsImporter::class)
 //                ->maxRows(100)
 //                ->csvDelimiter(";"),
-            Actions\Action::make('importObd')
+/*            Actions\Action::make('importObd')
                 ->label('Import Obd2')
                 ->form([
                     FileUpload::make('obd_file')
@@ -112,7 +112,7 @@ class ListObd2Logs extends ListRecords
                         ]);
                     }
 
-                }),
+                }),*/
         ];
     }
 }
