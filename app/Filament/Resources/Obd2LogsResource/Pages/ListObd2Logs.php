@@ -18,6 +18,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use League\Csv\Reader;
 
 class ListObd2Logs extends ListRecords
 {
@@ -99,6 +101,18 @@ class ListObd2Logs extends ListRecords
                         ->disk('local')
                         ->directory('obd2'),
                 ])
+                ->action(function (array $data){
+                    $csv = Reader::createFromPath(Storage::path($data['csv_file']),'r');
+                    $csv->setDelimiter(';');
+                    foreach ($csv->getRecords() as $index=>$record){
+                        if($index >=100) break;
+                        Obd2Logs::where('pid',$record['PID'])->update([
+                            'seconds' => $record['SECONDS'],
+                            'value' => $record['VALUE'],
+                        ]);
+                    }
+
+                }),
         ];
     }
 }
