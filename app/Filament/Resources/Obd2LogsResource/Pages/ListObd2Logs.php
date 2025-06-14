@@ -106,9 +106,9 @@ class ListObd2Logs extends ListRecords
                     $csv->setDelimiter(';');
                     foreach ($csv->getRecords() as $index=>$record){
                         if($index >=100) break;
-                        Obd2Logs::where('pid',$record['PID'])->update([
-                            'seconds' => $record['SECONDS'],
-                            'value' => $record['VALUE'],
+                        Obd2Logs::where('pid',$record[1])->update([
+                            'seconds' => $record[0],
+                            'value' => $record[2],
                         ]);
                     }
 
