@@ -39,38 +39,20 @@ class Obd2LogsImporter extends Importer
     public function resolveRecord(): ?Obd2Logs
     {
 
-        // return Obd2Logs::firstOrNew([
-        //     // Update existing records, matching them by `$this->data['column_name']`
-        //     'email' => $this->data['email'],
-        // ]);
+         return Obd2Logs::firstOrNew([
+             // Update existing records, matching them by `$this->data['column_name']`
+             //'email' => $this->data['email'],
+         ]);
 //        if($this->count > $this->limit){
 //            throw new RowImportFailedException("Over limit {$this->limit} of imported data allowed.");
 //            //Artisan::call("queue:clear");
 //        }
 //        $this->count ++;
-        return new Obd2Logs();
+//        return new Obd2Logs();
+
 
     }
 
-    /**
-     * @throws Exception
-     */
-    public function import(Reader $csv): void
-    {
-        $csv->setHeaderOffset(0);
-        $records = collect(iterator_to_array($csv->getRecords()));
-        $records = $records->take($this->limit);
-
-        $records->each(function (array $row){
-            Obd2Logs::firstOrCreate([
-               ['pid'=>$row['PID']],
-               [
-                   'seconds'=>$row['SECONDS'],
-                   'value'=>$row['VALUE'],
-               ]
-            ]);
-        });
-    }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
