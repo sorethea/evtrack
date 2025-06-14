@@ -3,6 +3,7 @@
 namespace App\Filament\Imports;
 
 use App\Models\Obd2Logs;
+use App\Models\ObdItem;
 use Filament\Actions\Imports\Exceptions\RowImportFailedException;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
@@ -38,12 +39,16 @@ class Obd2LogsImporter extends Importer
 
     public function resolveRecord(): ?Obd2Logs
     {
+        $items = ObdItem::all()->pluck('pid','id')->toArray();
+           if(in_array($this->data['pid'],$items)){
+               return Obd2Logs::firstOrNew([
+                   // Update existing records, matching them by `$this->data['column_name']`
+                   //'email' => $this->data['email'],
+                   'pid'=>$this->data['PID'],
+               ]);
+           }
 
-         return Obd2Logs::firstOrNew([
-             // Update existing records, matching them by `$this->data['column_name']`
-             //'email' => $this->data['email'],
-             'pid'=>$this->data['PID'],
-         ]);
+
 //        if($this->count > $this->limit){
 //            throw new RowImportFailedException("Over limit {$this->limit} of imported data allowed.");
 //            //Artisan::call("queue:clear");
