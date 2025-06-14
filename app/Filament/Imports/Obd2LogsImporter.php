@@ -41,11 +41,11 @@ class Obd2LogsImporter extends Importer
     {
         $items = ObdItem::all()->pluck('pid','id')->toArray();
            if(in_array($this->data['pid'],$items)){
-               return Obd2Logs::firstOrNew([
-                   // Update existing records, matching them by `$this->data['column_name']`
-                   //'email' => $this->data['email'],
-                   'pid'=>$this->data['PID'],
-               ]);
+//               return Obd2Logs::firstOrNew([
+//                   // Update existing records, matching them by `$this->data['column_name']`
+//                   //'email' => $this->data['email'],
+//                   'pid'=>$this->data['PID'],
+//               ]);
            }
 
 
