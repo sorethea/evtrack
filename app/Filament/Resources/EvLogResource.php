@@ -157,33 +157,30 @@ class EvLogResource extends Resource
                     ->label(trans('ev.soc_middle').'(%)')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('daily.a_charge')
-                    ->label(trans('ev.charge'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('daily.a_discharge')
-                    ->label(trans('ev.discharge'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->toggleable(),
+//                Tables\Columns\TextColumn::make('daily.a_charge')
+//                    ->label(trans('ev.charge'))
+//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+//                    ->toggleable(),
+//                Tables\Columns\TextColumn::make('daily.a_discharge')
+//                    ->label(trans('ev.discharge'))
+//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+//                    ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.voltage_spread')
                     ->label(trans('ev.voltage_spread'))
                     ->badge()
                     ->color(fn(string $state) => $state<0.1?'success':($state<0.2?'warning':'danger'))
                     ->formatStateUsing(fn($state)=>Number::format($state,4))
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('daily.consumption')
-                    ->label(trans('ev.consumption'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
-                Tables\Columns\TextColumn::make('daily.a_consumption')
-                    ->label(trans('ev.a_consumption'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->toggleable()
-                    ->toggledHiddenByDefault(),
-                Tables\Columns\TextColumn::make('daily.gap_zero')
-                    ->label(trans('ev.gap_zero'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
+//                Tables\Columns\TextColumn::make('daily.consumption')
+//                    ->label(trans('ev.consumption'))
+//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+//                    ->toggleable()
+//                    ->toggledHiddenByDefault(),
+//                Tables\Columns\TextColumn::make('daily.a_consumption')
+//                    ->label(trans('ev.a_consumption'))
+//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+//                    ->toggleable()
+//                    ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
