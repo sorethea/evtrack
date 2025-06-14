@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EvLogResource\Pages;
 use App\Filament\Resources\EvLogResource\RelationManagers;
 use App\Models\EvLog;
+use App\Models\ObdItem;
 use Carbon\Carbon;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Filament\Forms;
@@ -20,7 +21,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Number;
+use League\Csv\Reader;
 use Symfony\Component\Mime\Encoder\QpContentEncoder;
 
 class EvLogResource extends Resource
@@ -224,8 +227,23 @@ class EvLogResource extends Resource
                             ->disk('local')
                             ->directory('obd2'),
                     ])
-                    ->action(function (Model $record){
+                    ->action(function (array $data,Model $record){
+                        $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
+                        $csv->setDelimiter(';');
+                        $record->update([
+                            'obd_file'=>$data['obd_file'],
+                        ]);
+                        foreach ($csv->getRecords() as $index=>$row){
 
+                            if($index >=200) break;
+                            $item = ObdItem::where('pid',$row[1])->first();
+                            if(!empty($item) && $item->id){
+                                $record->items()->firstOrCreate([
+                                    'item_id'=>$item->id,
+                                    'value'=>$row[2],
+                                ]);
+                            }
+                        }
                     }),
             ])
             ->bulkActions([
