@@ -4,6 +4,7 @@ namespace App\Filament\Resources\EvLogResource\Pages;
 
 use App\Filament\Resources\EvLogResource;
 use App\Models\EvLog;
+use App\Models\EvLogItem;
 use App\Models\Obd2Logs;
 use App\Models\ObdItem;
 use Filament\Actions;
@@ -79,9 +80,10 @@ class ListEvLogs extends ListRecords
                         if($index >=200) break;
                         $item = ObdItem::where('pid',$record[1])->first();
                         if(!empty($item) && $item->id){
-                            $evLog->items()->firstOrNew([
-                               'item_id'=>$item->id,
-                               'value'=>$record[2],
+                            EvLogItem::firstOrNew([
+                                'log_id'=>$evLog->id,
+                                'item_id'=>$item->id,
+                                'value'=>$record[2],
                             ]);
                         }
                     }
