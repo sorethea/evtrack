@@ -241,7 +241,7 @@ class EvLogResource extends Resource
                             if(!empty($item) && $item->id){
                                 $record->items()->firstOrCreate([
                                     'item_id'=>$item->id,
-                                    'value'=>$row[2],
+                                    ['value'=>$row[2],]
                                 ]);
                             }
                         }
