@@ -38,19 +38,24 @@ class EvLog extends Model
             'soc_from',
             'soc_to',
             'soc_derivation',
+            'soc_middle',
         ];
 
     public function getSocToAttribute()
     {
-        return $this?->items?->where('item_id',10)->value('value');
+        return $this?->items?->where('item_id',11)->value('value');
     }
     public function getSocFromAttribute()
     {
-        return $this?->parent?->items?->where('item_id',10)->value('value');
+        return $this?->parent?->items?->where('item_id',11)->value('value');
     }
     public function getSocDerivationAttribute()
     {
         return $this?->soc_from - $this->soc_to;
+    }
+    public function getSocMiddleAttribute()
+    {
+        return $this?->soc_to - 100*($this?->items?->where('item_id',19)->value('value') - $this?->items?->where('item_id',20)->value('value'))/$this->vehicle->capacity;
     }
     public function parent(): BelongsTo
     {

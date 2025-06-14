@@ -11,6 +11,7 @@ return [
     "soc_from"=>"SoC from",
     "soc_to"=>"SoC to",
     "soc_derivation"=>"Derivation",
+    "soc_middle"=>"Middle",
     "energy"=>"Energy",
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",

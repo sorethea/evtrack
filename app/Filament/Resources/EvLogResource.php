@@ -144,13 +144,17 @@ class EvLogResource extends Resource
                     ->formatStateUsing(fn(string $state):string =>trans("ev.log_types.options.{$state}"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc_from')
-                    ->label(trans('ev.soc_from'))
+                    ->label(trans('ev.soc_from').'(%)')
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('soc_to')
-                    ->label(trans('ev.soc_to'))
+                    ->label(trans('ev.soc_to').'(%)')
                     ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('soc_derivation')
-                    ->label(trans('ev.soc_derivation'))
+                    ->label(trans('ev.soc_derivation').'(%)')
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('soc_middle')
+                    ->label(trans('ev.soc_middle').'(%)')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('daily.a_charge')
