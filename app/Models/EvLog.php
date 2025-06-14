@@ -42,6 +42,10 @@ class EvLog extends Model
             'distance',
         ];
 
+    public function getVoltageSpreadAttribute()
+    {
+        return $this?->items?->where('item_id',24)->value('value')-$this?->items?->where('item_id',22)->value('value');
+    }
     public function getSocToAttribute()
     {
         return $this?->items?->where('item_id',11)->value('value');
