@@ -9,13 +9,15 @@ use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
+use League\Csv\Exception;
+use League\Csv\Reader;
 
 class Obd2LogsImporter extends Importer
 {
     protected static ?string $model = Obd2Logs::class;
 
     protected int $count =0;
-    protected int $limit =50;
+    protected int $limit =300;
 
 
     public static function getColumns(): array
@@ -48,6 +50,26 @@ class Obd2LogsImporter extends Importer
 //        $this->count ++;
         return new Obd2Logs();
 
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function import(Reader $csv): void
+    {
+        $csv->setHeaderOffset(0);
+        $records = collect(iterator_to_array($csv->getRecords()));
+        $records = $records->take($this->limit);
+
+        $records->each(function (array $row){
+            Obd2Logs::firstOrCreate([
+               ['pid'=>$row['PID']],
+               [
+                   'seconds'=>$row['SECONDS'],
+                   'value'=>$row['VALUE'],
+               ]
+            ]);
+        });
     }
 
     public static function getCompletedNotificationBody(Import $import): string
