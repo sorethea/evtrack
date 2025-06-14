@@ -77,17 +77,17 @@ class EvLogResource extends Resource
                         ->options(trans("ev.charge_types.options"))
                         ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                         ->nullable(),
-                    Forms\Components\Repeater::make('items')
-                        ->relationship('items')
-                        ->orderColumn(column: 'item_id')
-                        ->schema([
-                            Forms\Components\Select::make('item_id')
-                                ->relationship('item','pid')
-                                ->required(),
-                            Forms\Components\TextInput::make('value')->default(0)
-                        ])
-                        ->columns(2)
-                        ->columnSpan(2),
+//                    Forms\Components\Repeater::make('items')
+//                        ->relationship('items')
+//                        ->orderColumn(column: 'item_id')
+//                        ->schema([
+//                            Forms\Components\Select::make('item_id')
+//                                ->relationship('item','pid')
+//                                ->required(),
+//                            Forms\Components\TextInput::make('value')->default(0)
+//                        ])
+//                        ->columns(2)
+//                        ->columnSpan(2),
 //                    Forms\Components\Fieldset::make()->label(trans('ev.obd2'))
 //                    ->schema([
 //                        Forms\Components\TextInput::make("ac")
