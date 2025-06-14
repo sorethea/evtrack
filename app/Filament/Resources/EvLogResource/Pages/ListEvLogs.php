@@ -74,9 +74,9 @@ class ListEvLogs extends ListRecords
                     $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
                     $csv->setDelimiter(';');
                     unset($data['obd_file']);
-
                     $evLog = EvLog::create($data);
                     foreach ($csv->getRecords() as $index=>$record){
+                        logger($record);
                         if($index >=200) break;
                         $item = ObdItem::where('pid',$record[1])->first();
                         if(!empty($item) && $item->id){
