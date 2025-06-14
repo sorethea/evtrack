@@ -241,7 +241,7 @@ class EvLogResource extends Resource
                         ]);
                         foreach ($csv->getRecords() as $index=>$row){
 
-                            if($index >=200) break;
+                            //if($index >=200) break;
                             $item = ObdItem::where('pid',$row[1])->first();
                             if(!empty($item) && $item->id){
                                 $record->items()->firstOrCreate(['item_id'=>$item->id],['value'=>$row[2]]);
