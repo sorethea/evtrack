@@ -39,11 +39,11 @@ class EvLog extends Model
             'soc_to',
         ];
 
-    public function getAttributeSocTo()
+    public function getSocToAttribute()
     {
         return $this->items()->where('item',10)->value('value');
     }
-    public function getAttributeSocFrom()
+    public function getSocFromAttribute()
     {
         return $this->parent()->items()->where('item',10)->value('value');
     }
