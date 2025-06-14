@@ -59,15 +59,15 @@ class EvLogResource extends Resource
                         ->default(fn()=>EvLog::where("log_type","charging")->max('date'))
                         ->searchable()
                         ->nullable(),
-                    Forms\Components\TextInput::make("odo")
-                        ->label(trans('ev.odo'))
-                        ->required(),
-                    Forms\Components\TextInput::make("soc")
-                        ->label(trans('ev.soc'))
-                        ->nullable(),
-                    Forms\Components\TextInput::make("soc_actual")
-                        ->label(trans('ev.soc_actual'))
-                        ->nullable(),
+//                    Forms\Components\TextInput::make("odo")
+//                        ->label(trans('ev.odo'))
+//                        ->required(),
+//                    Forms\Components\TextInput::make("soc")
+//                        ->label(trans('ev.soc'))
+//                        ->nullable(),
+//                    Forms\Components\TextInput::make("soc_actual")
+//                        ->label(trans('ev.soc_actual'))
+//                        ->nullable(),
                     Forms\Components\Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))
