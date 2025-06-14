@@ -10,6 +10,7 @@ class EvLogItem extends Model
     protected $fillable = [
         "log_id",
         "item_id",
+        "value",
     ];
 
     public function log():BelongsTo

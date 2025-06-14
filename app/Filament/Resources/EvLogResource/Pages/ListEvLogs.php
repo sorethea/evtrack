@@ -76,11 +76,10 @@ class ListEvLogs extends ListRecords
                     unset($data['obd_file']);
                     $evLog = EvLog::create($data);
                     foreach ($csv->getRecords() as $index=>$record){
-                        logger($record);
+
                         if($index >=200) break;
                         $item = ObdItem::where('pid',$record[1])->first();
                         if(!empty($item) && $item->id){
-
                             $evLog->items()->firstOrCreate([
                                 'item_id'=>$item->id,
                                 'value'=>$record[2],
