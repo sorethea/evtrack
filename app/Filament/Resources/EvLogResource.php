@@ -145,10 +145,10 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc_from')
                     ->label(trans('ev.soc_from'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('soc_to')
                     ->label(trans('ev.soc_to'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)."%"),
+                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
                 Tables\Columns\TextColumn::make('soc_derivation')
                     ->label(trans('ev.soc_derivation'))
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
