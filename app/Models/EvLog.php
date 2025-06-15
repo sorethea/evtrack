@@ -86,9 +86,9 @@ class EvLog extends Model
     {
         return $this->belongsTo(self::class,'parent_id');
     }
-    public function items(): HasManyThrough
+    public function items(): HasMany
     {
-        return $this->hasManyThrough(ObdItem::class,EvLogItem::class,'log_id','item_id');
+        return $this->hasMany(EvLogItem::class,'log_id');
     }
     public function daily(): HasOne
     {
