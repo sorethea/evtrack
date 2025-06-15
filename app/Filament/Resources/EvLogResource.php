@@ -156,10 +156,17 @@ class EvLogResource extends Resource
                         return Number::format($derivation,1);
                         })
                     ->toggleable(),
-//                Tables\Columns\TextColumn::make('soc_middle')
-//                    ->label(trans('ev.soc_middle').'(%)')
-//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-//                    ->toggleable(),
+                Tables\Columns\TextColumn::make('soc_middle')
+                    ->label(trans('ev.soc_middle').'(%)')
+                    ->default(function(Model $record){
+                        $soc = $record->items->where('item_id',11)->value('value');
+                        $ac = $record->items->where('item_id',22)->value('value');
+                        $ad = $record->items->where('item_id',24)->value('value');
+                        $capacity = $record->vehicle->capacity;
+                        $middle = $soc - 100*($ac-$ad)/$capacity;
+                        return Number::format($middle,1);
+                    })
+                    ->toggleable(),
 //                Tables\Columns\TextColumn::make('daily.a_charge')
 //                    ->label(trans('ev.charge'))
 //                    ->formatStateUsing(fn($state)=>Number::format($state,1))
