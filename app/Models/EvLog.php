@@ -20,8 +20,8 @@ class EvLog extends Model
         "date",
        // "odo",
         "log_type",
-        "soc_from",
-        "soc_to",
+//        "soc_from",
+//        "soc_to",
 //        "soc_actual",
 //        "ac",
 //        "ad",
@@ -37,8 +37,8 @@ class EvLog extends Model
         "remark",
     ];
     protected $appends=[
-            'soc_from',
-            'soc_to',
+//            'soc_from',
+//            'soc_to',
 //            'soc_derivation',
 //            'soc_middle',
 //            'distance',
@@ -49,18 +49,18 @@ class EvLog extends Model
 //    {
 //        return $this?->items?->where('item_id',24)->value('value')-$this?->items?->where('item_id',22)->value('value');
 //    }
-    protected function socFrom(): Attribute
-    {
-        return new Attribute(
-            get: fn()=>$this?->parent?->items?->where('item_id',11)->value('value'),set: null
-        );
-    }
-    protected function socTo(): Attribute
-    {
-        return new Attribute(
-            get: fn()=>$this?->items?->where('item_id',11)->value('value'),set: null
-        );
-    }
+//    protected function socFrom(): Attribute
+//    {
+//        return new Attribute(
+//            get: fn()=>$this?->parent?->items?->where('item_id',11)->value('value'),set: null
+//        );
+//    }
+//    protected function socTo(): Attribute
+//    {
+//        return new Attribute(
+//            get: fn()=>$this?->items?->where('item_id',11)->value('value'),set: null
+//        );
+//    }
 //    public function getSocToAttribute()
 //    {
 //        return $this?->items?->where('item_id',11)->value('value');
