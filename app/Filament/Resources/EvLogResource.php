@@ -167,6 +167,17 @@ class EvLogResource extends Resource
                         return Number::format($middle,1);
                     })
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('voltage_spread')
+                    ->label(trans('ev.voltage_spread').'(mlV)')
+                    ->default(function(Model $record){
+                        $highestVoltage = $record->items->where('item_id',24)->value('value');
+                        $lowestVoltage = $record->items->where('item_id',22)->value('value');
+                        $spread = $highestVoltage - $lowestVoltage;
+                        return Number::format($spread,3);
+                    })
+                    ->badge()
+                    ->color(fn(string $state) => $state<0.1?'success':($state<0.2?'warning':'danger'))
+                    ->toggleable(),
 //                Tables\Columns\TextColumn::make('daily.a_charge')
 //                    ->label(trans('ev.charge'))
 //                    ->formatStateUsing(fn($state)=>Number::format($state,1))
