@@ -125,10 +125,6 @@ class EvLogResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-//            ->modifyQueryUsing(fn(Builder $query)=>$query
-//                ->from('daily_logs_view','l')
-//                ->selectRaw()
-//            )
             ->columns([
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
@@ -178,50 +174,10 @@ class EvLogResource extends Resource
                     ->badge()
                     ->color(fn(string $state) => $state<0.1?'success':($state<0.2?'warning':'danger'))
                     ->toggleable(),
-//                Tables\Columns\TextColumn::make('daily.a_charge')
-//                    ->label(trans('ev.charge'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-//                    ->toggleable(),
-//                Tables\Columns\TextColumn::make('daily.a_discharge')
-//                    ->label(trans('ev.discharge'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-//                    ->toggleable(),
-//                Tables\Columns\TextColumn::make('voltage_spread')
-//                    ->label(trans('ev.voltage_spread'))
-//                    ->badge()
-//                    ->color(fn(string $state) => $state<0.1?'success':($state<0.2?'warning':'danger'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,3))
-//                    ->toggleable(),
-//                Tables\Columns\TextColumn::make('daily.consumption')
-//                    ->label(trans('ev.consumption'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-//                    ->toggleable()
-//                    ->toggledHiddenByDefault(),
-//                Tables\Columns\TextColumn::make('daily.a_consumption')
-//                    ->label(trans('ev.a_consumption'))
-//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-//                    ->toggleable()
-//                    ->toggledHiddenByDefault(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
-                    ->formatStateUsing(fn($state)=>Number::format($state,1)),
-
-
-
-//                Tables\Columns\TextColumn::make('consumption')
-//                    ->label(trans('ev.consumption'))
-//                    ->default(function(Model $record){
-//                        $distance = !empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo;
-//                        $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
-//                        return $distance>0 ? Number::format($capacity/$distance * 100,0)."kWh/100km":"";
-//                    }),
-//                Tables\Columns\TextColumn::make('range')
-//                    ->label(trans('ev.range'))
-//                    ->default(function(Model $record){
-//                        $distance = !empty($record?->parent?->odo)?$record->odo - $record?->parent?->odo:$record->odo;
-//                        $capacity = $record->vehicle->capacity/100 * ($record?->parent?->soc? $record->parent->soc - $record->soc:0);
-//                        return $capacity>0? Number::format($distance/$capacity * 100,0)."km":"";
-//                    }),
+                    ->default(fn(Model $record)=>Number::format($record->items->where('item_id',1)->value('value')
+                            - $record->parent->items->where('item_id',1)->value('value'),1)),
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()
