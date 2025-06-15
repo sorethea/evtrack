@@ -52,13 +52,13 @@ class EvLog extends Model
     protected function socFrom(): Attribute
     {
         return new Attribute(
-            get: fn()=>$this?->parent?->items?->where('item_id',11)->value('value'),
+            get: fn()=>$this?->parent?->items?->where('item_id',11)->value('value'),set: null
         );
     }
     protected function socTo(): Attribute
     {
         return new Attribute(
-            get: fn()=>$this?->items?->where('item_id',11)->value('value'),
+            get: fn()=>$this?->items?->where('item_id',11)->value('value'),set: null
         );
     }
 //    public function getSocToAttribute()
