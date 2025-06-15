@@ -176,8 +176,10 @@ class EvLogResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
-                    ->default(fn(Model $record)=>Number::format($record?->items?->where('item_id',1)->value('value')??0
-                            - $record?->parent?->items?->where('item_id',1)->value('value')??0,1)),
+                    ->default(function(Model $record){
+                        $distance = $record?->items?->where('item_id',1)->value('value')-$record?->parent?->items?->where('item_id',1)->value('value');
+                        return Number::format($distance,1);
+                    }),
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()
