@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\EvLogObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -48,14 +49,26 @@ class EvLog extends Model
 //    {
 //        return $this?->items?->where('item_id',24)->value('value')-$this?->items?->where('item_id',22)->value('value');
 //    }
-    public function getSocToAttribute()
+    protected function soc_from(): Attribute
     {
-        return $this?->items?->where('item_id',11)->value('value');
+        return new Attribute(
+            get: fn()=>$this?->parent?->items?->where('item_id',11)->value('value'),
+        );
     }
-    public function getSocFromAttribute()
+    protected function soc_to(): Attribute
     {
-        return $this?->parent?->items?->where('item_id',11)->value('value');
+        return new Attribute(
+            get: fn()=>$this?->items?->where('item_id',11)->value('value'),
+        );
     }
+//    public function getSocToAttribute()
+//    {
+//        return $this?->items?->where('item_id',11)->value('value');
+//    }
+//    public function getSocFromAttribute()
+//    {
+//        return $this?->parent?->items?->where('item_id',11)->value('value');
+//    }
 //    public function getDistanceAttribute()
 //    {
 //        return $this?->items?->where('item_id',1)->value('value')-$this?->parent?->items?->where('item_id',1)->value('value');
