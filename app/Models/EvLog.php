@@ -40,13 +40,13 @@ class EvLog extends Model
             'soc_derivation',
             'soc_middle',
             'distance',
-            'voltage_spread',
+            //'voltage_spread',
         ];
 //
-    public function getVoltageSpreadAttribute()
-    {
-        return $this?->items?->where('item_id',24)->value('value')-$this?->items?->where('item_id',22)->value('value');
-    }
+//    public function getVoltageSpreadAttribute()
+//    {
+//        return $this?->items?->where('item_id',24)->value('value')-$this?->items?->where('item_id',22)->value('value');
+//    }
     public function getSocToAttribute()
     {
         return $this?->items?->where('item_id',11)->value('value');
