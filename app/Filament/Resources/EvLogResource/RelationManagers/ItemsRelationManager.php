@@ -34,6 +34,7 @@ class ItemsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('item.pid'),
                 Tables\Columns\TextColumn::make('value'),
+                Tables\Columns\TextColumn::make('item.units'),
             ])
             ->defaultSort('item_id')
             ->filters([
