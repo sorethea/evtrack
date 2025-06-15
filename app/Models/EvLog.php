@@ -35,8 +35,8 @@ class EvLog extends Model
         "remark",
     ];
     protected $appends=[
-            'soc_from',
-            'soc_to',
+//            'soc_from',
+//            'soc_to',
 //            'soc_derivation',
 //            'soc_middle',
 //            'distance',
