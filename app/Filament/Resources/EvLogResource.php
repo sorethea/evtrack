@@ -159,7 +159,7 @@ class EvLogResource extends Resource
                         $ac = $record?->items?->where('item_id',19)->value('value');
                         $ad = $record?->items?->where('item_id',20)->value('value');
                         $capacity = $record?->vehicle?->capacity;
-                        $middle = $soc - 100*($ac-$ad)/$capacity;
+                        $middle = $capacity>0?$soc - 100*($ac-$ad)/$capacity:0;
                         return Number::format($middle??0,1);
                     })
                     ->toggleable(),
