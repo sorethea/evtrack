@@ -141,15 +141,15 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc_from')
                     ->label(trans('ev.soc_from').'(%)')
-                    ->default(fn(Model $record)=>Number::format($record?->parent?->items?->where('item_id',11)->value('value'),1)),
+                    ->default(fn(Model $record)=>Number::format($record?->parent?->items?->where('item_id',11)->value('value')??0,1)),
                 Tables\Columns\TextColumn::make('soc_to')
                     ->label(trans('ev.soc_to').'(%)')
-                    ->default(fn(Model $record)=>Number::format($record?->items?->where('item_id',11)->value('value'),1)),
+                    ->default(fn(Model $record)=>Number::format($record?->items?->where('item_id',11)->value('value')??0,1)),
                 Tables\Columns\TextColumn::make('soc_derivation')
                     ->label(trans('ev.soc_derivation').'(%)')
                     ->default(function(Model $record){
                         $derivation = $record?->parent?->items?->where('item_id',11)->value('value')-$record?->items?->where('item_id',11)->value('value');
-                        return Number::format($derivation,1);
+                        return Number::format($derivation??0,1);
                         })
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('soc_middle')
@@ -160,7 +160,7 @@ class EvLogResource extends Resource
                         $ad = $record?->items?->where('item_id',20)->value('value');
                         $capacity = $record?->vehicle?->capacity;
                         $middle = $soc - 100*($ac-$ad)/$capacity;
-                        return Number::format($middle,1);
+                        return Number::format($middle??0,1);
                     })
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('voltage_spread')
@@ -169,15 +169,15 @@ class EvLogResource extends Resource
                         $highestVoltage = $record?->items?->where('item_id',24)->value('value');
                         $lowestVoltage = $record?->items?->where('item_id',22)->value('value');
                         $spread = $highestVoltage - $lowestVoltage;
-                        return Number::format($spread,3);
+                        return Number::format($spread??0,3);
                     })
                     ->badge()
                     ->color(fn(string $state) => $state<0.1?'success':($state<0.2?'warning':'danger'))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
-                    ->default(fn(Model $record)=>Number::format($record?->items?->where('item_id',1)->value('value')
-                            - $record?->parent?->items?->where('item_id',1)->value('value'),1)),
+                    ->default(fn(Model $record)=>Number::format($record?->items?->where('item_id',1)->value('value')??0
+                            - $record?->parent?->items?->where('item_id',1)->value('value')??0,1)),
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()
