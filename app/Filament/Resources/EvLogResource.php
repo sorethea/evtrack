@@ -149,10 +149,13 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('soc_to')
                     ->label(trans('ev.soc_to').'(%)')
                     ->default(fn(Model $record)=>Number::format($record->items->where('item_id',11)->value('value'),1)),
-//                Tables\Columns\TextColumn::make('soc_derivation')
-//                    ->label(trans('ev.soc_derivation').'(%)')
-//                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-//                    ->toggleable(),
+                Tables\Columns\TextColumn::make('soc_derivation')
+                    ->label(trans('ev.soc_derivation').'(%)')
+                    ->default(function(Model $record){
+                        $derivation = $record->parent->items->where('item_id',11)->value('value')-$record->items->where('item_id',11)->value('value');
+                        return Number::format($derivation,1);
+                        })
+                    ->toggleable(),
 //                Tables\Columns\TextColumn::make('soc_middle')
 //                    ->label(trans('ev.soc_middle').'(%)')
 //                    ->formatStateUsing(fn($state)=>Number::format($state,1))
