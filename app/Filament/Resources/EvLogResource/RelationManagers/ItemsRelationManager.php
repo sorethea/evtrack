@@ -19,7 +19,7 @@ class ItemsRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\Select::make('item_id')
-                    ->options()
+                    ->relationship('item','pid')
                     ->required()
                     ->maxLength(255),
             ]);
