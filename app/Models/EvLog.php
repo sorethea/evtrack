@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[ObservedBy([EvLogObserver::class])]
@@ -85,9 +86,9 @@ class EvLog extends Model
     {
         return $this->belongsTo(self::class,'parent_id');
     }
-    public function items(): HasMany
+    public function items(): HasManyThrough
     {
-        return $this->hasMany(EvLogItem::class,'log_id','id');
+        return $this->hasManyThrough(Item::class,'log_item','log_id','item_id');
     }
     public function daily(): HasOne
     {
