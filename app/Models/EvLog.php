@@ -47,14 +47,14 @@ class EvLog extends Model
 //    {
 //        return $this?->items?->where('item_id',24)->value('value')-$this?->items?->where('item_id',22)->value('value');
 //    }
-    public function getSocToAttribute()
-    {
-        return $this?->items?->where('item_id',11)->value('value');
-    }
-    public function getSocFromAttribute()
-    {
-        return $this?->parent?->items?->where('item_id',11)->value('value');
-    }
+//    public function getSocToAttribute()
+//    {
+//        return $this?->items?->where('item_id',11)->value('value');
+//    }
+//    public function getSocFromAttribute()
+//    {
+//        return $this?->parent?->items?->where('item_id',11)->value('value');
+//    }
 //    public function getDistanceAttribute()
 //    {
 //        return $this?->items?->where('item_id',1)->value('value')-$this?->parent?->items?->where('item_id',1)->value('value');
