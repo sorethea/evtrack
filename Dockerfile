@@ -6,6 +6,8 @@ FROM php:8.3-fpm
 # Set working directory
 WORKDIR /var/www
 
+USER root
+
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
