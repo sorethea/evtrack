@@ -34,38 +34,39 @@ class EvLog extends Model
         "obd_file",
         "remark",
     ];
-//    protected $appends=[
-//            'soc_from',
-//            'soc_to',
-//            'soc_derivation',
-//            'soc_middle',
-//            'distance',
-//        ];
+    protected $appends=[
+            'soc_from',
+            'soc_to',
+            'soc_derivation',
+            'soc_middle',
+            'distance',
+            'voltage_spread',
+        ];
 //
-//    public function getVoltageSpreadAttribute()
-//    {
-//        return $this?->items?->where('item_id',24)->value('value')-$this?->items?->where('item_id',22)->value('value');
-//    }
-//    public function getSocToAttribute()
-//    {
-//        return $this?->items?->where('item_id',11)->value('value');
-//    }
-//    public function getSocFromAttribute()
-//    {
-//        return $this?->parent?->items?->where('item_id',11)->value('value');
-//    }
-//    public function getDistanceAttribute()
-//    {
-//        return $this?->items?->where('item_id',1)->value('value')-$this?->parent?->items?->where('item_id',1)->value('value');
-//    }
-//    public function getSocDerivationAttribute()
-//    {
-//        return $this?->soc_from - $this->soc_to;
-//    }
-//    public function getSocMiddleAttribute()
-//    {
-//        return $this?->soc_to - 100*($this?->items?->where('item_id',19)->value('value') - $this?->items?->where('item_id',20)->value('value'))/$this->vehicle->capacity;
-//    }
+    public function getVoltageSpreadAttribute()
+    {
+        return $this?->items?->where('item_id',24)->value('value')-$this?->items?->where('item_id',22)->value('value');
+    }
+    public function getSocToAttribute()
+    {
+        return $this?->items?->where('item_id',11)->value('value');
+    }
+    public function getSocFromAttribute()
+    {
+        return $this?->parent?->items?->where('item_id',11)->value('value');
+    }
+    public function getDistanceAttribute()
+    {
+        return $this?->items?->where('item_id',1)->value('value')-$this?->parent?->items?->where('item_id',1)->value('value');
+    }
+    public function getSocDerivationAttribute()
+    {
+        return $this?->soc_from - $this->soc_to;
+    }
+    public function getSocMiddleAttribute()
+    {
+        return $this?->soc_to - 100*($this?->items?->where('item_id',19)->value('value') - $this?->items?->where('item_id',20)->value('value'))/$this->vehicle->capacity;
+    }
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class,'parent_id');
