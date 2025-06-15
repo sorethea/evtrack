@@ -23,12 +23,12 @@ class ChargingCycleOverview extends BaseWidget
         }
         $lastChild = $lastChargingCycle->children()->latest('date')->first();
         return [
-            Stat::make('Total Distance', Number::format($distance,1).'km'),
-            Stat::make('Total Charge',Number::format($lastChargingCycle->daily->energy,1).'kWh'),
-            Stat::make('Total Regenerative Braking',Number::format($regen,1).'kWh'),
-            Stat::make('Total Discharge', Number::format($discharge,1).'kWh'),
-            Stat::make('kWh/100km', $distance>0?Number::format(100 * $discharge/$distance,1):0),
-            Stat::make('Gap Zero', Number::format($lastChild->daily->gap_zero,1).'kWh'),
+//            Stat::make('Total Distance', Number::format($distance,1).'km'),
+//            Stat::make('Total Charge',Number::format($lastChargingCycle->daily->energy,1).'kWh'),
+//            Stat::make('Total Regenerative Braking',Number::format($regen,1).'kWh'),
+//            Stat::make('Total Discharge', Number::format($discharge,1).'kWh'),
+//            Stat::make('kWh/100km', $distance>0?Number::format(100 * $discharge/$distance,1):0),
+//            Stat::make('Gap Zero', Number::format($lastChild->daily->gap_zero,1).'kWh'),
         ];
     }
 }
