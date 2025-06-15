@@ -160,8 +160,8 @@ class EvLogResource extends Resource
                     ->label(trans('ev.soc_middle').'(%)')
                     ->default(function(Model $record){
                         $soc = $record->items->where('item_id',11)->value('value');
-                        $ac = $record->items->where('item_id',22)->value('value');
-                        $ad = $record->items->where('item_id',24)->value('value');
+                        $ac = $record->items->where('item_id',19)->value('value');
+                        $ad = $record->items->where('item_id',20)->value('value');
                         $capacity = $record->vehicle->capacity;
                         $middle = $soc - 100*($ac-$ad)/$capacity;
                         return Number::format($middle,1);
