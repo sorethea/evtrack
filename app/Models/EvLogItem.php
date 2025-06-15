@@ -13,6 +13,7 @@ class EvLogItem extends Model
         "value",
     ];
 
+
     public function log():BelongsTo
     {
         return $this->belongsTo(EvLog::class,'log_id');
