@@ -20,8 +20,10 @@ class ItemsRelationManager extends RelationManager
             ->schema([
                 Forms\Components\Select::make('item_id')
                     ->relationship('item','pid')
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
+                Forms\Components\TextInput::make('value')
+                    ->numeric()
+                    ->default(0),
             ]);
     }
 
@@ -30,7 +32,8 @@ class ItemsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('item_id')
             ->columns([
-                Tables\Columns\TextColumn::make('item_id'),
+                Tables\Columns\TextColumn::make('item.pid'),
+                Tables\Columns\TextColumn::make('value'),
             ])
             ->filters([
                 //
