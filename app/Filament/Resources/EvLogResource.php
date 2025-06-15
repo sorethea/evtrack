@@ -141,24 +141,24 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc_from')
                     ->label(trans('ev.soc_from').'(%)')
-                    ->default(fn(Model $record)=>Number::format($record->parent->items->where('item_id',11)->value('value'),1)),
+                    ->default(fn(Model $record)=>Number::format($record->parent?->items?->where('item_id',11)->value('value'),1)),
                 Tables\Columns\TextColumn::make('soc_to')
                     ->label(trans('ev.soc_to').'(%)')
-                    ->default(fn(Model $record)=>Number::format($record->items->where('item_id',11)->value('value'),1)),
+                    ->default(fn(Model $record)=>Number::format($record->items?->where('item_id',11)->value('value'),1)),
                 Tables\Columns\TextColumn::make('soc_derivation')
                     ->label(trans('ev.soc_derivation').'(%)')
                     ->default(function(Model $record){
-                        $derivation = $record->parent->items->where('item_id',11)->value('value')-$record->items->where('item_id',11)->value('value');
+                        $derivation = $record->parent?->items?->where('item_id',11)->value('value')-$record->items?->where('item_id',11)->value('value');
                         return Number::format($derivation,1);
                         })
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('soc_middle')
                     ->label(trans('ev.soc_middle').'(%)')
                     ->default(function(Model $record){
-                        $soc = $record->items->where('item_id',11)->value('value');
-                        $ac = $record->items->where('item_id',19)->value('value');
-                        $ad = $record->items->where('item_id',20)->value('value');
-                        $capacity = $record->vehicle->capacity;
+                        $soc = $record->items?->where('item_id',11)->value('value');
+                        $ac = $record->items?->where('item_id',19)->value('value');
+                        $ad = $record->items?->where('item_id',20)->value('value');
+                        $capacity = $record->vehicle?->capacity;
                         $middle = $soc - 100*($ac-$ad)/$capacity;
                         return Number::format($middle,1);
                     })
@@ -166,8 +166,8 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('voltage_spread')
                     ->label(trans('ev.voltage_spread').'(mlV)')
                     ->default(function(Model $record){
-                        $highestVoltage = $record->items->where('item_id',24)->value('value');
-                        $lowestVoltage = $record->items->where('item_id',22)->value('value');
+                        $highestVoltage = $record->items?->where('item_id',24)->value('value');
+                        $lowestVoltage = $record->items?->where('item_id',22)->value('value');
                         $spread = $highestVoltage - $lowestVoltage;
                         return Number::format($spread,3);
                     })
@@ -176,8 +176,8 @@ class EvLogResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('distance')
                     ->label(trans('ev.distance'))
-                    ->default(fn(Model $record)=>Number::format($record->items->where('item_id',1)->value('value')
-                            - $record->parent->items->where('item_id',1)->value('value'),1)),
+                    ->default(fn(Model $record)=>Number::format($record->items?->where('item_id',1)->value('value')
+                            - $record->parent?->items?->where('item_id',1)->value('value'),1)),
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()
