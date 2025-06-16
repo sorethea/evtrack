@@ -260,7 +260,7 @@ class EvLogResource extends Resource
             if(!empty($item) && $item->id){
                 $model->items()->firstOrCreate(
                     ['item_id'=>$item->id],
-                    ['value'=>$row[2],'latitude'=>$row[3],'longitude'=>$row[4]]);
+                    ['value'=>$row[2],'latitude'=>$row[4],'longitude'=>$row[5]]);
             }
         }
     }
