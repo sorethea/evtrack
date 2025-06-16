@@ -11,6 +11,8 @@ class EvLogItem extends Model
         "log_id",
         "item_id",
         "value",
+        "latitude",
+        "longitude",
     ];
 
 

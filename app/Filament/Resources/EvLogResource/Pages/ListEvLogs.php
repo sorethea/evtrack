@@ -71,23 +71,24 @@ class ListEvLogs extends ListRecords
 
                 ])
                 ->action(function (array $data){
-                    $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
-                    $csv->setDelimiter(';');
-                    $obdFile = $data['obd_file'];
-                    $obdFileArray =explode("/",$obdFile);
-                    $obdFileName =end($obdFileArray);
-                    $obdFileNameArray = explode(".",$obdFileName);
-                    $data['date'] = $obdFileNameArray[0];
-                    $evLog = EvLog::create($data);
-                    foreach ($csv->getRecords() as $index=>$record){
-                        if($index >=200) break;
-                        $item = ObdItem::where('pid',$record[1])->first();
-                        if(!empty($item) && $item->id){
-                            $evLog->items()->firstOrCreate(
-                                ['item_id'=>$item->id],
-                                ['value'=>$record[2], 'latitude'=>$record[3], 'longitude'=>$record[4]]);
-                        }
-                    }
+                    EvLogResource::obdImport($data);
+//                    $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
+//                    $csv->setDelimiter(';');
+//                    $obdFile = $data['obd_file'];
+//                    $obdFileArray =explode("/",$obdFile);
+//                    $obdFileName =end($obdFileArray);
+//                    $obdFileNameArray = explode(".",$obdFileName);
+//                    $data['date'] = $obdFileNameArray[0];
+//                    $evLog = EvLog::create($data);
+//                    foreach ($csv->getRecords() as $index=>$record){
+//                        if($index >=200) break;
+//                        $item = ObdItem::where('pid',$record[1])->first();
+//                        if(!empty($item) && $item->id){
+//                            $evLog->items()->firstOrCreate(
+//                                ['item_id'=>$item->id],
+//                                ['value'=>$record[2], 'latitude'=>$record[3], 'longitude'=>$record[4]]);
+//                        }
+//                    }
 
                 }),
         ];
