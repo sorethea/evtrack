@@ -247,17 +247,10 @@ class EvLogResource extends Resource
         $obdFileArray =explode("/",$obdFile);
         $obdFileName =end($obdFileArray);
         $obdFileNameArray = explode(".",$obdFileName);
-        if(empty($evLog->id)){
-            $evLog = new EvLog();
-            $data['date']=$obdFileNameArray[0];
-            $evLog->create($data);
-        }else{
-            $evLog->update([
-                'date' => $obdFileNameArray[0],
-                'obd_file'=>$obdFile,
-            ]);
-        }
-
+        $evLog->update([
+            'date' => $obdFileNameArray[0],
+            'obd_file'=>$obdFile,
+        ]);
         foreach ($csv->getRecords() as $index=>$row){
             //if($index >=200) break;
             $item = ObdItem::where('pid',$row[1])->first();

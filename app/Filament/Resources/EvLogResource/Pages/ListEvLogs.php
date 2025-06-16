@@ -71,7 +71,8 @@ class ListEvLogs extends ListRecords
 
                 ])
                 ->action(function (array $data){
-                    EvLogResource::obdImport($data,new EvLog());
+                    $evLog = EvLog::create($data);
+                    EvLogResource::obdImport($data,$evLog);
 //                    $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
 //                    $csv->setDelimiter(';');
 //                    $obdFile = $data['obd_file'];
