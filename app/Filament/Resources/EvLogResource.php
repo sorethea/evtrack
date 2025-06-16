@@ -257,7 +257,7 @@ class EvLogResource extends Resource
             if(!empty($item) && $item->id && $evLog->id){
                 EvLogItem::query()->firstOrCreate(
                     ['item_id'=>$item->id,'log_id'=>$evLog->id],
-                    ['value'=>$row[2]??0,'latitude'=>$row[4]??0,'longitude'=>$row[5]??0]);
+                    ['value'=>$row[2]??0,'latitude'=>$row[4]??null,'longitude'=>$row[5]??null]);
             }
         }
     }
