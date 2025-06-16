@@ -259,7 +259,7 @@ class EvLogResource extends Resource
             $item = ObdItem::where('pid',$row[1])->first();
             if(!empty($item) && $item->id){
                 $model->items()->firstOrCreate(
-                    ['item_id'=>$item->id],
+                    ['log_id'=>$model->id,'item_id'=>$item->id],
                     ['value'=>$row[2],'latitude'=>$row[4],'longitude'=>$row[5]]);
             }
         }
