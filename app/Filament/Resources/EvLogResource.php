@@ -238,7 +238,7 @@ class EvLogResource extends Resource
         ];
     }
 
-    public static function obdImport(array $data, Model $model = null): void
+    public static function obdImport(array $data, Model $model=null): void
     {
         $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
         $csv->setDelimiter(';');
@@ -246,20 +246,23 @@ class EvLogResource extends Resource
         $obdFileArray =explode("/",$obdFile);
         $obdFileName =end($obdFileArray);
         $obdFileNameArray = explode(".",$obdFileName);
-        if(is_null($model)){
+        if(empty($model->id)){
             $model = new EvLog();
+            $data['date']=$obdFileNameArray[0];
             $model->create($data);
+        }else{
+            $model->update([
+                'date' => $obdFileNameArray[0],
+                'obd_file'=>$obdFile,
+            ]);
         }
-        $model->update([
-            'date' => $obdFileNameArray[0],
-            'obd_file'=>$obdFile,
-        ]);
+
         foreach ($csv->getRecords() as $index=>$row){
             //if($index >=200) break;
             $item = ObdItem::where('pid',$row[1])->first();
             if(!empty($item) && $item->id){
                 $model->items()->firstOrCreate(
-                    ['log_id'=>$model->id,'item_id'=>$item->id],
+                    ['item_id'=>$item->id],
                     ['value'=>$row[2],'latitude'=>$row[4],'longitude'=>$row[5]]);
             }
         }
