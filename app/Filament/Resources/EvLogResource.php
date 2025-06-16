@@ -223,7 +223,9 @@ class EvLogResource extends Resource
                             //if($index >=200) break;
                             $item = ObdItem::where('pid',$row[1])->first();
                             if(!empty($item) && $item->id){
-                                $record->items()->firstOrCreate(['item_id'=>$item->id],['value'=>$row[2]]);
+                                $record->items()->firstOrCreate(
+                                    ['item_id'=>$item->id],
+                                    ['value'=>$row[2],'latitude'=>$row[3],'longitude'=>$row[4]]);
                             }
                         }
                     }),
