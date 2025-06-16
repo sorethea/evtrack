@@ -34,9 +34,9 @@ class ListEvLogs extends ListRecords
                 ->label('Obd Import')
                 ->form([
                     Fieldset::make()->schema([
-                        TextInput::make('date')
-                            ->label(trans('ev.date'))
-                            ->required(),
+//                        TextInput::make('date')
+//                            ->label(trans('ev.date'))
+//                            ->required(),
                         Select::make("log_type")
                         ->live()
                         ->label(trans('ev.log_types.name'))
@@ -71,12 +71,15 @@ class ListEvLogs extends ListRecords
 
                 ])
                 ->action(function (array $data){
-
                     $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
                     $csv->setDelimiter(';');
+                    $obdFile = $data['obd_file'];
+                    $obdFileArray =explode("/",$obdFile);
+                    $obdFileName =end($obdFileArray);
+                    $obdFileNameArray = explode(".",$obdFileName);
+                    $data['date'] = $obdFileNameArray[0];
                     $evLog = EvLog::create($data);
                     foreach ($csv->getRecords() as $index=>$record){
-
                         if($index >=200) break;
                         $item = ObdItem::where('pid',$record[1])->first();
                         if(!empty($item) && $item->id){
