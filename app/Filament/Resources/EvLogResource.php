@@ -249,7 +249,7 @@ class EvLogResource extends Resource
         if(empty($model->id)){
             $model = new EvLog();
             $data['date']=$obdFileNameArray[0];
-            $model->create($data);
+            $model->create($data)->save();
         }else{
             $model->update([
                 'date' => $obdFileNameArray[0],
