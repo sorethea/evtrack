@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('log_id')->index();
             $table->foreignId('item_id')->index();
             $table->double('value')->default(0);
-            $table->double('latitude')->default(0);
-            $table->double('longitude')->default(0);
+            $table->decimal('latitude',8,6)->default(0);
+            $table->decimal('longitude',9,6)->default(0);
             $table->timestamps();
         });
     }
