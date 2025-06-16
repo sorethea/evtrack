@@ -255,8 +255,8 @@ class EvLogResource extends Resource
             //if($index >=200) break;
             $item = ObdItem::where('pid',$row[1])->first();
             if(!empty($item) && $item->id && $evLog->id){
-                $latitude = !empty($row[4])?$row[4]:null;
-                $longitude = !empty($row[5])?$row[5]:null;
+                $latitude = !empty($row[4])?$row[4]:0.0;
+                $longitude = !empty($row[5])?$row[5]:0.0;
                 EvLogItem::query()->firstOrCreate(
                     ['item_id'=>$item->id,'log_id'=>$evLog->id],
                     ['value'=>$row[2],'latitude'=>$latitude,'longitude'=>$longitude]);
