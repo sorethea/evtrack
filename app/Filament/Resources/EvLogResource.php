@@ -246,7 +246,7 @@ class EvLogResource extends Resource
         $obdFileArray =explode("/",$obdFile);
         $obdFileName =end($obdFileArray);
         $obdFileNameArray = explode(".",$obdFileName);
-        if(empty($model)){
+        if(is_null($model)){
             $model = new EvLog();
             $model->create($data);
         }
