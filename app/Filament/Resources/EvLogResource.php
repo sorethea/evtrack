@@ -238,7 +238,7 @@ class EvLogResource extends Resource
         ];
     }
 
-    public static function obdImport(array $data, Model $model=null): void
+    public static function obdImport(array $data, EvLog $model=null): void
     {
         $csv = Reader::createFromPath(Storage::path($data['obd_file']),'r');
         $csv->setDelimiter(';');
@@ -249,7 +249,7 @@ class EvLogResource extends Resource
         if(empty($model->id)){
             $model = new EvLog();
             $data['date']=$obdFileNameArray[0];
-            $model->create($data)->save();
+            $model->create($data);
         }else{
             $model->update([
                 'date' => $obdFileNameArray[0],
