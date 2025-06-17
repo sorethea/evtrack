@@ -8,6 +8,6 @@ class EvLog extends Facade
 {
     protected static function getFacadeAccessor():string
     {
-        return 'evLog';
+        return 'evlog';
     }
 }
