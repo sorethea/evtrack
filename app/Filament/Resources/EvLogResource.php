@@ -143,7 +143,7 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc_from')
                     ->label(trans('ev.soc_from').'(%)')
-                    ->default(fn(Model $record)=>Number::format(\evlog::getItemValue($record?->parent(),11),1)),
+                    ->default(fn(Model $record)=>Number::format(\evlog::getParentItemValue($record,11),1)),
                 Tables\Columns\TextColumn::make('soc_to')
                     ->label(trans('ev.soc_to').'(%)')
                     ->default(fn(Model $record)=>Number::format(\evlog::getItemValue($record,11),1)),
