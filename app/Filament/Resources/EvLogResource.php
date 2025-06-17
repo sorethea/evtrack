@@ -190,11 +190,11 @@ class EvLogResource extends Resource
                 $cycleOdo = \evlog::getItemValue($cycle,1);
                 $cycleSoC = \evlog::getItemValue($cycle,11);
                 $cycleAc = \evlog::getItemValue($cycle,19);
-                $cycleAd = \evlog::getItemValue($cycle,19);
+                $cycleAd = \evlog::getItemValue($cycle,20);
                 $lastChildOdo = \evlog::getItemValue($lastChild,1);
                 $lastChildSoC = \evlog::getItemValue($lastChild,11);
                 $lastChildAc = \evlog::getItemValue($lastChild,19);
-                $lastChildAd = \evlog::getItemValue($lastChild,19);
+                $lastChildAd = \evlog::getItemValue($lastChild,20);
                 $distance = Number::format($lastChildOdo - $cycleOdo,1).'km';
                 $discharge = Number::format($cycleSoC-$lastChildSoC,1).'%';
                 $aCharge = Number::format($lastChildAc-$cycleAc,1).'kWh';
