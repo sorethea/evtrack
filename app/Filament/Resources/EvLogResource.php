@@ -204,8 +204,8 @@ class EvLogResource extends Resource
                     $aCharge = Number::format($lastChildAc - $cycleAc, 1);
                     $aDischarge = Number::format($lastChildAd - $cycleAd, 1);
                     $aConsumption = Number::format(100 * ($aDischarge - $aCharge) / $distance, 0);
-                    $midSoC = $lastChildSoC - 100*($lastChildAc - $lastChildAd)/$capacity;
-                    return "Total distance: {$distance}km, SoC Middle: {$midSoC}, Discharge: {$discharge}%, Accumulative Charge: {$aCharge}kWh, Discharge: {$aDischarge}kWh, and Consumption: {$aConsumption}kWh/100km";
+                    $midSoC = Number::format($lastChildSoC - 100*($lastChildAc - $lastChildAd)/$capacity,1);
+                    return "Total distance: {$distance}km, SoC Middle: {$midSoC}%, Discharge: {$discharge}%, Accumulative Charge: {$aCharge}kWh, Discharge: {$aDischarge}kWh, and Consumption: {$aConsumption}kWh/100km";
                 })
             ])
             ->filters([
