@@ -12,12 +12,11 @@ class VehicleOverview extends BaseWidget
     {
         $vehicle = auth()->user()->vehicle;
         $log = $vehicle->latestLog;
-
         return [
-            Stat::make(trans('ev.odo'),Number::format($log->odo).'km'),
-            Stat::make(trans('ev.soc'),Number::format($log->soc_actual).'%'),
-            Stat::make(trans('ev.accumulative').' '.trans('ev.charge'),Number::format($log->ac).'kWh'),
-            Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($log->ad).'kWh'),
+            Stat::make(trans('ev.odo'),Number::format($log->items->where('item_id',1)->value('value')).'km'),
+            //Stat::make(trans('ev.soc'),Number::format($log->soc_actual).'%'),
+            //Stat::make(trans('ev.accumulative').' '.trans('ev.charge'),Number::format($log->ac).'kWh'),
+            //Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($log->ad).'kWh'),
         ];
     }
 }
