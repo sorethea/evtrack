@@ -183,9 +183,7 @@ class EvLogResource extends Resource
                         return Number::format($distance,1);
                     })->summarize(Tables\Columns\Summarizers\Sum::make()),
             ])
-            ->defaultGroup([
-                Tables\Grouping\Group::make('cycle.date')->date()
-            ])
+            ->defaultGroup(Tables\Grouping\Group::make('cycle.date')->date())
             ->filters([
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
