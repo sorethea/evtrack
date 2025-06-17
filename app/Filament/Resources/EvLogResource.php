@@ -189,11 +189,17 @@ class EvLogResource extends Resource
                 $lastChild = EvLog::find($lastChildId);
                 $cycleOdo = \evlog::getItemValue($cycle,1);
                 $cycleSoC = \evlog::getItemValue($cycle,11);
+                $cycleAc = \evlog::getItemValue($cycle,19);
+                $cycleAd = \evlog::getItemValue($cycle,19);
                 $lastChildOdo = \evlog::getItemValue($lastChild,1);
                 $lastChildSoC = \evlog::getItemValue($lastChild,11);
+                $lastChildAc = \evlog::getItemValue($lastChild,19);
+                $lastChildAd = \evlog::getItemValue($lastChild,19);
                 $distance = Number::format($lastChildOdo - $cycleOdo,1).'km';
                 $discharge = Number::format($cycleSoC-$lastChildSoC,1).'%';
-                return "Total distance: {$distance}, Discharge: {$discharge}, ";
+                $aCharge = Number::format($lastChildAc-$cycleAc,1).'kWh';
+                $aDischarge = Number::format($lastChildAd-$cycleAd,1).'kWh';
+                return "Total distance: {$distance}, Discharge: {$discharge}, Accumulative Charge: {$aCharge} & Discharge: {$aDischarge}";
             }))
             ->filters([
                 Tables\Filters\QueryBuilder::make()
