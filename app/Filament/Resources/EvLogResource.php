@@ -184,10 +184,9 @@ class EvLogResource extends Resource
                     }),
             ])
             ->defaultGroup(Tables\Grouping\Group::make('cycle.date')->date()->getDescriptionFromRecordUsing(function (Model $record){
-                $cycle = $record->cycle();
-                $lastChild = $record->cycle->children()->orderBy('date','desc')->first();
-                //$cycle = EvLog::find($cycleId);
-                //$lastChild = EvLog::find($lastChildId);
+                $cycle = EvLog::find($record->cycle_id);
+                $lastChildId = $cycle->children()->latest('date')->value('id');
+                $lastChild = EvLog::find($lastChildId);
                 $cycleOdo = \evlog::getItemValue($cycle,1);
                 $cycleSoC = \evlog::getItemValue($cycle,11);
                 $lastChildOdo = \evlog::getItemValue($lastChild,1);
