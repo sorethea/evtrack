@@ -184,8 +184,10 @@ class EvLogResource extends Resource
                     }),
             ])
             ->defaultGroup(Tables\Grouping\Group::make('cycle.date')->date()->getDescriptionFromRecordUsing(function (Model $record){
-                $cycle = $record->cycle;
-                $lastChild = $cycle->children()->orderBy('date','desc')->first();
+                $cycleOdo = $record->cycle->items->where('item_id',1)->value('value');
+                $lastChildOdo = $record->cycle->children()->orderBy('date','desc')->first()->items->where('item_id',1)->value('value');
+                $distance = $lastChildOdo - $cycleOdo;
+                return "Total distance: {$distance}";
             }))
             ->filters([
                 Tables\Filters\QueryBuilder::make()
