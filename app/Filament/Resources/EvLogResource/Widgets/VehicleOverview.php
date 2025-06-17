@@ -5,7 +5,6 @@ namespace App\Filament\Resources\EvLogResource\Widgets;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Number;
-require_once('app/Helpers/ev.php');
 class VehicleOverview extends BaseWidget
 {
     protected function getStats(): array
