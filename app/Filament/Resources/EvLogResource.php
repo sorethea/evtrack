@@ -202,6 +202,7 @@ class EvLogResource extends Resource
                 $aConsumption = Number::format(100*($aDischarge - $aCharge)/$distance,0);
                 return "Total distance: {$distance}km, Discharge: {$discharge}%, Accumulative Charge: {$aCharge}kWh, Discharge: {$aDischarge}kWh, and Consumption: {$aConsumption}kWh/100km";
             }))
+            ->groupsOnly()
             ->filters([
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
