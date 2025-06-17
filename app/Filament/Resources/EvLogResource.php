@@ -184,7 +184,7 @@ class EvLogResource extends Resource
                         return Number::format($distance, 1);
                     }),
             ])
-            ->defaultGroup()
+            ->defaultGroup('cycle.data')
             ->groups([
                 Tables\Grouping\Group::make('cycle.date')->date()->getDescriptionFromRecordUsing(function (Model $record) {
                     $cycle = EvLog::find($record->cycle_id);
