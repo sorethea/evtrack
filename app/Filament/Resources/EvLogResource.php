@@ -185,7 +185,7 @@ class EvLogResource extends Resource
             ])
             ->defaultGroup(Tables\Grouping\Group::make('cycle.date')->date()->getDescriptionFromRecordUsing(function (Model $record){
                 $cycle = $record->cycle;
-                $lastChild = $cycle->children->lastest()->first();
+                $lastChild = $cycle->children()->lastest()->first();
             }))
             ->filters([
                 Tables\Filters\QueryBuilder::make()
