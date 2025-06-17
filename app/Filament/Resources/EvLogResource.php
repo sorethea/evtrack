@@ -184,10 +184,17 @@ class EvLogResource extends Resource
                     }),
             ])
             ->defaultGroup(Tables\Grouping\Group::make('cycle.date')->date()->getDescriptionFromRecordUsing(function (Model $record){
-                $cycleOdo = $record->cycle->items->where('item_id',1)->value('value');
-                $lastChildOdo = $record->cycle->children()->orderBy('date','desc')->first()->items->where('item_id',1)->value('value');
+                $cycleId = $record->cycle()->value('id');
+                $lastChildId = $record->cycle->children()->orderBy('date','desc')->first()->value('id');
+                $cycle = EvLog::find($cycleId);
+                $lastChild = EvLog::find($lastChildId);
+                $cycleOdo = \evlog::getItemValue($cycle,1);
+                $cycleSoC = \evlog::getItemValue($cycle,11);
+                $lastChildOdo = \evlog::getItemValue($lastChild,1);
+                $lastChildSoC = \evlog::getItemValue($lastChild,11);
                 $distance = Number::format($lastChildOdo - $cycleOdo,1).'km';
-                return "Total distance: {$distance}";
+                $discharge = Number::format($cycleSoC-$lastChildSoC,1).'%';
+                return "Total distance: {$distance}, Discharge: {$discharge}, ";
             }))
             ->filters([
                 Tables\Filters\QueryBuilder::make()
