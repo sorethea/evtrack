@@ -12,11 +12,10 @@ class VehicleOverview extends BaseWidget
     {
         $vehicle = auth()->user()->vehicle;
         $log = $vehicle->latestLog;
-        $odo = evLog::getItemValue($log,1);
-        $soc = evLog::getItemValue($log,11);
-        $ac = evLog::getItemValue($log,19);
-        $ad = evLog::getItemValue($log,20);
-        $ad = evLog::getItemValue($log,20);
+        $odo = evLog()->getItemValue($log,1);
+        $soc = evLog()->getItemValue($log,11);
+        $ac = evLog()->getItemValue($log,19);
+        $ad = evLog()->getItemValue($log,20);
         return [
             Stat::make(trans('ev.odo'),Number::format($odo).'km'),
             Stat::make(trans('ev.soc'),Number::format($soc).'%'),
