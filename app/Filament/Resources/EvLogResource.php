@@ -183,7 +183,10 @@ class EvLogResource extends Resource
                         return Number::format($distance,1);
                     }),
             ])
-            ->defaultGroup(Tables\Grouping\Group::make('cycle.date')->date())
+            ->defaultGroup(Tables\Grouping\Group::make('cycle.date')->date()->getDescriptionFromRecordUsing(function (Model $record){
+                $cycle = $record->cycle;
+                $lastChild = $cycle->children->lastest()->first();
+            }))
             ->filters([
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
