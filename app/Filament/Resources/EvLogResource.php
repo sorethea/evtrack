@@ -181,9 +181,11 @@ class EvLogResource extends Resource
                     ->default(function(Model $record){
                         $distance = $record?->items?->where('item_id',1)->value('value')-$record?->parent?->items?->where('item_id',1)->value('value');
                         return Number::format($distance,1);
-                    }),
+                    })->summarize(Tables\Columns\Summarizers\Sum::make()),
             ])
-            ->groups(['cycle.date'])
+            ->defaultGroup([
+                Tables\Grouping\Group::make('cycle.date')->date()
+            ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
