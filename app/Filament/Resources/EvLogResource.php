@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EvLogResource\Pages;
 use App\Filament\Resources\EvLogResource\RelationManagers;
 use App\Models\EvLog;
+use App\Helpers\EvLog as EvLogHelper;
 use App\Models\EvLogItem;
 use App\Models\ObdItem;
 use Carbon\Carbon;
@@ -142,10 +143,10 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('soc_from')
                     ->label(trans('ev.soc_from').'(%)')
-                    ->default(fn(Model $record)=>Number::format($record?->parent?->items?->where('item_id',11)->value('value')??0,1)),
+                    ->default(fn(Model $record)=>Number::format(ev_log()->getItemValue($record?->parent,11),1)),
                 Tables\Columns\TextColumn::make('soc_to')
                     ->label(trans('ev.soc_to').'(%)')
-                    ->default(fn(Model $record)=>Number::format($record?->items?->where('item_id',11)->value('value')??0,1)),
+                    ->default(fn(Model $record)=>Number::format(EvLogHelper::getItemValue($record?->items,11),1)),
                 Tables\Columns\TextColumn::make('soc_derivation')
                     ->label(trans('ev.soc_derivation').'(%)')
                     ->default(function(Model $record){
