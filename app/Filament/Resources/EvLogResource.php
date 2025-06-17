@@ -183,6 +183,7 @@ class EvLogResource extends Resource
                         return Number::format($distance,1);
                     }),
             ])
+            ->groups('cycle.date')
             ->filters([
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
