@@ -18,6 +18,7 @@ class VehicleOverview extends BaseWidget
         $soc = EvLog::getItemValue($log,11);
         $ac = EvLog::getItemValue($log,19);
         $ad = EvLog::getItemValue($log,20);
+        $ad = evLog()->getItemValue($log,20);
         return [
             Stat::make(trans('ev.odo'),Number::format($odo).'km'),
             Stat::make(trans('ev.soc'),Number::format($soc).'%'),
