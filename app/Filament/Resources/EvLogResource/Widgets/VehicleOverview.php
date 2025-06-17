@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EvLogResource\Widgets;
 
+use App\Facades\EvLog;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Number;
