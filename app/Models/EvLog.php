@@ -92,7 +92,7 @@ class EvLog extends Model
     }
     public function detail(): HasOne
     {
-        return $this->hasOne(EvLogDetail::class,'log_id');
+        return $this->hasOne(EvLogDetail::class,'log_id','id');
     }
 
     public function daily(): HasOne
