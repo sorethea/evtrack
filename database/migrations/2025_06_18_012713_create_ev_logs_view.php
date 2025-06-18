@@ -33,7 +33,7 @@ return new class extends Migration
             AND li.item_id BETWEEN 1 AND 29
         GROUP BY l.id,l.parent_id, l.date)
         SELECT
-          c.id,
+          c.log_id,
           c.date,
           c.odo,
           c.soc,
@@ -44,7 +44,7 @@ return new class extends Migration
           c.ltc,
           c.htc,
           c.tc,
-          p.soc - c.soc AS soc_discharge,
+          p.soc - c.soc AS soc_derivation,
           c.odo - p.odo AS distance
           FROM ev_logs_base c
           LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id;
