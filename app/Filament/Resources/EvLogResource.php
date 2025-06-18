@@ -142,19 +142,23 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('parent.detail.soc')
-                    ->inverseRelationship('parent')
-                    ->label(trans('ev.soc_from') . '(%)'),
-                Tables\Columns\TextColumn::make('detail.soc')
-                    ->inverseRelationship('log')
-                    ->label(trans('ev.soc_to') . '(%)'),
-                Tables\Columns\TextColumn::make('soc_derivation')
-                    ->label(trans('ev.soc_derivation') . '(%)')
-                    ->default(function (Model $record) {
-                        $derivation = $record?->parent?->items?->where('item_id', 11)->value('value') - $record?->items?->where('item_id', 11)->value('value');
-                        return Number::format($derivation ?? 0, 1);
-                    })
-                    ->toggleable(),
+                Tables\Columns\ColumnGroup::make('SoC(%)',[
+                    Tables\Columns\TextColumn::make('parent.detail.soc')
+                        ->inverseRelationship('log')
+                        ->label(trans('ev.from') ),
+                    Tables\Columns\TextColumn::make('detail.soc')
+                        ->inverseRelationship('log')
+                        ->label(trans('ev.to') ),
+                    Tables\Columns\TextColumn::make('soc_derivation')
+                        ->label(trans('ev.soc_derivation'))
+                        ->default(function (Model $record) {
+                            $derivation = $record?->parent?->items?->where('item_id', 11)->value('value') - $record?->items?->where('item_id', 11)->value('value');
+                            return Number::format($derivation ?? 0, 1);
+                        })
+                        ->toggleable(),
+                ]),
+
+
                 Tables\Columns\TextColumn::make('soc_middle')
                     ->label(trans('ev.soc_middle') . '(%)')
                     ->default(function (Model $record) {

@@ -44,7 +44,8 @@ return new class extends Migration
           c.ltc,
           c.htc,
           c.tc,
-          c.odo - p.odo as distance
+          p.soc - c.soc AS soc_discharge,
+          c.odo - p.odo AS distance
           FROM ev_logs_base c
           LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id;
         ');
