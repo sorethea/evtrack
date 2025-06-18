@@ -15,7 +15,7 @@ return new class extends Migration
         DB::statement('CREATE VIEW ev_logs_view AS
         WITH ev_logs_base AS(
         SELECT
-          l.log_id,
+          l.id as log_id,
           l.parent_id,
           l.date,
           MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
