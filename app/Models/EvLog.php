@@ -90,6 +90,10 @@ class EvLog extends Model
     {
         return $this->hasMany(EvLogItem::class,'log_id');
     }
+    public function detail(): HasOne
+    {
+        return $this->hasMany(EvLogDetail::class,'log_id');
+    }
 
     public function daily(): HasOne
     {
