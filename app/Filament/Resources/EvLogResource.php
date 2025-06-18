@@ -175,12 +175,10 @@ class EvLogResource extends Resource
                     ->badge()
                     ->color(fn(string $state) => $state < 0.1 ? 'success' : ($state < 0.2 ? 'warning' : 'danger'))
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('distance')
+                Tables\Columns\TextColumn::make('detail.distance')
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->label(trans('ev.distance'))
-                    ->default(function (Model $record) {
-                        $distance = $record?->items?->where('item_id', 1)->value('value') - $record?->parent?->items?->where('item_id', 1)->value('value');
-                        return Number::format($distance, 1);
-                    }),
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
             ])
             //->defaultGroup('cycle.date')
             ->groups([
