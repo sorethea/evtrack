@@ -142,10 +142,10 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('log.soc')
+                Tables\Columns\TextColumn::make('parent.detail.soc')
                     ->inverseRelationship('parent')
                     ->label(trans('ev.soc_from') . '(%)'),
-                Tables\Columns\TextColumn::make('soc')
+                Tables\Columns\TextColumn::make('detail.soc')
                     ->inverseRelationship('log')
                     ->label(trans('ev.soc_to') . '(%)'),
                 Tables\Columns\TextColumn::make('soc_derivation')
@@ -180,8 +180,8 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
-                    ->label(trans('ev.distance')),
-                    //->summarize(Tables\Columns\Summarizers\Sum::make()),
+                    ->label(trans('ev.distance'))
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
             ])
             //->defaultGroup('cycle.date')
             ->groups([
