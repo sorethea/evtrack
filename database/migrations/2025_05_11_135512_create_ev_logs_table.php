@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('ev_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id');
-            $table->foreignId('vehicle_id')->nullable();
-            $table->foreignId('cycle_id')->nullable();
+            $table->foreignId('parent_id')->index();
+            $table->foreignId('vehicle_id')->nullable()->index();
+            $table->foreignId('cycle_id')->nullable()->index();
             $table->string('log_type');
             $table->dateTime('date');
             $table->double('odo')->nullable();
