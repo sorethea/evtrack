@@ -61,4 +61,5 @@ return [
     "lowest_volt_cell"=>"Lowest Voltage Cell",
     "remark"=>"Remark",
     "total_price"=>"Total Price",
+    "total"=>"Total",
 ];
