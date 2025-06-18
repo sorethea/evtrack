@@ -179,8 +179,8 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
-                    ->label(trans('ev.distance'))
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                    ->label(trans('ev.distance')),
+                    //->summarize(Tables\Columns\Summarizers\Sum::make()),
             ])
             //->defaultGroup('cycle.date')
             ->groups([
