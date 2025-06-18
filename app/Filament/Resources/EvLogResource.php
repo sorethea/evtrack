@@ -176,19 +176,19 @@ class EvLogResource extends Resource
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.voltage').'(V)',[
-                    Tables\Columns\TextColumn::make('lvc')
+                    Tables\Columns\TextColumn::make('detail.lvc')
                         ->badge()
                         ->numeric(3)
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.2 && $state>2.5 ? 'warning' : 'danger'))
                         ->label(trans('ev.lowest')),
-                    Tables\Columns\TextColumn::make('hvc')
+                    Tables\Columns\TextColumn::make('detail.hvc')
                         ->badge()
                         ->numeric(3)
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.7 && $state>3.5 ? 'warning' : 'danger'))
                         ->label(trans('ev.highest')),
-                    Tables\Columns\TextColumn::make('v_spread')
+                    Tables\Columns\TextColumn::make('detail.v_spread')
                         ->label(trans('ev.spread') . '(mlV)')
                         ->numeric(4)
                         ->inverseRelationship('log')
@@ -197,20 +197,20 @@ class EvLogResource extends Resource
                         ->toggleable(),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.voltage').'(V)',[
-                    Tables\Columns\TextColumn::make('ltc')
+                    Tables\Columns\TextColumn::make('detail.ltc')
                         ->badge()
                         ->numeric(0)
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >20 && $state <38  ? 'success' : ($state < 20 && $state>=10 ? 'warning' : 'danger'))
                         ->label(trans('ev.lowest')),
-                    Tables\Columns\TextColumn::make('htc')
+                    Tables\Columns\TextColumn::make('detail.htc')
                         ->badge()
                         ->numeric(3)
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >20 && $state <38  ? 'success' : ($state < 40 && $state>=38 ? 'warning' : 'danger'))
                         ->label(trans('ev.highest')),
-                    Tables\Columns\TextColumn::make('v_spread')
-                        ->label(trans('ev.spread') . '(mlV)')
+                    Tables\Columns\TextColumn::make('detail.t_spread')
+                        ->label(trans('ev.spread'))
                         ->numeric(4)
                         ->inverseRelationship('log')
                         ->badge()
