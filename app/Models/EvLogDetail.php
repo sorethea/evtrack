@@ -16,6 +16,6 @@ class EvLogDetail extends Model
 
     public function log() :BelongsTo
     {
-        return $this->belongsTo(EvLog::class,'id','log_id');
+        return $this->belongsTo(EvLog::class,'log_id');
     }
 }

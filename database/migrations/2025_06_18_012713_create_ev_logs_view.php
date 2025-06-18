@@ -33,7 +33,7 @@ return new class extends Migration
             AND li.item_id BETWEEN 1 AND 29
         GROUP BY l.id,l.parent_id, l.date)
         SELECT
-          c.log_id,
+          c.id,
           c.date,
           c.odo,
           c.soc,
