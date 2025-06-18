@@ -158,8 +158,12 @@ class EvLogResource extends Resource
                         })
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
                         ->toggleable(),
+                    Tables\Columns\TextColumn::make('detail.soc_middle')
+                        ->label(trans('ev.soc_middle') )
+                        ->inverseRelationship('log')
+                        ->toggleable(),
                 ]),
-                Tables\Columns\ColumnGroup::make(trans('ev.accumulative'),[
+                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
                     Tables\Columns\TextColumn::make('detail.charge')
                         ->inverseRelationship('log')
                         ->label(trans('ev.charge') )
@@ -169,19 +173,6 @@ class EvLogResource extends Resource
                         ->label(trans('ev.discharge') )
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
                 ]),
-
-
-                Tables\Columns\TextColumn::make('soc_middle')
-                    ->label(trans('ev.soc_middle') . '(%)')
-                    ->default(function (Model $record) {
-                        $soc = $record?->items?->where('item_id', 11)->value('value');
-                        $ac = $record?->items?->where('item_id', 19)->value('value');
-                        $ad = $record?->items?->where('item_id', 20)->value('value');
-                        $capacity = $record?->vehicle?->capacity;
-                        $middle = $capacity > 0 ? $soc - 100 * ($ac - $ad) / $capacity : 0;
-                        return Number::format($middle ?? 0, 1);
-                    })
-                    ->toggleable(),
                 Tables\Columns\TextColumn::make('voltage_spread')
                     ->label(trans('ev.voltage_spread') . '(mlV)')
                     ->default(function (Model $record) {

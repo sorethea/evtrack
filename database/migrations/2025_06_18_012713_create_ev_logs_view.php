@@ -16,6 +16,7 @@ return new class extends Migration
         WITH ev_logs_base AS(
         SELECT
           l.id as log_id,
+          l.vehicle_id,
           l.parent_id,
           l.date,
           MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
@@ -45,11 +46,13 @@ return new class extends Migration
           c.htc,
           c.tc,
           p.soc - c.soc AS soc_derivation,
+          c.soc -100*(c.ac-c.ad)/v.capacity AS soc_middle,
           c.ac - p.ac AS charge,
           c.ad - p.ad AS discharge,
           c.odo - p.odo AS distance
           FROM ev_logs_base c
-          LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id;
+          LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id
+          LEFT JOIN vehicles v ON c.vehicle_id =v.id;
         ');
     }
 
