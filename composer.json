@@ -11,8 +11,10 @@
         "php": "^8.3",
         "bezhansalleh/filament-shield": "^3.3",
         "filament/filament": "^3.3",
+        "guzzlehttp/guzzle": "^7.93",
         "laravel/framework": "^12.10",
-        "laravel/tinker": "^2.10"
+        "laravel/tinker": "^2.10",
+        "symfony/dom-crawler": "^7.3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
