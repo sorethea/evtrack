@@ -142,7 +142,8 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('parent.detail.soc')
+                Tables\Columns\TextColumn::make('log.soc')
+                    ->inverseRelationship('parent')
                     ->label(trans('ev.soc_from') . '(%)'),
                 Tables\Columns\TextColumn::make('soc')
                     ->inverseRelationship('log')
@@ -176,7 +177,7 @@ class EvLogResource extends Resource
                     ->badge()
                     ->color(fn(string $state) => $state < 0.1 ? 'success' : ($state < 0.2 ? 'warning' : 'danger'))
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('distance')
+                Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
                     ->label(trans('ev.distance')),
