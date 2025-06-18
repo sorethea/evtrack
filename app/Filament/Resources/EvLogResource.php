@@ -196,7 +196,7 @@ class EvLogResource extends Resource
                         ->color(fn(string $state) => $state < 0.1 ? 'success' : ($state < 0.2 ? 'warning' : 'danger'))
                         ->toggleable(),
                 ]),
-                Tables\Columns\ColumnGroup::make(trans('ev.voltage').'(V)',[
+                Tables\Columns\ColumnGroup::make(trans('ev.temperature').'(C)',[
                     Tables\Columns\TextColumn::make('detail.ltc')
                         ->badge()
                         ->numeric(0)
@@ -205,13 +205,13 @@ class EvLogResource extends Resource
                         ->label(trans('ev.lowest')),
                     Tables\Columns\TextColumn::make('detail.htc')
                         ->badge()
-                        ->numeric(3)
+                        ->numeric(0)
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >20 && $state <38  ? 'success' : ($state < 40 && $state>=38 ? 'warning' : 'danger'))
                         ->label(trans('ev.highest')),
                     Tables\Columns\TextColumn::make('detail.t_spread')
                         ->label(trans('ev.spread'))
-                        ->numeric(4)
+                        ->numeric(0)
                         ->inverseRelationship('log')
                         ->badge()
                         ->color(fn(string $state) => $state <=3 ? 'success' : ($state <=5 ? 'warning' : 'danger'))
