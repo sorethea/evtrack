@@ -62,7 +62,7 @@ class EvLogResource extends Resource
                         ->reactive()
                         ->label(trans('ev.cycle'))
                         ->relationship('cycle', 'date')
-                        ->hidden(fn(Get $get) => $get("log_type") != "driving")
+                        ->hidden(fn(Get $get) => $get("log_type") == "charging")
                         ->default(fn() => EvLog::where("log_type", "charging")->max('date'))
                         ->searchable()
                         ->nullable(),
@@ -156,7 +156,7 @@ class EvLogResource extends Resource
                             $derivation = $record?->parent?->items?->where('item_id', 11)->value('value') - $record?->items?->where('item_id', 11)->value('value');
                             return Number::format($derivation ?? 0, 1);
                         })
-                        ->summarize(Tables\Columns\Summarizers\Sum::make())
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
                         ->toggleable(),
                 ]),
 
@@ -187,7 +187,7 @@ class EvLogResource extends Resource
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
                     ->label(trans('ev.distance'))
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.total'))),
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
             ])
             //->defaultGroup('cycle.date')
             ->groups([
