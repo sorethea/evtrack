@@ -182,14 +182,14 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.2 && $state>2.5 ? 'warning' : 'danger'))
                         ->label(trans('ev.lowest'))
-                        ->toggleable(false),
+                        ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.hvc')
                         ->badge()
                         ->numeric(3)
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.7 && $state>3.5 ? 'warning' : 'danger'))
                         ->label(trans('ev.highest'))
-                        ->toggleable(false),
+                        ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.v_spread')
                         ->label(trans('ev.spread') . '(mlV)')
                         ->numeric(4)
@@ -205,14 +205,14 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >20 && $state <38  ? 'success' : ($state < 20 && $state>=10 ? 'warning' : 'danger'))
                         ->label(trans('ev.lowest'))
-                        ->toggleable(false),
+                        ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.htc')
                         ->badge()
                         ->numeric(0)
                         ->inverseRelationship('log')
                         ->color(fn(string $state) => $state >20 && $state <38  ? 'success' : ($state < 40 && $state>=38 ? 'warning' : 'danger'))
                         ->label(trans('ev.highest'))
-                        ->toggleable(false),
+                        ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.t_spread')
                         ->label(trans('ev.spread'))
                         ->numeric(0)
