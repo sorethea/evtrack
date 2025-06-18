@@ -162,10 +162,12 @@ class EvLogResource extends Resource
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative'),[
                     Tables\Columns\TextColumn::make('detail.charge')
                         ->inverseRelationship('log')
-                        ->label(trans('ev.charge') ),
+                        ->label(trans('ev.charge') )
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
                     Tables\Columns\TextColumn::make('detail.discharge')
                         ->inverseRelationship('log')
-                        ->label(trans('ev.discharge') ),
+                        ->label(trans('ev.discharge') )
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
                 ]),
 
 
