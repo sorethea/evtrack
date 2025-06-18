@@ -149,12 +149,14 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.soc')
                         ->inverseRelationship('log')
                         ->label(trans('ev.to') ),
-                    Tables\Columns\TextColumn::make('soc_derivation')
+                    Tables\Columns\TextColumn::make('detail.soc_derivation')
+                        ->inverseRelationship('log')
                         ->label(trans('ev.soc_derivation'))
                         ->default(function (Model $record) {
                             $derivation = $record?->parent?->items?->where('item_id', 11)->value('value') - $record?->items?->where('item_id', 11)->value('value');
                             return Number::format($derivation ?? 0, 1);
                         })
+                        ->summarize(Tables\Columns\Summarizers\Sum::make())
                         ->toggleable(),
                 ]),
 
