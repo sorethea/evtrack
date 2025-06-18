@@ -146,11 +146,13 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('parent.detail.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
-                        ->label(trans('ev.from') ),
+                        ->label(trans('ev.from') )
+                        ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('detail.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
-                        ->label(trans('ev.to') ),
+                        ->label(trans('ev.to') )
+                        ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
                         ->label(trans('ev.soc_derivation'))
@@ -192,7 +194,7 @@ class EvLogResource extends Resource
                         ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('detail.v_spread')
                         ->label(trans('ev.spread'))
-                        ->numeric(4)
+                        ->numeric(3)
                         ->inverseRelationship('log')
                         ->badge()
                         ->color(fn(string $state) => $state < 0.1 ? 'success' : ($state < 0.2 ? 'warning' : 'danger'))
