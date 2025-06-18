@@ -159,6 +159,14 @@ class EvLogResource extends Resource
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
                         ->toggleable(),
                 ]),
+                Tables\Columns\ColumnGroup::make(trans('ev.accumulative'),[
+                    Tables\Columns\TextColumn::make('detail.charge')
+                        ->inverseRelationship('log')
+                        ->label(trans('ev.charge') ),
+                    Tables\Columns\TextColumn::make('detail.discharge')
+                        ->inverseRelationship('log')
+                        ->label(trans('ev.discharge') ),
+                ]),
 
 
                 Tables\Columns\TextColumn::make('soc_middle')
