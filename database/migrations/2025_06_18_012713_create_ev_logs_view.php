@@ -46,6 +46,8 @@ return new class extends Migration
           c.htc,
           c.tc,
           p.soc - c.soc AS soc_derivation,
+          c.hvc - c.lvc AS v_spread,
+          c.htc - c.ltc AS t_spread,
           c.soc -100*(c.ac-c.ad)/v.capacity AS soc_middle,
           c.ac - p.ac AS charge,
           c.ad - p.ad AS discharge,
