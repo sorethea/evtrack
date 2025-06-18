@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class EvLogDetail extends Model
 {
     protected $table = 'ev_logs_view';
-    protected $guarded =[];
+    protected $casts =['data'=>'datetime'];
 
     public $timestamps = false;
 

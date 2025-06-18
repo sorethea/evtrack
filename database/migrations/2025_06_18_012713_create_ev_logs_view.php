@@ -34,6 +34,7 @@ return new class extends Migration
         GROUP BY l.id,l.parent_id, l.date)
         SELECT
           c.log_id,
+          c.date,
           c.odo,
           c.soc,
           c.ac,
