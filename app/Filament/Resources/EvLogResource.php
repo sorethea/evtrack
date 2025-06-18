@@ -189,7 +189,7 @@ class EvLogResource extends Resource
             ])
             //->defaultGroup('cycle.date')
             ->groups([
-                Tables\Grouping\Group::make('cycle.date')->date()->getDescriptionFromRecordUsing(function (Model $record) {
+                Tables\Grouping\Group::make('cycle.date')->date()/*->getDescriptionFromRecordUsing(function (Model $record) {
                     $capacity = $record->vehicle->capacity;
                     $cycle = EvLog::find($record->cycle_id);
                     $lastChildId = $cycle->children()->latest('date')->value('id');
@@ -209,7 +209,7 @@ class EvLogResource extends Resource
                     $aConsumption = Number::format(100 * ($aDischarge - $aCharge) / $distance, 0);
                     $midSoC = Number::format($lastChildSoC - 100*($lastChildAc - $lastChildAd)/$capacity,1);
                     return "Total distance: {$distance}km, SoC Middle: {$midSoC}%, Discharge: {$discharge}%, Accumulative Charge: {$aCharge}kWh, Discharge: {$aDischarge}kWh, and Consumption: {$aConsumption}kWh/100km";
-                })
+                })*/
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()
