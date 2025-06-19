@@ -41,9 +41,8 @@ RUN npm install -g npm@9.5.0
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Create application user/group with specific UID/GID
-RUN groupadd -g 1000 www && \
-    useradd -u 1000 -ms /bin/bash -g www www
+# Use existing www group and create www user
+RUN useradd -u 1000 -g www -ms /bin/bash www
 
 # Copy application files and set ownership
 COPY --chown=www:www . /var/www
@@ -52,10 +51,8 @@ COPY --chown=www:www . /var/www
 USER www
 RUN composer install --no-interaction --optimize-autoloader
 
-# Switch back to root for final operations
+# Switch back to root for permission fixes
 USER root
-
-# Set proper permissions for runtime files
 RUN chown -R www:www /var/www/storage /var/www/bootstrap/cache && \
     chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
