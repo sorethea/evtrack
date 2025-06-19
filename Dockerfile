@@ -41,23 +41,16 @@ RUN npm install -g npm@9.5.0
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Use existing www group and create www user
-RUN useradd -u 1000 -g www -ms /bin/bash www
-
-# Copy application files and set ownership
+# Copy application files and set ownership to existing www user
 COPY --chown=www:www . /var/www
+
+# Set permissions for Laravel
+RUN chown -R www:www /var/www/storage /var/www/bootstrap/cache && \
+    chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 # Install composer dependencies as www user
 USER www
 RUN composer install --no-interaction --optimize-autoloader
-
-# Switch back to root for permission fixes
-USER root
-RUN chown -R www:www /var/www/storage /var/www/bootstrap/cache && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache
-
-# Switch to application user for runtime
-USER www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
