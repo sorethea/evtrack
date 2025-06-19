@@ -1,18 +1,18 @@
-FROM php:8.3-fpm
+FROM php:8.2-fpm
+
+# Copy composer.json
+#COPY ./ /var/www
 
 # Set working directory
 WORKDIR /var/www
-
-# Install dependencies as root
 USER root
-
-# Install system packages
+# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     mariadb-client \
     libpng-dev \
     libjpeg62-turbo-dev \
-    libonig-dev \
+libonig-dev \
     libfreetype6-dev \
     locales \
     libtidy-dev \
@@ -33,25 +33,27 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath intl
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
-
-# Install nodejs and npm
-RUN apt-get update && apt-get install -y nodejs npm
-RUN npm install -g npm@9.5.0
-
+##install nodejs
+#RUN apt-get update && apt-get install -y nodejs npm
+#RUN npm install -g npm@9.5.0
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy application files and set ownership to existing www user
-COPY --chown=www:www . /var/www
-
-# Set permissions for Laravel
-RUN chown -R www:www /var/www/storage /var/www/bootstrap/cache && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache
-
-# Install composer dependencies as www user
+# Add user for laravel application
+#RUN groupadd -g 1000 www
+#RUN useradd -u 1000 -ms /bin/bash -g www www
+#RUN adduser --disabled-password --gecos '' www
 USER www
-RUN composer install --no-interaction --optimize-autoloader
+
+# Copy existing application directory contents
+COPY ./ /var/www
+
+# Copy existing application directory permissions
+COPY --chown=www:www ./ /var/www
+
+# Change current user to www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
+
