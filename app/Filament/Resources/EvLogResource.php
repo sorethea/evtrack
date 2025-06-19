@@ -62,7 +62,7 @@ class EvLogResource extends Resource
                         ->reactive()
                         ->label(trans('ev.cycle'))
                         ->relationship('cycle', 'date')
-                        ->hidden(fn(Get $get) => $get("log_type") != "driving")
+                        ->hidden(fn(Get $get) => $get("log_type") == "charging")
                         ->default(fn() => EvLog::where("log_type", "charging")->max('date'))
                         ->searchable()
                         ->nullable(),
@@ -142,47 +142,97 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('parent.detail.soc')
-                    ->label(trans('ev.soc_from') . '(%)'),
-                Tables\Columns\TextColumn::make('detail.soc')
-                    ->label(trans('ev.soc_to') . '(%)'),
-                Tables\Columns\TextColumn::make('soc_derivation')
-                    ->label(trans('ev.soc_derivation') . '(%)')
-                    ->default(function (Model $record) {
-                        $derivation = $record?->parent?->items?->where('item_id', 11)->value('value') - $record?->items?->where('item_id', 11)->value('value');
-                        return Number::format($derivation ?? 0, 1);
-                    })
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('soc_middle')
-                    ->label(trans('ev.soc_middle') . '(%)')
-                    ->default(function (Model $record) {
-                        $soc = $record?->items?->where('item_id', 11)->value('value');
-                        $ac = $record?->items?->where('item_id', 19)->value('value');
-                        $ad = $record?->items?->where('item_id', 20)->value('value');
-                        $capacity = $record?->vehicle?->capacity;
-                        $middle = $capacity > 0 ? $soc - 100 * ($ac - $ad) / $capacity : 0;
-                        return Number::format($middle ?? 0, 1);
-                    })
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('voltage_spread')
-                    ->label(trans('ev.voltage_spread') . '(mlV)')
-                    ->default(function (Model $record) {
-                        $highestVoltage = $record?->items?->where('item_id', 24)->value('value');
-                        $lowestVoltage = $record?->items?->where('item_id', 22)->value('value');
-                        $spread = $highestVoltage - $lowestVoltage;
-                        return Number::format($spread ?? 0, 3);
-                    })
-                    ->badge()
-                    ->color(fn(string $state) => $state < 0.1 ? 'success' : ($state < 0.2 ? 'warning' : 'danger'))
-                    ->toggleable(),
+                Tables\Columns\ColumnGroup::make('SoC(%)',[
+                    Tables\Columns\TextColumn::make('parent.detail.soc')
+                        ->inverseRelationship('log')
+                        ->numeric(1)
+                        ->label(trans('ev.from') )
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('detail.soc')
+                        ->inverseRelationship('log')
+                        ->numeric(1)
+                        ->label(trans('ev.to') )
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('detail.soc_derivation')
+                        ->inverseRelationship('log')
+                        ->label(trans('ev.soc_derivation'))
+                        ->numeric(1)
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
+                        ->toggleable(),
+                    Tables\Columns\TextColumn::make('detail.soc_middle')
+                        ->label(trans('ev.soc_middle') )
+                        ->numeric(1)
+                        ->inverseRelationship('log')
+                        ->toggleable(),
+                ]),
+                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
+                    Tables\Columns\TextColumn::make('detail.charge')
+                        ->inverseRelationship('log')
+                        ->numeric(1)
+                        ->label(trans('ev.charge') )
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
+                    Tables\Columns\TextColumn::make('detail.discharge')
+                        ->inverseRelationship('log')
+                        ->numeric(1)
+                        ->label(trans('ev.discharge') )
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
+                ]),
+                Tables\Columns\ColumnGroup::make(trans('ev.voltage').'(V)',[
+                    Tables\Columns\TextColumn::make('detail.lvc')
+                        ->badge()
+                        ->numeric(3)
+                        ->inverseRelationship('log')
+                        ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.2 && $state>2.5 ? 'warning' : 'danger'))
+                        ->label(trans('ev.lowest'))
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('detail.hvc')
+                        ->badge()
+                        ->numeric(3)
+                        ->inverseRelationship('log')
+                        ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.7 && $state>3.5 ? 'warning' : 'danger'))
+                        ->label(trans('ev.highest'))
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('detail.v_spread')
+                        ->label(trans('ev.spread'))
+                        ->numeric(3)
+                        ->inverseRelationship('log')
+                        ->badge()
+                        ->color(fn(string $state) => $state < 0.1 ? 'success' : ($state < 0.2 ? 'warning' : 'danger'))
+                        ->toggleable(),
+                ]),
+                Tables\Columns\ColumnGroup::make(trans('ev.temperature').'(C)',[
+                    Tables\Columns\TextColumn::make('detail.ltc')
+                        ->badge()
+                        ->numeric(0)
+                        ->inverseRelationship('log')
+                        ->color(fn(string $state) => $state >20 && $state <38  ? 'success' : ($state < 20 && $state>=10 ? 'warning' : 'danger'))
+                        ->label(trans('ev.lowest'))
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('detail.htc')
+                        ->badge()
+                        ->numeric(0)
+                        ->inverseRelationship('log')
+                        ->color(fn(string $state) => $state >20 && $state <38  ? 'success' : ($state < 40 && $state>=38 ? 'warning' : 'danger'))
+                        ->label(trans('ev.highest'))
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('detail.t_spread')
+                        ->label(trans('ev.spread'))
+                        ->numeric(0)
+                        ->inverseRelationship('log')
+                        ->badge()
+                        ->color(fn(string $state) => $state <=3 ? 'success' : ($state <=5 ? 'warning' : 'danger'))
+                        ->toggleable(),
+                ]),
+
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->inverseRelationship('log')
                     ->label(trans('ev.distance'))
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
             ])
             //->defaultGroup('cycle.date')
             ->groups([
-                Tables\Grouping\Group::make('cycle.date')->date()->getDescriptionFromRecordUsing(function (Model $record) {
+                Tables\Grouping\Group::make('cycle.date')->date()/*->getDescriptionFromRecordUsing(function (Model $record) {
                     $capacity = $record->vehicle->capacity;
                     $cycle = EvLog::find($record->cycle_id);
                     $lastChildId = $cycle->children()->latest('date')->value('id');
@@ -202,7 +252,7 @@ class EvLogResource extends Resource
                     $aConsumption = Number::format(100 * ($aDischarge - $aCharge) / $distance, 0);
                     $midSoC = Number::format($lastChildSoC - 100*($lastChildAc - $lastChildAd)/$capacity,1);
                     return "Total distance: {$distance}km, SoC Middle: {$midSoC}%, Discharge: {$discharge}%, Accumulative Charge: {$aCharge}kWh, Discharge: {$aDischarge}kWh, and Consumption: {$aConsumption}kWh/100km";
-                })
+                })*/
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()

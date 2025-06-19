@@ -54,7 +54,7 @@ class ListEvLogs extends ListRecords
                             ->label(trans('ev.cycle'))
                             ->options(EvLog::select(['id','date'])->where('log_type','charging')->orderBy('date','desc')->get()->pluck('date','id'))
                             //->relationship('cycle','date')
-                            ->hidden(fn(Get $get)=>$get("log_type")!="driving")
+                            ->hidden(fn(Get $get)=>$get("log_type")=="charge")
                             ->default(fn()=>EvLog::where("log_type","charging")->max('id'))
                             ->searchable(['id','date'])
                             ->nullable(),

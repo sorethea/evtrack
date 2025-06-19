@@ -35,6 +35,9 @@ return [
     "trips"=>"Trips",
     "parent"=>"Parent",
     "voltage_spread"=>"Voltage Spread",
+    "spread"=>"Spread",
+    "lowest"=>"Lowest",
+    "highest"=>"Highest",
     "discharge"=>"Discharge",
     "comment"=>"Comment",
     "duration"=>"Duration",
@@ -54,6 +57,7 @@ return [
     "power"=>"Power",
     "price"=>"Price",
     "voltage"=>"Voltage",
+    "temperature"=>"Temperature",
     "total_voltage"=>"Total Voltage",
     "highest_temp_cell"=>"Highest Temperature Cell",
     "lowest_temp_cell"=>"Lowest Temperature Cell",
@@ -61,4 +65,5 @@ return [
     "lowest_volt_cell"=>"Lowest Voltage Cell",
     "remark"=>"Remark",
     "total_price"=>"Total Price",
+    "total"=>"Total",
 ];

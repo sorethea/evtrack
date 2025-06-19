@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class EvLogDetail extends Model
 {
     protected $table = 'ev_logs_view';
-    protected $guarded =[];
+    protected $casts =['data'=>'datetime'];
 
     public $timestamps = false;
 
@@ -16,6 +16,6 @@ class EvLogDetail extends Model
 
     public function log() :BelongsTo
     {
-        return $this->belongsTo(EvLog::class,'id','log_id');
+        return $this->belongsTo(EvLog::class,'log_id');
     }
 }

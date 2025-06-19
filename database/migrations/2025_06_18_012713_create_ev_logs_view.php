@@ -15,7 +15,8 @@ return new class extends Migration
         DB::statement('CREATE VIEW ev_logs_view AS
         WITH ev_logs_base AS(
         SELECT
-          l.id,
+          l.id as log_id,
+          l.vehicle_id,
           l.parent_id,
           l.date,
           MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
@@ -31,9 +32,10 @@ return new class extends Migration
         LEFT JOIN ev_log_items li
             ON l.id = li.log_id
             AND li.item_id BETWEEN 1 AND 29
-        GROUP BY l.id,l.parent_id, l.date)
+        GROUP BY l.id,l.parent_id,l.vehicle_id, l.date)
         SELECT
-          c.id,
+          c.log_id,
+          c.date,
           c.odo,
           c.soc,
           c.ac,
@@ -43,9 +45,16 @@ return new class extends Migration
           c.ltc,
           c.htc,
           c.tc,
-          c.odo - p.odo as distance
+          p.soc - c.soc AS soc_derivation,
+          c.hvc - c.lvc AS v_spread,
+          c.htc - c.ltc AS t_spread,
+          c.soc -100*(c.ac-c.ad)/v.capacity AS soc_middle,
+          c.ac - p.ac AS charge,
+          c.ad - p.ad AS discharge,
+          c.odo - p.odo AS distance
           FROM ev_logs_base c
-          LEFT JOIN ev_logs_base p ON c.parent_id = p.id;
+          LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id
+          LEFT JOIN vehicles v ON c.vehicle_id =v.id;
         ');
     }
 
