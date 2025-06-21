@@ -232,27 +232,7 @@ class EvLogResource extends Resource
             ])
             //->defaultGroup('cycle.date')
             ->groups([
-                Tables\Grouping\Group::make('cycle.date')->date()/*->getDescriptionFromRecordUsing(function (Model $record) {
-                    $capacity = $record->vehicle->capacity;
-                    $cycle = EvLog::find($record->cycle_id);
-                    $lastChildId = $cycle->children()->latest('date')->value('id');
-                    $lastChild = EvLog::find($lastChildId);
-                    $cycleOdo = \evlog::getItemValue($cycle, 1);
-                    $cycleSoC = \evlog::getItemValue($cycle, 11);
-                    $cycleAc = \evlog::getItemValue($cycle, 19);
-                    $cycleAd = \evlog::getItemValue($cycle, 20);
-                    $lastChildOdo = \evlog::getItemValue($lastChild, 1);
-                    $lastChildSoC = \evlog::getItemValue($lastChild, 11);
-                    $lastChildAc = \evlog::getItemValue($lastChild, 19);
-                    $lastChildAd = \evlog::getItemValue($lastChild, 20);
-                    $distance = Number::format($lastChildOdo - $cycleOdo, 1);
-                    $discharge = Number::format($cycleSoC - $lastChildSoC, 1);
-                    $aCharge = Number::format($lastChildAc - $cycleAc, 1);
-                    $aDischarge = Number::format($lastChildAd - $cycleAd, 1);
-                    $aConsumption = Number::format(100 * ($aDischarge - $aCharge) / $distance, 0);
-                    $midSoC = Number::format($lastChildSoC - 100*($lastChildAc - $lastChildAd)/$capacity,1);
-                    return "Total distance: {$distance}km, SoC Middle: {$midSoC}%, Discharge: {$discharge}%, Accumulative Charge: {$aCharge}kWh, Discharge: {$aDischarge}kWh, and Consumption: {$aConsumption}kWh/100km";
-                })*/
+                Tables\Grouping\Group::make('cycle.date')->date()
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()

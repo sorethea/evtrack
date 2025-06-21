@@ -36,6 +36,7 @@ class ItemsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('value'),
                 Tables\Columns\TextColumn::make('item.units')->label(trans('Unit'))
             ])
+            ->paginated(false)
             ->defaultSort('item_id')
             ->filters([
                 //
