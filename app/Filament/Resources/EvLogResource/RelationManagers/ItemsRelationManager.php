@@ -32,7 +32,7 @@ class ItemsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('item_id')
             ->columns([
-                Tables\Columns\TextColumn::make('item.pid'),
+                Tables\Columns\TextColumn::make('item.pid')->searchable(),
                 Tables\Columns\TextColumn::make('value'),
                 Tables\Columns\TextColumn::make('item.units')->label(trans('Unit'))
             ])
