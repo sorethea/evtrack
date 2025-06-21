@@ -147,12 +147,14 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.from') )
-                        ->toggleable(isToggledHiddenByDefault: true),
+                        ->toggleable(isToggledHiddenByDefault: false)
+                        ->summarize(Tables\Columns\Summarizers\Range::make()->query->orderBy('date','asc')->first()),
                     Tables\Columns\TextColumn::make('detail.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.to') )
-                        ->toggleable(isToggledHiddenByDefault: true),
+                        ->toggleable(isToggledHiddenByDefault: false)
+                        ->summarize(Tables\Columns\Summarizers\Range::make()->query->orderBy('date','desc')->first()),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
                         ->label(trans('ev.soc_derivation'))
