@@ -243,7 +243,7 @@ class EvLogResource extends Resource
                     ->label(trans('ev.distance'))
                     ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
             ])
-            ->defaultGroup('cycle.date')
+            //->defaultGroup('cycle.date')
             ->groups([
                 Tables\Grouping\Group::make('cycle.date')->date()
             ])
