@@ -154,7 +154,7 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.to') )
-                        ->toggleable(isToggledHiddenByDefault: false),
+                        ->toggleable(isToggledHiddenByDefault: false)
                         ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder
                             $query)=>$query
                             ->leftJoin('ev_log_items','log_id','on','id')
