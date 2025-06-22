@@ -245,7 +245,7 @@ class EvLogResource extends Resource
             ])
             ->defaultGroup('cycle.date')->defaultSort('desc')
             ->groups([
-                Tables\Grouping\Group::make('cycle.date')->date()
+                Tables\Grouping\Group::make('cycle.date')->date()->orderQuery(direction: 'desc')
             ])
             ->filters([
                 Tables\Filters\QueryBuilder::make()
