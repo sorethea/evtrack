@@ -148,13 +148,15 @@ class EvLogResource extends Resource
                         ->numeric(1)
                         ->label(trans('ev.from') )
                         ->toggleable(isToggledHiddenByDefault: false)
-                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn($query):string =>$query->min('date'))),
+                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder $query):string =>
+                        $query->join('ev_log_items i','i.log_id','id')->joinWhere('ev_log_items i','i.item_id','=',11)->max('i.value'))),
                     Tables\Columns\TextColumn::make('detail.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.to') )
                         ->toggleable(isToggledHiddenByDefault: false)
-                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn($query):string =>$query->max('date'))),
+                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder $query):string =>
+                        $query->join('ev_log_items i','i.log_id','id')->joinWhere('ev_log_items i','i.item_id','=',11)->min('i.value'))),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
                         ->label(trans('ev.soc_derivation'))
