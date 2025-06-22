@@ -157,11 +157,11 @@ class EvLogResource extends Resource
                         ->toggleable(isToggledHiddenByDefault: false)
                         ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder
                             $query)=>$query
-                            ->select('l.id,l.date,li.value AS soc_to')
+                            ->select('l.id,l.date,li.item_id,li.value AS soc_to')
                             ->from('ev_logs l')
                             ->leftJoin('ev_log_items li','li.log_id','on','l.id')
                             ->joinWhere('ev_log_items li','li.item_id','=',11)
-                            ->groupBy(['id','date'])
+                            ->groupBy(['id','date','item_id'])
                             ->min('soc_to')
                         )),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
