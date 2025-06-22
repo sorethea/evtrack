@@ -48,7 +48,7 @@ class ItemsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
-                Actions\Action::make('obdImport')
+                Tables\Actions\Action::make('obdImport')
                     ->label('Obd Import')
                     ->form([
                         FileUpload::make('obd_file')
