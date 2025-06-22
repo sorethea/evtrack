@@ -45,7 +45,7 @@ class EvLog
                 Select::make("cycle_id")
                     ->reactive()
                     ->label(trans('ev.cycle'))
-                    ->options(EvLog::select(['id','date'])->where('log_type','charging')->orderBy('date','desc')->get()->pluck('date','id'))
+                    ->options(\App\Models\EvLog::select(['id','date'])->where('log_type','charging')->orderBy('date','desc')->get()->pluck('date','id'))
                     //->relationship('cycle','date')
                     ->hidden(fn(Get $get)=>$get("log_type")=="charge")
                     ->default(fn()=>EvLog::where("log_type","charging")->max('id'))
