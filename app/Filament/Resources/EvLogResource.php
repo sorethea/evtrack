@@ -159,7 +159,7 @@ class EvLogResource extends Resource
                             $query)=>$query
                             ->leftJoin('ev_log_items','log_id','on','id')
                             ->joinWhere('ev_log_items','item_id','=',11)
-                            ->groupBy(['item_id'])->min('value')
+                            ->groupBy(['ev_logs.id','ev_logs.date'])->min('ev_log_items.value')
                         )),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
