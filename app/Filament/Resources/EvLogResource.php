@@ -154,18 +154,18 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.to') )
-                        ->toggleable(isToggledHiddenByDefault: false)
-                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder
-                            $query)=>$query
-                            ->select('SELECT l.id AS id,
-                                  l.date AS date,
-                                  MIN(li.value) AS soc
-                                FROM ev_logs AS l
-                                GROUP BY li.item_id
-                                LEFT JOIN ev_log_items AS li
-                                  ON l.id = li.log_id
-                                  AND li.item_id = 11;')->value('soc')
-                        )),
+                        ->toggleable(isToggledHiddenByDefault: false),
+//                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder
+//                            $query)=>$query
+//                            ->select('SELECT l.id AS id,
+//                                  l.date AS date,
+//                                  MIN(li.value) AS soc
+//                                FROM ev_logs AS l
+//                                GROUP BY li.item_id
+//                                LEFT JOIN ev_log_items AS li
+//                                  ON l.id = li.log_id
+//                                  AND li.item_id = 11;')->value('soc')
+//                        )),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
                         ->label(trans('ev.soc_derivation'))
