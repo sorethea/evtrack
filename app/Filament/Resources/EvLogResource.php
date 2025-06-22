@@ -282,7 +282,7 @@ class EvLogResource extends Resource
                             ->directory('obd2'),
                     ])
                     ->action(function (array $data, Model $record) {
-                        self::obdImport($data, $record);
+                        \evlog::obdImportAction($data, $record);
                     }),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()->hidden(),
@@ -312,28 +312,4 @@ class EvLogResource extends Resource
         ];
     }
 
-    public static function obdImport(array $data, EvLog $evLog): void
-    {
-        $csv = Reader::createFromPath(Storage::path($data['obd_file']), 'r');
-        $csv->setDelimiter(';');
-        $obdFile = $data['obd_file'];
-        $obdFileArray = explode("/", $obdFile);
-        $obdFileName = end($obdFileArray);
-        $obdFileNameArray = explode(".", $obdFileName);
-        $evLog->update([
-            'date' => $obdFileNameArray[0],
-            'obd_file' => $obdFile,
-        ]);
-        foreach ($csv->getRecords() as $index => $row) {
-            //if($index >=200) break;
-            $item = ObdItem::where('pid', $row[1])->first();
-            if (!empty($item) && $item->id && $evLog->id) {
-                $latitude = !empty($row[4]) ? $row[4] : 0.0;
-                $longitude = !empty($row[5]) ? $row[5] : 0.0;
-                EvLogItem::query()->firstOrCreate(
-                    ['item_id' => $item->id, 'log_id' => $evLog->id],
-                    ['value' => $row[2], 'latitude' => $latitude, 'longitude' => $longitude]);
-            }
-        }
-    }
 }
