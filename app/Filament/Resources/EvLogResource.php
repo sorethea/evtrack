@@ -164,7 +164,7 @@ class EvLogResource extends Resource
                                 GROUP BY li.item_id
                                 LEFT JOIN ev_log_items li
                                   ON l.id = li.log_id
-                                  AND li.item_id = 11;')->min('li.value')
+                                  AND li.item_id = 11;')->value('soc')
                         )),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
