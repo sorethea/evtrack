@@ -159,8 +159,9 @@ class EvLogResource extends Resource
                             $query)=>$query
                             ->select('SELECT l.id AS id,
                                   l.date AS date,
-                                  li.value
+                                  MIN(li.value) AS soc
                                 FROM ev_logs l
+                                GROUP BY li.item_id
                                 LEFT JOIN ev_log_items li
                                   ON l.id = li.log_id
                                   AND li.item_id = 11;')->min('li.value')
