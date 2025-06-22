@@ -9,10 +9,8 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use PhpParser\Node\Expr\AssignOp\Mod;
+
 
 class ItemsRelationManager extends RelationManager
 {
@@ -59,8 +57,7 @@ class ItemsRelationManager extends RelationManager
                     ->action(function (array $data, Model $record) {
                         //$evLog = EvLog::create($data);
                         \evlog::obdImportAction($data,$record);
-                    })
-                    ->hidden(fn(Model $record)=>!empty($record->items)),
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
