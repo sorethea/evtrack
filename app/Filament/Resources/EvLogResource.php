@@ -155,7 +155,12 @@ class EvLogResource extends Resource
                         ->numeric(1)
                         ->label(trans('ev.to') )
                         ->toggleable(isToggledHiddenByDefault: false),
-                        //->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn($query)=>$query->min('detail.soc'))),
+                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder
+                            $query)=>$query
+                            ->leftJoin('ev_log_items','log_id','on','id')
+                            ->joinWhere('ev_log_items','item_id','=',11)
+                            ->groupBy(['item_id'])->min('value')
+                        )),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
                         ->label(trans('ev.soc_derivation'))
