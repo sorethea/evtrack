@@ -56,10 +56,11 @@ class ItemsRelationManager extends RelationManager
                             ->disk('local')
                             ->directory('obd2'),
                     ])
-                    ->action(function (array $data) {
+                    ->action(function (array $data, Model $record) {
                         //$evLog = EvLog::create($data);
-                        \evlog::obdImportAction($data,$this->record);
-                    }),
+                        \evlog::obdImportAction($data,$record);
+                    })
+                    ->hidden(fn($record)=>empty($record->items)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
