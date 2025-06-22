@@ -59,7 +59,7 @@ class ItemsRelationManager extends RelationManager
                     ->action(function (array $data, ) {
                         //$evLog = EvLog::create($data);
                         \evlog::obdImportAction($data,$this->ownerRecord);
-                    })->hidden(fn()=>!empty($this->ownerRecord->items)),
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
