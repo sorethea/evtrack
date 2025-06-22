@@ -19,6 +19,7 @@ class ItemsRelationManager extends RelationManager
     public Model $ownerRecord;
 
 
+
     public function form(Form $form): Form
     {
         return $form
@@ -59,7 +60,7 @@ class ItemsRelationManager extends RelationManager
                     ->action(function (array $data, ) {
                         //$evLog = EvLog::create($data);
                         \evlog::obdImportAction($data,$this->ownerRecord);
-                    }),
+                    })->hidden(!empty($this->ownerRecord->items)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
