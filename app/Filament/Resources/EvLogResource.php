@@ -246,7 +246,9 @@ class EvLogResource extends Resource
             ->defaultGroup('cycle.date')
             ->groups([
                 Tables\Grouping\Group::make('cycle.date')->date()->orderQueryUsing(
-                    fn (Builder $query, string $direction) => $query->orderBy('cycle_date', 'desc'),
+                    fn (Builder $query, string $direction) => $query
+                        ->leftJoin('ev_logs cycle','ev_logs.cycle','on','cycle.id')
+                        ->orderBy('cycle_date', 'desc'),
                 )
             ])
             ->defaultSort('cycle.date','desc')
