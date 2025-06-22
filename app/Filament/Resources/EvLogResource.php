@@ -160,9 +160,9 @@ class EvLogResource extends Resource
                             ->select('SELECT l.id AS id,
                                   l.date AS date,
                                   MIN(li.value) AS soc
-                                FROM ev_logs l
+                                FROM ev_logs AS l
                                 GROUP BY li.item_id
-                                LEFT JOIN ev_log_items li
+                                LEFT JOIN ev_log_items AS li
                                   ON l.id = li.log_id
                                   AND li.item_id = 11;')->value('soc')
                         )),
