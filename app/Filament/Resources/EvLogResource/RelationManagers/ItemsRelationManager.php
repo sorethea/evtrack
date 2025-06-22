@@ -43,6 +43,7 @@ class ItemsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
+                Tables\Actions\Action::make()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -32,44 +32,7 @@ class ListEvLogs extends ListRecords
             Actions\CreateAction::make(),
             Actions\Action::make('obdImport')
                 ->label('Obd Import')
-                ->form([
-                    Fieldset::make()->schema([
-//                        TextInput::make('date')
-//                            ->label(trans('ev.date'))
-//                            ->required(),
-                        Select::make("log_type")
-                        ->live()
-                        ->label(trans('ev.log_types.name'))
-                        ->options(trans("ev.log_types.options"))
-                        ->default('driving')
-                        ->nullable(),
-                        Select::make('parent_id')
-                            ->label(trans('ev.parent'))
-                            ->options(EvLog::select(['id','date'])->orderBy('date','desc')->get()->pluck('date','id'))
-                            ->default(fn()=>EvLog::max('id'))
-                            ->searchable(['id','date'])
-                            ->nullable(),
-                        Select::make("cycle_id")
-                            ->reactive()
-                            ->label(trans('ev.cycle'))
-                            ->options(EvLog::select(['id','date'])->where('log_type','charging')->orderBy('date','desc')->get()->pluck('date','id'))
-                            //->relationship('cycle','date')
-                            ->hidden(fn(Get $get)=>$get("log_type")=="charge")
-                            ->default(fn()=>EvLog::where("log_type","charging")->max('id'))
-                            ->searchable(['id','date'])
-                            ->nullable(),
-                        Select::make("charge_type")
-                            ->label(trans('ev.charge_types.name'))
-                            ->options(trans("ev.charge_types.options"))
-                            ->hidden(fn(Get $get)=>$get("log_type")!="charging")
-                            ->nullable(),
-                        FileUpload::make('obd_file')
-                            ->preserveFilenames()
-                            ->disk('local')
-                            ->directory('obd2'),
-                    ])->columns(2),
-
-                ])
+                ->form(\evlog::obdImportForm())
                 ->action(function (array $data){
                     $evLog = EvLog::create($data);
                     EvLogResource::obdImport($data,$evLog);
