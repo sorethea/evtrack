@@ -76,7 +76,7 @@ class EvLog
                     ->label(trans('ev.cycle'))
                     ->options(\App\Models\EvLog::select(['id','date'])->where('log_type','charging')->orderBy('date','desc')->get()->pluck('date','id'))
                     //->relationship('cycle','date')
-                    ->hidden(fn(Get $get)=>$get("log_type")=="charge")
+                    ->hidden(fn(Get $get)=>$get("log_type")=="charging")
                     ->default(fn()=>\App\Models\EvLog::where("log_type","charging")->max('id'))
                     ->searchable(['id','date'])
                     ->nullable(),

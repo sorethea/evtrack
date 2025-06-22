@@ -2,17 +2,22 @@
 
 namespace App\Filament\Resources\EvLogResource\RelationManagers;
 
+use App\Models\EvLog;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use PhpParser\Node\Expr\AssignOp\Mod;
 
 class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
+
 
     public function form(Form $form): Form
     {
@@ -43,6 +48,18 @@ class ItemsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
+                Actions\Action::make('obdImport')
+                    ->label('Obd Import')
+                    ->form([
+                        FileUpload::make('obd_file')
+                            ->preserveFilenames()
+                            ->disk('local')
+                            ->directory('obd2'),
+                    ])
+                    ->action(function (array $data) {
+                        //$evLog = EvLog::create($data);
+                        \evlog::obdImportAction($data,$this->record);
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
