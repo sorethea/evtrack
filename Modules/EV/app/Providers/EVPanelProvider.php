@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Modules\EV\Filament\EVPlugin;
+use Modules\EV\Filament\Resources\EvLogResource\Widgets\VehicleOverview;
 
 class EVPanelProvider extends PanelProvider
 {
@@ -36,8 +37,9 @@ class EVPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/EV/Widgets'), for: 'Modules\\EV\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                VehicleOverview::make(),
+                //Widgets\AccountWidget::class,
+                //Widgets\FilamentInfoWidget::class,
             ])
             ->plugins([
                 EVPlugin::make(),
