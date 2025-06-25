@@ -2,8 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\User;
-use App\Models\Vehicle;
+use Modules\EV\Models\Vehicle;
 
 class VehicleObserver
 {

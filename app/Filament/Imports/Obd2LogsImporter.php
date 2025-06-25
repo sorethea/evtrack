@@ -3,15 +3,9 @@
 namespace App\Filament\Imports;
 
 use App\Models\Obd2Logs;
-use App\Models\ObdItem;
-use Filament\Actions\Imports\Exceptions\RowImportFailedException;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Artisan;
-use League\Csv\Exception;
-use League\Csv\Reader;
 
 class Obd2LogsImporter extends Importer
 {

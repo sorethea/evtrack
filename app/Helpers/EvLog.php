@@ -2,32 +2,32 @@
 
 namespace App\Helpers;
 
-use App\Models\EvLogItem;
-use App\Models\ObdItem;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Get;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Reader;
+use Modules\EV\Models\EvLogItem;
+use Modules\EV\Models\ObdItem;
 
 class EvLog
 {
-    public static function getItemValue(\App\Models\EvLog $evLog, int $item_id):float {
+    public static function getItemValue(\Modules\EV\Models\EvLog $evLog, int $item_id):float {
         return $evLog->items->where('item_id',$item_id)->value('value')??0;
     }
-    public static function getParentItemValue(\App\Models\EvLog $evLog, int $item_id):float {
+    public static function getParentItemValue(\Modules\EV\Models\EvLog $evLog, int $item_id):float {
         return $evLog->parent->items->where('item_id',$item_id)->value('value')??0;
     }
-    public static function getCycleItemValue(\App\Models\EvLog $evLog, int $item_id):float {
+    public static function getCycleItemValue(\Modules\EV\Models\EvLog $evLog, int $item_id):float {
         return $evLog->cycle->items->where('item_id',$item_id)->value('value')??0;
     }
-    public static function getDistance(\App\Models\EvLog $evLog):float
+    public static function getDistance(\Modules\EV\Models\EvLog $evLog):float
     {
         return (self::getItemValue($evLog,1) - self::getParentItemValue($evLog,1))??0;
     }
 
-    public static function obdImportAction(array $data, \App\Models\EvLog $evLog): void
+    public static function obdImportAction(array $data, \Modules\EV\Models\EvLog $evLog): void
     {
         $csv = Reader::createFromPath(Storage::path($data['obd_file']), 'r');
         $csv->setDelimiter(';');
@@ -67,17 +67,17 @@ class EvLog
                     ->nullable(),
                 Select::make('parent_id')
                     ->label(trans('ev.parent'))
-                    ->options(\App\Models\EvLog::select(['id','date'])->orderBy('date','desc')->get()->pluck('date','id'))
-                    ->default(fn()=>\App\Models\EvLog::max('id'))
+                    ->options(\Modules\EV\Models\EvLog::select(['id','date'])->orderBy('date','desc')->get()->pluck('date','id'))
+                    ->default(fn()=> \Modules\EV\Models\EvLog::max('id'))
                     ->searchable(['id','date'])
                     ->nullable(),
                 Select::make("cycle_id")
                     ->reactive()
                     ->label(trans('ev.cycle'))
-                    ->options(\App\Models\EvLog::select(['id','date'])->where('log_type','charging')->orderBy('date','desc')->get()->pluck('date','id'))
+                    ->options(\Modules\EV\Models\EvLog::select(['id','date'])->where('log_type','charging')->orderBy('date','desc')->get()->pluck('date','id'))
                     //->relationship('cycle','date')
                     ->hidden(fn(Get $get)=>$get("log_type")=="charging")
-                    ->default(fn()=>\App\Models\EvLog::where("log_type","charging")->max('id'))
+                    ->default(fn()=> \Modules\EV\Models\EvLog::where("log_type","charging")->max('id'))
                     ->searchable(['id','date'])
                     ->nullable(),
                 Select::make("charge_type")

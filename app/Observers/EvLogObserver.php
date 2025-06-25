@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\EvLog;
+use Modules\EV\Models\EvLog;
 
 class EvLogObserver
 {

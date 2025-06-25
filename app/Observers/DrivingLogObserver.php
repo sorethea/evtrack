@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\DrivingLog;
-use App\Models\Vehicle;
+use Modules\EV\Models\Vehicle;
 
 class DrivingLogObserver
 {

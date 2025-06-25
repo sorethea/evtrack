@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Modules\EV\Models;
 
+use App\Models\User;
 use App\Observers\VehicleObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;

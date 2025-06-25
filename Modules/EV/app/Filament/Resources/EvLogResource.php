@@ -2,9 +2,6 @@
 
 namespace Modules\EV\Filament\Resources;
 
-use Modules\EV\Filament\Resources\EvLogResource\Pages;
-use Modules\EV\Filament\Resources\EvLogResource\RelationManagers;
-use App\Models\EvLog;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
@@ -15,6 +12,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Number;
+use Modules\EV\Models\EvLog;
 
 class EvLogResource extends Resource
 {

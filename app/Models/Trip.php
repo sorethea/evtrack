@@ -6,6 +6,7 @@ use App\Observers\TripObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\EV\Models\Vehicle;
 
 #[ObservedBy(TripObserver::class)]
 class Trip extends Model

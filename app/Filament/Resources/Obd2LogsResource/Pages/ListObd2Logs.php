@@ -4,22 +4,14 @@ namespace App\Filament\Resources\Obd2LogsResource\Pages;
 
 use App\Filament\Imports\Obd2LogsImporter;
 use App\Filament\Resources\Obd2LogsResource;
-use App\Models\DrivingLog;
-use App\Models\EvLog;
 use App\Models\Obd2Logs;
-use Carbon\Carbon;
 use Filament\Actions;
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Resources\Pages\ListRecords;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
-use League\Csv\Reader;
+use Modules\EV\Models\EvLog;
 
 class ListObd2Logs extends ListRecords
 {

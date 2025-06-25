@@ -2,11 +2,11 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\Pages;
 
-use App\Models\EvLog;
 use Filament\Actions;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Pages\ListRecords;
 use Modules\EV\Filament\Resources\EvLogResource;
+use Modules\EV\Models\EvLog;
 
 class ListEvLogs extends ListRecords
 {

@@ -2,8 +2,8 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\Widgets;
 
-use App\Models\EvLog;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use Modules\EV\Models\EvLog;
 
 class ChargingCycleOverview extends BaseWidget
 {
