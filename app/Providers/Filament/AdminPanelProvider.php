@@ -54,7 +54,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
-                Clinic::make(),
             ])
             ->middleware([
                 EncryptCookies::class,
