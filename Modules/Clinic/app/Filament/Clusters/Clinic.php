@@ -5,7 +5,7 @@ namespace Modules\Clinic\Filament\Clusters;
 use Filament\Clusters\Cluster;
 use Nwidart\Modules\Facades\Module;
 
-class clinic extends Cluster
+class Clinic extends Cluster
 {
     public static function getModuleName(): string
     {

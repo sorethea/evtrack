@@ -2,7 +2,6 @@
 
 namespace Modules\Clinic\Filament\Resources;
 
-use Modules\Clinic\Filament\Clusters\clinic;
 use Modules\Clinic\Filament\Resources\PatientResource\Pages;
 use Modules\Clinic\Filament\Resources\PatientResource\RelationManagers;
 use Modules\Clinic\Models\Patient;
@@ -19,7 +18,6 @@ class PatientResource extends Resource
     protected static ?string $model = Patient::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $cluster = clinic::class;
 
     public static function form(Form $form): Form
     {
