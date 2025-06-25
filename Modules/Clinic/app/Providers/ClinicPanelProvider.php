@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Modules\Clinic\Filament\Clinic;
+use Modules\Clinic\Filament\ClinicPlugin;
 
 class ClinicPanelProvider extends PanelProvider
 {
@@ -30,7 +31,7 @@ class ClinicPanelProvider extends PanelProvider
                 'primary' => Color::Amber,
             ])
             ->plugins([
-                Clinic::make(),
+                ClinicPlugin::make(),
             ])
             ->discoverResources(in: app_path('Filament/Clinic/Resources'), for: 'Modules\\Clinic\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Clinic/Pages'), for: 'Modules\\Clinic\\Filament\\Pages')
