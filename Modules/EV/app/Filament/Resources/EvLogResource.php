@@ -1,32 +1,20 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace Modules\EV\Filament\Resources;
 
-use App\Filament\Resources\EvLogResource\Pages;
-use App\Filament\Resources\EvLogResource\RelationManagers;
+use Modules\EV\Filament\Resources\EvLogResource\Pages;
+use Modules\EV\Filament\Resources\EvLogResource\RelationManagers;
 use App\Models\EvLog;
-use App\Helpers\EvLog as EvLogHelper;
-use App\Models\EvLogItem;
-use App\Models\ObdItem;
-use Carbon\Carbon;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Number;
-use League\Csv\Reader;
-use Symfony\Component\Mime\Encoder\QpContentEncoder;
 
 class EvLogResource extends Resource
 {
@@ -298,17 +286,17 @@ class EvLogResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ItemsRelationManager::class,
+            \Modules\EV\Filament\Resources\EvLogResource\RelationManagers\ItemsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListEvLogs::route('/'),
-            'create' => Pages\CreateEvLog::route('/create'),
-            'edit' => Pages\EditEvLog::route('/{record}/edit'),
-            'view' => Pages\ViewEvLog::route('/{record}'),
+            'index' => \Modules\EV\Filament\Resources\EvLogResource\Pages\ListEvLogs::route('/'),
+            'create' => \Modules\EV\Filament\Resources\EvLogResource\Pages\CreateEvLog::route('/create'),
+            'edit' => \Modules\EV\Filament\Resources\EvLogResource\Pages\EditEvLog::route('/{record}/edit'),
+            'view' => \Modules\EV\Filament\Resources\EvLogResource\Pages\ViewEvLog::route('/{record}'),
         ];
     }
 

@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\EvLogResource\Pages;
+namespace Modules\EV\Filament\Resources\EvLogResource\Pages;
 
-use App\Filament\Resources\EvLogResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Modules\EV\Filament\Resources\EvLogResource;
 
 class CreateEvLog extends CreateRecord
 {

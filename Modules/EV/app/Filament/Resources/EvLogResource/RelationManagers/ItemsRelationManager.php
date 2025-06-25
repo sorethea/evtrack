@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Filament\Resources\EvLogResource\RelationManagers;
+namespace Modules\EV\Filament\Resources\EvLogResource\RelationManagers;
 
-use App\Models\EvLog;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;

@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\EvLogResource\Widgets;
+namespace Modules\EV\Filament\Resources\EvLogResource\Widgets;
 
 use App\Models\EvLog;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Number;
 
 class ChargingCycleOverview extends BaseWidget
 {

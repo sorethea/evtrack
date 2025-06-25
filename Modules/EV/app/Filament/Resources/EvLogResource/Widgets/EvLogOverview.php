@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\EvLogResource\Widgets;
+namespace Modules\EV\Filament\Resources\EvLogResource\Widgets;
 
-use App\Models\Charge;
-use App\Models\DrivingLog;
 use App\Models\EvLog;
-use Carbon\Carbon;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;

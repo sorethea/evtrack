@@ -2,11 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
-use App\Filament\Resources\ChargeResource\Widgets\ChargeOverview;
-use App\Filament\Resources\EvLogResource\Widgets\VehicleOverview;
-use App\Filament\Resources\TripResource\Widgets\TripOverview;
-use Coolsam\Modules\ModulesPlugin;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -14,7 +10,6 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -22,8 +17,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Modules\Clinic\Filament\Clinic;
+use Modules\EV\Filament\Resources\EvLogResource\Widgets\VehicleOverview;
 
 class AdminPanelProvider extends PanelProvider
 {

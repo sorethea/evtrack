@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\EvLogResource\Widgets;
+namespace Modules\EV\Filament\Resources\EvLogResource\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
