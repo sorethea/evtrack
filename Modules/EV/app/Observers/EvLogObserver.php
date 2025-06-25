@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Observers;
+namespace Modules\EV\Observers;
 
 use Modules\EV\Models\EvLog;
 
@@ -39,7 +39,7 @@ class EvLogObserver
      */
     public function deleted(EvLog $evLog): void
     {
-        //
+        $evLog->items()->delete();
     }
 
     /**
