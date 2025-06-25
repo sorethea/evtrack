@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Modules\EV\Filament\EVPlugin;
 
 class EVPanelProvider extends PanelProvider
 {
@@ -37,6 +38,9 @@ class EVPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+            ])
+            ->plugins([
+                EVPlugin::make(),
             ])
             ->middleware([
                 EncryptCookies::class,
