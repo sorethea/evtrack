@@ -6,6 +6,7 @@ use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use App\Filament\Resources\ChargeResource\Widgets\ChargeOverview;
 use App\Filament\Resources\EvLogResource\Widgets\VehicleOverview;
 use App\Filament\Resources\TripResource\Widgets\TripOverview;
+use Coolsam\Modules\ModulesPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -51,6 +52,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
+                ModulesPlugin::make(),
             ])
             ->middleware([
                 EncryptCookies::class,
