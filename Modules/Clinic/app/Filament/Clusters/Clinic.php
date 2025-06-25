@@ -22,6 +22,8 @@ class Clinic extends Cluster
         return __('Clinic');
     }
 
+    protected static ?string $navigationGroup = 'Clinic';
+
     public static function getNavigationIcon(): ?string
     {
         return 'heroicon-o-squares-2x2';
