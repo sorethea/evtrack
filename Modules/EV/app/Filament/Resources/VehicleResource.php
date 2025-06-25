@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace Modules\EV\Filament\Resources;
 
-use App\Filament\Resources\VehicleResource\Pages;
-use App\Filament\Resources\VehicleResource\RelationManagers;
+use Modules\EV\Filament\Resources\VehicleResource\Pages;
+use Modules\EV\Filament\Resources\VehicleResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -76,10 +76,10 @@ class VehicleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListVehicles::route('/'),
-            'create' => Pages\CreateVehicle::route('/create'),
-            'view' => Pages\ViewVehicle::route('/{record}'),
-            'edit' => Pages\EditVehicle::route('/{record}/edit'),
+            'index' => \Modules\EV\Filament\Resources\VehicleResource\Pages\ListVehicles::route('/'),
+            'create' => \Modules\EV\Filament\Resources\VehicleResource\Pages\CreateVehicle::route('/create'),
+            'view' => \Modules\EV\Filament\Resources\VehicleResource\Pages\ViewVehicle::route('/{record}'),
+            'edit' => \Modules\EV\Filament\Resources\VehicleResource\Pages\EditVehicle::route('/{record}/edit'),
         ];
     }
 }

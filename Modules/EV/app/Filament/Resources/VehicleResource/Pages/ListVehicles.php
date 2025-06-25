@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\VehicleResource\Pages;
+namespace Modules\EV\Filament\Resources\VehicleResource\Pages;
 
-use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
-use App\Filament\Resources\VehicleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Modules\EV\Filament\Resources\VehicleResource;
 
 class ListVehicles extends ListRecords
 {

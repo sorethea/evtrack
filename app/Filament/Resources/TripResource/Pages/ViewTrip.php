@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\TripResource\Pages;
 
 use App\Filament\Resources\TripResource;
-use App\Filament\Resources\VehicleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 

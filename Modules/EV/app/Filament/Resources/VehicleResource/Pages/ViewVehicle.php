@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\VehicleResource\Pages;
+namespace Modules\EV\Filament\Resources\VehicleResource\Pages;
 
-use App\Filament\Resources\VehicleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
+use Modules\EV\Filament\Resources\VehicleResource;
 
 class ViewVehicle extends ViewRecord
 {
