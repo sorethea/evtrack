@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Modules\Clinic\Filament\Clinic;
 
 class ClinicPanelProvider extends PanelProvider
 {
@@ -27,6 +28,9 @@ class ClinicPanelProvider extends PanelProvider
             ->path('clinic')
             ->colors([
                 'primary' => Color::Amber,
+            ])
+            ->plugins([
+                Clinic::make(),
             ])
             ->discoverResources(in: app_path('Filament/Clinic/Resources'), for: 'Modules\\Clinic\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Clinic/Pages'), for: 'Modules\\Clinic\\Filament\\Pages')
