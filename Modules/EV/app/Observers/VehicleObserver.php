@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Observers;
+namespace Modules\EV\Observers;
 
 use Modules\EV\Models\Vehicle;
 

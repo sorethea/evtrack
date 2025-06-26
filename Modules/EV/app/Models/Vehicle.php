@@ -3,12 +3,12 @@
 namespace Modules\EV\Models;
 
 use App\Models\User;
-use App\Observers\VehicleObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Modules\EV\Observers\VehicleObserver;
 
 #[ObservedBy([VehicleObserver::class])]
 class Vehicle extends Model
