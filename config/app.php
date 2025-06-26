@@ -123,7 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
     'aliases' =>[
-        'evlog'=>\App\Facades\EvLog::class,
+        'evlog'=> \Modules\EV\Facades\EvLog::class,
     ],
 
 ];

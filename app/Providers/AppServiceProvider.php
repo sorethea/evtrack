@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Helpers\EvLog;
 use Illuminate\Support\ServiceProvider;
+use Modules\EV\Helpers\EvLog;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,9 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('evlog',function ($app){
-            return new EvLog();
-        });
+
     }
 
     /**

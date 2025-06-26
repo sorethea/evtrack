@@ -4,6 +4,7 @@ namespace Modules\EV\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\EV\Helpers\EvLog;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -37,6 +38,9 @@ class EVServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(EVPanelProvider::class);
+        $this->app->singleton('evlog',function ($app){
+            return new EvLog();
+        });
     }
 
     /**
