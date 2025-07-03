@@ -163,6 +163,10 @@ class EvLogResource extends Resource
                         ->numeric(1)
                         ->inverseRelationship('log')
                         ->toggleable(),
+                    Tables\Columns\TextColumn::make('detail.consumption')
+                        ->numeric(1)
+                        ->label(__('ev.consumption'))
+                        ->toggleable(),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
                     Tables\Columns\TextColumn::make('detail.charge')
@@ -220,11 +224,6 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->badge()
                         ->color(fn(string $state) => $state <=3 ? 'success' : ($state <=5 ? 'warning' : 'danger'))
-                        ->toggleable(),
-                ]),
-                Tables\Columns\ColumnGroup::make(__('ev.consumption'),[
-                    Tables\Columns\TextColumn::make('detail.consumption')
-                        ->label('kWh/100km')
                         ->toggleable(),
                 ]),
                 Tables\Columns\TextColumn::make('detail.distance')
