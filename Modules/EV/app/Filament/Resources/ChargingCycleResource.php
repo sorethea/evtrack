@@ -36,10 +36,10 @@ class ChargingCycleResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')
                     ->date('d/m/y H:i')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('cycle_soc')
+                Tables\Columns\TextColumn::make('root_soc')
                     ->label('From SOC(%)')
                     ->toggleable(true),
-                Tables\Columns\TextColumn::make('end_soc')
+                Tables\Columns\TextColumn::make('last_soc')
                     ->label('To SOC (%)')
                     ->toggleable(true),
 //                Tables\Columns\TextColumn::make('charge')
@@ -89,7 +89,7 @@ class ChargingCycleResource extends Resource
     {
         return [
             'index' => \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ManageChargingCycles::route('/'),
-            //'view' =>  \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ViewChargingCycle::route('/{record}'),
+            'view' =>  \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ViewChargingCycle::route('/{record}'),
         ];
     }
 }
