@@ -165,6 +165,7 @@ class EvLogResource extends Resource
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.consumption')
                         ->numeric(1)
+                        ->formatStateUsing(fn($state)=>($state>0)?$state:0)
                         ->label(__('kWh/100km'))
                         ->toggleable(),
                 ]),
@@ -181,6 +182,7 @@ class EvLogResource extends Resource
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
                     Tables\Columns\TextColumn::make('detail.a_consumption')
                         ->numeric(1)
+                        ->formatStateUsing(fn($state)=>($state>0)?$state:0)
                         ->label(__('kWh/100km'))
                         ->toggleable(),
                 ]),
