@@ -40,7 +40,7 @@ class ChargingCycleResource extends Resource
                         ->date('d/m/y H:i')
                         ->searchable(),
                 ]),
-                Tables\Columns\ColumnGroup::make(__("ev.soc"),[
+                Tables\Columns\ColumnGroup::make(__("ev.soc")."(%)",[
                     Tables\Columns\TextColumn::make('root_soc')
                         ->label(__("ev.from"))
                         ->toggleable(true),
@@ -74,33 +74,10 @@ class ChargingCycleResource extends Resource
                         ->label(__('kWh/100km'))
                         ->toggleable(),
                 ]),
-//                Tables\Columns\TextColumn::make('charge')
-//                    ->label('Charge (%)')
-//                    ->toggleable(true),
-//                Tables\Columns\TextColumn::make('discharge')
-//                    ->label('Discharge (%)')
-//                    ->toggleable(true),
-//                Tables\Columns\TextColumn::make('a_regen')
-//                    ->label('Regen(kWh)')
-//                    ->toggleable()
-//                    ->toggledHiddenByDefault(),
-//                Tables\Columns\TextColumn::make('a_charge')
-//                    ->label('Acc Charge')
-//                    ->toggleable()
-//                    ->toggledHiddenByDefault(),
-//                Tables\Columns\TextColumn::make('a_discharge')
-//                    ->label('Acc Discharge')
-//                    ->toggleable()
-//                    ->toggledHiddenByDefault(),
-//                Tables\Columns\TextColumn::make('gap_zero')
-//                    ->label('Gap Zero')
-//                    ->toggleable()
-//                    ->toggledHiddenByDefault(),
-//                Tables\Columns\TextColumn::make('consumption')
-//                    ->label('kWh/100km'),
-//                Tables\Columns\TextColumn::make('distance')
-//                    ->label('Distance (km)')
-//                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                Tables\Columns\TextColumn::make('distance')
+                    ->label('Distance (km)')
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+
             ])
             ->defaultSort('cycle_date','DESC')
             ->filters([
