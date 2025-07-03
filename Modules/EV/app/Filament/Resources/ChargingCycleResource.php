@@ -70,7 +70,7 @@ class ChargingCycleResource extends Resource
 //                    ->label('Distance (km)')
 //                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
             ])
-            ->defaultSort('from_date','DESC')
+            ->defaultSort('cycle_date','DESC')
             ->filters([
                 //
             ])
