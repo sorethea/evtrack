@@ -223,8 +223,9 @@ class EvLogResource extends Resource
                         ->toggleable(),
                 ]),
                 Tables\Columns\ColumnGroup::make(__('ev.consumption'),[
-                    Tables\Columns\TextColumn::make('consumption')
+                    Tables\Columns\TextColumn::make('detail.consumption')
                         ->label('kWh/100km')
+                        ->toggleable(),
                 ]),
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
