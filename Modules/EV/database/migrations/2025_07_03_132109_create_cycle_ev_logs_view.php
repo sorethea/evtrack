@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     public function up(): void
     {
         DB::statement('CREATE VIEW ev_logs_cycle_view AS
@@ -17,6 +16,7 @@ return new class extends Migration
             COALESCE(CAST(l.cycle_id AS CHAR), CAST(l.id AS CHAR)) AS cycle_id,
             l.vehicle_id,
             l.date,
+            l.log_type,
             MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
             MAX(CASE WHEN li.item_id = 11 THEN li.value END) AS soc,
             MAX(CASE WHEN li.item_id = 19 THEN li.value END) AS ac,
@@ -30,9 +30,9 @@ return new class extends Migration
         LEFT JOIN ev_log_items li
             ON l.id = li.log_id
             AND li.item_id BETWEEN 1 AND 29
-        GROUP BY l.id, l.cycle_id, l.vehicle_id, l.date
+        GROUP BY l.id, l.cycle_id, l.vehicle_id, l.date, l.log_type
     ),
-    first_in_cycle AS (
+    cycle_roots AS (
         SELECT
             b1.cycle_id,
             b1.vehicle_id,
@@ -42,11 +42,13 @@ return new class extends Migration
             b1.ac AS root_ac,
             b1.ad AS root_ad
         FROM ev_logs_base b1
-        INNER JOIN (
-            SELECT cycle_id, MIN(date) AS min_date
-            FROM ev_logs_base
-            GROUP BY cycle_id
-        ) f ON b1.cycle_id = f.cycle_id AND b1.date = f.min_date
+        WHERE b1.log_type = \'charging\'
+        AND b1.date = (
+            SELECT MIN(date)
+            FROM ev_logs_base b2
+            WHERE b2.cycle_id = b1.cycle_id
+            AND b2.log_type = \'charging\'
+        )
     ),
     last_in_cycle AS (
         SELECT
@@ -69,14 +71,14 @@ return new class extends Migration
         ) l ON b2.cycle_id = l.cycle_id AND b2.date = l.max_date
     )
     SELECT
-        fic.cycle_id,
-        fic.vehicle_id,
-        fic.cycle_date,
+        cr.cycle_id,
+        cr.vehicle_id,
+        cr.cycle_date,
         lic.end_date,
-        fic.root_odo,
-        fic.root_soc,
-        fic.root_ac,
-        fic.root_ad,
+        cr.root_odo,
+        cr.root_soc,
+        cr.root_ac,
+        cr.root_ad,
         lic.last_odo,
         lic.last_soc,
         lic.last_ac,
@@ -86,21 +88,20 @@ return new class extends Migration
         lic.last_ltc,
         lic.last_htc,
         lic.last_tc,
-        fic.root_soc - lic.last_soc AS soc_derivation,
+        cr.root_soc - lic.last_soc AS soc_derivation,
         lic.last_hvc - lic.last_lvc AS v_spread,
         lic.last_htc - lic.last_ltc AS t_spread,
         lic.last_soc - 100 * (lic.last_ac - lic.last_ad) / v.capacity AS soc_middle,
-        lic.last_ac - fic.root_ac AS charge,
-        lic.last_ad - fic.root_ad AS discharge,
-        lic.last_odo - fic.root_odo AS distance,
-        -- Handle division by zero
-        100 * ((lic.last_ad - fic.root_ad) - (lic.last_ac - fic.root_ac)) /
-        NULLIF(lic.last_odo - fic.root_odo, 0) AS a_consumption,
-        v.capacity * (fic.root_soc - lic.last_soc) /
-        NULLIF(lic.last_odo - fic.root_odo, 0) AS consumption
-    FROM first_in_cycle fic
-    JOIN last_in_cycle lic ON fic.cycle_id = lic.cycle_id
-    LEFT JOIN vehicles v ON fic.vehicle_id = v.id;');
+        lic.last_ac - cr.root_ac AS charge,
+        lic.last_ad - cr.root_ad AS discharge,
+        lic.last_odo - cr.root_odo AS distance,
+        100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
+        NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption,
+        v.capacity * (cr.root_soc - lic.last_soc) /
+        NULLIF(lic.last_odo - cr.root_odo, 0) AS consumption
+    FROM cycle_roots cr
+    JOIN last_in_cycle lic ON cr.cycle_id = lic.cycle_id
+    LEFT JOIN vehicles v ON cr.vehicle_id = v.id;');
     }
 
     public function down(): void
