@@ -1,19 +1,15 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace Modules\EV\Filament\Resources;
 
 use App\Filament\Resources\ChargingCycleResource\Pages;
 use App\Filament\Resources\ChargingCycleResource\RelationManagers;
 use App\Models\ChargingCycle;
 use Carbon\Carbon;
-use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Number;
 
 class ChargingCycleResource extends Resource
@@ -94,8 +90,8 @@ class ChargingCycleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageChargingCycles::route('/'),
-            'view' =>  Pages\ViewChargingCycle::route('/{record}'),
+            'index' => \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ManageChargingCycles::route('/'),
+            'view' =>  \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ViewChargingCycle::route('/{record}'),
         ];
     }
 }

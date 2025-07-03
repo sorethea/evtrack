@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\ChargingCycleResource\Widgets;
+namespace Modules\EV\Filament\Resources\ChargingCycleResource\Widgets;
 
-use App\Models\ChargingCycle;
 use Carbon\Carbon;
-use Filament\Forms\Get;
-use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Model;

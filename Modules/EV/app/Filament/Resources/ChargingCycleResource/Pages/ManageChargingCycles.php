@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\ChargingCycleResource\Pages;
+namespace Modules\EV\Filament\Resources\ChargingCycleResource\Pages;
 
-use App\Filament\Resources\ChargingCycleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
+use Modules\EV\Filament\Resources\ChargingCycleResource;
 
 class ManageChargingCycles extends ManageRecords
 {
