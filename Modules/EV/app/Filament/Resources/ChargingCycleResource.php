@@ -89,7 +89,7 @@ class ChargingCycleResource extends Resource
     {
         return [
             'index' => \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ManageChargingCycles::route('/'),
-            'view' =>  \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ViewChargingCycle::route('/{record}'),
+            //'view' =>  \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ViewChargingCycle::route('/{record}'),
         ];
     }
 }
