@@ -50,7 +50,12 @@ class ChargingCycleResource extends Resource
                     Tables\Columns\TextColumn::make('soc_derivation')
                         ->label(__("ev.soc_derivation"))
                         ->toggleable(true),
+                    Tables\Columns\TextColumn::make('soc_middle')
+                        ->numeric(1)
+                        ->label(__("ev.soc_middle"))
+                        ->toggleable(true),
                     Tables\Columns\TextColumn::make('consumption')
+                        ->numeric(1)
                         ->label(__("ev.consumption"))
                         ->toggleable(true),
                 ]),
