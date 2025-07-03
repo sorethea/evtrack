@@ -30,18 +30,23 @@ class ChargingCycleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('cycle_date')
-                    ->date('d/m/y H:i')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->date('d/m/y H:i')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('root_soc')
-                    ->label('From SOC(%)')
-                    ->toggleable(true),
-                Tables\Columns\TextColumn::make('last_soc')
-                    ->label('To SOC (%)')
-                    ->toggleable(true),
+                Tables\Columns\ColumnGroup::make(__("ev.date"),[
+                    Tables\Columns\TextColumn::make('cycle_date')
+                        ->date('d/m/y H:i')
+                        ->searchable(),
+                    Tables\Columns\TextColumn::make('end_date')
+                        ->date('d/m/y H:i')
+                        ->searchable(),
+                ]),
+                Tables\Columns\ColumnGroup::make(__("ev.soc"),[
+                    Tables\Columns\TextColumn::make('root_soc')
+                        ->label(__("ev.from"))
+                        ->toggleable(true),
+                    Tables\Columns\TextColumn::make('last_soc')
+                        ->label(__("ev.to"))
+                        ->toggleable(true),
+                ]),
+
 //                Tables\Columns\TextColumn::make('charge')
 //                    ->label('Charge (%)')
 //                    ->toggleable(true),
