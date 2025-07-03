@@ -13,7 +13,7 @@ return new class extends Migration
     WITH ev_logs_base AS (
         SELECT
             l.id AS log_id,
-            COALESCE(l.cycle_id::text, l.id::text) AS cycle_id, -- Handle NULL cycle_id
+            COALESCE(l.cycle_id::text, l.id::text) AS cycle_id,
             l.vehicle_id,
             l.date,
             MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
@@ -67,7 +67,6 @@ return new class extends Migration
         (cd.last_rec).ac - (cd.first_rec).ac AS charge,
         (cd.last_rec).ad - (cd.first_rec).ad AS discharge,
         (cd.last_rec).odo - (cd.first_rec).odo AS distance,
-        -- Handle division by zero
         100 * (((cd.last_rec).ad - (cd.first_rec).ad) -
                ((cd.last_rec).ac - (cd.first_rec).ac)) /
         NULLIF((cd.last_rec).odo - (cd.first_rec).odo, 0) AS a_consumption,
