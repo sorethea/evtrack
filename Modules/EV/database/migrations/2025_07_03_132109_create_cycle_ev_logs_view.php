@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -71,16 +72,14 @@ return new class extends Migration
         ce.ltc AS last_ltc,
         ce.htc AS last_htc,
         ce.tc AS last_tc,
-        cr.soc - ce.soc AS soc_derivation,  -- SOC change over cycle
-        ce.hvc - ce.lvc AS v_spread,        -- Voltage spread at cycle end
-        ce.htc - ce.ltc AS t_spread,        -- Temperature spread at cycle end
-        ce.soc - 100 * (ce.ac - ce.ad) / v.capacity AS soc_middle,  -- Midpoint SOC
-        ce.ac - cr.ac AS charge,            -- Total charge added
-        ce.ad - cr.ad AS discharge,         -- Total discharge used
-        ce.odo - cr.odo AS distance,        -- Distance traveled
-        -- Adjusted average consumption (kWh/100km)
+        cr.soc - ce.soc AS soc_derivation,
+        ce.hvc - ce.lvc AS v_spread,
+        ce.htc - ce.ltc AS t_spread,
+        ce.soc - 100 * (ce.ac - ce.ad) / v.capacity AS soc_middle,
+        ce.ac - cr.ac AS charge,
+        ce.ad - cr.ad AS discharge,
+        ce.odo - cr.odo AS distance,
         100 * ((ce.ad - cr.ad) - (ce.ac - cr.ac)) / NULLIF(ce.odo - cr.odo, 0) AS a_consumption,
-        -- Energy consumption (kWh/km)
         v.capacity * (cr.soc - ce.soc) / NULLIF(ce.odo - cr.odo, 0) AS consumption
     FROM cycle_roots cr
     JOIN cycle_ends ce ON cr.cycle_id = ce.cycle_id
