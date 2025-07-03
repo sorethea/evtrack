@@ -71,11 +71,12 @@ class ChargingCycleResource extends Resource
                     Tables\Columns\TextColumn::make('a_consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-                        ->label(__('kWh/100km'))
+                        ->label(__('ev.consumption'))
                         ->toggleable(),
                 ]),
                 Tables\Columns\TextColumn::make('distance')
                     ->label('Distance (km)')
+                    ->numeric(1)
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
 
             ])
