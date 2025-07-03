@@ -71,7 +71,7 @@ return new class extends Migration
         ) l ON b2.cycle_id = l.cycle_id AND b2.date = l.max_date
     )
     SELECT
-        cr.cycle_id,
+        cr.cycle_id as id,
         cr.vehicle_id,
         cr.cycle_date,
         lic.end_date,
