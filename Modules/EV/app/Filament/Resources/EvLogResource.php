@@ -165,7 +165,7 @@ class EvLogResource extends Resource
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.consumption')
                         ->numeric(1)
-                        ->label(__('ev.consumption'))
+                        ->label(__('kWh/100km'))
                         ->toggleable(),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
@@ -179,6 +179,10 @@ class EvLogResource extends Resource
                         ->numeric(1)
                         ->label(trans('ev.discharge') )
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
+                    Tables\Columns\TextColumn::make('detail.a_consumption')
+                        ->numeric(1)
+                        ->label(__('kWh/100km'))
+                        ->toggleable(),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.voltage').'(V)',[
                     Tables\Columns\TextColumn::make('detail.lvc')
