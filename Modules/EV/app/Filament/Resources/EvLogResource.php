@@ -222,7 +222,10 @@ class EvLogResource extends Resource
                         ->color(fn(string $state) => $state <=3 ? 'success' : ($state <=5 ? 'warning' : 'danger'))
                         ->toggleable(),
                 ]),
-
+                Tables\Columns\ColumnGroup::make(__('ev.consumption'),[
+                    Tables\Columns\TextColumn::make('consumption')
+                        ->label('kWh/100km')
+                ]),
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
