@@ -13,7 +13,7 @@ return new class extends Migration
     WITH ev_logs_base AS (
         SELECT
             l.id AS log_id,
-            l.cycle_id,  -- Added to group by cycle
+            l.cycle_id,
             l.vehicle_id,
             l.parent_id,
             l.date,
@@ -45,20 +45,25 @@ return new class extends Migration
     cycle_roots AS (
         SELECT
             cycle_id, vehicle_id,
-            odo, soc, ac, ad, lvc, hvc, ltc, htc, tc
+            date AS start_date,
+            odo, soc, ac, ad
         FROM ranked_logs
         WHERE cycle_asc_rank = 1
     ),
     cycle_ends AS (
         SELECT
             cycle_id, vehicle_id,
-            odo, soc, ac, ad, lvc, hvc, ltc, htc, tc
+            date AS end_date,
+            odo, soc, ac, ad,
+            lvc, hvc, ltc, htc, tc
         FROM ranked_logs
         WHERE cycle_desc_rank = 1
     )
     SELECT
         cr.cycle_id,
         cr.vehicle_id,
+        cr.start_date,
+        ce.end_date,
         cr.odo AS root_odo,
         cr.soc AS root_soc,
         cr.ac AS root_ac,
