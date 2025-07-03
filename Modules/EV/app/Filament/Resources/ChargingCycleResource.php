@@ -32,9 +32,11 @@ class ChargingCycleResource extends Resource
             ->columns([
                 Tables\Columns\ColumnGroup::make(__("ev.date"),[
                     Tables\Columns\TextColumn::make('cycle_date')
+                        ->label(__("ev.from"))
                         ->date('d/m/y H:i')
                         ->searchable(),
                     Tables\Columns\TextColumn::make('end_date')
+                        ->label(__("ev.to"))
                         ->date('d/m/y H:i')
                         ->searchable(),
                 ]),
@@ -44,6 +46,12 @@ class ChargingCycleResource extends Resource
                         ->toggleable(true),
                     Tables\Columns\TextColumn::make('last_soc')
                         ->label(__("ev.to"))
+                        ->toggleable(true),
+                    Tables\Columns\TextColumn::make('soc_derivation')
+                        ->label(__("ev.soc_derivation"))
+                        ->toggleable(true),
+                    Tables\Columns\TextColumn::make('consumption')
+                        ->label(__("ev.consumption"))
                         ->toggleable(true),
                 ]),
 
