@@ -52,7 +52,7 @@ return new class extends Migration
           c.ac - p.ac AS charge,
           c.ad - p.ad AS discharge,
           c.odo - p.odo AS distance,
-          100*(c.odo - p.odo -(c.ad - p.ad))/(c.odo - p.odo) AS a_consumption,
+          100*( c.ad - p.ad -(c.ac - p.ac))/(c.odo - p.odo) AS a_consumption,
           v.capacity*(p.soc - c.soc)/(c.odo - p.odo) AS consumption
           FROM ev_logs_base c
           LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id
