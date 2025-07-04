@@ -134,7 +134,7 @@ class EvLogResource extends Resource
                         ->numeric(1)
                         ->label(trans('ev.from') )
                         ->toggleable(isToggledHiddenByDefault: false)
-                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder $query)=>$query->max('parent.detail.soc'))),
+                        ->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder $query)=>$query->max('parent_soc'))),
                     Tables\Columns\TextColumn::make('detail.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
