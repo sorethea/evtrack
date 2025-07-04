@@ -12,6 +12,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Number;
+use Modules\EV\Models\ChargingCycle;
 use Modules\EV\Models\EvLog;
 
 class EvLogResource extends Resource
@@ -233,7 +234,13 @@ class EvLogResource extends Resource
                         ->toggleable(),
                 ]),
                 Tables\Columns\TextColumn::make('detail.distance')
-                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->formatStateUsing(function ($state,Model $record){
+                        if($record->log_type=="charging"){
+                            $cycle = ChargingCycle::find($record->id);
+                            return Number::format($cycle->distance,1);
+                        }
+                        return Number::format($state,1);
+                    })
                     ->inverseRelationship('log')
                     ->label(trans('ev.distance'))
                     ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
