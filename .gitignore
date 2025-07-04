@@ -20,3 +20,4 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+/Modules/EV/database/migrations/2025_06_18_012713_create_ev_logs_view.php.bak
