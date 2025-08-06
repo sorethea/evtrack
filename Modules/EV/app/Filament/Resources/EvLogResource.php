@@ -165,7 +165,7 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-                        ->label(__('kWh/100km'))
+                        ->label(__('ev.consumption'))
                         ->toggleable(),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Amp)',[
@@ -182,7 +182,7 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.a_consumption_amp')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-                        ->label(__('Amp/100km'))
+                        ->label(__('ev.consumption'))
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.capacity_amp')
                         ->formatStateUsing(fn($state)=>Number::format($state,1))
@@ -203,7 +203,7 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.a_consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-                        ->label(__('kWh/100km'))
+                        ->label(__('ev.consumption'))
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.capacity')
                         ->formatStateUsing(fn($state)=>Number::format($state,1))
@@ -257,6 +257,10 @@ class EvLogResource extends Resource
                         ->toggleable(isToggledHiddenByDefault: true),
                 ]),
 
+                Tables\Columns\TextColumn::make('detail.range')
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->inverseRelationship('log')
+                    ->label(trans('ev.range')),
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')

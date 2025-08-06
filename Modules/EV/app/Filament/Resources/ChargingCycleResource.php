@@ -53,11 +53,11 @@ class ChargingCycleResource extends Resource
                     Tables\Columns\TextColumn::make('soc_middle')
                         ->numeric(1)
                         ->label(__("ev.soc_middle"))
-                        ->toggleable(true),
+                        ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('consumption')
                         ->numeric(1)
                         ->label(__("ev.consumption"))
-                        ->toggleable(true),
+                        ->toggleable(isToggledHiddenByDefault: true),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Amp)',[
                     Tables\Columns\TextColumn::make('charge_amp')
@@ -72,7 +72,7 @@ class ChargingCycleResource extends Resource
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.consumption'))
-                        ->toggleable(),
+                        ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('capacity_amp')
                         ->label('Capacity')
                         ->numeric(1),
@@ -90,14 +90,17 @@ class ChargingCycleResource extends Resource
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.consumption'))
-                        ->toggleable(),
+                        ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('capacity')
                         ->label('Capacity')
                         ->numeric(1),
                 ]),
 
+                Tables\Columns\TextColumn::make('range')
+                    ->label(__('ev.range'))
+                    ->numeric(1),
                 Tables\Columns\TextColumn::make('distance')
-                    ->label('Distance (km)')
+                    ->label(__('ev.distance'))
                     ->numeric(1)
                     ->summarize(Tables\Columns\Summarizers\Sum::make()),
 
