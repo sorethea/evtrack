@@ -51,7 +51,7 @@ return new class extends Migration
           c.soc -100*(c.ac-c.ad)/v.capacity AS soc_middle,
           c.ac - p.ac AS charge,
           c.ad - p.ad AS discharge,
-          100*((c.ad - p.ad)-(c.ac - p.ac))/NULLIF(p.soc - c.soc) AS capacity,
+          100*((c.ad - p.ad)-(c.ac - p.ac))/(p.soc - c.soc) AS capacity,
           c.odo - p.odo AS distance,
           100*( c.ad - p.ad -(c.ac - p.ac))/(c.odo - p.odo) AS a_consumption,
           v.capacity*(p.soc - c.soc)/(c.odo - p.odo) AS consumption
