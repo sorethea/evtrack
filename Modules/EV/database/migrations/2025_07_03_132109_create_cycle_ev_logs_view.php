@@ -106,7 +106,7 @@ return new class extends Migration
         lic.last_ada - cr.root_ada AS discharge_amp,
         lic.last_ac - cr.root_ac AS charge,
         lic.last_ad - cr.root_ad AS discharge,
-        100*(lic.last_odo - cr.root_odo) / NULLIF(cr.root_soc - lic.last_soc) AS range,
+        100*(lic.last_odo - cr.root_odo) / (cr.root_soc - lic.last_soc) AS range,
         lic.last_odo - cr.root_odo AS distance,
         100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) /
         (cr.root_soc - lic.last_soc) AS capacity_amp,
