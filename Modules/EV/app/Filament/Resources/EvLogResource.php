@@ -184,6 +184,10 @@ class EvLogResource extends Resource
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('Amp/100km'))
                         ->toggleable(),
+                    Tables\Columns\TextColumn::make('detail.capacity_amp')
+                        ->formatStateUsing(fn($state)=>Number::format($state,1))
+                        ->inverseRelationship('log')
+                        ->label(trans('ev.capacity')),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
                     Tables\Columns\TextColumn::make('detail.charge')
@@ -201,6 +205,10 @@ class EvLogResource extends Resource
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('kWh/100km'))
                         ->toggleable(),
+                    Tables\Columns\TextColumn::make('detail.capacity')
+                        ->formatStateUsing(fn($state)=>Number::format($state,1))
+                        ->inverseRelationship('log')
+                        ->label(trans('ev.capacity')),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.voltage').'(V)',[
                     Tables\Columns\TextColumn::make('detail.lvc')
@@ -223,7 +231,7 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->badge()
                         ->color(fn(string $state) => $state < 0.1 ? 'success' : ($state < 0.2 ? 'warning' : 'danger'))
-                        ->toggleable(),
+                        ->toggleable(isToggledHiddenByDefault: true),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.temperature').'(C)',[
                     Tables\Columns\TextColumn::make('detail.ltc')
@@ -246,16 +254,9 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->badge()
                         ->color(fn(string $state) => $state <=3 ? 'success' : ($state <=5 ? 'warning' : 'danger'))
-                        ->toggleable(),
+                        ->toggleable(isToggledHiddenByDefault: true),
                 ]),
-                Tables\Columns\TextColumn::make('detail.capacity_amp')
-                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->inverseRelationship('log')
-                    ->label(trans('ev.capacity')."(Amp)"),
-                Tables\Columns\TextColumn::make('detail.capacity')
-                    ->formatStateUsing(fn($state)=>Number::format($state,1))
-                    ->inverseRelationship('log')
-                    ->label(trans('ev.capacity')),
+
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')

@@ -75,8 +75,7 @@ class ChargingCycleResource extends Resource
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('capacity_amp')
                         ->label('Capacity')
-                        ->numeric(1)
-                        ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                        ->numeric(1),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
                     Tables\Columns\TextColumn::make('charge')
@@ -94,8 +93,7 @@ class ChargingCycleResource extends Resource
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('capacity')
                         ->label('Capacity')
-                        ->numeric(1)
-                        ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                        ->numeric(1),
                 ]),
 
                 Tables\Columns\TextColumn::make('distance')
