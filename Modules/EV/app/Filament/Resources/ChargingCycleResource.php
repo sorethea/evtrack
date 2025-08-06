@@ -74,6 +74,10 @@ class ChargingCycleResource extends Resource
                         ->label(__('ev.consumption'))
                         ->toggleable(),
                 ]),
+                Tables\Columns\TextColumn::make('capacity_amp')
+                    ->label('Capacity (Amp)')
+                    ->numeric(1)
+                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 Tables\Columns\TextColumn::make('capacity')
                     ->label('Capacity (kWh)')
                     ->numeric(1)
