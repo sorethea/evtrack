@@ -96,6 +96,8 @@ return new class extends Migration
         lic.last_ad - cr.root_ad AS discharge,
         lic.last_odo - cr.root_odo AS distance,
         100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
+        NULLIF(cr.root_soc - lic.last_soc) AS capacity,
+        100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
         NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption,
         v.capacity * (cr.root_soc - lic.last_soc) /
         NULLIF(lic.last_odo - cr.root_odo, 0) AS consumption
