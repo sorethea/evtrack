@@ -59,6 +59,25 @@ class ChargingCycleResource extends Resource
                         ->label(__("ev.consumption"))
                         ->toggleable(true),
                 ]),
+                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Amp)',[
+                    Tables\Columns\TextColumn::make('charge_amp')
+                        ->numeric(1)
+                        ->label(trans('ev.charge') )
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
+                    Tables\Columns\TextColumn::make('discharge_amp')
+                        ->numeric(1)
+                        ->label(trans('ev.discharge') )
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
+                    Tables\Columns\TextColumn::make('a_consumption_amp')
+                        ->numeric(1)
+                        ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
+                        ->label(__('ev.consumption'))
+                        ->toggleable(),
+                    Tables\Columns\TextColumn::make('capacity_amp')
+                        ->label('Capacity')
+                        ->numeric(1)
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()),
+                ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
                     Tables\Columns\TextColumn::make('charge')
                         ->numeric(1)
@@ -73,15 +92,12 @@ class ChargingCycleResource extends Resource
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.consumption'))
                         ->toggleable(),
+                    Tables\Columns\TextColumn::make('capacity')
+                        ->label('Capacity')
+                        ->numeric(1)
+                        ->summarize(Tables\Columns\Summarizers\Sum::make()),
                 ]),
-                Tables\Columns\TextColumn::make('capacity_amp')
-                    ->label('Capacity (Amp)')
-                    ->numeric(1)
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
-                Tables\Columns\TextColumn::make('capacity')
-                    ->label('Capacity (kWh)')
-                    ->numeric(1)
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()),
+
                 Tables\Columns\TextColumn::make('distance')
                     ->label('Distance (km)')
                     ->numeric(1)
