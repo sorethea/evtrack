@@ -59,7 +59,7 @@ class ChargingCycleResource extends Resource
                         ->label(__("ev.consumption"))
                         ->toggleable(isToggledHiddenByDefault: true),
                 ]),
-                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Amp)',[
+                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Ah)',[
                     Tables\Columns\TextColumn::make('charge_amp')
                         ->numeric(1)
                         ->label(trans('ev.charge') )

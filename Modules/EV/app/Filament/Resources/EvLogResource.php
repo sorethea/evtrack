@@ -168,7 +168,7 @@ class EvLogResource extends Resource
                         ->label(__('ev.consumption'))
                         ->toggleable(),
                 ]),
-                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Amp)',[
+                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Ah)',[
                     Tables\Columns\TextColumn::make('detail.charge_amp')
                         ->inverseRelationship('log')
                         ->numeric(1)
