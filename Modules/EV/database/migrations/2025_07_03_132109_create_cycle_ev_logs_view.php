@@ -111,6 +111,8 @@ return new class extends Migration
         (cr.root_soc - lic.last_soc) AS capacity_amp,
         100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
         (cr.root_soc - lic.last_soc) AS capacity,
+        100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) /
+        NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption_amp,
         100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
         NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption,
         v.capacity * (cr.root_soc - lic.last_soc) /
