@@ -19,6 +19,8 @@ return new class extends Migration
             l.log_type,
             MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
             MAX(CASE WHEN li.item_id = 11 THEN li.value END) AS soc,
+            MAX(CASE WHEN li.item_id = 17 THEN li.value END) AS aca,
+            MAX(CASE WHEN li.item_id = 18 THEN li.value END) AS ada,
             MAX(CASE WHEN li.item_id = 19 THEN li.value END) AS ac,
             MAX(CASE WHEN li.item_id = 20 THEN li.value END) AS ad,
             MAX(CASE WHEN li.item_id = 22 THEN li.value END) AS lvc,
@@ -39,6 +41,8 @@ return new class extends Migration
             b1.date AS cycle_date,
             b1.odo AS root_odo,
             b1.soc AS root_soc,
+            b1.aca AS root_aca,
+            b1.ada AS root_ada,
             b1.ac AS root_ac,
             b1.ad AS root_ad
         FROM ev_logs_base b1
@@ -56,6 +60,8 @@ return new class extends Migration
             b2.date AS end_date,
             b2.odo AS last_odo,
             b2.soc AS last_soc,
+            b2.ac AS last_aca,
+            b2.ad AS last_ada,
             b2.ac AS last_ac,
             b2.ad AS last_ad,
             b2.lvc AS last_lvc,
@@ -79,8 +85,12 @@ return new class extends Migration
         cr.root_soc,
         cr.root_ac,
         cr.root_ad,
+        cr.root_aca,
+        cr.root_ada,
         lic.last_odo,
         lic.last_soc,
+        lic.last_aca,
+        lic.last_ada,
         lic.last_ac,
         lic.last_ad,
         lic.last_lvc,
@@ -92,9 +102,13 @@ return new class extends Migration
         lic.last_hvc - lic.last_lvc AS v_spread,
         lic.last_htc - lic.last_ltc AS t_spread,
         lic.last_soc - 100 * (lic.last_ac - lic.last_ad) / v.capacity AS soc_middle,
+        lic.last_aca - cr.root_aca AS charge_amp,
+        lic.last_ada - cr.root_ada AS discharge_amp,
         lic.last_ac - cr.root_ac AS charge,
         lic.last_ad - cr.root_ad AS discharge,
         lic.last_odo - cr.root_odo AS distance,
+        100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) /
+        (cr.root_soc - lic.last_soc) AS capacity_amp,
         100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
         (cr.root_soc - lic.last_soc) AS capacity,
         100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
