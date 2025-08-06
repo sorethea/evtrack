@@ -231,6 +231,10 @@ class EvLogResource extends Resource
                         ->color(fn(string $state) => $state <=3 ? 'success' : ($state <=5 ? 'warning' : 'danger'))
                         ->toggleable(),
                 ]),
+                Tables\Columns\TextColumn::make('detail.capacity')
+                    ->formatStateUsing(fn($state)=>Number::format($state,1))
+                    ->inverseRelationship('log')
+                    ->label(trans('ev.capacity')),
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
