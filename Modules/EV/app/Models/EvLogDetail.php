@@ -18,4 +18,8 @@ class EvLogDetail extends Model
     {
         return $this->belongsTo(EvLog::class,'log_id');
     }
+    public function cycle(): BelongsTo
+    {
+        return  $this->belongsTo(ChargingCycle::class,'cycle_id');
+    }
 }

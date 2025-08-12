@@ -101,6 +101,11 @@ class EvLog extends Model
     {
         return $this->belongsTo(self::class,'cycle_id')->where("log_type","charging");
     }
+
+    public function cycleView(): BelongsTo
+    {
+        return $this->belongsTo(ChargingCycle::class,'cycle_id');
+    }
     public function children(): HasMany
     {
         return $this->hasMany(self::class, 'cycle_id')->where('log_type','driving');

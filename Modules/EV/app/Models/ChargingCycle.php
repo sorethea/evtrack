@@ -13,4 +13,9 @@ class ChargingCycle extends Model
     public $timestamps = false;
 
     public $incrementing = false;
+
+    public function logs():HasMany
+    {
+        return $this->hasMany(EvLog::class,'cycle_id');
+    }
 }
