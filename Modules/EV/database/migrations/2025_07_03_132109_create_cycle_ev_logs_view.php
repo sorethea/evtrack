@@ -102,6 +102,7 @@ return new class extends Migration
         lic.last_hvc - lic.last_lvc AS v_spread,
         lic.last_htc - lic.last_ltc AS t_spread,
         lic.last_soc - 100 * (lic.last_ac - lic.last_ad) / v.capacity AS soc_middle,
+        lic.last_ac - lic.last_ad middle,
         lic.last_aca - cr.root_aca AS charge_amp,
         lic.last_ada - cr.root_ada AS discharge_amp,
         lic.last_ac - cr.root_ac AS charge,

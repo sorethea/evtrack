@@ -200,6 +200,11 @@ class EvLogResource extends Resource
                         ->numeric(1)
                         ->label(trans('ev.discharge') )
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
+                    Tables\Columns\TextColumn::make('detail.middle')
+                        ->numeric(1)
+                        ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
+                        ->label(__('ev.soc_middle'))
+                        ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.a_consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
