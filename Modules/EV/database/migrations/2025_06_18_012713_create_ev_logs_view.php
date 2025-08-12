@@ -18,6 +18,7 @@ return new class extends Migration
           l.id as log_id,
           l.vehicle_id,
           l.parent_id,
+          l.cycle_id,
           l.date,
           MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
           MAX(CASE WHEN li.item_id = 11 THEN li.value END) AS soc,
@@ -37,6 +38,7 @@ return new class extends Migration
         GROUP BY l.id,l.parent_id,l.vehicle_id, l.date)
         SELECT
           c.log_id,
+          c.cycle_id,
           c.date,
           c.odo,
           c.soc,
