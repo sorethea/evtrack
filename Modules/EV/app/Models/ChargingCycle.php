@@ -16,6 +16,6 @@ class ChargingCycle extends Model
 
     public function logs():HasMany
     {
-        return $this->hasMany(EvLog::class,'cycle_id');
+        return $this->hasMany(EvLogDetail::class,'cycle_id','log_id');
     }
 }
