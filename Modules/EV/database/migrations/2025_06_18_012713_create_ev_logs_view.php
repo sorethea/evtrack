@@ -53,6 +53,7 @@ return new class extends Migration
           c.hvc - c.lvc AS v_spread,
           c.htc - c.ltc AS t_spread,
           c.soc -100*(c.ac-c.ad)/v.capacity AS soc_middle,
+          c.ac-c.ad middle,
           c.aca - p.aca AS charge_amp,
           c.ada - p.ada AS discharge_amp,
           c.ac - p.ac AS charge,
