@@ -30,10 +30,10 @@ class ChargingCycleOverview extends BaseWidget
                 ->color('danger')
                 ->description("Battery from {$this->record->root_soc}% to {$this->record->last_soc}%")
                 ->chart($socArray),
-            Stat::make('Consumption',Number::format($this->record->consumption??0).'kWh/100km')
+            Stat::make('Consumption',Number::format($this->record->consumption*10,0).' Wh/km')
                 ->icon('heroicon-o-bolt')
                 ->color('warning')
-                ->description("Gross discharge: {$this->record->charge}kWh & Regenerative Braking: {$this->record->regen}kWh")
+                ->description("Gross discharge: {$this->record->discharge} kWh & Regenerative Braking: {$this->record->charge} kWh")
                 ->chart($consumptionArray),
             Stat::make('Distance',Number::format($this->record->distance??0).'km')
                 ->icon('heroicon-o-map')
