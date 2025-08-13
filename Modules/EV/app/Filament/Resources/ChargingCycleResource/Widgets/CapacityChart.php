@@ -59,6 +59,43 @@ class CapacityChart extends ChartWidget
             'labels'=>$socArray,
         ];
     }
+    protected function getOptions(): array
+    {
+        return [
+            'plugins' => [
+                'legend' => [
+                    'position' => 'top',
+                    'labels' => [
+                        'font' => [
+                            'size' => 14,
+                            'family' => "'Inter', sans-serif"
+                        ]
+                    ]
+                ],
+            ],
+            'scales' => [
+                'y' => [
+                    'beginAtZero' => true,
+                    'grid' => [
+                        'drawBorder' => false,
+                    ],
+                    'ticks' => [
+                        'precision' => 0
+                    ]
+                ],
+                'x' => [
+                    'grid' => [
+                        'display' => false,
+                    ]
+                ]
+            ],
+            'interaction' => [
+                'mode' => 'index',
+                'intersect' => false,
+            ],
+            'maintainAspectRatio' => false,
+        ];
+    }
 
     protected function getType(): string
     {
