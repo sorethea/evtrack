@@ -9,11 +9,11 @@ class VoltageChart extends ChartWidget
 {
     public Model $record;
     protected static ?string $heading = 'Voltage vs. State of Charge';
-
     protected function getData(): array
     {
+        $socArray = $this->record->logs->pluck('soc')->toArray();
         return [
-            'label'=>$this->record->logs->pluck('soc')->toArray(),
+            'label'=>$socArray,
         ];
     }
 
