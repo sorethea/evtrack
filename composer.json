@@ -9,9 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "bezhansalleh/filament-shield": "^3.3",
-        "coolsam/modules": "^4.2",
-        "filament/filament": "^3.3",
+        "bezhansalleh/filament-shield": "^3.3.9",
+        "coolsam/modules": "^4.2.0",
+        "filament/filament": "^v3.3.36",
         "laravel/framework": "^12.10",
         "laravel/tinker": "^2.10",
         "nwidart/laravel-modules": "^12.0"
@@ -19,7 +19,6 @@
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.1",
-        "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",

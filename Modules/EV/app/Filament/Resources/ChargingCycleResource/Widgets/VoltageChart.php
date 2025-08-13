@@ -6,7 +6,7 @@ use Filament\Widgets\ChartWidget;
 
 class VoltageChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'Voltage vs. State of Charge';
 
     protected function getData(): array
     {

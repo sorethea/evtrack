@@ -9,7 +9,7 @@ class ViewChargingCycle extends ViewRecord
 {
     protected static string $resource = ChargingCycleResource::class;
 
-    protected static ?string $title = "Charging Cycle Dashboard";
+    protected static ?string $title = "Dashboard";
 
     protected function getHeaderWidgets(): array
     {
