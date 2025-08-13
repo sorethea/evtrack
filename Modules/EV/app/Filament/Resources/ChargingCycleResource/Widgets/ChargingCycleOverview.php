@@ -21,7 +21,7 @@ class ChargingCycleOverview extends BaseWidget
         $socArray = $this->record->logs->pluck('soc')->toArray();
         $from_date = Carbon::parse($this->record->cycle_date)->format('d M, Y');
         $to_date = Carbon::parse($this->record->end_date)->format('d M, Y');
-
+        dd($this->record);
         return [
 
             Stat::make('State of Charge',Number::format($this->record->to_soc??0).'km')
