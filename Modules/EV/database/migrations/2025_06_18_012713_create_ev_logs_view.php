@@ -55,6 +55,7 @@ return new class extends Migration
           c.ltc,
           c.htc,
           c.tc,
+          c.voltage/200 AS av_voltage,
           p.soc - c.soc AS soc_derivation,
           c.hvc - c.lvc AS v_spread,
           c.htc - c.ltc AS t_spread,
