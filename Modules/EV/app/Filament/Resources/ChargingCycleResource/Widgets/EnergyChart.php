@@ -3,6 +3,7 @@
 namespace Modules\EV\Filament\Resources\ChargingCycleResource\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use Illuminate\Database\Eloquent\Model;
 
 class EnergyChart extends ChartWidget
 {
