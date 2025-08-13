@@ -15,7 +15,10 @@ class VoltageChart extends ChartWidget
 
         return [
             'dataset'=>[
-                'soc'=>$socArray,
+                [
+                    'label'=>'State of Charge',
+                    'data'=>$socArray,
+                ],
             ],
 
         ];
