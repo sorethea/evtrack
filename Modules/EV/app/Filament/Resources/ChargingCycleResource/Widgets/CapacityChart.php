@@ -85,7 +85,7 @@ class CapacityChart extends ChartWidget
                 ],
                 'x' => [
                     'grid' => [
-                        'display' => false,
+                        'display' => true,
                     ]
                 ]
             ],
