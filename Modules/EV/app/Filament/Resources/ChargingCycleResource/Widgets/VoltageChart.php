@@ -14,13 +14,13 @@ class VoltageChart extends ChartWidget
         $socArray = $this->record->logs->pluck('soc')->toArray();
 
         return [
-            'dataset'=>[
+            'datasets'=>[
                 [
                     'label'=>'State of Charge',
                     'data'=>$socArray,
                 ],
             ],
-            'label'=>[0,10,20,30,40,50,60,70,80,90,100],
+            'labels'=>[0,10,20,30,40,50,60,70,80,90,100],
         ];
     }
 
