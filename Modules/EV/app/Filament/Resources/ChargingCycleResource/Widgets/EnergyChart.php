@@ -21,8 +21,8 @@ class EnergyChart extends ChartWidget
             'datasets'=>[
                 [
                     'label'=>'Charge',
-                    'borderColor' => '#3B82F6',
-                    'backgroundColor' => 'rgba(59, 130, 246, 0.2)',
+                    'borderColor' => '#8B5CF6',
+                    'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
                     'data'=>$chargeArray,
                 ],
                 [
