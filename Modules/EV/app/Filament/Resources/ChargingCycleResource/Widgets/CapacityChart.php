@@ -85,7 +85,7 @@ class CapacityChart extends ChartWidget
                 ],
                 'x' => [
                     'grid' => [
-                        'display' => true,
+                        'display' => false,
                     ]
                 ]
             ],
@@ -93,7 +93,7 @@ class CapacityChart extends ChartWidget
                 'mode' => 'index',
                 'intersect' => false,
             ],
-            'maintainAspectRatio' => false,
+            'maintainAspectRatio' => true,
         ];
     }
 
