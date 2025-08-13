@@ -18,13 +18,13 @@ class ChargingCycleOverview extends BaseWidget
     protected function getStats(): array
     {
         $distancesArray = $this->record->logs->pluck('distance')->toArray();
-        $socArray = $this->record->logs->pluck('to_soc')->toArray();
+        $socArray = $this->record->logs->pluck('soc')->toArray();
         $from_date = Carbon::parse($this->record->cycle_date)->format('d M, Y');
         $to_date = Carbon::parse($this->record->end_date)->format('d M, Y');
 
         return [
 
-            Stat::make('State of Charge',Number::format($this->record->soc??0).'km')
+            Stat::make('State of Charge',Number::format($this->record->to_soc??0).'km')
                 ->icon('heroicon-o-map')
                 ->color('success')
                 ->description("From {$from_date} to {$to_date}")
