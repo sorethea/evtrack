@@ -15,7 +15,7 @@ class CapacityChart extends ChartWidget
         $socArray = $this->record->logs->pluck('soc')->toArray();
         $chargeArray = $this->record->logs->pluck('charge')->toArray();
         $dischargeArray = $this->record->logs->pluck('discharge')->toArray();
-        //$lvcArray = $this->record->logs->pluck('lvc')->toArray();
+        $distanceArray = $this->record->logs->pluck('distance')->toArray();
         return [
 
             'datasets'=>[
@@ -31,12 +31,12 @@ class CapacityChart extends ChartWidget
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
                     'data'=>$dischargeArray,
                 ],
-//                [
-//                    'label'=>'Lowest',
-//                    'borderColor' => '#F59E0B',
-//                    'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
-//                    'data'=>$lvcArray,
-//                ],
+                [
+                    'label'=>'Distance',
+                    'borderColor' => '#3B82F6',
+                    'backgroundColor' => 'rgba(59, 130, 246, 0.2)',
+                    'data'=>$distanceArray,
+                ],
             ],
             'labels'=>$socArray,
         ];
