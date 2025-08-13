@@ -64,7 +64,7 @@ class CapacityChart extends ChartWidget
         return [
             'plugins' => [
                 'legend' => [
-                    'position' => 'top',
+                    'position' => 'bottom',
                     'labels' => [
                         'font' => [
                             'size' => 14,
