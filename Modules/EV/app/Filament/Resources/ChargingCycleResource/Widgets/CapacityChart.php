@@ -75,7 +75,7 @@ class CapacityChart extends ChartWidget
             ],
             'scales' => [
                 'y' => [
-                    'beginAtZero' => true,
+                    'beginAtZero' => false,
                     'grid' => [
                         'drawBorder' => false,
                     ],

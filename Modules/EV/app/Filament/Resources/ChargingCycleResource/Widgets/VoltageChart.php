@@ -61,9 +61,13 @@ class VoltageChart extends ChartWidget
             ],
             'scales' => [
                 'y' => [
+                    'beginAtZero' => false,
                     'grid' => [
                         'drawBorder' => false,
                     ],
+                    'ticks' => [
+                        'precision' => 0
+                    ]
                 ],
                 'x' => [
                     'grid' => [
