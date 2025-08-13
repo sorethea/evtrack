@@ -16,6 +16,24 @@ class CapacityChart extends ChartWidget
         $chargeArray = $this->record->logs->pluck('charge')->toArray();
         $dischargeArray = $this->record->logs->pluck('discharge')->toArray();
         $distanceArray = $this->record->logs->pluck('distance')->toArray();
+        $aCharges = [];
+        $aCharge = 0;
+        foreach ($chargeArray as $value){
+            $aCharge +=$value;
+            $aCharges[]=$aCharge;
+        }
+        $aDischarges = [];
+        $aDischarge = 0;
+        foreach ($dischargeArray as $value){
+            $aDischarge +=$value;
+            $aDischarges[]=$aDischarge;
+        }
+        $aDistances = [];
+        $aDistance = 0;
+        foreach ($distanceArray as $value){
+            $aDistance +=$value;
+            $aDistances[]=$aDistance;
+        }
         return [
 
             'datasets'=>[
@@ -23,19 +41,19 @@ class CapacityChart extends ChartWidget
                     'label'=>'Added',
                     'borderColor' => '#8B5CF6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
-                    'data'=>$chargeArray,
+                    'data'=>$aCharges,
                 ],
                 [
                     'label'=>'Used',
                     'borderColor' => '#F59E0B',
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
-                    'data'=>$dischargeArray,
+                    'data'=>$aDischarges,
                 ],
                 [
                     'label'=>'Distance',
                     'borderColor' => '#3B82F6',
                     'backgroundColor' => 'rgba(59, 130, 246, 0.2)',
-                    'data'=>$distanceArray,
+                    'data'=>$aDistances,
                 ],
             ],
             'labels'=>$socArray,
