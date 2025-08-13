@@ -24,10 +24,10 @@ class ChargingCycleOverview extends BaseWidget
         //dd($this->record);
         return [
 
-            Stat::make('State of Charge',Number::format($this->record->last_soc??0).'km')
+            Stat::make('State of Charge',Number::format($this->record->last_soc??0).'%')
                 ->icon('heroicon-o-map')
                 ->color('success')
-                ->description("From {$from_date} to {$to_date}")
+                ->description("From {$this->record->root_soc}% to {$this->record->last_soc}%")
                 ->chart($socArray),
             Stat::make('Distance',Number::format($this->record->distance??0).'km')
                 ->icon('heroicon-o-map')
