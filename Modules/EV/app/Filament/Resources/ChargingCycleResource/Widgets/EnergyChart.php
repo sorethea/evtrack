@@ -6,6 +6,7 @@ use Filament\Widgets\ChartWidget;
 
 class EnergyChart extends ChartWidget
 {
+    public Model $record;
     protected static ?string $heading = 'Accumulative Energy';
 
     protected function getData(): array
