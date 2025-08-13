@@ -5,16 +5,16 @@ namespace Modules\EV\Filament\Resources\ChargingCycleResource\Widgets;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Database\Eloquent\Model;
 
-class VoltageChart extends ChartWidget
+class TemperatureChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Voltage';
+    protected static ?string $heading = 'Temperature';
     protected function getData(): array
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();
-        $voltageArray = $this->record->logs->pluck('av_voltage')->toArray();
-        $hvcArray = $this->record->logs->pluck('hvc')->toArray();
-        $lvcArray = $this->record->logs->pluck('lvc')->toArray();
+        $tempArray = $this->record->logs->pluck('tc')->toArray();
+        $htcArray = $this->record->logs->pluck('htc')->toArray();
+        $ltcArray = $this->record->logs->pluck('ltc')->toArray();
 
         return [
             'datasets'=>[
@@ -22,19 +22,19 @@ class VoltageChart extends ChartWidget
                     'label'=>'Battery',
                     'borderColor' => '#3B82F6',
                     'backgroundColor' => 'rgba(59, 130, 246, 0.2)',
-                    'data'=>$voltageArray,
+                    'data'=>$tempArray,
                 ],
                 [
                     'label'=>'Highest',
                     'borderColor' => '#8B5CF6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
-                    'data'=>$hvcArray,
+                    'data'=>$htcArray,
                 ],
                 [
                     'label'=>'Lowest',
                     'borderColor' => '#F59E0B',
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
-                    'data'=>$lvcArray,
+                    'data'=>$ltcArray,
                 ],
             ],
             'labels'=>$socArray,
