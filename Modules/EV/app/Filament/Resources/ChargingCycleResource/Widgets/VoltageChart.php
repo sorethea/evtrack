@@ -14,7 +14,10 @@ class VoltageChart extends ChartWidget
         $socArray = $this->record->logs->pluck('soc')->toArray();
         dd($socArray);
         return [
-            'label'=>$socArray,
+            'dataset'=>[
+                'soc'=>$socArray,
+            ],
+
         ];
     }
 
