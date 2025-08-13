@@ -20,6 +20,9 @@ class ViewChargingCycle extends ViewRecord
             ChargingCycleResource\Widgets\VoltageChart::make([
                 'record'=>$this->record,
             ]),
+            ChargingCycleResource\Widgets\EnergyChart::make([
+                'record'=>$this->record,
+            ]),
         ];
     }
 }
