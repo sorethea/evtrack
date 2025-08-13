@@ -26,6 +26,9 @@ class ViewChargingCycle extends ViewRecord
             ChargingCycleResource\Widgets\TemperatureChart::make([
                 'record'=>$this->record,
             ]),
+            ChargingCycleResource\Widgets\CapacityChart::make([
+                'record'=>$this->record,
+            ]),
         ];
     }
 }
