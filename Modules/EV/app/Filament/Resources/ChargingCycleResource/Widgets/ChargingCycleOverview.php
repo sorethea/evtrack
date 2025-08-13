@@ -19,6 +19,7 @@ class ChargingCycleOverview extends BaseWidget
     {
         $distancesArray = $this->record->logs->pluck('distance')->toArray();
         $socArray = $this->record->logs->pluck('soc')->toArray();
+        $consumptionArray = $this->record->logs->pluck('consumption')->toArray();
         $from_date = Carbon::parse($this->record->cycle_date)->format('d M, Y');
         $to_date = Carbon::parse($this->record->end_date)->format('d M, Y');
         //dd($this->record);
@@ -26,9 +27,14 @@ class ChargingCycleOverview extends BaseWidget
 
             Stat::make('Current State of Charge',Number::format($this->record->last_soc??0).'%')
                 ->icon('heroicon-o-battery-50')
-                ->color('success')
+                ->color('danger')
                 ->description("Battery from {$this->record->root_soc}% to {$this->record->last_soc}%")
                 ->chart($socArray),
+            Stat::make('Consumption',Number::format($this->record->consumption??0).'kWh/100km')
+                ->icon('heroicon-o-bolt')
+                ->color('warning')
+                ->description("Gross discharge: {$this->record->charge}kWh & Regenerative Braking: {$this->record->regen}kWh")
+                ->chart($consumptionArray),
             Stat::make('Distance',Number::format($this->record->distance??0).'km')
                 ->icon('heroicon-o-map')
                 ->color('success')
