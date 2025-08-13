@@ -20,14 +20,17 @@ class VoltageChart extends ChartWidget
             'datasets'=>[
                 [
                     'label'=>'Cell Voltage',
+                    'color'=>'green',
                     'data'=>$voltageArray,
                 ],
                 [
                     'label'=>'Cell Highest Voltage',
+                    'color'=>'red',
                     'data'=>$hvcArray,
                 ],
                 [
                     'label'=>'Cell Lowest Voltage',
+                    'color'=>'orange',
                     'data'=>$lvcArray,
                 ],
             ],
