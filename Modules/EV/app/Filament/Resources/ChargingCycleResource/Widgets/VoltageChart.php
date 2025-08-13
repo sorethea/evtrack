@@ -12,15 +12,16 @@ class VoltageChart extends ChartWidget
     protected function getData(): array
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();
+        $voltageArray = $this->record->logs->pluck('voltage')->toArray();
 
         return [
             'datasets'=>[
                 [
-                    'label'=>'State of Charge',
-                    'data'=>$socArray,
+                    'label'=>'Voltage',
+                    'data'=>$voltageArray,
                 ],
             ],
-            'labels'=>[0,10,20,30,40,50,60,70,80,90,100],
+            'labels'=>$socArray,
         ];
     }
 
