@@ -13,12 +13,17 @@ class VoltageChart extends ChartWidget
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();
         $voltageArray = $this->record->logs->pluck('voltage')->toArray();
+        $distanceArray = $this->record->logs->pluck('distance')->toArray();
 
         return [
             'datasets'=>[
                 [
                     'label'=>'Voltage',
                     'data'=>$voltageArray,
+                ],
+                [
+                    'label'=>'Distance',
+                    'data'=>$distanceArray,
                 ],
             ],
             'labels'=>$socArray,
