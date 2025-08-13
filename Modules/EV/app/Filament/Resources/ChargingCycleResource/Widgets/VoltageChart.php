@@ -12,6 +12,7 @@ class VoltageChart extends ChartWidget
     protected function getData(): array
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();
+        dd($socArray);
         return [
             'label'=>$socArray,
         ];
