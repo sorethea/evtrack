@@ -74,7 +74,8 @@ return new class extends Migration
           v.capacity*(p.soc - c.soc)/(c.odo - p.odo) AS consumption
           FROM ev_logs_base c
           LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id
-          LEFT JOIN vehicles v ON c.vehicle_id =v.id;
+          LEFT JOIN vehicles v ON c.vehicle_id =v.id
+          ORDER BY c.date;
         ');
     }
 
