@@ -219,14 +219,14 @@ class EvLogResource extends Resource
                         ->badge()
                         ->numeric(3)
                         ->inverseRelationship('log')
-                        ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.2 && $state>2.5 ? 'warning' : 'danger'))
+                        ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state <= 3.2 && $state>3.1 ? 'warning' : 'danger'))
                         ->label(trans('ev.lowest'))
                         ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('detail.hvc')
                         ->badge()
                         ->numeric(3)
                         ->inverseRelationship('log')
-                        ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.7 && $state>3.5 ? 'warning' : 'danger'))
+                        ->color(fn(string $state) => $state >3.2 && $state <3.6  ? 'success' : ($state < 3.7 && $state>=3.6 ? 'warning' : 'danger'))
                         ->label(trans('ev.highest'))
                         ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('detail.v_spread')
