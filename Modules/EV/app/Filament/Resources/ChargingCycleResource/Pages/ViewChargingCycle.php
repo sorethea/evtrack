@@ -29,6 +29,9 @@ class ViewChargingCycle extends ViewRecord
             ChargingCycleResource\Widgets\CapacityChart::make([
                 'record'=>$this->record,
             ]),
+            ChargingCycleResource\Widgets\ConsumptionChart::make([
+                'record'=>$this->record,
+            ]),
         ];
     }
 }
