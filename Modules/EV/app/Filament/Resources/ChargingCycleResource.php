@@ -89,7 +89,7 @@ class ChargingCycleResource extends Resource
                     Tables\Columns\TextColumn::make('percentage_charge')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-                        ->label(__('ev.consumption'))
+                        ->label(__('ev.percentage_charge'))
                         ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('a_consumption')
                         ->numeric(1)
