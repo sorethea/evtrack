@@ -14,7 +14,7 @@ class ConsumptionChart extends ChartWidget
         $socArray = $this->record->logs->pluck('soc')->toArray();
         $consumptionArray = $this->record->logs->pluck('consumption')->toArray();
         $aConsumptionArray = $this->record->logs->pluck('a_consumption')->toArray();
-        $regenArray = $this->record->logs->pluck('charge')->toArray();
+        $regenArray = $this->record->logs->pluck('100_charge')->toArray();
 
         return [
             'datasets'=>[
