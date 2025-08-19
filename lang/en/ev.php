@@ -51,7 +51,7 @@ return [
     "capacity"=>"Capacity",
     "charge_capacity"=>"Charge Capacity",
     "range"=>"Range",
-    "percentage_charge"=>"Charge vs discharge (%)",
+    "percentage_charge"=>"AC/AD (%)",
     "consumption"=>"Consumption",
     "obd2"=>"OBD2",
     "qty"=>"Quantity",
