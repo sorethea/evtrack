@@ -64,7 +64,7 @@ return new class extends Migration
           c.aca - p.aca AS charge_amp,
           c.ada - p.ada AS discharge_amp,
           c.ac - p.ac AS charge,
-          100 * (c.ac - p.ac)/ (c.odo - p.odo) AS 100_charge,
+          100 * (c.ac - p.ac)/ (c.ad - p.ad) AS percentage_charge,
           c.ad - p.ad AS discharge,
           100*((c.ada - p.ada)-(c.aca - p.aca))/(p.soc - c.soc) AS capacity_amp,
           100*((c.ad - p.ad)-(c.ac - p.ac))/(p.soc - c.soc) AS capacity,

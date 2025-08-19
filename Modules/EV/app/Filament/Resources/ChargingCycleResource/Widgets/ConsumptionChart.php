@@ -14,7 +14,7 @@ class ConsumptionChart extends ChartWidget
         $socArray = $this->record->logs->pluck('soc')->toArray();
         $consumptionArray = $this->record->logs->pluck('consumption')->toArray();
         $aConsumptionArray = $this->record->logs->pluck('a_consumption')->toArray();
-        $regenArray = $this->record->logs->pluck('100_charge')->toArray();
+        $regenArray = $this->record->logs->pluck('percentage_charge')->toArray();
 
         return [
             'datasets'=>[
@@ -31,7 +31,7 @@ class ConsumptionChart extends ChartWidget
                     'data'=>$aConsumptionArray,
                 ],
                 [
-                    'label'=>'Regen',
+                    'label'=>'Regenerative Energy (%)',
                     'borderColor' => '#F59E0B',
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
                     'data'=>$regenArray,
