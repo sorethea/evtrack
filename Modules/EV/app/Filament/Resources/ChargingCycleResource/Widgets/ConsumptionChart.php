@@ -31,7 +31,7 @@ class ConsumptionChart extends ChartWidget
                     'data'=>$aConsumptionArray,
                 ],
                 [
-                    'label'=>'Regenerative Energy (%)',
+                    'label'=>trans('ev.percentage_charge'),
                     'borderColor' => '#F59E0B',
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
                     'data'=>$regenArray,
