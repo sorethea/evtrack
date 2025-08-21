@@ -2,10 +2,11 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\Pages;
 
+use Filament\Resources\Pages\ViewRecord;
 use Modules\EV\Filament\Resources\EvLogResource;
 use Filament\Resources\Pages\Page;
 
-class AnalyseEvLog extends Page
+class AnalyseEvLog extends ViewRecord
 {
     protected static string $resource = EvLogResource::class;
 
