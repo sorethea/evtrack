@@ -16,7 +16,7 @@ class AnalyseEvLogOverview extends BaseWidget
         $socArray = $this->record->cycleView->logs->pluck('soc')->toArray();
         $distancesArray = $this->record->cycleView->logs->pluck('distance')->toArray();
         $consumptionArray = $this->record->cycleView->logs->pluck('consumption')->toArray();
-        $cycleConsumption = Number::format($this->record->cycleView->consumption,0);
+        $cycleConsumption = Number::format($this->record->cycleView->consumption*10,0);
         $cycleDistance = Number::format($this->record->cycleView->distance,1);
         return [
             Stat::make('Current SoC',Number::format($this->record->detail->soc??0).'%')
