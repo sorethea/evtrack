@@ -41,7 +41,7 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->chart($distancesArray),
                 Stat::make('Range',Number::format($this->record->detail->range??0).'km')
                     ->icon('heroicon-o-map-pin')
-                    ->color('success')
+                    ->color('info')
                     ->description("Cycle distance: {$cycleRange} km")
                     ->chart($rangeArray),
             ];
