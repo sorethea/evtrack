@@ -314,7 +314,7 @@ class EvLogResource extends Resource
                     }),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('analyse')
-                    ->url('/{record}/analyse'),
+                    ->url(fn($record)=>url("/{$record->id}/analyse" )),
                 Tables\Actions\EditAction::make()->hidden(),
             ])
             ->bulkActions([
