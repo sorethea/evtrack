@@ -18,8 +18,10 @@ class AnalyseEvLogOverview extends BaseWidget
             $socArray = $this->record->cycleView->logs->pluck('soc')->toArray();
             $distancesArray = $this->record->cycleView->logs->pluck('distance')->toArray();
             $consumptionArray = $this->record->cycleView->logs->pluck('consumption')->toArray();
+            $rangeArray = $this->record->cycleView->logs->pluck('range')->toArray();
             $cycleConsumption = Number::format($this->record->cycleView->consumption*10,0);
             $cycleDistance = Number::format($this->record->cycleView->distance,1);
+            $cycleRange = Number::format($this->record->cycleView->range,0);
 
             return [
                 Stat::make('Current SoC',Number::format($this->record->detail->soc??0).'%')
@@ -37,6 +39,11 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color('success')
                     ->description("Cycle distance: {$cycleDistance} km")
                     ->chart($distancesArray),
+                Stat::make('Range',Number::format($this->record->detail->range??0).'km')
+                    ->icon('heroicon-o-map-pin')
+                    ->color('success')
+                    ->description("Cycle distance: {$cycleRange} km")
+                    ->chart($rangeArray),
             ];
         }
         return [];
