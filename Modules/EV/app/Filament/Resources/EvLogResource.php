@@ -313,11 +313,12 @@ class EvLogResource extends Resource
                         \evlog::obdImportAction($data, $record);
                     }),
 
+
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('analyse')
                     ->icon('heroicon-o-chart-bar')
                     ->color('info')
                     ->url(fn($record)=>EvLogResource::getUrl("analyse",['record'=>$record] )),
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()->hidden(),
             ])
             ->bulkActions([
