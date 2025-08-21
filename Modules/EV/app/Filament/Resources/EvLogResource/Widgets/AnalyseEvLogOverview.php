@@ -5,6 +5,7 @@ namespace Modules\EV\Filament\Resources\EvLogResource\Widgets;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Number;
 
 class AnalyseEvLogOverview extends BaseWidget
 {
@@ -13,7 +14,11 @@ class AnalyseEvLogOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            //
+            Stat::make('Current SoC',Number::format($this->record->soc??0).'%')
+                ->icon('heroicon-o-battery-50')
+                ->color('danger')
+                //->description("Battery from {$this->record->root_soc}% to {$this->record->last_soc}%")
+                //->chart($socArray),
         ];
     }
 }
