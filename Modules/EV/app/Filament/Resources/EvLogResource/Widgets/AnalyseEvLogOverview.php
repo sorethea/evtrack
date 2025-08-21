@@ -22,7 +22,7 @@ class AnalyseEvLogOverview extends BaseWidget
             Stat::make('Current SoC',Number::format($this->record->detail->soc??0).'%')
                 ->icon('heroicon-o-battery-50')
                 ->color('danger')
-                ->description("Battery from {$this->record->cycleView->root_soc}% to {$this->record->detail->soc}%")
+                ->description("Cycle SoC from {$this->record->cycleView->root_soc}% to {$this->record->cycleView->last_soc}%")
                 ->chart($socArray),
             Stat::make('Consumption',Number::format($this->record->detail->consumption*10,0).' Wh/km')
                 ->icon('heroicon-o-bolt')
