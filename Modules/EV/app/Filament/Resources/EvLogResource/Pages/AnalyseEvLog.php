@@ -12,4 +12,14 @@ class AnalyseEvLog extends Page
     protected static string $view = 'ev::filament.resources.ev-log-resource.pages.analyse-ev-log';
 
     protected static ?string $title = 'Analyse';
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            EvLogResource\Widgets\AnalyseEvLogOverview::make([
+                'record'=>$this->record,
+            ])
+
+        ];
+    }
 }
