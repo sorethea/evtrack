@@ -24,7 +24,7 @@ class AnalyseEvLogOverview extends BaseWidget
             $cycleRange = Number::format($this->record->cycleView->range,0);
 
             return [
-                Stat::make('Current SoC',Number::format($this->record->detail->soc??0).'%')
+                Stat::make('Current SoC',Number::format($this->record->detail->soc??0,1).'%')
                     ->icon('heroicon-o-battery-50')
                     ->color('danger')
                     ->description("Cycle SoC from {$this->record->cycleView->root_soc}% to {$this->record->cycleView->last_soc}%")
@@ -34,12 +34,12 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color('warning')
                     ->description("Cycle consumption: {$cycleConsumption} Wh/km")
                     ->chart($consumptionArray),
-                Stat::make('Distance',Number::format($this->record->detail->distance??0).'km')
+                Stat::make('Distance',Number::format($this->record->detail->distance??0,0).'km')
                     ->icon('heroicon-o-map')
                     ->color('success')
                     ->description("Cycle distance: {$cycleDistance} km")
                     ->chart($distancesArray),
-                Stat::make('Range',Number::format($this->record->detail->range??0).'km')
+                Stat::make('Range',Number::format($this->record->detail->range??0,0).'km')
                     ->icon('heroicon-o-map-pin')
                     ->color('info')
                     ->description("Cycle range: {$cycleRange} km")
