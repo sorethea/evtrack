@@ -25,7 +25,7 @@ class AnalyseEvLogOverview extends BaseWidget
             Stat::make('Consumption',Number::format($this->record->detail->consumption*10,0).' Wh/km')
                 ->icon('heroicon-o-bolt')
                 ->color('warning')
-                ->description("Gross discharge: {$this->record->detail->discharge} kWh & Regenerative Braking: {$this->record->detail->charge} kWh")
+                ->description("Cycle consumption: {$this->record->cycleView->consumption} Wh/km")
                 ->chart($consumptionArray),
             Stat::make('Distance',Number::format($this->record->detail->distance??0).'km')
                 ->icon('heroicon-o-map')
