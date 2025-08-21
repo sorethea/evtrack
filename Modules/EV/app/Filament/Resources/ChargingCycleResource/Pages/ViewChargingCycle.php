@@ -32,6 +32,9 @@ class ViewChargingCycle extends ViewRecord
             ChargingCycleResource\Widgets\ConsumptionChart::make([
                 'record'=>$this->record,
             ]),
+            ChargingCycleResource\Widgets\RangeChart::make([
+                'record'=>$this->record,
+            ]),
         ];
     }
 }

@@ -337,6 +337,7 @@ class EvLogResource extends Resource
             'create' => \Modules\EV\Filament\Resources\EvLogResource\Pages\CreateEvLog::route('/create'),
             'edit' => \Modules\EV\Filament\Resources\EvLogResource\Pages\EditEvLog::route('/{record}/edit'),
             'view' => \Modules\EV\Filament\Resources\EvLogResource\Pages\ViewEvLog::route('/{record}'),
+            'analyse' => \Modules\EV\Filament\Resources\EvLogResource\Pages\AnalyseEvLog::route('/analyse'),
         ];
     }
 
