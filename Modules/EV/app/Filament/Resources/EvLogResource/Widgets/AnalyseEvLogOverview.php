@@ -13,12 +13,12 @@ class AnalyseEvLogOverview extends BaseWidget
     //protected ?string $heading = 'Overview';
     protected function getStats(): array
     {
-        $socArray = $this->record->cycle->logs->pluck('soc')->toArray();
+        $socArray = $this->record->cycleView->logs->pluck('soc')->toArray();
         return [
             Stat::make('Current SoC',Number::format($this->record->detail->soc??0).'%')
                 ->icon('heroicon-o-battery-50')
                 ->color('danger')
-                ->description("Battery from {$this->record->cycle->root_soc}% to {$this->record->detail->soc}%")
+                ->description("Battery from {$this->record->cycleView->root_soc}% to {$this->record->detail->soc}%")
                 ->chart($socArray),
         ];
     }
