@@ -34,7 +34,7 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color('warning')
                     ->description("Cycle consumption: {$cycleConsumption} Wh/km")
                     ->chart($consumptionArray),
-                Stat::make('Distance',Number::format($this->record->detail->distance??0,0).'km')
+                Stat::make('Distance',Number::format($this->record->detail->distance??0,1).'km')
                     ->icon('heroicon-o-map')
                     ->color('success')
                     ->description("Cycle distance: {$cycleDistance} km")
