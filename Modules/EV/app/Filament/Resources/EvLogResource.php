@@ -313,6 +313,8 @@ class EvLogResource extends Resource
                         \evlog::obdImportAction($data, $record);
                     }),
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('analyse')
+                    ->url('/{record}/analyse'),
                 Tables\Actions\EditAction::make()->hidden(),
             ])
             ->bulkActions([
@@ -337,7 +339,7 @@ class EvLogResource extends Resource
             'create' => \Modules\EV\Filament\Resources\EvLogResource\Pages\CreateEvLog::route('/create'),
             'edit' => \Modules\EV\Filament\Resources\EvLogResource\Pages\EditEvLog::route('/{record}/edit'),
             'view' => \Modules\EV\Filament\Resources\EvLogResource\Pages\ViewEvLog::route('/{record}'),
-            'analyse' => \Modules\EV\Filament\Resources\EvLogResource\Pages\AnalyseEvLog::route('/analyse'),
+            'analyse' => \Modules\EV\Filament\Resources\EvLogResource\Pages\AnalyseEvLog::route('/{record}/analyse'),
         ];
     }
 
