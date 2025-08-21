@@ -10,15 +10,16 @@ use Illuminate\Support\Number;
 class AnalyseEvLogOverview extends BaseWidget
 {
     public Model $record;
-    protected ?string $heading = 'Overview';
+    //protected ?string $heading = 'Overview';
     protected function getStats(): array
     {
+        $socArray = $this->record->cycle->logs->pluck('soc')->toArray();
         return [
-            Stat::make('Current SoC',Number::format($this->record->soc??0).'%')
+            Stat::make('Current SoC',Number::format($this->record->detail->soc??0).'%')
                 ->icon('heroicon-o-battery-50')
                 ->color('danger')
-                //->description("Battery from {$this->record->root_soc}% to {$this->record->last_soc}%")
-                //->chart($socArray),
+                ->description("Battery from {$this->record->cycle->root_soc}% to {$this->record->detail->soc}%")
+                ->chart($socArray),
         ];
     }
 }
