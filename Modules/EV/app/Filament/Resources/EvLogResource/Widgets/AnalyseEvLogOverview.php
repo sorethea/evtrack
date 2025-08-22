@@ -2,6 +2,7 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\Widgets;
 
+use Filament\Support\Colors\Color;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Model;
@@ -63,7 +64,7 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->chart($chargeArray),
                 Stat::make('Net Energy',Number::format($this->record->detail->discharge-$this->record->detail->charge,0).'kWh')
                     ->icon('heroicon-o-puzzle-piece')
-                    ->color('default')
+                    ->color(Color::Teal)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
             ];
