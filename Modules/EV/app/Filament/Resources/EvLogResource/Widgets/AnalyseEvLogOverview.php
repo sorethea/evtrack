@@ -28,6 +28,7 @@ class AnalyseEvLogOverview extends BaseWidget
             $cycleNetDischarge = $cycleDischarge -$cycleCharge;
             $dischargeArray = $this->record->cycleView->logs->pluck('discharge')->toArray();
             $chargeArray = $this->record->cycleView->logs->pluck('charge')->toArray();
+            $middleEnergyArray = $this->record->cycleView->logs->pluck('middle')->toArray();
             $netEnergyArray = array_map(function ($v1,$v2){
                 return $v1-$v2;
             },$dischargeArray,$chargeArray);
@@ -85,12 +86,12 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->icon('custom-battery-full')
                     ->color(Color::Indigo)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
-                    ->chart($netEnergyArray),
+                    ->chart($middleEnergyArray),
                 Stat::make('Next Energy Added',Number::format($nextEnergyAdded,0).'kWh')
                     ->icon('custom-battery-empty-charging')
                     ->color(Color::Fuchsia)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
-                    ->chart($netEnergyArray),
+                    ->chart($middleEnergyArray),
             ];
         }
         return [];
