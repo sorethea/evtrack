@@ -23,7 +23,9 @@ class AnalyseEvLogOverview extends BaseWidget
             $cycleDistance = Number::format($this->record->cycleView->distance,1);
             $cycleRange = Number::format($this->record->cycleView->range,0);
             $cycleDischarge = Number::format($this->record->cycleView->discharge,0);
+            $cycleCharge = Number::format($this->record->cycleView->charge,0);
             $dischargeArray = $this->record->cycleView->logs->pluck('discharge')->toArray();
+            $chargeArray = $this->record->cycleView->logs->pluck('charge')->toArray();
             return [
                 Stat::make('Current SoC',Number::format($this->record->detail->soc??0,1).'%')
                     ->icon('heroicon-o-battery-50')
@@ -48,8 +50,13 @@ class AnalyseEvLogOverview extends BaseWidget
                 Stat::make('Energy Used',Number::format($this->record->detail->discharge??0,0).'kWh')
                     ->icon('heroicon-o-bolt-slash')
                     ->color('danger')
-                    ->description("Cycle range: {$cycleDischarge} kWh")
+                    ->description("Cycle energy used: {$cycleDischarge} kWh")
                     ->chart($dischargeArray),
+                Stat::make('Energy Added',Number::format($this->record->detail->charge??0,0).'kWh')
+                    ->icon('heroicon-o-bolt-slash')
+                    ->color('success')
+                    ->description("Cycle energy added: {$cycleCharge} kWh")
+                    ->chart($chargeArray),
             ];
         }
         return [];
