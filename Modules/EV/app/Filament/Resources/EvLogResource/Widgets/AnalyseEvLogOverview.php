@@ -67,6 +67,11 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color(Color::Purple)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
+                Stat::make('Estimated Energy To 100%',Number::format($cycleNetDischarge,0).'kWh')
+                    ->icon('custom-battery')
+                    ->color(Color::Gray)
+                    ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
+                    ->chart($netEnergyArray),
             ];
         }
         return [];
