@@ -53,7 +53,7 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->description("Cycle range: {$cycleRange} km")
                     ->chart($rangeArray),
                 Stat::make('Gross Energy Used',Number::format($this->record->detail->discharge??0,0).'kWh')
-                    ->icon('custom-battery-semi')
+                    ->icon('custom-battery-mid')
                     ->color('danger')
                     ->description("Cycle energy used: {$cycleDischarge} kWh")
                     ->chart($dischargeArray),
