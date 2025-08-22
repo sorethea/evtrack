@@ -33,6 +33,8 @@ class AnalyseEvLogOverview extends BaseWidget
             $chargeArray = $this->record->cycleView->logs->pluck('charge')->toArray();
             $middleEnergyArray = $this->record->cycleView->logs->pluck('middle')->toArray();
             $middleSoCArray = $this->record->cycleView->logs->pluck('soc_middle')->toArray();
+            $voltageArray = $this->record->cycleView->logs->pluck('voltage')->toArray();
+            $averageVoltage = array_sum($voltageArray)/count($voltageArray);
             $netEnergyArray = array_map(function ($v1,$v2){
                 return $v1-$v2;
             },$dischargeArray,$chargeArray);
@@ -96,6 +98,11 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color(Color::Fuchsia)
                     ->description("Cycle SoC middle: {$cycleSoCMiddle} %")
                     ->chart($middleSoCArray),
+                Stat::make('Battery Voltage',Number::format($this->record->detail->voltage,0).'kWh')
+                    ->icon('custom-battery-empty-charging')
+                    ->color(Color::Emerald)
+                    ->description("Cycle Average Voltage: {$averageVoltage} %")
+                    ->chart($voltageArray),
             ];
         }
         return [];
