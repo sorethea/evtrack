@@ -26,8 +26,9 @@ class AnalyseEvLogOverview extends BaseWidget
             $cycleDischarge = Number::format($this->record->cycleView->discharge,0);
             $cycleCharge = Number::format($this->record->cycleView->charge,0);
             $cycleSoCMiddle = Number::format($this->record->cycleView->soc_middle,1);
-            $cycleEnergyMiddle = Number::format($this->record->cycleView->middle,0);
+
             $cycleNetDischarge = $cycleDischarge -$cycleCharge;
+            $cycleEnergyMiddle = $cycleNetDischarge + Number::format($this->record->cycleView->middle,0);
             $dischargeArray = $this->record->cycleView->logs->pluck('discharge')->toArray();
             $chargeArray = $this->record->cycleView->logs->pluck('charge')->toArray();
             $middleEnergyArray = $this->record->cycleView->logs->pluck('middle')->toArray();
@@ -93,7 +94,7 @@ class AnalyseEvLogOverview extends BaseWidget
                 Stat::make('Next Energy Added',Number::format($nextEnergyAdded,0).'kWh')
                     ->icon('custom-battery-empty-charging')
                     ->color(Color::Fuchsia)
-                    ->description("Cycle SoC middle: {$cycleSoCMiddle} kWh")
+                    ->description("Cycle SoC middle: {$cycleSoCMiddle} %")
                     ->chart($middleSoCArray),
             ];
         }
