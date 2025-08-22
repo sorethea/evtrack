@@ -15,4 +15,12 @@ class ViewEvLog extends ViewRecord
             Actions\EditAction::make(),
         ];
     }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            EvLogResource\Widgets\AnalyseEvLogOverview::make([
+                'record'=>$this->record,
+            ])
+        ];
+    }
 }
