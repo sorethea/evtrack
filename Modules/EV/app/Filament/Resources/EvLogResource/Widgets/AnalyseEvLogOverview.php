@@ -34,6 +34,7 @@ class AnalyseEvLogOverview extends BaseWidget
             $middleEnergyArray = $this->record->cycleView->logs->pluck('middle')->toArray();
             $middleSoCArray = $this->record->cycleView->logs->pluck('soc_middle')->toArray();
             $voltageArray = $this->record->cycleView->logs->pluck('voltage')->toArray();
+            $highestCellVoltageArray = $this->record->cycleView->logs->pluck('hcv')->toArray();
             $cycleRootVoltage = Number::format($this->record->cycleView->root_voltage,1);
             $netEnergyArray = array_map(function ($v1,$v2){
                 return $v1-$v2;
@@ -103,11 +104,11 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color(Color::Pink)
                     ->description("Cycle Max Voltage: {$cycleRootVoltage} V")
                     ->chart($voltageArray),
-                Stat::make('Current Battery Voltage',Number::format($this->record->detail->voltage,0).'V')
-                    ->icon('custom-volt')
-                    ->color(Color::Pink)
-                    ->description("Cycle Max Voltage: {$cycleRootVoltage} V")
-                    ->chart($voltageArray),
+                Stat::make('Highest Voltage Cell Value',Number::format($this->record->detail->hvc,3).'V')
+                    ->icon('custom-battery-low-charging')
+                    ->color(Color::Yellow)
+                    ->description("Lowest voltage cell value: {$this->record->detail->lvc} V")
+                    ->chart($highestCellVoltageArray),
                 Stat::make('Current Battery Voltage',Number::format($this->record->detail->voltage,0).'V')
                     ->icon('custom-volt')
                     ->color(Color::Pink)
