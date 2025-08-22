@@ -58,7 +58,7 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->description("Cycle energy used: {$cycleDischarge} kWh")
                     ->chart($dischargeArray),
                 Stat::make('Energy Added',Number::format($this->record->detail->charge??0,0).'kWh')
-                    ->icon('custom-battery-full')
+                    ->icon('custom-battery-empty-charging')
                     ->color('success')
                     ->description("Cycle energy added: {$cycleCharge} kWh")
                     ->chart($chargeArray),
