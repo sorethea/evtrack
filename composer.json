@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.3",
         "bezhansalleh/filament-shield": "^3.3.9",
+        "blade-ui-kit/blade-icons": "^1.8",
         "coolsam/modules": "^4.2.0",
         "filament/filament": "^v3.3.36",
         "laravel/framework": "^12.10",

@@ -52,19 +52,19 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color('info')
                     ->description("Cycle range: {$cycleRange} km")
                     ->chart($rangeArray),
-                Stat::make('Energy Used',Number::format($this->record->detail->discharge??0,0).'kWh')
-                    ->icon('heroicon-o-arrow-trending-down')
+                Stat::make('Gross Energy Used',Number::format($this->record->detail->discharge??0,0).'kWh')
+                    ->icon('custom-battery-semi')
                     ->color('danger')
                     ->description("Cycle energy used: {$cycleDischarge} kWh")
                     ->chart($dischargeArray),
                 Stat::make('Energy Added',Number::format($this->record->detail->charge??0,0).'kWh')
-                    ->icon('heroicon-o-arrow-trending-up')
+                    ->icon('custom-battery-full')
                     ->color('success')
                     ->description("Cycle energy added: {$cycleCharge} kWh")
                     ->chart($chargeArray),
-                Stat::make('Net Energy',Number::format($this->record->detail->discharge-$this->record->detail->charge,0).'kWh')
+                Stat::make('Net Energy Used',Number::format($this->record->detail->discharge-$this->record->detail->charge,0).'kWh')
                     ->icon('heroicon-o-puzzle-piece')
-                    ->color(Color::Teal)
+                    ->color(Color::Purple[700])
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
             ];
