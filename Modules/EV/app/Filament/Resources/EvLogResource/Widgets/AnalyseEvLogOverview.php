@@ -31,6 +31,7 @@ class AnalyseEvLogOverview extends BaseWidget
             $netEnergyArray = array_map(function ($v1,$v2){
                 return $v1-$v2;
             },$dischargeArray,$chargeArray);
+            $nextEnergyAdded = $this->record->child->charge;
             return [
                 Stat::make('Current SoC',Number::format($this->record->detail->soc??0,1).'%')
                     ->icon('heroicon-o-battery-50')
@@ -72,7 +73,7 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color(Color::Fuchsia)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
-                Stat::make('Next Energy Added',Number::format($cycleNetDischarge,0).'kWh')
+                Stat::make('Next Energy Added',Number::format($nextEnergyAdded,0).'kWh')
                     ->icon('custom-battery-empty-question')
                     ->color(Color::Neutral)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")

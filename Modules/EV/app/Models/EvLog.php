@@ -110,6 +110,10 @@ class EvLog extends Model
     {
         return $this->hasMany(self::class, 'cycle_id')->where('log_type','driving');
     }
+    public function child(): HasOne
+    {
+        return $this->hasOne(self::class, 'parent_id');
+    }
     public function vehicle(): BelongsTo
     {
         return $this->belongsTo(Vehicle::class,'vehicle_id');
