@@ -88,7 +88,7 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->chart($netEnergyArray),
                 Stat::make('Next Energy Added',Number::format($nextEnergyAdded,0).'kWh')
                     ->icon('custom-battery-empty-charging')
-                    ->color(Color::Zinc)
+                    ->color(Color::Fuchsia)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
             ];
