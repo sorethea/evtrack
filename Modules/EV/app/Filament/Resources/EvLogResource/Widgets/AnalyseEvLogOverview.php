@@ -31,7 +31,7 @@ class AnalyseEvLogOverview extends BaseWidget
             $netEnergyArray = array_map(function ($v1,$v2){
                 return $v1-$v2;
             },$dischargeArray,$chargeArray);
-            $nextEnergyAdded = $this->record->child->charge;
+            $nextEnergyAdded = $this->record->child->detail->charge;
             return [
                 Stat::make('Current SoC',Number::format($this->record->detail->soc??0,1).'%')
                     ->icon('heroicon-o-battery-50')
