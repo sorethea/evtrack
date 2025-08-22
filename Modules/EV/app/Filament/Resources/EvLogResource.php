@@ -155,7 +155,7 @@ class EvLogResource extends Resource
                         ->inverseRelationship('log')
                         ->label(trans('ev.soc_derivation'))
                         ->numeric(1)
-                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
+                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.soc_middle')
                         ->label(trans('ev.soc_middle') )
@@ -177,8 +177,8 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.discharge_amp')
                         ->inverseRelationship('log')
                         ->numeric(1)
-                        ->label(trans('ev.discharge') )
-                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
+                        ->label(trans('ev.discharge') ),
+                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
                     Tables\Columns\TextColumn::make('detail.a_consumption_amp')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
@@ -198,8 +198,8 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.discharge')
                         ->inverseRelationship('log')
                         ->numeric(1)
-                        ->label(trans('ev.discharge') )
-                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
+                        ->label(trans('ev.discharge') ),
+                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
                     Tables\Columns\TextColumn::make('detail.middle')
                         ->numeric()
                         ->label(__('ev.soc_middle'))
@@ -268,8 +268,8 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
-                    ->label(trans('ev.distance'))
-                    ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
+                    ->label(trans('ev.distance')),
+//                    ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
             ])
             //->defaultGroup('cycle.date')
 //            ->groups([
