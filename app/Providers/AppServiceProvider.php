@@ -23,7 +23,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->callAfterResolving(Factory::class,function (Factory $factory){
             $factory->add('custom-icons',[
-               'path'=>resource_path('svg/custom')
+               'path'=>resource_path('svg/custom'),
+                'prefix' => 'custom',
             ]);
         });
     }
