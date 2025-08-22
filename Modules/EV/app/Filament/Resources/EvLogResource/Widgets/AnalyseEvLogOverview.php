@@ -25,7 +25,7 @@ class AnalyseEvLogOverview extends BaseWidget
             $cycleRange = Number::format($this->record->cycleView->range,0);
             $cycleDischarge = Number::format($this->record->cycleView->discharge,0);
             $cycleCharge = Number::format($this->record->cycleView->charge,0);
-            $nextCycleSoC = Number::format($this->record->child?->detail?->soc,1);
+            $nextCycleSoC = Number::format($this->record->child?->detail?->soc??0,1);
 
             $cycleNetDischarge = $cycleDischarge -$cycleCharge;
             $cycleEnergyMiddle = $cycleNetDischarge + Number::format($this->record->cycleView->middle,0);
