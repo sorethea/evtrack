@@ -34,7 +34,7 @@ class AnalyseEvLogOverview extends BaseWidget
             $middleEnergyArray = $this->record->cycleView->logs->pluck('middle')->toArray();
             $middleSoCArray = $this->record->cycleView->logs->pluck('soc_middle')->toArray();
             $voltageArray = $this->record->cycleView->logs->pluck('voltage')->toArray();
-            $highestCellVoltageArray = $this->record->cycleView->logs->pluck('hcv')->toArray();
+            $highestCellVoltageArray = $this->record->cycleView->logs->pluck('hvc')->toArray();
             $cycleRootVoltage = Number::format($this->record->cycleView->root_voltage,1);
             $netEnergyArray = array_map(function ($v1,$v2){
                 return $v1-$v2;
