@@ -32,9 +32,22 @@ class AnalyseEvLogOverview extends BaseWidget
                 return $v1-$v2;
             },$dischargeArray,$chargeArray);
             $nextEnergyAdded = $this->record->child?->detail?->charge??0;
+            $currentSoCIcon = '';
+            $currentSoC = $this->record->detail->soc;
+            if ($currentSoC==100){
+                $currentSoCIcon =  'custom-battery-full';
+            }elseif($currentSoC<100 && $currentSoC>=50){
+                $currentSoCIcon =  'custom-battery-good';
+            }elseif($currentSoC<50 && $currentSoC>=20) {
+                $currentSoCIcon = 'custom-battery-low';
+            }elseif($currentSoC<20 && $currentSoC>=10){
+                $currentSoCIcon = 'custom-battery-exclamation';
+            }else{
+                $currentSoCIcon = 'custom-battery-x';
+            }
             return [
                 Stat::make('Current SoC',Number::format($this->record->detail->soc??0,1).'%')
-                    ->icon('heroicon-o-battery-50')
+                    ->icon($currentSoCIcon)
                     ->color('danger')
                     ->description("Cycle SoC from {$this->record->cycleView->root_soc}% to {$this->record->cycleView->last_soc}%")
                     ->chart($socArray),
