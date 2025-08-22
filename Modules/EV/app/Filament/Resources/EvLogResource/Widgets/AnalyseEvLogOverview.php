@@ -41,9 +41,9 @@ class AnalyseEvLogOverview extends BaseWidget
             }elseif($currentSoC<50 && $currentSoC>=20) {
                 $currentSoCIcon = 'custom-battery-low';
             }elseif($currentSoC<20 && $currentSoC>=10){
-                $currentSoCIcon = 'custom-battery-exclamation';
+                $currentSoCIcon = 'custom-battery-caution';
             }else{
-                $currentSoCIcon = 'custom-battery-x';
+                $currentSoCIcon = 'custom-battery-empty-exclamation';
             }
             return [
                 Stat::make('Current SoC',Number::format($this->record->detail->soc??0,1).'%')
