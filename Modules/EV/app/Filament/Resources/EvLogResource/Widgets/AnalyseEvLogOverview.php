@@ -38,7 +38,7 @@ class AnalyseEvLogOverview extends BaseWidget
             $highestCellVoltageArray = $this->record->cycleView->logs->pluck('hvc')->toArray();
             $cycleRootVoltage = Number::format($this->record->cycleView->root_voltage,1);
             $voltageSpread = Number::format($this->record->detail->v_spread,3);
-            $rootVoltageSpread = Number::format($this->record->cycleView->v_spread *1000,0);
+            $rootVoltageSpread = Number::format($this->record->cycle->v_spread *1000,0);
             $netEnergyArray = array_map(function ($v1,$v2){
                 return $v1-$v2;
             },$dischargeArray,$chargeArray);
@@ -112,8 +112,8 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color(Color::Yellow)
                     ->description("Lowest voltage cell value: {$this->record->detail->lvc} V")
                     ->chart($highestCellVoltageArray),
-                Stat::make('Current Voltage Delta',Number::format($this->record->detail->v_spread*1000,0).'mV')
-                    ->icon('custom-volt')
+                Stat::make('Current Voltage Delta',"{$voltageSpread}mV")
+                    ->icon('custom-high-voltage-bolt')
                     ->color(Color::Cyan)
                     ->description("Cycle Max Voltage: {$rootVoltageSpread} mV")
                     ->chart($voltageSpreadArray),
