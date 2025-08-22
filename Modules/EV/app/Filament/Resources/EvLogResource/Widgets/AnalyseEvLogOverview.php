@@ -25,10 +25,13 @@ class AnalyseEvLogOverview extends BaseWidget
             $cycleRange = Number::format($this->record->cycleView->range,0);
             $cycleDischarge = Number::format($this->record->cycleView->discharge,0);
             $cycleCharge = Number::format($this->record->cycleView->charge,0);
+            $cycleSoCMiddle = Number::format($this->record->cycleView->soc_middle,1);
+            $cycleEnergyMiddle = Number::format($this->record->cycleView->middle,0);
             $cycleNetDischarge = $cycleDischarge -$cycleCharge;
             $dischargeArray = $this->record->cycleView->logs->pluck('discharge')->toArray();
             $chargeArray = $this->record->cycleView->logs->pluck('charge')->toArray();
             $middleEnergyArray = $this->record->cycleView->logs->pluck('middle')->toArray();
+            $middleSoCArray = $this->record->cycleView->logs->pluck('soc_middle')->toArray();
             $netEnergyArray = array_map(function ($v1,$v2){
                 return $v1-$v2;
             },$dischargeArray,$chargeArray);
@@ -85,13 +88,13 @@ class AnalyseEvLogOverview extends BaseWidget
                 Stat::make('Estimated Energy To 100%',Number::format($cycleNetDischarge,0).'kWh')
                     ->icon('custom-battery-full')
                     ->color(Color::Indigo)
-                    ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
+                    ->description("Cycle balance energy: {$cycleEnergyMiddle} kWh")
                     ->chart($middleEnergyArray),
                 Stat::make('Next Energy Added',Number::format($nextEnergyAdded,0).'kWh')
                     ->icon('custom-battery-empty-charging')
                     ->color(Color::Fuchsia)
-                    ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
-                    ->chart($middleEnergyArray),
+                    ->description("Cycle SoC middle: {$cycleSoCMiddle} kWh")
+                    ->chart($middleSoCArray),
             ];
         }
         return [];
