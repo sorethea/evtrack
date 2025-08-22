@@ -103,6 +103,16 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color(Color::Pink)
                     ->description("Cycle Max Voltage: {$cycleRootVoltage} V")
                     ->chart($voltageArray),
+                Stat::make('Current Battery Voltage',Number::format($this->record->detail->voltage,0).'V')
+                    ->icon('custom-volt')
+                    ->color(Color::Pink)
+                    ->description("Cycle Max Voltage: {$cycleRootVoltage} V")
+                    ->chart($voltageArray),
+                Stat::make('Current Battery Voltage',Number::format($this->record->detail->voltage,0).'V')
+                    ->icon('custom-volt')
+                    ->color(Color::Pink)
+                    ->description("Cycle Max Voltage: {$cycleRootVoltage} V")
+                    ->chart($voltageArray),
             ];
         }
         return [];
