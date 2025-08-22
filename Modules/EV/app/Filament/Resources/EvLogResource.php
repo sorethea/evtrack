@@ -172,8 +172,8 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.charge_amp')
                         ->inverseRelationship('log')
                         ->numeric(1)
-                        ->label(trans('ev.charge') )
-                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
+                        ->label(trans('ev.charge') ),
+                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
                     Tables\Columns\TextColumn::make('detail.discharge_amp')
                         ->inverseRelationship('log')
                         ->numeric(1)
@@ -193,8 +193,8 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.charge')
                         ->inverseRelationship('log')
                         ->numeric(1)
-                        ->label(trans('ev.charge') )
-                        ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
+                        ->label(trans('ev.charge') ),
+                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
                     Tables\Columns\TextColumn::make('detail.discharge')
                         ->inverseRelationship('log')
                         ->numeric(1)
