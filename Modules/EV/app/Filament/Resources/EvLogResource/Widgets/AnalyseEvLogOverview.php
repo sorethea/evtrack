@@ -98,6 +98,6 @@ class AnalyseEvLogOverview extends BaseWidget
 
     protected function getColumns(): int
     {
-        return 2;
+        return 4;
     }
 }
