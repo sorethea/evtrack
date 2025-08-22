@@ -21,7 +21,9 @@ class VehicleOverview extends BaseWidget
             Stat::make(trans('ev.odo'),Number::format($odo).'km')
                 ->icon('custom-location-color-bookmark-add')
                 ->color(Color::Green),
-            Stat::make(trans('ev.soc'),Number::format($soc).'%'),
+            Stat::make(trans('ev.soc'),Number::format($soc).'%')
+                ->icon('custom-percentage-100')
+                ->color(Color::Red),
             Stat::make(trans('ev.accumulative').' '.trans('ev.charge'),Number::format($ac).'kWh'),
             Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($ad).'kWh'),
         ];
