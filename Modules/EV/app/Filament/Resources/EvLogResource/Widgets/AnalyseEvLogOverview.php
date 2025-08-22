@@ -24,8 +24,12 @@ class AnalyseEvLogOverview extends BaseWidget
             $cycleRange = Number::format($this->record->cycleView->range,0);
             $cycleDischarge = Number::format($this->record->cycleView->discharge,0);
             $cycleCharge = Number::format($this->record->cycleView->charge,0);
+            $cycleNetDischarge = $cycleDischarge -$cycleCharge;
             $dischargeArray = $this->record->cycleView->logs->pluck('discharge')->toArray();
             $chargeArray = $this->record->cycleView->logs->pluck('charge')->toArray();
+            $netEnergyArray = array_map(function ($v1,$v2){
+                return $v1-$v2;
+            },$dischargeArray,$chargeArray);
             return [
                 Stat::make('Current SoC',Number::format($this->record->detail->soc??0,1).'%')
                     ->icon('heroicon-o-battery-50')
@@ -57,6 +61,11 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color('success')
                     ->description("Cycle energy added: {$cycleCharge} kWh")
                     ->chart($chargeArray),
+                Stat::make('Net Energy',Number::format($this->record->detail->charge??0,0).'kWh')
+                    ->icon('heroicon-o-arrow-trending-up')
+                    ->color('success')
+                    ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
+                    ->chart($netEnergyArray),
             ];
         }
         return [];
