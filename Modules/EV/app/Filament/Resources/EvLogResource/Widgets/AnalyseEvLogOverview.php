@@ -62,8 +62,8 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->description("Cycle energy added: {$cycleCharge} kWh")
                     ->chart($chargeArray),
                 Stat::make('Net Energy',Number::format($this->record->detail->discharge-$this->record->detail->charge,0).'kWh')
-                    ->icon('heroicon-o-arrow-trending-up')
-                    ->color('success')
+                    ->icon('heroicon-o-puzzle-piece')
+                    ->color('default')
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
             ];
