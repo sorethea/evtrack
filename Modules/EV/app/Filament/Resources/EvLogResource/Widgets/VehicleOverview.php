@@ -23,4 +23,9 @@ class VehicleOverview extends BaseWidget
             Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($ad).'kWh'),
         ];
     }
+
+    protected function getColumns(): int
+    {
+        return 4;
+    }
 }
