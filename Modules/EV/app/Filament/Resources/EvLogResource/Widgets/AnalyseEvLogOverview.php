@@ -95,4 +95,9 @@ class AnalyseEvLogOverview extends BaseWidget
         }
         return [];
     }
+
+    protected function getColumns(): int
+    {
+        return 4;
+    }
 }

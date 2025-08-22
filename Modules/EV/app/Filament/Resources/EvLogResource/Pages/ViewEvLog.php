@@ -23,4 +23,5 @@ class ViewEvLog extends ViewRecord
             ])
         ];
     }
+
 }
