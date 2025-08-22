@@ -272,17 +272,17 @@ class EvLogResource extends Resource
                     ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
             ])
             //->defaultGroup('cycle.date')
-            ->groups([
-                Tables\Grouping\Group::make('cycle.date')->date()
-//                    ->orderQueryUsing(
-//                        fn (Builder $query, string $direction) => $query
-//                            ->selectRaw('COALESCE(cycle.date, ev_logs.date) as group_date')
-//                            ->leftJoin('ev_logs as cycle', 'ev_logs.cycle_id', '=', 'cycle.id')
-//                            ->orderBy('group_date', $direction),
-//                        'desc' // Default to descending
-//                    )
-            ])
-            ->defaultSort('cycle.date','desc')
+//            ->groups([
+//                Tables\Grouping\Group::make('cycle.date')->date()
+////                    ->orderQueryUsing(
+////                        fn (Builder $query, string $direction) => $query
+////                            ->selectRaw('COALESCE(cycle.date, ev_logs.date) as group_date')
+////                            ->leftJoin('ev_logs as cycle', 'ev_logs.cycle_id', '=', 'cycle.id')
+////                            ->orderBy('group_date', $direction),
+////                        'desc' // Default to descending
+////                    )
+//            ])
+//            ->defaultSort('cycle.date','desc')
             ->filters([
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
