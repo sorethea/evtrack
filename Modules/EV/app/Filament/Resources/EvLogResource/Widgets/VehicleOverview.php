@@ -19,7 +19,7 @@ class VehicleOverview extends BaseWidget
         $ad = \evlog::getItemValue($log,20);
         return [
             Stat::make(trans('ev.odo'),Number::format($odo).'km')
-                ->icon('custom-distance')
+                ->icon('custom-location-color-bookmark-add')
                 ->color(Color::Green),
             Stat::make(trans('ev.soc'),Number::format($soc).'%'),
             Stat::make(trans('ev.accumulative').' '.trans('ev.charge'),Number::format($ac).'kWh'),
