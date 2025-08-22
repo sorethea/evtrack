@@ -98,10 +98,10 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->color(Color::Fuchsia)
                     ->description("Cycle SoC middle: {$cycleSoCMiddle} %")
                     ->chart($middleSoCArray),
-                Stat::make('Current Battery Voltage',Number::format($this->record->detail->voltage,0).'kWh')
-                    ->icon('custom-battery-empty-charging')
+                Stat::make('Current Battery Voltage',Number::format($this->record->detail->voltage,0).'V')
+                    ->icon('custom-volt')
                     ->color(Color::Pink)
-                    ->description("Cycle Max Voltage: {$cycleRootVoltage} %")
+                    ->description("Cycle Max Voltage: {$cycleRootVoltage} V")
                     ->chart($voltageArray),
             ];
         }
