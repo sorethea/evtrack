@@ -64,17 +64,17 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->description("Cycle energy added: {$cycleCharge} kWh")
                     ->chart($chargeArray),
                 Stat::make('Net Energy Used',Number::format($this->record->detail->discharge-$this->record->detail->charge,0).'kWh')
-                    ->icon('custom-battery')
+                    ->icon('custom-battery-low')
                     ->color(Color::Purple)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
                 Stat::make('Estimated Energy To 100%',Number::format($cycleNetDischarge,0).'kWh')
-                    ->icon('custom-battery-100')
+                    ->icon('custom-battery-full')
                     ->color(Color::Fuchsia)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
                 Stat::make('Next Energy Added',Number::format($nextEnergyAdded,0).'kWh')
-                    ->icon('custom-battery-empty-question')
+                    ->icon('custom-battery-charge')
                     ->color(Color::Slate)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
