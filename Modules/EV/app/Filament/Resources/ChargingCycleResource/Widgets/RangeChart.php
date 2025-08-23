@@ -8,28 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class RangeChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Energy';
+    protected static ?string $heading = 'Range vs. Capacity';
 
     protected function getData(): array
     {
-        $socArray = $this->record->logs->pluck('soc')->toArray();
-        $chargeArray = $this->record->logs->pluck('ac')->toArray();
-        $dischargeArray = $this->record->logs->pluck('ad')->toArray();
-        //$lvcArray = $this->record->logs->pluck('lvc')->toArray();
+        $rangeArray = $this->record->logs->pluck('range')->toArray();
+        $capacityArray = $this->record->logs->pluck('capacity')->toArray();
         return [
 
             'datasets'=>[
                 [
-                    'label'=>'Charge',
+                    'label'=>'Range',
                     'borderColor' => '#8B5CF6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
-                    'data'=>$chargeArray,
+                    'data'=>$rangeArray,
                 ],
                 [
-                    'label'=>'Discharge',
+                    'label'=>'Capacity',
                     'borderColor' => '#F59E0B',
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
-                    'data'=>$dischargeArray,
+                    'data'=>$capacityArray,
                 ],
 //                [
 //                    'label'=>'Lowest',
