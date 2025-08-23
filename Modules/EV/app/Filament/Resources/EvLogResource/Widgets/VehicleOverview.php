@@ -13,16 +13,18 @@ class VehicleOverview extends BaseWidget
     {
         $vehicle = auth()->user()->vehicle;
         $log = $vehicle->latestLog;
-        $odo = $log->detail->odo;
+        $distance = $log->cycleView->distance;
+        $cycleDistanceArray = $log->cycleView->logs->pluck('distance')->toArray();
         $soc = $log->detail->soc;
         $cycleSoCArray = $log->cycleView->logs->pluck('soc')->toArray();
         $ac =  $log->detail->ac;
         $ad =  $log->detail->ad;
 
         return [
-            Stat::make(trans('ev.odo'),Number::format($odo).'km')
+            Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 //->icon('custom-location-color-bookmark-add')
-                ->color(Color::Green),
+                ->color(Color::Green)
+                ->chart($cycleDistanceArray),
             Stat::make(trans('ev.soc'),Number::format($soc).'%')
                 //->icon('custom-percentage')
                 ->color(Color::Red)
