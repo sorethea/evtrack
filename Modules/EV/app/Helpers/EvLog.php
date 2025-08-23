@@ -56,7 +56,7 @@ class EvLog
                 ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
-            Stat::make(trans('ev.battery_voltage'),Number::format($voltage).'V')
+            Stat::make(trans('ev.battery_voltage')."({$log->cycleView->root_voltage}V)",Number::format($voltage).'V')
                 ->color(Color::Yellow)
                 ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
                 ->chart($cycleVoltageArray),
