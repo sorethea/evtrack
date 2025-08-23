@@ -34,8 +34,9 @@ class EvLog
     {
         $distance = $log->cycleView->distance;
         $cycleDistanceArray = $log->cycleView->logs->pluck('distance')->toArray();
-        $soc = $log->detail->soc;
-        $remainRange = (100*$distance/(100-$soc))-$distance;
+        $soc = $log->cycleView->end_soc;
+        $rootSoc = $log->cycleView->root_soc;
+        $remainRange = (100*$distance/($rootSoc-$soc))-$distance;
         $cycleSoCArray = $log->cycleView->logs->pluck('soc')->toArray();
         $voltage =  $log->detail->voltage;
         $cycleVoltageArray = $log->cycleView->logs->pluck('voltage')->toArray();
