@@ -34,7 +34,7 @@ class EvLog
     {
         $distance = $log->cycleView->distance;
         $cycleDistanceArray = $log->cycleView->logs->pluck('distance')->toArray();
-        $soc = $log->cycleView->end_soc;
+        $soc = $log->cycleView->last_soc;
         $rootSoc = $log->cycleView->root_soc;
         $remainRange = (100*$distance/($rootSoc-$soc))-$distance;
         $cycleSoCArray = $log->cycleView->logs->pluck('soc')->toArray();
