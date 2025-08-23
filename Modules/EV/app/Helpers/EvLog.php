@@ -31,7 +31,6 @@ class EvLog
         $table = config('ev.socVoltage');
         // Sort the table by voltage descending
         krsort($table);
-        dd($table);
         // Check if voltage is exactly in table
         if (isset($table[$voltage])) {
             return $table[$voltage];
