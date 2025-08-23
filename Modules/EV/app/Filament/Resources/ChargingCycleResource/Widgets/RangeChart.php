@@ -25,7 +25,7 @@ class RangeChart extends ChartWidget
                     'data'=>$rangeArray,
                 ],
                 [
-                    'label'=>'Range',
+                    'label'=>'Capacity',
                     'borderColor' => '#F59E0B',
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
                     'data'=>$capacityArray,
@@ -60,9 +60,9 @@ class RangeChart extends ChartWidget
                     'grid' => [
                         'drawBorder' => false,
                     ],
-                    'ticks' => [
-                        'precision' => 0
-                    ]
+//                    'ticks' => [
+//                        'precision' => 1
+//                    ]
                 ],
                 'x' => [
                     'grid' => [
