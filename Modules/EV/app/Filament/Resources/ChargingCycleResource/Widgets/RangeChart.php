@@ -60,9 +60,9 @@ class RangeChart extends ChartWidget
                     'grid' => [
                         'drawBorder' => false,
                     ],
-//                    'ticks' => [
-//                        'precision' => 1
-//                    ]
+                    'ticks' => [
+                        'precision' => 1
+                    ]
                 ],
                 'x' => [
                     'grid' => [
