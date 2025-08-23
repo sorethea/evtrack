@@ -15,7 +15,12 @@ class AnalyseEvLogOverview extends BaseWidget
     //protected ?string $heading = 'Overview';
     protected function getStats(): array
     {
-        return EvLog::getCycleOverview($this->record);
+        if ($this->record->log_type=='charging'){
+            $log = $this->record->cycleView->latestLog;
+        }else{
+            $log = $this->record;
+        }
+        return EvLog::getCycleOverview($log);
 //        if($this->record->log_type=='driving'){
 //
 //            $socArray = $this->record->cycleView->logs->pluck('soc')->toArray();
