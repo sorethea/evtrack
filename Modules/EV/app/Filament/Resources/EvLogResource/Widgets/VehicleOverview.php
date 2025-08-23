@@ -2,10 +2,8 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\Widgets;
 
-use Filament\Support\Colors\Color;
+
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Number;
 use Modules\EV\Helpers\EvLog;
 
 class VehicleOverview extends BaseWidget
