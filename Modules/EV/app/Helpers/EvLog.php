@@ -29,36 +29,39 @@ class EvLog
 
     public static function socVoltageBased($voltage):float {
         $table = config('ev.socVoltage');
-        // Sort the table by voltage descending
-        krsort($table);
-        // Check if voltage is exactly in table
-        if (isset($table[$voltage])) {
-            return $table[$voltage];
-        }
+// Find the range where the voltage falls
+        $lowerSoc = null;
+        $upperSoc = null;
 
-        // Find the nearest voltages to interpolate between
-        $prev_voltage = null;
-        $prev_soc = null;
+// Sort by voltage in descending order
+        arsort($table);
 
         foreach ($table as $soc => $v) {
             if ($voltage <= $v) {
-                if ($prev_voltage === null) {
-                    // Voltage is higher than highest in table
-                    return $soc;
-                }
-                // Linear interpolation
-                $voltage_range = $prev_voltage - $v;
-                $soc_range = $prev_soc - $soc;
-                $voltage_diff = $voltage - $v;
-
-                return $soc + ($voltage_diff / $voltage_range) * $soc_range;
+                $upperSoc = $soc;
+                $upperVoltage = $v;
+            } else {
+                $lowerSoc = $soc;
+                $lowerVoltage = $v;
+                break;
             }
-            $prev_voltage = $v;
-            $prev_soc = $soc;
         }
 
-        // Voltage is lower than lowest in table
-        return end($table);
+// If voltage is outside the range
+        if ($upperSoc === null) {
+            $estimatedSoc = 100;
+        } elseif ($lowerSoc === null) {
+            $estimatedSoc = 0;
+        } else {
+            // Linear interpolation
+            $voltageRange = $upperVoltage - $lowerVoltage;
+            $socRange = $upperSoc - $lowerSoc;
+            $voltageDiff = $voltage - $lowerVoltage;
+
+            $estimatedSoc = $lowerSoc + ($voltageDiff / $voltageRange) * $socRange;
+        }
+        return $estimatedSoc;
+
     }
 
     public static function obdImportAction(array $data, \Modules\EV\Models\EvLog $evLog): void
