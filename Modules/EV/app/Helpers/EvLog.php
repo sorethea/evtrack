@@ -37,13 +37,13 @@ class EvLog
         $soc = $log->detail->soc;
         $lastSoc = $log->cycleView?->last_soc;
         $rootSoc = $log->cycleView?->root_soc;
-        $remainRange = $lastSoc * ($distance/($rootSoc-$lastSoc));
-        $cycleSoCArray = $log->cycleView->logs->pluck('soc')->toArray();
+        $remainRange = $lastSoc * ($distance/($rootSoc-$lastSoc))??0;
+        $cycleSoCArray = $log->cycleView?->logs->pluck('soc')->toArray();
         $voltage =  $log->detail->voltage;
-        $cycleVoltageArray = $log->cycleView->logs->pluck('voltage')->toArray();
+        $cycleVoltageArray = $log->cycleView?->logs->pluck('voltage')->toArray();
         $avgVoltage = $voltage/200;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
-        $netDischarge = $log->cycleView->discharge - $log->cycleView->charge;
+        $netDischarge = $log->cycleView?->discharge - $log->cycleView?->charge;
         $regenPercentage = 100*$log->cycleView->charge/$log->cycleView->discharge ;
         $cycleDischargeArray = $log->cycleView->logs->pluck('discharge')->toArray();
         return [
