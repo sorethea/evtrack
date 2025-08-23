@@ -17,7 +17,6 @@ class AnalyseEvLogOverview extends BaseWidget
     {
         if ($this->record->log_type=='charging'){
             $log = $this->record->child;
-            dd($log);
         }else{
             $log = $this->record;
         }
