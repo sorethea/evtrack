@@ -32,11 +32,12 @@ class EvLog
 
     public static function getCycleOverview($log):array
     {
+        dd($log?->cycleView);
         $distance = $log?->cycleView?->distance??0;
         $cycleDistanceArray = $log?->cycleView?->logs?->pluck('distance')->toArray();
         //$soc = $log->detail->soc;
-        $lastSoc = $log?->cycleView?->last_soc;
-        $rootSoc = $log?->cycleView?->root_soc;
+        $lastSoc = $log?->cycleView?->last_soc??0;
+        $rootSoc = $log?->cycleView?->root_soc??0;
         $remainRange = $lastSoc * ($distance/($rootSoc-$lastSoc))??0;
 //        $cycleSoCArray = $log->cycleView?->logs->pluck('soc')->toArray();
 //        $voltage =  $log->detail->voltage;
