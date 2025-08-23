@@ -16,7 +16,7 @@ class VehicleOverview extends BaseWidget
         $distance = $log->cycleView->distance;
         $cycleDistanceArray = $log->cycleView->logs->pluck('distance')->toArray();
         $soc = $log->detail->soc;
-        $remainRange = 100*$distance/$soc;
+        $remainRange = 100*$distance/(100-$soc);
         $cycleSoCArray = $log->cycleView->logs->pluck('soc')->toArray();
         $ac =  $log->detail->ac;
         $ad =  $log->detail->ad;
