@@ -14,7 +14,10 @@ class RangeChart extends ChartWidget
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();
         $rangeArray = $this->record->logs->pluck('range')->toArray();
+        $rangeArray = array_map('ceil',$rangeArray);
+
         $capacityArray = $this->record->logs->pluck('capacity')->toArray();
+        $capacityArray = array_map('ceil',$capacityArray);
         return [
 
             'datasets'=>[
