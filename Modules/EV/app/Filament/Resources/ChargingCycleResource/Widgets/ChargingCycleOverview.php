@@ -19,7 +19,7 @@ class ChargingCycleOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        $log = $this->record;
+        $log = $this->record->detail;
         return EvLog::getCycleOverview($log);
     }
 }
