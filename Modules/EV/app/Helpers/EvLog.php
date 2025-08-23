@@ -60,8 +60,8 @@ class EvLog
                 ->color(Color::Yellow)
                 ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
                 ->chart($cycleVoltageArray),
-            Stat::make(trans('ev.net_discharge')."({$log->cycleView->discharge}kWh)",Number::format($netDischarge).'kWh')
-                ->description('Regen vs. Gross Discharge: '.Number::format($regenPercentage,1).'%')
+            Stat::make(trans('ev.net_discharge'),Number::format($netDischarge).'kWh')
+                ->description("Regen({$log->cycleView->charge}kWh) vs. Gross Discharge({$log->cycleView->discharge}kWh): ".Number::format($regenPercentage,1).'%')
                 ->chart($cycleDischargeArray)
                 ->color(Color::Teal),
             //Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($ad).'kWh'),
