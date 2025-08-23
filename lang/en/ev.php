@@ -57,6 +57,7 @@ return [
     "qty"=>"Quantity",
     "power"=>"Power",
     "price"=>"Price",
+    "battery_voltage"=>"Total Battery Voltage",
     "voltage"=>"Voltage",
     "temperature"=>"Temperature",
     "total_voltage"=>"Total Voltage",

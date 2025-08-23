@@ -18,6 +18,7 @@ class VehicleOverview extends BaseWidget
         $soc = $log->detail->soc;
         $remainRange = (100*$distance/(100-$soc))-$distance;
         $cycleSoCArray = $log->cycleView->logs->pluck('soc')->toArray();
+        $voltage =  $log->detail->voltage;
         $ac =  $log->detail->ac;
         $ad =  $log->detail->ad;
 
@@ -31,6 +32,7 @@ class VehicleOverview extends BaseWidget
                 //->icon('custom-percentage')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
+            Stat::make(trans('ev.battery_voltage'),Number::format($voltage).'kWh'),
             Stat::make(trans('ev.accumulative').' '.trans('ev.charge'),Number::format($ac).'kWh'),
             Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($ad).'kWh'),
         ];
