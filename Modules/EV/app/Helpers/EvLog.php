@@ -32,7 +32,6 @@ class EvLog
 
     public static function getCycleOverview($log):array
     {
-        dd($log?->cycleView);
         $distance = $log?->cycleView?->distance??0;
         $cycleDistanceArray = $log?->cycleView?->logs?->pluck('distance')->toArray();
         $soc = $log->detail->soc;
