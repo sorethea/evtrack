@@ -30,12 +30,12 @@ class ConsumptionChart extends ChartWidget
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
                     'data'=>$aConsumptionArray,
                 ],
-                [
-                    'label'=>trans('ev.percentage_charge'),
-                    'borderColor' => '#F59E0B',
-                    'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
-                    'data'=>$regenArray,
-                ],
+//                [
+//                    'label'=>trans('ev.percentage_charge'),
+//                    'borderColor' => '#F59E0B',
+//                    'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
+//                    'data'=>$regenArray,
+//                ],
             ],
             'labels'=>$socArray,
         ];
