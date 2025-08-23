@@ -6,7 +6,10 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Get;
+use Filament\Support\Colors\Color;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Number;
 use League\Csv\Reader;
 use Modules\EV\Models\EvLogItem;
 use Modules\EV\Models\ObdItem;
@@ -25,6 +28,42 @@ class EvLog
     public static function getDistance(\Modules\EV\Models\EvLog $evLog):float
     {
         return (self::getItemValue($evLog,1) - self::getParentItemValue($evLog,1))??0;
+    }
+
+    public static function getCycleOverview($log):array
+    {
+        $distance = $log->cycleView->distance;
+        $cycleDistanceArray = $log->cycleView->logs->pluck('distance')->toArray();
+        $soc = $log->detail->soc;
+        $remainRange = (100*$distance/(100-$soc))-$distance;
+        $cycleSoCArray = $log->cycleView->logs->pluck('soc')->toArray();
+        $voltage =  $log->detail->voltage;
+        $cycleVoltageArray = $log->cycleView->logs->pluck('voltage')->toArray();
+        $avgVoltage = $voltage/200;
+        $voltageBasedSoC = self::socVoltageBased($avgVoltage);
+        $netDischarge = $log->cycleView->discharge - $log->cycleView->charge;
+        $regenPercentage = 100*$log->cycleView->charge/$log->cycleView->discharge ;
+        $cycleDischargeArray = $log->cycleView->logs->pluck('discharge')->toArray();
+        return [
+            Stat::make(trans('ev.distance'),Number::format($distance).'km')
+                //->icon('custom-location-color-bookmark-add')
+                ->color(Color::Green)
+                ->description('Remaining range: '.Number::format($remainRange,1).' km')
+                ->chart($cycleDistanceArray),
+            Stat::make(trans('ev.soc'),Number::format($soc).'%')
+                ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
+                ->color(Color::Red)
+                ->chart($cycleSoCArray),
+            Stat::make(trans('ev.battery_voltage'),Number::format($voltage).'V')
+                ->color(Color::Yellow)
+                ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
+                ->chart($cycleVoltageArray),
+            Stat::make(trans('ev.net_discharge'),Number::format($netDischarge).'kWh')
+                ->description('Regen vs. Gross Discharge: '.Number::format($regenPercentage,1).'%')
+                ->chart($cycleDischargeArray)
+                ->color(Color::Teal),
+            //Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($ad).'kWh'),
+        ];
     }
 
     public static function socVoltageBased($voltage):float {
