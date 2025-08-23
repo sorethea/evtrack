@@ -31,8 +31,8 @@ class ListEvLogs extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            //EvLogResource\Widgets\EvLogOverview::class,
-            \Modules\EV\Filament\Resources\EvLogResource\Widgets\ChargingCycleOverview::make(),
+            EvLogResource\Widgets\EvLogOverview::class,
+            //\Modules\EV\Filament\Resources\EvLogResource\Widgets\ChargingCycleOverview::make(),
         ];
     }
 }
