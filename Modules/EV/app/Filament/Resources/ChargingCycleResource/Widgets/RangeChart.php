@@ -2,7 +2,6 @@
 
 namespace Modules\EV\Filament\Resources\ChargingCycleResource\Widgets;
 
-use Filament\Support\Colors\Color;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,22 +20,16 @@ class RangeChart extends ChartWidget
             'datasets'=>[
                 [
                     'label'=>'Range',
-                    'borderColor' => 'success',
-                    'backgroundColor' => Color::Teal,
+                    'borderColor' => '#8B5CF6',
+                    'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
                     'data'=>$rangeArray,
                 ],
                 [
                     'label'=>'Range',
-                    'borderColor' => 'warning',
-                    'backgroundColor' => Color::Yellow,
+                    'borderColor' => '#F59E0B',
+                    'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
                     'data'=>$capacityArray,
                 ],
-//                [
-//                    'label'=>'Lowest',
-//                    'borderColor' => '#F59E0B',
-//                    'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
-//                    'data'=>$lvcArray,
-//                ],
             ],
             'labels'=>$socArray,
         ];
