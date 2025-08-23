@@ -13,10 +13,10 @@ class VehicleOverview extends BaseWidget
     {
         $vehicle = auth()->user()->vehicle;
         $log = $vehicle->latestLog;
-        $odo = $log->detail->odo;//\evlog::getItemValue($log,1);
-        $soc = \evlog::getItemValue($log,11);
-        $ac = \evlog::getItemValue($log,19);
-        $ad = \evlog::getItemValue($log,20);
+        $odo = $log->detail->odo;
+        $soc = $log->detail->soc;
+        $ac =  $log->detail->ac;
+        $ad =  $log->detail->ad;
         return [
             Stat::make(trans('ev.odo'),Number::format($odo).'km')
                 //->icon('custom-location-color-bookmark-add')
