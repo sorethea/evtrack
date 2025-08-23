@@ -27,6 +27,8 @@ class VehicleOverview extends BaseWidget
         $ad =  $log->detail->ad;
 
         $netDischarge = $log->cycleView->discharge - $log->cycleView->charge;
+        $regenPercentage = 100*$log->cycleView->charge/$log->cycleView->discharge ;
+        $cycleDischargeArray = $log->cycleView->logs->pluck('discharge')->toArray();
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 //->icon('custom-location-color-bookmark-add')
@@ -42,8 +44,8 @@ class VehicleOverview extends BaseWidget
                 ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
                 ->chart($cycleVoltageArray),
             Stat::make(trans('ev.net_discharge'),Number::format($netDischarge).'kWh')
-                ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
-                ->chart($cycleVoltageArray)
+                ->description('Regenerative Braking vs. Gross Discharge: '.Number::format($regenPercentage,1).'%')
+                ->chart($cycleDischargeArray)
                 ->color(Color::Teal),
             //Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($ad).'kWh'),
         ];
