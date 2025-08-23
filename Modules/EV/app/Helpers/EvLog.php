@@ -27,6 +27,41 @@ class EvLog
         return (self::getItemValue($evLog,1) - self::getParentItemValue($evLog,1))??0;
     }
 
+    public static function socVoltageBased($voltage):float {
+        $table = config('ev.socVoltage');
+        // Sort the table by voltage descending
+        krsort($table);
+
+        // Check if voltage is exactly in table
+        if (isset($table[$voltage])) {
+            return $table[$voltage];
+        }
+
+        // Find the nearest voltages to interpolate between
+        $prev_voltage = null;
+        $prev_soc = null;
+
+        foreach ($table as $v => $soc) {
+            if ($voltage <= $v) {
+                if ($prev_voltage === null) {
+                    // Voltage is higher than highest in table
+                    return $soc;
+                }
+                // Linear interpolation
+                $voltage_range = $prev_voltage - $v;
+                $soc_range = $prev_soc - $soc;
+                $voltage_diff = $voltage - $v;
+
+                return $soc + ($voltage_diff / $voltage_range) * $soc_range;
+            }
+            $prev_voltage = $v;
+            $prev_soc = $soc;
+        }
+
+        // Voltage is lower than lowest in table
+        return end($table);
+    }
+
     public static function obdImportAction(array $data, \Modules\EV\Models\EvLog $evLog): void
     {
         $csv = Reader::createFromPath(Storage::path($data['obd_file']), 'r');

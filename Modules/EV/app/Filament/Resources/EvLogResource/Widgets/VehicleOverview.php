@@ -6,6 +6,7 @@ use Filament\Support\Colors\Color;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Number;
+use Modules\EV\Helpers\EvLog;
 
 class VehicleOverview extends BaseWidget
 {
@@ -21,6 +22,7 @@ class VehicleOverview extends BaseWidget
         $voltage =  $log->detail->voltage;
         $cycleVoltageArray = $log->cycleView->logs->pluck('voltage')->toArray();
         $avgVoltage = $voltage/200;
+        $voltageBasedSoC = EvLog::socVoltageBased($avgVoltage);
         $ac =  $log->detail->ac;
         $ad =  $log->detail->ad;
 
@@ -31,7 +33,7 @@ class VehicleOverview extends BaseWidget
                 ->description('Remaining range: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
             Stat::make(trans('ev.soc'),Number::format($soc).'%')
-                //->icon('custom-percentage')
+                ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
             Stat::make(trans('ev.battery_voltage'),Number::format($voltage).'V')
