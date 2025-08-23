@@ -65,62 +65,62 @@ class AnalyseEvLogOverview extends BaseWidget
             }
             return [
                 Stat::make('Current SoC',Number::format($this->record->detail->soc??0,1).'%')
-                    ->icon($currentSoCIcon)
+                    //->icon($currentSoCIcon)
                     ->color('danger')
                     ->description("Cycle SoC from {$this->record->cycleView->root_soc}% to {$this->record->cycleView->last_soc}%")
                     ->chart($socArray),
                 Stat::make('Consumption',Number::format($this->record->detail->consumption*10,0).' Wh/km')
-                    ->icon('heroicon-o-bolt')
+                    //->icon('heroicon-o-bolt')
                     ->color('warning')
                     ->description("Cycle consumption: {$cycleConsumption} Wh/km")
                     ->chart($consumptionArray),
                 Stat::make('Distance',Number::format($this->record->detail->distance??0,1).'km')
-                    ->icon('heroicon-o-map')
+                    //->icon('heroicon-o-map')
                     ->color('success')
                     ->description("Cycle distance: {$cycleDistance} km")
                     ->chart($distancesArray),
                 Stat::make('Range',Number::format($this->record->detail->range??0,0).'km')
-                    ->icon('heroicon-o-map-pin')
+                    //->icon('heroicon-o-map-pin')
                     ->color('info')
                     ->description("Cycle range: {$cycleRange} km")
                     ->chart($rangeArray),
                 Stat::make('Gross Energy Used',Number::format($this->record->detail->discharge??0,0).'kWh')
-                    ->icon('custom-battery-good')
+                    //->icon('custom-battery-good')
                     ->color(Color::Emerald)
                     ->description("Cycle energy used: {$cycleDischarge} kWh")
                     ->chart($dischargeArray),
                 Stat::make('Energy Added',Number::format($this->record->detail->charge??0,0).'kWh')
-                    ->icon('custom-battery-good-charging')
+                    //->icon('custom-battery-good-charging')
                     ->color(Color::Sky)
                     ->description("Cycle energy added: {$cycleCharge} kWh")
                     ->chart($chargeArray),
                 Stat::make('Net Energy Used',Number::format($this->record->detail->discharge-$this->record->detail->charge,0).'kWh')
-                    ->icon('custom-battery-low')
+                    //->icon('custom-battery-low')
                     ->color(Color::Purple)
                     ->description("Cycle net energy used: {$cycleNetDischarge} kWh")
                     ->chart($netEnergyArray),
                 Stat::make('Net Cycle Energy Used',Number::format($cycleNetDischarge,0).'kWh')
-                    ->icon('custom-battery-full')
+                    //->icon('custom-battery-full')
                     ->color(Color::Indigo)
                     ->description("Cycle balance energy: {$cycleEnergyMiddle} kWh")
                     ->chart($middleEnergyArray),
                 Stat::make('Next Energy Added',Number::format($nextEnergyAdded,0).'kWh')
-                    ->icon('custom-battery-empty-charging')
+                    //->icon('custom-battery-empty-charging')
                     ->color(Color::Fuchsia)
                     ->description("Next Cycle SoC: {$nextCycleSoC} %")
                     ->chart($middleSoCArray),
                 Stat::make('Current Battery Voltage',Number::format($this->record->detail->voltage,0).'V')
-                    ->icon('custom-volt')
+                    //->icon('custom-volt')
                     ->color(Color::Pink)
                     ->description("Cycle Max Voltage: {$cycleRootVoltage} V")
                     ->chart($voltageArray),
                 Stat::make('Highest Voltage Cell Value',Number::format($this->record->detail->hvc,3).'V')
-                    ->icon('custom-battery-low-charging')
+                    //->icon('custom-battery-low-charging')
                     ->color(Color::Yellow)
                     ->description("Lowest voltage cell value: {$this->record->detail->lvc} V")
                     ->chart($highestCellVoltageArray),
                 Stat::make('Current Voltage Delta',"{$voltageSpread} mV")
-                    ->icon('custom-high-voltage')
+                    //->icon('custom-high-voltage')
                     ->color(Color::Cyan)
                     ->description("Cycle Max Voltage: {$rootVoltageSpread} mV")
                     ->chart($voltageSpreadArray),
