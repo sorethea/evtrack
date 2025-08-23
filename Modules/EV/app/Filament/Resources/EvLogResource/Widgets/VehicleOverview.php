@@ -16,7 +16,7 @@ class VehicleOverview extends BaseWidget
         $distance = $log->cycleView->distance;
         $cycleDistanceArray = $log->cycleView->logs->pluck('distance')->toArray();
         $soc = $log->detail->soc;
-        $remainRange = 100*$distance/(100-$soc);
+        $remainRange = (100*$distance/(100-$soc))-$distance;
         $cycleSoCArray = $log->cycleView->logs->pluck('soc')->toArray();
         $ac =  $log->detail->ac;
         $ad =  $log->detail->ad;
@@ -25,7 +25,7 @@ class VehicleOverview extends BaseWidget
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 //->icon('custom-location-color-bookmark-add')
                 ->color(Color::Green)
-                ->description('Estimated remaining range: '.Number::format($remainRange,1).' km')
+                ->description('Remaining range: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
             Stat::make(trans('ev.soc'),Number::format($soc).'%')
                 //->icon('custom-percentage')
