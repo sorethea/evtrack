@@ -18,7 +18,7 @@ return [
         "[BMS] Battery total voltage"=>"voltage",
     ],
     'socVoltage'=>[
-        100=>3.40,   // 100% Rest
+        100=>3.40,
         90=>3.35,
         80=>3.32,
         70=>3.30,
@@ -30,5 +30,4 @@ return [
         10=>3.00,
         0=>2.50
     ],
-
 ];
