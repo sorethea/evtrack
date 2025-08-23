@@ -16,7 +16,7 @@ class AnalyseEvLogOverview extends BaseWidget
     protected function getStats(): array
     {
         if ($this->record->log_type=='charging'){
-            $log = $this->record->cycleView->latestLog;
+            $log = $this->record->child;
         }else{
             $log = $this->record;
         }
