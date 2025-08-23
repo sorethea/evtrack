@@ -32,12 +32,12 @@ class EvLog
 
     public static function getCycleOverview($log):array
     {
-        $distance = $log?->cycleView?->distance;
-        $cycleDistanceArray = $log->cycleView?->logs?->pluck('distance')->toArray();
-        $soc = $log->detail->soc;
-        $lastSoc = $log->cycleView?->last_soc;
-        $rootSoc = $log->cycleView?->root_soc;
-        $remainRange = $lastSoc * ($distance/($rootSoc-$lastSoc))??0;
+        $distance = $log?->cycleView?->distance??0;
+        //$cycleDistanceArray = $log->cycleView?->logs?->pluck('distance')->toArray();
+        //$soc = $log->detail->soc;
+        //$lastSoc = $log->cycleView?->last_soc;
+        //$rootSoc = $log->cycleView?->root_soc;
+        //$remainRange = $lastSoc * ($distance/($rootSoc-$lastSoc))??0;
 //        $cycleSoCArray = $log->cycleView?->logs->pluck('soc')->toArray();
 //        $voltage =  $log->detail->voltage;
 //        $cycleVoltageArray = $log->cycleView?->logs->pluck('voltage')->toArray();
@@ -47,7 +47,7 @@ class EvLog
 //        $regenPercentage = 100*$log->cycleView->charge/$log->cycleView->discharge ;
 //        $cycleDischargeArray = $log->cycleView->logs->pluck('discharge')->toArray();
         return [
-            Stat::make(trans('ev.distance'),Number::format($distance??0).'km')
+            Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 //->icon('custom-location-color-bookmark-add')
                 ->color(Color::Green)
                 //->description('Remaining range: '.Number::format($remainRange,1).' km')
