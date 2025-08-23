@@ -41,7 +41,7 @@ class EvLog
         $prev_voltage = null;
         $prev_soc = null;
 
-        foreach ($table as $v => $soc) {
+        foreach ($table as $soc => $v) {
             if ($voltage <= $v) {
                 if ($prev_voltage === null) {
                     // Voltage is higher than highest in table
