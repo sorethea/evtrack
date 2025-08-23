@@ -16,6 +16,7 @@ return [
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",
     "a_consumption"=>"Acc Consumption",
+    "net_discharge"=>"Net Discharge",
     "charge"=>"Charge",
     "charge_types"=>[
         "name"=>"Charge Types",

@@ -26,6 +26,7 @@ class VehicleOverview extends BaseWidget
         $ac =  $log->detail->ac;
         $ad =  $log->detail->ad;
 
+        $netDischarge = $log->cycleView->discharge - $log->cycleView->charge;
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 //->icon('custom-location-color-bookmark-add')
@@ -40,8 +41,11 @@ class VehicleOverview extends BaseWidget
                 ->color(Color::Yellow)
                 ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
                 ->chart($cycleVoltageArray),
-            Stat::make(trans('ev.accumulative').' '.trans('ev.charge'),Number::format($ac).'kWh'),
-            Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($ad).'kWh'),
+            Stat::make(trans('ev.net_discharge'),Number::format($netDischarge).'kWh')
+                ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
+                ->chart($cycleVoltageArray)
+                ->color(Color::Teal),
+            //Stat::make(trans('ev.accumulative').' '.trans('ev.discharge'),Number::format($ad).'kWh'),
         ];
     }
 
