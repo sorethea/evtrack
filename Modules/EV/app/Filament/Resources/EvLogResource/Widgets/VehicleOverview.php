@@ -13,7 +13,7 @@ class VehicleOverview extends BaseWidget
     {
         $vehicle = auth()->user()->vehicle;
         $log = $vehicle->latestLog;
-        $odo = \evlog::getItemValue($log,1);
+        $odo = $log->detail->odo;//\evlog::getItemValue($log,1);
         $soc = \evlog::getItemValue($log,11);
         $ac = \evlog::getItemValue($log,19);
         $ad = \evlog::getItemValue($log,20);
