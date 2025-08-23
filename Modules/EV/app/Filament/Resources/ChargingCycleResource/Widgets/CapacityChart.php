@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CapacityChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Capacity';
+    protected static ?string $heading = 'Distance vs. Energy';
 
     protected function getData(): array
     {
