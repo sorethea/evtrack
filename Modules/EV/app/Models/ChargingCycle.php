@@ -19,7 +19,7 @@ class ChargingCycle extends Model
     {
         return $this->hasMany(EvLogDetail::class,'cycle_id');
     }
-    public function log():HasOne
+    public function latestLog():HasOne
     {
         return $this->hasOne(EvLog::class,'cycle_id')->latest();
     }
