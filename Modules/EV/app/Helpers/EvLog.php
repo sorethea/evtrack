@@ -33,7 +33,7 @@ class EvLog
     public static function getCycleOverview($log):array
     {
         $distance = $log?->cycleView?->distance??0;
-        //$cycleDistanceArray = $log->cycleView?->logs?->pluck('distance')->toArray();
+        $cycleDistanceArray = $log?->cycleView?->logs?->pluck('distance')->toArray();
         //$soc = $log->detail->soc;
         //$lastSoc = $log->cycleView?->last_soc;
         //$rootSoc = $log->cycleView?->root_soc;
@@ -51,7 +51,7 @@ class EvLog
                 //->icon('custom-location-color-bookmark-add')
                 ->color(Color::Green)
                 //->description('Remaining range: '.Number::format($remainRange,1).' km')
-                //->chart($cycleDistanceArray),
+                ->chart($cycleDistanceArray),
 //            Stat::make(trans('ev.soc').'('.$rootSoc.'%)',Number::format($soc).'%')
 //                ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
 //                ->color(Color::Red)
