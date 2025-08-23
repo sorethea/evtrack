@@ -52,7 +52,7 @@ class EvLog
                 ->color(Color::Green)
                 ->description('Remaining range: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
-            Stat::make(trans('ev.soc'),Number::format($soc).'%')
+            Stat::make(trans('ev.soc').'('.$rootSoc.'%)',Number::format($soc).'%')
                 ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
