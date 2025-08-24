@@ -41,10 +41,10 @@ class EvLog
         $cycleSoCArray = $log?->cycleView?->logs->pluck('soc')->toArray();
         $voltage =  $log->detail->voltage;
         $cycleVoltageArray = $log?->cycleView?->logs->pluck('voltage')->toArray();
-        $avgVoltage = $voltage/200;
+        //$avgVoltage = $voltage/200;
         //$voltageBasedSoC = self::socVoltageBased($avgVoltage);
         $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge;
-        $regenPercentage = 100*$log?->cycleView?->charge/$log?->cycleView?->discharge ;
+        //$regenPercentage = 100*$log?->cycleView?->charge/$log?->cycleView?->discharge ;
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
