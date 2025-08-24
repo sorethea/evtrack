@@ -44,7 +44,7 @@ class EvLog
         $avgVoltage = $voltage/200;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
         $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge;
-        //$regenPercentage = 100*$log?->cycleView?->charge/$log?->cycleView?->discharge ;
+        $regenPercentage = $log?->cycleView?->discharge>0?100*$log?->cycleView?->charge/$log?->cycleView?->discharge:0 ;
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
@@ -60,7 +60,7 @@ class EvLog
                 ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
                 ->chart($cycleVoltageArray),
             Stat::make(trans('ev.net_discharge'),Number::format($netDischarge).'kWh')
-                //->description("Added({$log?->cycleView?->charge})/Used({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->description("Added({$log?->cycleView?->charge})/Used({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
                 ->chart($cycleDischargeArray)
                 ->color(Color::Teal),
         ];
