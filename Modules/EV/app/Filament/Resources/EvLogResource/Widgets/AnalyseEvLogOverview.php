@@ -21,7 +21,7 @@ class AnalyseEvLogOverview extends BaseWidget
 //            $log = $this->record;
 //        }
 //        return EvLog::getCycleOverview($log);
-        //if($this->record->log_type=='driving'){
+        if($this->record->log_type=='driving'){
 
             $socArray = $this->record->cycleView->logs->pluck('soc')->toArray();
             $distancesArray = $this->record->cycleView->logs->pluck('distance')->toArray();
@@ -125,8 +125,8 @@ class AnalyseEvLogOverview extends BaseWidget
                     ->description("Cycle Max Voltage: {$rootVoltageSpread} mV")
                     ->chart($voltageSpreadArray),
             ];
-       // }
-        //return [];
+        }
+        return [];
     }
 
     protected function getColumns(): int
