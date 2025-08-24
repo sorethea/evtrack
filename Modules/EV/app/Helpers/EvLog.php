@@ -42,7 +42,7 @@ class EvLog
         $voltage =  $log->detail->voltage;
         $cycleVoltageArray = $log?->cycleView?->logs->pluck('voltage')->toArray();
         $avgVoltage = $voltage/200;
-        $voltageBasedSoC = self::socVoltageBased($avgVoltage);
+        //$voltageBasedSoC = self::socVoltageBased($avgVoltage);
         $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge;
         $regenPercentage = 100*$log?->cycleView?->charge/$log?->cycleView?->discharge ;
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
@@ -52,17 +52,17 @@ class EvLog
                 ->description('Remaining range: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
             Stat::make(trans('ev.soc').'('.$rootSoc.'%)',Number::format($soc).'%')
-                ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
+                //->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
-//            Stat::make(trans('ev.battery_voltage')."({$log->cycleView->root_voltage}V)",Number::format($voltage).'V')
-//                ->color(Color::Yellow)
-//                ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
-//                ->chart($cycleVoltageArray),
-//            Stat::make(trans('ev.net_discharge'),Number::format($netDischarge).'kWh')
-//                ->description("Added({$log->cycleView->charge})/Used({$log->cycleView->discharge}): ".Number::format($regenPercentage,1).'%')
-//                ->chart($cycleDischargeArray)
-//                ->color(Color::Teal),
+            Stat::make(trans('ev.battery_voltage')."({$log->cycleView->root_voltage}V)",Number::format($voltage).'V')
+                ->color(Color::Yellow)
+                //->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
+                ->chart($cycleVoltageArray),
+            Stat::make(trans('ev.net_discharge'),Number::format($netDischarge).'kWh')
+                ->description("Added({$log?->cycleView?->charge})/Used({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->chart($cycleDischargeArray)
+                ->color(Color::Teal),
         ];
     }
 
