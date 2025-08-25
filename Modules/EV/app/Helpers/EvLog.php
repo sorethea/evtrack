@@ -51,7 +51,8 @@ class EvLog
         $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
         $consumption = $log?->cycleView?->a_consumption;
         $socConsumption = $log?->cycleView?->consumption;
-        $capacity = $log?->cycelView?->a_capacity;
+        $capacity = $log?->cycelView?->capacity;
+        $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
@@ -75,7 +76,7 @@ class EvLog
                 ->color(Color::Cyan),
             Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
                 ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
-                ->chart($cycleDischargeArray)
+                ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
         ];
     }
