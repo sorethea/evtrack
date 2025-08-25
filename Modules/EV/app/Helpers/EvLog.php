@@ -51,7 +51,7 @@ class EvLog
         $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
         $consumption = $log?->cycleView?->a_consumption;
         $socConsumption = $log?->cycleView?->consumption;
-        $capacity = $log?->cycelView?->capacity;
+        $capacity = $log?->cycleView?->capacity;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
