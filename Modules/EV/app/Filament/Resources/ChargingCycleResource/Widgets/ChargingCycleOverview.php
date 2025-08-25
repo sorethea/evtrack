@@ -22,4 +22,9 @@ class ChargingCycleOverview extends BaseWidget
         //$log = $this->record;
         return EvLog::getCycleOverview($this->record->latestLog);
     }
+
+    protected function getColumns(): int
+    {
+        return 4;
+    }
 }
