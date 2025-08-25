@@ -39,14 +39,14 @@ class EvLog
         $rootSoc = $log?->cycleView?->root_soc??0;
         $usedSoC = $rootSoc-$lastSoc;
         //$remainRange = ($rootSoc-$lastSoc)>0?$lastSoc * ($distance/($rootSoc-$lastSoc)):0;
-
+        $vehicleCapacity = $log->vehicle->capacity;
         $cycleSoCArray = $log?->cycleView?->logs->pluck('soc')->toArray();
         $voltage =  $log->detail->voltage;
         $cycleVoltageArray = $log?->cycleView?->logs->pluck('voltage')->toArray();
         $avgVoltage = $voltage/200;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
         $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge;
-        $remainRange = (108.8*$distance/$netDischarge)-$distance;
+        $remainRange = ($vehicleCapacity*$distance/$netDischarge)-$distance;
         $regenPercentage = $log?->cycleView?->discharge>0?100*$log?->cycleView?->charge/$log?->cycleView?->discharge:0 ;
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
         $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
@@ -54,7 +54,7 @@ class EvLog
         $socConsumption = $log?->cycleView?->consumption;
         $capacity = $log?->cycleView?->capacity;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
-        $capacityVariant = Number::format(108.8-$capacity,1);
+        $capacityVariant = Number::format(($capacity-$vehicleCapacity)/$vehicleCapacity,1);
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
@@ -77,7 +77,7 @@ class EvLog
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
-                ->description( "Capacity variant: {$capacityVariant}")
+                ->description( "Capacity variant: {$capacityVariant}%")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
         ];
