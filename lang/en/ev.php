@@ -13,6 +13,7 @@ return [
     "soc_derivation"=>"Derivation",
     "soc_middle"=>"Middle",
     "energy"=>"Energy",
+    "used_energy"=>"Used Energy",
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",
     "a_consumption"=>"Acc Consumption",
