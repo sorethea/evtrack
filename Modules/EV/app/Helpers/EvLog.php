@@ -54,7 +54,7 @@ class EvLog
         $socConsumption = $log?->cycleView?->consumption;
         $capacity = $log?->cycleView?->capacity;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
-        $capacityVariant = Number::format(($capacity-$vehicleCapacity)/$vehicleCapacity,1);
+        $capacityVariant = Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1);
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
