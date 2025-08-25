@@ -35,6 +35,9 @@ class ViewChargingCycle extends ViewRecord
             ChargingCycleResource\Widgets\RangeChart::make([
                 'record'=>$this->record,
             ]),
+            ChargingCycleResource\Widgets\MiddleSoCChart::make([
+                'record'=>$this->record,
+            ]),
         ];
     }
 }
