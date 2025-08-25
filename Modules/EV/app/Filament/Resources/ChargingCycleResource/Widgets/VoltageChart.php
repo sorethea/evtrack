@@ -15,7 +15,7 @@ class VoltageChart extends ChartWidget
         $voltageArray = $this->record->logs->pluck('av_voltage')->toArray();
         $hvcArray = $this->record->logs->pluck('hvc')->toArray();
         $lvcArray = $this->record->logs->pluck('lvc')->toArray();
-
+        $consumptionArray = $this->record->logs->pluck('a_consumption')->toArray();
         return [
             'datasets'=>[
                 [
@@ -35,6 +35,12 @@ class VoltageChart extends ChartWidget
                     'borderColor' => '#F59E0B',
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
                     'data'=>$lvcArray,
+                ],
+                [
+                    'label'=>'Consumption',
+                    'borderColor' => '#FF0000',
+                    'backgroundColor' => 'rgba(255, 0, 0, 0.2)',
+                    'data'=>$consumptionArray,
                 ],
             ],
             'labels'=>$socArray,
