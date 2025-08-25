@@ -37,6 +37,7 @@ class EvLog
         $soc = $log->detail->soc;
         $lastSoc = $log?->cycleView?->last_soc??0;
         $rootSoc = $log?->cycleView?->root_soc??0;
+        $usedSoC = $rootSoc-$lastSoc;
         //$remainRange = ($rootSoc-$lastSoc)>0?$lastSoc * ($distance/($rootSoc-$lastSoc)):0;
 
         $cycleSoCArray = $log?->cycleView?->logs->pluck('soc')->toArray();
@@ -75,7 +76,7 @@ class EvLog
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
-                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->description("Energy({$netDischarge})/SoC({$usedSoC})")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
         ];
