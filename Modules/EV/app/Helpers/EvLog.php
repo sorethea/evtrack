@@ -50,6 +50,7 @@ class EvLog
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
         $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
         $consumption = $log?->cycleView?->a_consumption;
+        $socConsumption = $log?->cycleView?->consumption;
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
@@ -68,7 +69,7 @@ class EvLog
                 ->chart($cycleDischargeArray)
                 ->color(Color::Teal),
             Stat::make(trans('ev.consumption'),Number::format($consumption,0).'Wh/km')
-                ->description("Added({$log?->cycleView?->charge})/Used({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->description("SoC based consumption: ".Number::format($socConsumption,0)."wH/km")
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
         ];
