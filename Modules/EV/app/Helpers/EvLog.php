@@ -37,13 +37,15 @@ class EvLog
         $soc = $log->detail->soc;
         $lastSoc = $log?->cycleView?->last_soc??0;
         $rootSoc = $log?->cycleView?->root_soc??0;
-        $remainRange = ($rootSoc-$lastSoc)>0?$lastSoc * ($distance/($rootSoc-$lastSoc)):0;
+        //$remainRange = ($rootSoc-$lastSoc)>0?$lastSoc * ($distance/($rootSoc-$lastSoc)):0;
+
         $cycleSoCArray = $log?->cycleView?->logs->pluck('soc')->toArray();
         $voltage =  $log->detail->voltage;
         $cycleVoltageArray = $log?->cycleView?->logs->pluck('voltage')->toArray();
         $avgVoltage = $voltage/200;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
         $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge;
+        $remainRange = (108.8*$distance/$netDischarge)-$distance;
         $regenPercentage = $log?->cycleView?->discharge>0?100*$log?->cycleView?->charge/$log?->cycleView?->discharge:0 ;
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
         return [
@@ -51,7 +53,7 @@ class EvLog
                 ->color(Color::Green)
                 ->description('Remaining range: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
-            Stat::make(trans('ev.soc').'('.$rootSoc.'%)',Number::format($soc).'%')
+            Stat::make(trans('ev.soc').'('.$rootSoc.'%)',Number::format($lastSoc).'%')
                 ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
