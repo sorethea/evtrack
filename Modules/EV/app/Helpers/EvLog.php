@@ -54,6 +54,7 @@ class EvLog
         $socConsumption = $log?->cycleView?->consumption;
         $capacity = $log?->cycleView?->capacity;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
+        $capacityVariant = 108.8-$capacity;
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
@@ -76,7 +77,7 @@ class EvLog
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
-                ->description("Energy({$netDischarge})/SoC({$usedSoC})")
+                ->description("Energy({$netDischarge})/SoC({$usedSoC}), Discrepancy: {$capacityVariant}")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
         ];
