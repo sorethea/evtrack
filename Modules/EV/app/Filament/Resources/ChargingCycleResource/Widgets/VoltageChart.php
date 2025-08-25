@@ -36,12 +36,12 @@ class VoltageChart extends ChartWidget
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
                     'data'=>$lvcArray,
                 ],
-                [
-                    'label'=>'Consumption',
-                    'borderColor' => '#FF0000',
-                    'backgroundColor' => 'rgba(255, 0, 0, 0.2)',
-                    'data'=>$consumptionArray,
-                ],
+//                [
+//                    'label'=>'Consumption',
+//                    'borderColor' => '#FF0000',
+//                    'backgroundColor' => 'rgba(255, 0, 0, 0.2)',
+//                    'data'=>$consumptionArray,
+//                ],
             ],
             'labels'=>$socArray,
         ];
