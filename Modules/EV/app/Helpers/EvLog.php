@@ -48,6 +48,8 @@ class EvLog
         $remainRange = (108.8*$distance/$netDischarge)-$distance;
         $regenPercentage = $log?->cycleView?->discharge>0?100*$log?->cycleView?->charge/$log?->cycleView?->discharge:0 ;
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
+        $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
+        $consumption = $log?->cycleView?->a_consumption;
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
@@ -64,6 +66,10 @@ class EvLog
             Stat::make(trans('ev.net_discharge'),Number::format($netDischarge).'kWh')
                 ->description("Added({$log?->cycleView?->charge})/Used({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
                 ->chart($cycleDischargeArray)
+                ->color(Color::Teal),
+            Stat::make(trans('ev.consumption'),Number::format($consumption,1).'Wh/km')
+                ->description("Added({$log?->cycleView?->charge})/Used({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->chart($cycleConsumptionArray)
                 ->color(Color::Teal),
         ];
     }
