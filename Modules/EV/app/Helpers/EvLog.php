@@ -70,7 +70,7 @@ class EvLog
             Stat::make(trans('ev.consumption'),Number::format($consumption,0).'Wh/km')
                 ->description("Added({$log?->cycleView?->charge})/Used({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
                 ->chart($cycleConsumptionArray)
-                ->color(Color::Red),
+                ->color(Color::Cyan),
         ];
     }
 
