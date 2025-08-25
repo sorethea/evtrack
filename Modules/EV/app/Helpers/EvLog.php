@@ -77,7 +77,7 @@ class EvLog
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
-                ->description("Energy({$netDischarge})/SoC({$usedSoC}), Discrepancy: {$capacityVariant}")
+                ->description( "Capacity variant: {$capacityVariant}")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
         ];
