@@ -55,6 +55,8 @@ class EvLog
         $capacity = $log?->cycleView?->capacity;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
         $capacityVariant = Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1);
+        $deltaVoltage = $log?->cycleView?->v_spread;
+        $deltaTemp = $log?->cycleView?->t_spread;
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
@@ -77,6 +79,14 @@ class EvLog
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
+                ->description( "Capacity variant: {$capacityVariant}%")
+                ->chart($cycleCapacityArray)
+                ->color(Color::Pink),
+            Stat::make(trans('ev.voltage'),Number::format($deltaVoltage,0).'mV')
+                ->description( "Capacity variant: {$capacityVariant}%")
+                ->chart($cycleCapacityArray)
+                ->color(Color::Pink),
+            Stat::make(trans('ev.temperature'),Number::format($deltaTemp,0).'C')
                 ->description( "Capacity variant: {$capacityVariant}%")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
