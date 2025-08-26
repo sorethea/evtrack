@@ -83,13 +83,13 @@ class EvLog
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
             Stat::make(trans('ev.voltage'),Number::format($deltaVoltage,0).'mV')
-                ->description( "Capacity variant: {$capacityVariant}%")
+                ->description( "Highest cell voltage: {$log?->cycleView?->last_hvc}V")
                 ->chart($cycleCapacityArray)
-                ->color(Color::Pink),
+                ->color(Color::Purple),
             Stat::make(trans('ev.temperature'),Number::format($deltaTemp,0).'C')
                 ->description( "Capacity variant: {$capacityVariant}%")
                 ->chart($cycleCapacityArray)
-                ->color(Color::Pink),
+                ->color(Color::Orange),
         ];
     }
 
