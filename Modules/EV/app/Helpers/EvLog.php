@@ -58,7 +58,7 @@ class EvLog
         $deltaVoltage = 1000*$log?->cycleView?->v_spread??0;
         $cycleHCVArray = $log?->cycleView?->logs->pluck('hvc')->toArray();
         $cycleLCVArray = $log?->cycleView?->logs->pluck('lvc')->toArray();
-        $deltaTemp = 1000*$log?->cycleView?->t_spread??0;
+        $deltaTemp = $log?->cycleView?->t_spread??0;
         $cycleHTVArray = $log?->cycleView?->logs->pluck('htc')->toArray();
         $cycleLTVArray = $log?->cycleView?->logs->pluck('ltc')->toArray();
         return [
