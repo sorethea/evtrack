@@ -88,11 +88,11 @@ class EvLog
                 ->color(Color::Pink),
             Stat::make(trans('ev.voltage'),Number::format($deltaVoltage,0).'mV')
                 ->description( "Highest cell: {$log?->cycleView?->last_hvc}V. Lowest cell: {$log?->cycleView?->last_lvc}V.")
-                ->chart($cycleCapacityArray)
+                ->chart($cycleHCVArray)
                 ->color(Color::Purple),
             Stat::make(trans('ev.temperature'),Number::format($deltaTemp,0).'C')
                 ->description( "Highest cell: {$log?->cycleView?->last_htc}V. Lowest cell: {$log?->cycleView?->last_ltc}V.")
-                ->chart($cycleCapacityArray)
+                ->chart($cycleHTVArray)
                 ->color(Color::Orange),
         ];
     }
