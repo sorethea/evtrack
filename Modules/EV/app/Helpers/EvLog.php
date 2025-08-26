@@ -55,8 +55,8 @@ class EvLog
         $capacity = $log?->cycleView?->capacity;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
         $capacityVariant = Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1);
-        $deltaVoltage = $log?->cycleView?->v_spread;
-        $deltaTemp = $log?->cycleView?->t_spread;
+        $deltaVoltage = $log?->cycleView?->v_spread??0;
+        $deltaTemp = $log?->cycleView?->t_spread??0;
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
