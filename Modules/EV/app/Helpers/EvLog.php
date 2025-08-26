@@ -56,7 +56,11 @@ class EvLog
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
         $capacityVariant = Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1);
         $deltaVoltage = 1000*$log?->cycleView?->v_spread??0;
+        $cycleHCVArray = $log?->cycleView?->logs->pluck('hvc')->toArray();
+        $cycleLCVArray = $log?->cycleView?->logs->pluck('lvc')->toArray();
         $deltaTemp = 1000*$log?->cycleView?->t_spread??0;
+        $cycleHTVArray = $log?->cycleView?->logs->pluck('htc')->toArray();
+        $cycleLTVArray = $log?->cycleView?->logs->pluck('ltc')->toArray();
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
@@ -83,11 +87,11 @@ class EvLog
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
             Stat::make(trans('ev.voltage'),Number::format($deltaVoltage,0).'mV')
-                ->description( "Highest cell voltage: {$log?->cycleView?->last_hvc}V. \r\nLowest cell voltage: {$log?->cycleView?->last_lvc}V.")
+                ->description( "Highest cell: {$log?->cycleView?->last_hvc}V. Lowest cell: {$log?->cycleView?->last_lvc}V.")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Purple),
             Stat::make(trans('ev.temperature'),Number::format($deltaTemp,0).'C')
-                ->description( "Capacity variant: {$capacityVariant}%")
+                ->description( "Highest cell: {$log?->cycleView?->last_htc}V. Lowest cell: {$log?->cycleView?->last_ltc}V.")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Orange),
         ];
