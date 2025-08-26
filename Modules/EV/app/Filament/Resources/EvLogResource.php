@@ -168,27 +168,27 @@ class EvLogResource extends Resource
 //                        ->label(__('ev.consumption'))
 //                        ->toggleable(),
                 ]),
-                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Ah)',[
-                    Tables\Columns\TextColumn::make('detail.charge_amp')
-                        ->inverseRelationship('log')
-                        ->numeric(1)
-                        ->label(trans('ev.charge') ),
-                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
-                    Tables\Columns\TextColumn::make('detail.discharge_amp')
-                        ->inverseRelationship('log')
-                        ->numeric(1)
-                        ->label(trans('ev.discharge') ),
-                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
-//                    Tables\Columns\TextColumn::make('detail.a_consumption_amp')
-//                        ->numeric(1)
-//                        ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-//                        ->label(__('ev.consumption'))
-//                        ->toggleable(),
-//                    Tables\Columns\TextColumn::make('detail.capacity_amp')
-//                        ->formatStateUsing(fn($state)=>Number::format($state,1))
+//                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Ah)',[
+//                    Tables\Columns\TextColumn::make('detail.charge_amp')
 //                        ->inverseRelationship('log')
-//                        ->label(trans('ev.capacity')),
-                ]),
+//                        ->numeric(1)
+//                        ->label(trans('ev.charge') ),
+//                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
+//                    Tables\Columns\TextColumn::make('detail.discharge_amp')
+//                        ->inverseRelationship('log')
+//                        ->numeric(1)
+//                        ->label(trans('ev.discharge') ),
+//                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
+////                    Tables\Columns\TextColumn::make('detail.a_consumption_amp')
+////                        ->numeric(1)
+////                        ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
+////                        ->label(__('ev.consumption'))
+////                        ->toggleable(),
+////                    Tables\Columns\TextColumn::make('detail.capacity_amp')
+////                        ->formatStateUsing(fn($state)=>Number::format($state,1))
+////                        ->inverseRelationship('log')
+////                        ->label(trans('ev.capacity')),
+//                ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
                     Tables\Columns\TextColumn::make('detail.charge')
                         ->inverseRelationship('log')
