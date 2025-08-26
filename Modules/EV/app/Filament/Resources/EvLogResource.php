@@ -153,20 +153,20 @@ class EvLogResource extends Resource
 //                        )),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
-                        ->label(trans('ev.soc_derivation'))
+                        ->label(trans('ev.used_energy'))
                         ->numeric(1)
                         //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
                         ->toggleable(),
-                    Tables\Columns\TextColumn::make('detail.soc_middle')
-                        ->label(trans('ev.soc_middle') )
-                        ->numeric(1)
-                        ->inverseRelationship('log')
-                        ->toggleable(),
-                    Tables\Columns\TextColumn::make('detail.consumption')
-                        ->numeric(1)
-                        ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-                        ->label(__('ev.consumption'))
-                        ->toggleable(),
+//                    Tables\Columns\TextColumn::make('detail.soc_middle')
+//                        ->label(trans('ev.soc_middle') )
+//                        ->numeric(1)
+//                        ->inverseRelationship('log')
+//                        ->toggleable(),
+//                    Tables\Columns\TextColumn::make('detail.consumption')
+//                        ->numeric(1)
+//                        ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
+//                        ->label(__('ev.consumption'))
+//                        ->toggleable(),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Ah)',[
                     Tables\Columns\TextColumn::make('detail.charge_amp')
@@ -202,7 +202,7 @@ class EvLogResource extends Resource
                         //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
                     Tables\Columns\TextColumn::make('detail.middle')
                         ->numeric()
-                        ->label(__('ev.soc_middle'))
+                        ->label(__('ev.used'))
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.a_consumption')
                         ->numeric(1)
