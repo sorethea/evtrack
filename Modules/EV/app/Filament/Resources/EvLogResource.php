@@ -153,7 +153,7 @@ class EvLogResource extends Resource
 //                        )),
                     Tables\Columns\TextColumn::make('detail.soc_derivation')
                         ->inverseRelationship('log')
-                        ->label(trans('ev.used_energy'))
+                        ->label(trans('ev.used'))
                         ->numeric(1)
                         //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
                         ->toggleable(),
