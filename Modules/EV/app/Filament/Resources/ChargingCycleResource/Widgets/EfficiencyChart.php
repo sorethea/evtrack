@@ -19,8 +19,12 @@ class EfficiencyChart extends ChartWidget
         foreach ($socUsedArray as &$value){
             $value = Number::format($batteryCapacity * $value/100,1);
         }
-
         $usedEnergyArray = $this->record->logs->pluck('used_energy')->toArray();
+
+        $effectiveUsedEnergyArray = array_map(function ($v1,$v2){
+            return 100*($v1/$v2);
+        },$socUsedArray,$usedEnergyArray);
+
         return [
 
             'datasets'=>[
@@ -28,14 +32,14 @@ class EfficiencyChart extends ChartWidget
                     'label'=>'SoC',
                     'borderColor' => '#8B5CF6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
-                    'data'=>$socUsedArray,
-                ],
-                [
-                    'label'=>'Accumulative',
-                    'borderColor' => '#F59E0B',
-                    'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
-                    'data'=>$usedEnergyArray,
-                ],
+                    'data'=>$effectiveUsedEnergyArray,
+//                ],
+//                [
+//                    'label'=>'Accumulative',
+//                    'borderColor' => '#F59E0B',
+//                    'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
+//                    'data'=>$usedEnergyArray,
+//                ],
             ],
             'labels'=>$socArray,
         ];
