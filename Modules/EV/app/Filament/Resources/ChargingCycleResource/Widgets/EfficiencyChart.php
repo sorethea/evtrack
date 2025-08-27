@@ -16,22 +16,21 @@ class EfficiencyChart extends ChartWidget
         $rangeArray = $this->record->logs->pluck('range')->toArray();
         $rangeArray = array_map('ceil',$rangeArray);
 
-        $capacityArray = $this->record->logs->pluck('capacity')->toArray();
-        $capacityArray = array_map('ceil',$capacityArray);
+        $usedEnergyArray = $this->record->logs->pluck('used_energy')->toArray();
         return [
 
             'datasets'=>[
                 [
-                    'label'=>'Range',
+                    'label'=>'SoC',
                     'borderColor' => '#8B5CF6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
                     'data'=>$rangeArray,
                 ],
                 [
-                    'label'=>'Capacity',
+                    'label'=>'Accumulative',
                     'borderColor' => '#F59E0B',
                     'backgroundColor' => 'rgba(245, 158, 11, 0.2)',
-                    'data'=>$capacityArray,
+                    'data'=>$usedEnergyArray,
                 ],
             ],
             'labels'=>$socArray,
