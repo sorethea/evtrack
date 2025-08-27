@@ -4,6 +4,7 @@ namespace Modules\EV\Filament\Resources\ChargingCycleResource\Widgets;
 
 use Filament\Widgets\ChartWidget;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Number;
 
 class EfficiencyChart extends ChartWidget
 {
@@ -13,8 +14,11 @@ class EfficiencyChart extends ChartWidget
     protected function getData(): array
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();
-        $rangeArray = $this->record->logs->pluck('range')->toArray();
-        $rangeArray = array_map('ceil',$rangeArray);
+        $socUsedArray = $this->record->logs->pluck('soc_derivation')->toArray();
+        $batteryCapacity = $this->record->vehicle->capacity;
+        foreach ($socUsedArray as &$value){
+            $value = Number::format($batteryCapacity * $value/100,1);
+        }
 
         $usedEnergyArray = $this->record->logs->pluck('used_energy')->toArray();
         return [
@@ -24,7 +28,7 @@ class EfficiencyChart extends ChartWidget
                     'label'=>'SoC',
                     'borderColor' => '#8B5CF6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
-                    'data'=>$rangeArray,
+                    'data'=>$socUsedArray,
                 ],
                 [
                     'label'=>'Accumulative',

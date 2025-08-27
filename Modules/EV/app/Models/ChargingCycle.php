@@ -3,6 +3,7 @@
 namespace Modules\EV\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -14,6 +15,15 @@ class ChargingCycle extends Model
     public $timestamps = false;
 
     public $incrementing = false;
+
+    public function parent():BelongsTo
+    {
+        return $this->belongsTo(EvLog::class,'id','id');
+    }
+    public function vehicle():BelongsTo
+    {
+        return $this->belongsTo(Vehicle::class,'vehicle_id','id');
+    }
 
     public function logs():HasMany
     {
