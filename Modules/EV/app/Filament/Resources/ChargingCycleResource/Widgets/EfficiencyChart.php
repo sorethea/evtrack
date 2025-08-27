@@ -32,7 +32,7 @@ class EfficiencyChart extends ChartWidget
 
             'datasets'=>[
                 [
-                    'label'=>'SoC',
+                    'label'=>'SoC vs Accumulative (%)',
                     'borderColor' => '#8B5CF6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
                     'data'=>$effectiveUsedEnergyArray,
