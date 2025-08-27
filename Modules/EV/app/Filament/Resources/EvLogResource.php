@@ -271,6 +271,7 @@ class EvLogResource extends Resource
                     ->label(trans('ev.distance')),
 //                    ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
             ])
+            ->defaultPaginationPageOption(25)
             //->defaultGroup('cycle.date')
 //            ->groups([
 //                Tables\Grouping\Group::make('cycle.date')->date()
