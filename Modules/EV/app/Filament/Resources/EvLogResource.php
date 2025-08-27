@@ -200,7 +200,7 @@ class EvLogResource extends Resource
                         ->numeric(1)
                         ->label(trans('ev.discharge') ),
                         //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
-                    Tables\Columns\TextColumn::make('detail.middle')
+                    Tables\Columns\TextColumn::make('detail.used_energy')
                         ->numeric()
                         ->label(__('ev.used'))
                         ->toggleable(),
