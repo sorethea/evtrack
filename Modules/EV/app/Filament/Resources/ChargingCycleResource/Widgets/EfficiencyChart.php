@@ -22,7 +22,10 @@ class EfficiencyChart extends ChartWidget
         $usedEnergyArray = $this->record->logs->pluck('used_energy')->toArray();
 
         $effectiveUsedEnergyArray = array_map(function ($v1,$v2){
-            return 100*($v1/$v2);
+            if($v2>0){
+                return 100*($v1/$v2);
+            }
+            return 0;
         },$socUsedArray,$usedEnergyArray);
 
         return [
