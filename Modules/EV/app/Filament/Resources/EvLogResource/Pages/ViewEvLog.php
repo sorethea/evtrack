@@ -18,9 +18,9 @@ class ViewEvLog extends ViewRecord
     protected function getHeaderWidgets(): array
     {
         return [
-            EvLogResource\Widgets\AnalyseEvLogOverview::make([
-                'record'=>$this->record,
-            ])
+            EvLogResource\Widgets\ChargingCycleOverview::make([
+                $this->record,
+            ]),
         ];
     }
 
