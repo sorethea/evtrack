@@ -27,7 +27,6 @@ class EfficiencyChart extends ChartWidget
             }
             return 0;
         },$socUsedArray,$usedEnergyArray);
-        dd($effectiveUsedEnergyArray);
 
         return [
 
@@ -37,7 +36,7 @@ class EfficiencyChart extends ChartWidget
                     'borderColor' => '#8B5CF6',
                     'backgroundColor' => 'rgba(139, 92, 246, 0.2)',
                     'data'=>$effectiveUsedEnergyArray,
-//                ],
+               ],
 //                [
 //                    'label'=>'Accumulative',
 //                    'borderColor' => '#F59E0B',
