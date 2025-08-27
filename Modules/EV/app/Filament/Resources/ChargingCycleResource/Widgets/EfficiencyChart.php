@@ -27,6 +27,7 @@ class EfficiencyChart extends ChartWidget
             }
             return 0;
         },$socUsedArray,$usedEnergyArray);
+        dd($effectiveUsedEnergyArray);
 
         return [
 
