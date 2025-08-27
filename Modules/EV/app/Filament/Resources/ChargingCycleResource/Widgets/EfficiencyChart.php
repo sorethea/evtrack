@@ -23,7 +23,7 @@ class EfficiencyChart extends ChartWidget
 
         $effectiveUsedEnergyArray = array_map(function ($v1,$v2){
             if($v2>0){
-                return 100*($v1/$v2);
+                return Number::format(100*($v1/$v2),0);
             }
             return 0;
         },$socUsedArray,$usedEnergyArray);
