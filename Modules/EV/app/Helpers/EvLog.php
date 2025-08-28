@@ -55,6 +55,7 @@ class EvLog
         $capacity = $log?->cycleView?->capacity;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
         $capacityVariant = Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1);
+        $netConsumption = 100*$consumption/(100-$regenPercentage);
         $deltaVoltage = 1000*$log?->cycleView?->v_spread??0;
         $cycleHCVArray = $log?->cycleView?->logs->pluck('hvc')->toArray();
         $cycleLCVArray = $log?->cycleView?->logs->pluck('lvc')->toArray();
@@ -79,7 +80,7 @@ class EvLog
                 ->chart($cycleDischargeArray)
                 ->color(Color::Teal),
             Stat::make(trans('ev.consumption'),Number::format($consumption,0).'Wh/km')
-                ->description("SoC based: ".Number::format($socConsumption,0)."Wh/km")
+                ->description("SoC: ".Number::format($socConsumption,0)."Wh/km. Net: ".Number::format($netConsumption,0)."Wh/km")
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
