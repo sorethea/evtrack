@@ -34,10 +34,10 @@ class ViewChargingCycle extends ViewRecord
             ]),
             ChargingCycleResource\Widgets\EfficiencyChart::make([
                 'record'=>$this->record,
-            ])
-//            ChargingCycleResource\Widgets\RangeChart::make([
-//                'record'=>$this->record,
-//            ]),
+            ]),
+            ChargingCycleResource\Widgets\BatteryVoltageChart::make([
+                'record'=>$this->record,
+            ]),
 //            ChargingCycleResource\Widgets\MiddleSoCChart::make([
 //                'record'=>$this->record,
 //            ]),
