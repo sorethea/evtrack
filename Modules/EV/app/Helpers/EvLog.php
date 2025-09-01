@@ -99,6 +99,7 @@ class EvLog
     }
 
     public static function socVoltageBased($voltage):float {
+        arsort($voltage);
         $table = config('ev.socVoltage');
 // Find the range where the voltage falls
         $lowerSoc = null;
