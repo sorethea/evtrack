@@ -71,10 +71,10 @@ class EvLog
                 ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
-//            Stat::make(trans('ev.battery_voltage')."({$log->cycleView->root_voltage}V)",Number::format($voltage).'V')
-//                ->color(Color::Yellow)
-//                ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
-//                ->chart($cycleVoltageArray),
+            Stat::make(trans('ev.battery_voltage')."({$log->cycleView->root_voltage}V)",Number::format($voltage).'V')
+                ->color(Color::Yellow)
+                ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
+                ->chart($cycleVoltageArray),
 //            Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
 //                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
 //                ->chart($cycleDischargeArray)
