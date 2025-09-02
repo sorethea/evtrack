@@ -40,9 +40,9 @@ class EvLog
         $usedSoC = $rootSoc-$lastSoc;
         //$remainRange = ($rootSoc-$lastSoc)>0?$lastSoc * ($distance/($rootSoc-$lastSoc)):0;
         $vehicleCapacity = $log->vehicle->capacity;
-        $cycleSoCArray = $log?->cycleView?->logs->pluck('soc')->toArray();
+        $cycleSoCArray = $log?->cycleView?->logs?->pluck('soc')->toArray()??[];
         $voltage =  $log?->detail?->voltage??0;
-        $cycleVoltageArray = $log?->cycleView?->logs->pluck('voltage')->toArray();
+        $cycleVoltageArray = $log?->cycleView?->logs?->pluck('voltage')->toArray()??[];
         $avgVoltage = $voltage/200??0;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
         $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge;
