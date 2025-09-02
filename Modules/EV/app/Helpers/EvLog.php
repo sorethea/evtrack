@@ -50,12 +50,12 @@ class EvLog
         $regenPercentage = $log?->cycleView?->discharge>0?100*$log?->cycleView?->charge/$log?->cycleView?->discharge:0 ;
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
         $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
-        $consumption = $log?->cycleView?->a_consumption;
-        $socConsumption = $log?->cycleView?->consumption;
+        $consumption = $log?->cycleView?->a_consumption??0;
+        $socConsumption = $log?->cycleView?->consumption??0;
         $capacity = $log?->cycleView?->capacity;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
         $capacityVariant = Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1);
-        $netConsumption =$consumption*(100-$regenPercentage)/100;
+        $netConsumption =$consumption*(100-$regenPercentage)/100??0;
         $deltaVoltage = 1000*$log?->cycleView?->v_spread??0;
         $cycleHCVArray = $log?->cycleView?->logs->pluck('hvc')->toArray();
         $cycleLCVArray = $log?->cycleView?->logs->pluck('lvc')->toArray();
