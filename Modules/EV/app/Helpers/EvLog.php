@@ -75,10 +75,10 @@ class EvLog
                 ->color(Color::Yellow)
                 ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
                 ->chart($cycleVoltageArray),
-//            Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
-//                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
-//                ->chart($cycleDischargeArray)
-//                ->color(Color::Teal),
+            Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
+                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->chart($cycleDischargeArray)
+                ->color(Color::Teal),
 //            Stat::make(trans('ev.consumption'),Number::format($consumption,0).'Wh/km')
 //                ->description("SoC: ".Number::format($socConsumption,0)."Wh/km. Net: ".Number::format($netConsumption,0)."Wh/km")
 //                ->chart($cycleConsumptionArray)
