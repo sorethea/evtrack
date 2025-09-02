@@ -41,7 +41,7 @@ class EvLog
         //$remainRange = ($rootSoc-$lastSoc)>0?$lastSoc * ($distance/($rootSoc-$lastSoc)):0;
         $vehicleCapacity = $log->vehicle->capacity;
         $cycleSoCArray = $log?->cycleView?->logs->pluck('soc')->toArray();
-        $voltage =  $log->detail->voltage;
+        $voltage =  $log?->detail?->voltage??0;
         $cycleVoltageArray = $log?->cycleView?->logs->pluck('voltage')->toArray();
         $avgVoltage = $voltage/200;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
@@ -73,7 +73,7 @@ class EvLog
                 ->chart($cycleSoCArray),
             Stat::make(trans('ev.battery_voltage')."({$log->cycleView->root_voltage}V)",Number::format($voltage).'V')
                 ->color(Color::Yellow)
-                //->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
+                ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
                 ->chart($cycleVoltageArray),
 //            Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
 //                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
