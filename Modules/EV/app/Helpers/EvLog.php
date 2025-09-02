@@ -46,7 +46,7 @@ class EvLog
         $avgVoltage = $voltage/200;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
         $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge;
-        $remainRange = ($rootSoc/100)*($vehicleCapacity*$distance/$netDischarge)-$distance;
+        $remainRange = $netDischarge>0?($rootSoc/100)*($vehicleCapacity*$distance/$netDischarge)-$distance:0;
         $regenPercentage = $log?->cycleView?->discharge>0?100*$log?->cycleView?->charge/$log?->cycleView?->discharge:0 ;
         $cycleDischargeArray = $log?->cycleView?->logs->pluck('discharge')->toArray();
         $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
