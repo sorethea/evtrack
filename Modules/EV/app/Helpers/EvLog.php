@@ -83,10 +83,10 @@ class EvLog
                 ->description("SoC: ".Number::format($socConsumption,0)."Wh/km. Net: ".Number::format($netConsumption,0)."Wh/km")
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
-//            Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
-//                ->description( "Capacity variant: {$capacityVariant}%")
-//                ->chart($cycleCapacityArray)
-//                ->color(Color::Pink),
+            Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
+                ->description( "Capacity variant: {$capacityVariant}%")
+                ->chart($cycleCapacityArray)
+                ->color(Color::Pink),
 //            Stat::make(trans('ev.voltage'),Number::format($deltaVoltage,0).'mV')
 //                ->description( "Highest cell: {$log?->cycleView?->last_hvc}V. Lowest cell: {$log?->cycleView?->last_lvc}V.")
 //                ->chart($cycleHCVArray)
