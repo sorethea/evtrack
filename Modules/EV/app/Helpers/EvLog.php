@@ -52,9 +52,9 @@ class EvLog
         $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
         $consumption = $log?->cycleView?->a_consumption??0;
         $socConsumption = $log?->cycleView?->consumption??0;
-        $capacity = $log?->cycleView?->capacity;
+        $capacity = $log?->cycleView?->capacity??0;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
-        $capacityVariant = Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1);
+        $capacityVariant = $vehicleCapacity?Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1):0;
         $netConsumption =$consumption*(100-$regenPercentage)/100??0;
         $deltaVoltage = 1000*$log?->cycleView?->v_spread??0;
         $cycleHCVArray = $log?->cycleView?->logs->pluck('hvc')->toArray();
