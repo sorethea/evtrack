@@ -71,18 +71,22 @@ class EvLog
                 ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
-            Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
-                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
-                ->chart($cycleDischargeArray)
-                ->color(Color::Teal),
-            Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
-                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
-                ->chart($cycleDischargeArray)
-                ->color(Color::Teal),
             Stat::make(trans('ev.battery_voltage')."({$log?->cycleView?->root_voltage}V)",Number::format($voltage).'V')
                 ->color(Color::Yellow)
                 ->description('Average cell voltage: '.Number::format($avgVoltage,3).'V')
                 ->chart($cycleVoltageArray),
+            Stat::make(trans('ev.voltage'),Number::format($deltaVoltage,0).'mV')
+                ->description( "Highest cell: {$log?->cycleView?->last_hvc}V. Lowest cell: {$log?->cycleView?->last_lvc}V.")
+                ->chart($cycleHCVArray)
+                ->color(Color::Orange),
+            Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
+                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->chart($cycleDischargeArray)
+                ->color(Color::Teal),
+            Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
+                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->chart($cycleDischargeArray)
+                ->color(Color::Teal),
             Stat::make(trans('ev.consumption'),Number::format($consumption,0).'Wh/km')
                 ->description("SoC: ".Number::format($socConsumption,0)."Wh/km. Net: ".Number::format($netConsumption,0)."Wh/km")
                 ->chart($cycleConsumptionArray)
@@ -91,10 +95,6 @@ class EvLog
                 ->description( "Capacity variant: {$capacityVariant}%")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
-            Stat::make(trans('ev.voltage'),Number::format($deltaVoltage,0).'mV')
-                ->description( "Highest cell: {$log?->cycleView?->last_hvc}V. Lowest cell: {$log?->cycleView?->last_lvc}V.")
-                ->chart($cycleHCVArray)
-                ->color(Color::Orange),
             Stat::make(trans('ev.temperature'),Number::format($deltaTemp,0).'C')
                 ->description( "Highest cell: {$log?->cycleView?->last_htc}V. Lowest cell: {$log?->cycleView?->last_ltc}V.")
                 ->chart($cycleHTVArray)
