@@ -14,6 +14,7 @@ return [
     "soc_middle"=>"Middle",
     "energy"=>"Energy",
     "used_energy"=>"Used Energy",
+    "added_energy"=>"Added Energy",
     "used"=>"Used",
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",
