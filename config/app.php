@@ -124,6 +124,7 @@ return [
     ],
     'aliases' =>[
         'evlog'=> \Modules\EV\Facades\EvLog::class,
+        'Str'=>\Illuminate\Support\Str::class,
     ],
 
 ];
