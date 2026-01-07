@@ -78,7 +78,7 @@ class ChargingCycleResource extends Resource
 //                        ->numeric(1),
 //                ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(kWh)',[
-                    Tables\Columns\TextColumn::make('charge')
+                    Tables\Columns\TextColumn::make('charge_from_regen')
                         ->numeric(1)
                         ->label(trans('ev.charge') )
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.charge'))),
@@ -87,7 +87,7 @@ class ChargingCycleResource extends Resource
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.percentage_charge'))
                         ->toggleable(isToggledHiddenByDefault: true),
-                    Tables\Columns\TextColumn::make('discharge')
+                    Tables\Columns\TextColumn::make('discharge_total')
                         ->numeric(1)
                         ->label(trans('ev.discharge') )
                         ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.discharge'))),
