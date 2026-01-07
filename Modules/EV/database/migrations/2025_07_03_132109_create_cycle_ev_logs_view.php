@@ -153,7 +153,7 @@ return new class extends Migration
         lic.last_ltc,
         lic.last_htc,
         lic.last_tc,
-        cr.root_soc - lic.last_soc AS soc_derivation,
+        (cr.root_soc - lic.last_soc) + cb.soc_increase_charging  AS soc_derivation,
         lic.last_hvc - lic.last_lvc AS v_spread,
         lic.last_htc - lic.last_ltc AS t_spread,
         lic.last_soc - 100 * (lic.last_ac - lic.last_ad) / v.capacity AS soc_middle,
