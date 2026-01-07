@@ -45,7 +45,7 @@ class EvLog
         $cycleVoltageArray = $log?->cycleView?->logs?->pluck('voltage')->toArray()??[];
         $avgVoltage = $voltage/200??0;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
-        $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge;
+        $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge_from_regen;
         $remainRange = $netDischarge>0?($rootSoc/100)*($vehicleCapacity*$distance/$netDischarge)-$distance:0;
         //Add energy = regen + charge
         //Regenerative braking
@@ -82,7 +82,7 @@ class EvLog
                 ->chart($cycleHCVArray)
                 ->color(Color::Orange),
             Stat::make(trans('ev.used_energy'),Number::format($netDischarge).'kWh')
-                ->description("Added({$log?->cycleView?->charge})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
+                ->description("Added({$log?->cycleView?->charge_from_regen})/Gross({$log?->cycleView?->discharge}): ".Number::format($regenPercentage??0,1).'%')
                 ->chart($cycleDischargeArray)
                 ->color(Color::Teal),
             Stat::make(trans('ev.consumption'),Number::format($consumption,0).'Wh/km')
