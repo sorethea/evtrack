@@ -45,7 +45,7 @@ class EvLog
         $cycleVoltageArray = $log?->cycleView?->logs?->pluck('voltage')->toArray()??[];
         $avgVoltage = $voltage/200??0;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
-        $netDischarge = $log?->cycleView?->discharge_total - $log->cycleView?->charge_from_regen;
+        $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge_from_regen;
         $remainRange = $netDischarge>0?($rootSoc/100)*($vehicleCapacity*$distance/$netDischarge)-$distance:0;
         //Add energy = regen + charge
         //Regenerative braking
