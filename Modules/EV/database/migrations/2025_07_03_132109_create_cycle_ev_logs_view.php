@@ -141,17 +141,17 @@ return new class extends Migration
         lic.last_aca - cr.root_aca AS charge_amp,
         lic.last_ada - cr.root_ada AS discharge_amp,
         -- Original charge calculation (total)
-        lic.last_ac - cr.root_ac AS charge_total,
+        lic.last_ac - cr.root_ac AS charge,
         -- Separated charge values
         cb.charge_from_charging,
         cb.charge_from_regen,
-        cb.discharge_total,
+        cb.discharge,
         -- Percentage calculations using separated values
         100 * cb.charge_from_charging / NULLIF(cb.discharge_total, 0) AS percentage_charge_from_charging,
         100 * cb.charge_from_regen / NULLIF(cb.discharge_total, 0) AS percentage_charge_from_regen,
         -- Original calculations remain but you can modify if needed
         100*(lic.last_ac - cr.root_ac)/(lic.last_ad - cr.root_ad) AS percentage_charge_total,
-        (lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac) AS used_energy,
+        cb.discharge - cb.charge_from_regen AS used_energy,
         100*(lic.last_odo - cr.root_odo) / (cr.root_soc - lic.last_soc) AS `range`,
         lic.last_odo - cr.root_odo AS distance,
         100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) /
