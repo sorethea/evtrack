@@ -152,6 +152,9 @@ class EvLog
             //if($index >=200) break;
             $item = ObdItem::where('pid', $row[1])->first();
             if (!empty($item) && $item->id && $evLog->id) {
+                if($item->id==10){
+                    $evLog->update(['soc'=>$row[2]]);
+                }
                 $latitude = !empty($row[4]) ? $row[4] : 0.0;
                 $longitude = !empty($row[5]) ? $row[5] : 0.0;
                 EvLogItem::query()->firstOrCreate(
