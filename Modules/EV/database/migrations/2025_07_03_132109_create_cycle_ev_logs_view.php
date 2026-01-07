@@ -63,7 +63,7 @@ return new class extends Migration
                 WHEN prev_ad IS NOT NULL
                 THEN ad - prev_ad
                 ELSE 0
-            END) AS discharge_total
+            END) AS discharge
         FROM ev_logs_with_diffs
         GROUP BY cycle_id
     ),
@@ -147,8 +147,8 @@ return new class extends Migration
         cb.charge_from_regen,
         cb.discharge,
         -- Percentage calculations using separated values
-        100 * cb.charge_from_charging / NULLIF(cb.discharge_total, 0) AS percentage_charge_from_charging,
-        100 * cb.charge_from_regen / NULLIF(cb.discharge_total, 0) AS percentage_charge_from_regen,
+        100 * cb.charge_from_charging / NULLIF(cb.discharge, 0) AS percentage_charge_from_charging,
+        100 * cb.charge_from_regen / NULLIF(cb.discharge, 0) AS percentage_charge_from_regen,
         -- Original calculations remain but you can modify if needed
         100*(lic.last_ac - cr.root_ac)/(lic.last_ad - cr.root_ad) AS percentage_charge_total,
         cb.discharge - cb.charge_from_regen AS used_energy,
