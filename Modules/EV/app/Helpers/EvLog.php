@@ -159,15 +159,16 @@ class EvLog
                 $evLogItem = EvLogItem::query()->firstOrCreate(
                     ['item_id' => $item->id, 'log_id' => $evLog->id],
                     ['value' => $row[2], 'latitude' => $latitude, 'longitude' => $longitude]);
-                logger($evLogItem);
                 if($evLogItem->item_id==10){
-                    $evLog->update(['soc'=>$evLogItem->value]);
+                    $soc = $evLogItem->value;
                 }
                 if($evLogItem->item_id==11){
-                    $evLog->update(['soc_actual'=>$evLogItem->value]);
+                    $soc_actual = $evLogItem->value;
                 }
             }
         }
+        logger($soc);
+        logger($soc_actual);
     }
 
     public static function obdImportForm():array
