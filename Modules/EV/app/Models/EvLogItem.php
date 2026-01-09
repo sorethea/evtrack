@@ -10,7 +10,6 @@ class EvLogItem extends Model
     protected $fillable = [
         "log_id",
         "item_id",
-        "name",
         "value",
         "latitude",
         "longitude",

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('obd_items', function (Blueprint $table) {
             $table->id();
             $table->string('pid');
+            $table->string('name')->nullable();
             $table->string('units')->nullable();
             $table->timestamps();
         });

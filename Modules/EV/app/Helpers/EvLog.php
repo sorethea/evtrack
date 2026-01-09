@@ -159,7 +159,8 @@ class EvLog
                 $evLogItem = EvLogItem::query()->firstOrCreate(
                     ['item_id' => $item->id, 'log_id' => $evLog->id],
                     ['value' => $row[2], 'latitude' => $latitude, 'longitude' => $longitude]);
-                if(!empty($name = $evLogItem->name)){
+                if($name=!empty($evLogItem->name)){
+                    logger($name);
                     $evLog->$name = $row[2];
                     $evLog->save();
                 }
