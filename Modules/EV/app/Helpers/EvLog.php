@@ -160,9 +160,8 @@ class EvLog
                     ['item_id' => $item->id, 'log_id' => $evLog->id],
                     ['value' => $row[2], 'latitude' => $latitude, 'longitude' => $longitude]);
                 if(!empty($name = $evLogItem->name)){
-                    $evLog->update([
-                        "{$name}" => $row[2]
-                    ]);
+                    $evLog->$name = $row[2];
+                    $evLog->save();
                 }
             }
         }
