@@ -146,6 +146,10 @@ class EvLog
         $obdFileArray = explode("/", $obdFile);
         $obdFileName = end($obdFileArray);
         $obdFileNameArray = explode(".", $obdFileName);
+        $evLog->update([
+            'date' => $obdFileNameArray[0],
+            'obd_file' => $obdFile,
+        ]);
         foreach ($csv->getRecords() as $index => $row) {
             //if($index >=200) break;
             $item = ObdItem::where('pid', $row[1])->first();
@@ -155,20 +159,14 @@ class EvLog
                 $evLogItem = EvLogItem::query()->firstOrCreate(
                     ['item_id' => $item->id, 'log_id' => $evLog->id],
                     ['value' => $row[2], 'latitude' => $latitude, 'longitude' => $longitude]);
-                if($evLogItem->item_id==10){
-                    $soc = $evLogItem->value;
-                }
-                if($evLogItem->item_id==11){
-                    $soc_actual = $evLogItem->value;
+                if($evLogItem->name){
+                    $evLog->update([
+                        $evLogItem->name => $row[2]
+                    ]);
                 }
             }
         }
-        $evLog->update([
-            'date' => $obdFileNameArray[0],
-            'obd_file' => $obdFile,
-            'soc' => $soc,
-            'soc_actual' => $soc_actual,
-        ]);
+
     }
 
     public static function obdImportForm():array
