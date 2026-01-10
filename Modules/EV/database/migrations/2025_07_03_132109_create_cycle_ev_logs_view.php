@@ -186,8 +186,7 @@ return new class extends Migration
         lic.last_odo - cr.root_odo AS distance,
         100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) /
         (cr.root_soc - lic.last_soc) AS capacity_amp,
-        100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
-        (cr.root_soc - lic.last_soc) AS capacity,
+        100 * (cb.discharge - cb.charge_from_regen) / cb.soc_decrease AS capacity,
         1000 * (lic.last_ada - cr.root_ada) /
         NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption_amp,
         1000 * (lic.last_ad - cr.root_ad) /
