@@ -128,7 +128,7 @@ return new class extends Migration
             WHERE b3.cycle_id = b2.cycle_id
         )
     ),
-    -- Get previous cycle\'s last log for chaining
+    -- Get previous cycles last log for chaining
     previous_cycle_data AS (
         SELECT
             cs.cycle_id AS current_cycle_id,
@@ -155,8 +155,8 @@ return new class extends Migration
         -- Previous cycle info
         pcd.previous_cycle_id,
         pcd.prev_end_date,
-        -- Root values: if this cycle has a previous cycle, use previous cycle\'s last values
-    -- Otherwise use this cycle\'s first values
+        -- Root values: if this cycle has a previous cycle, use previous cycles last values
+    -- Otherwise use this cycles first values
         COALESCE(pcd.prev_last_odo, cfl.first_odo) AS root_odo,
         cfl.first_voltage AS root_voltage,
         COALESCE(pcd.prev_last_soc, cfl.first_soc) AS root_soc,
