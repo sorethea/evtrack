@@ -18,10 +18,10 @@ class LogResource extends Resource
 {
     protected static ?string $model = EvLog::class;
 
-    public static function getNavigationGroup(): ?string
-    {
-        return "Raw Logs";
-    }
+   public static function getNavigationLabel(): string
+   {
+       return "Raw Ev Logs";
+   }
 
 
     protected static ?string $navigationIcon = 'heroicon-o-table-cells';
