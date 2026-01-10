@@ -154,7 +154,7 @@ class CreateCycleEvLogsView extends Migration
         lic.last_ltc,
         lic.last_htc,
         lic.last_tc,
-        cr.root_soc - lic.last_soc AS soc_derivation,
+        (cr.root_soc - lic.last_soc) + cb.soc_increase_charging  AS soc_derivation,
         lic.last_hvc - lic.last_lvc AS v_spread,
         lic.last_htc - lic.last_ltc AS t_spread,
         lic.last_soc - 100 * (lic.last_ac - lic.last_ad) / v.capacity AS soc_middle,
@@ -183,12 +183,11 @@ class CreateCycleEvLogsView extends Migration
         -- Original calculations remain but you can modify if needed
         100*(lic.last_ac - cr.root_ac)/(lic.last_ad - cr.root_ad) AS percentage_charge_total,
         cb.discharge - cb.charge_from_regen AS used_energy,
-        100*(lic.last_odo - cr.root_odo) / (cr.root_soc - lic.last_soc) AS `range`,
+        100*(lic.last_odo - cr.root_odo)/cb.soc_decrease AS `range`,
         lic.last_odo - cr.root_odo AS distance,
         100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) /
         (cr.root_soc - lic.last_soc) AS capacity_amp,
-        100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
-        (cr.root_soc - lic.last_soc) AS capacity,
+        100 * (cb.discharge - cb.charge_from_regen) / cb.soc_decrease AS capacity,
         1000 * (lic.last_ada - cr.root_ada) /
         NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption_amp,
         1000 * (lic.last_ad - cr.root_ad) /
