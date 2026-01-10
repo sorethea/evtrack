@@ -56,9 +56,13 @@ class LogResource extends Resource
                     ->searchable(),
                 Tables\Columns\ColumnGroup::make('Accumulative',[
                     Tables\Columns\TextColumn::make('ac')
-                        ->label('Charge kWh'),
+                        ->numeric(0)
+                        ->suffix('kWh')
+                        ->label('Charge'),
                     Tables\Columns\TextColumn::make('ad')
-                        ->label('Discharge kWh'),
+                        ->numeric(0)
+                        ->suffix('kWh')
+                        ->label('Discharge'),
 
                 ])
             ])
