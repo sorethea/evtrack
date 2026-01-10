@@ -49,6 +49,7 @@ class LogResource extends Resource
             ->actions([
                 //Tables\Actions\EditAction::make(),
             ])
+            ->defaultSort('date','desc')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
