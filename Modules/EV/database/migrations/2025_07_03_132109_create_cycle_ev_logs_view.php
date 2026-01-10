@@ -13,7 +13,7 @@ return new class extends Migration
     WITH ev_logs_base AS (
         SELECT
             l.id AS log_id,
-            l.cycle_id,  -- Use actual cycle_id, no COALESCE
+            l.cycle_id,
             l.vehicle_id,
             l.date,
             l.log_type,
@@ -33,182 +33,96 @@ return new class extends Migration
         LEFT JOIN ev_log_items li
             ON l.id = li.log_id
             AND li.item_id BETWEEN 1 AND 29
-        WHERE l.cycle_id IS NOT NULL  -- Only include logs with actual cycle_id
+        WHERE l.cycle_id IS NOT NULL
         GROUP BY l.id, l.cycle_id, l.vehicle_id, l.date, l.log_type
     ),
-    -- Find continuous cycles (where last = next root)
-    continuous_cycles AS (
-        SELECT DISTINCT
-            cycle_id,
-            vehicle_id
+    -- Calculate incremental changes
+    ev_logs_with_diffs AS (
+        SELECT
+            *,
+            LAG(ac) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_ac,
+            LAG(ad) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_ad,
+            LAG(soc) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_soc,
+            LAG(log_type) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_log_type
         FROM ev_logs_base
     ),
-    -- Get all unique cycles
-    all_cycles AS (
-        SELECT DISTINCT
+    -- Separate charge accumulation
+    charge_breakdown AS (
+        SELECT
             cycle_id,
-            vehicle_id
-        FROM ev_logs_base
+            SUM(CASE
+                WHEN log_type = \'charging\' AND prev_ac IS NOT NULL
+                THEN ac - prev_ac
+                ELSE 0
+            END) AS charge_from_charging,
+            SUM(CASE
+                WHEN log_type != \'charging\' AND prev_ac IS NOT NULL
+                THEN ac - prev_ac
+                ELSE 0
+            END) AS charge_from_regen,
+            SUM(CASE
+                WHEN prev_ad IS NOT NULL
+                THEN ad - prev_ad
+                ELSE 0
+            END) AS discharge
+        FROM ev_logs_with_diffs
+        GROUP BY cycle_id
     ),
-    -- For each cycle, find previous cycle\'s last log
-    cycle_relationships AS (
-    SELECT
-            curr.cycle_id AS current_cycle_id,
-            curr.vehicle_id,
-            prev.cycle_id AS previous_cycle_id,
-            -- Get the date of the last log in previous cycle
-    (SELECT MAX(date) FROM ev_logs_base WHERE cycle_id = prev.cycle_id) AS previous_cycle_end_date,
-            -- Get the date of the first log in current cycle
-    (SELECT MIN(date) FROM ev_logs_base WHERE cycle_id = curr.cycle_id) AS current_cycle_start_date
-        FROM all_cycles curr
-        LEFT JOIN all_cycles prev ON curr.vehicle_id = prev.vehicle_id
-    AND prev.cycle_id < curr.cycle_id  -- Previous cycle has smaller ID
-    AND EXISTS (
-        -- Check if the last log of previous cycle exists as first log of current cycle
-                SELECT 1
-                FROM ev_logs_base prev_last
-                WHERE prev_last.cycle_id = prev.cycle_id
-    AND prev_last.date = (
-    SELECT MAX(date)
-                    FROM ev_logs_base
-                    WHERE cycle_id = prev.cycle_id
-                )
-                AND EXISTS (
-        SELECT 1
-                    FROM ev_logs_base curr_first
-                    WHERE curr_first.cycle_id = curr.cycle_id
-    AND curr_first.date = (
-    SELECT MIN(date)
-                        FROM ev_logs_base
-                        WHERE cycle_id = curr.cycle_id
-                    )
-                    -- Match by key metrics to ensure it\'s the same log
-                    AND curr_first.odo = prev_last.odo
-                    AND curr_first.soc = prev_last.soc
-                    AND curr_first.ac = prev_last.ac
-                    AND curr_first.ad = prev_last.ad
-                )
-            )
+    -- Cycle roots (first log)
+    cycle_roots AS (
+        SELECT
+            b1.cycle_id,
+            b1.vehicle_id,
+            b1.date AS cycle_date,
+            b1.odo AS root_odo,
+            b1.voltage AS root_voltage,
+            b1.soc AS root_soc,
+            b1.aca AS root_aca,
+            b1.ada AS root_ada,
+            b1.ac AS root_ac,
+            b1.ad AS root_ad
+        FROM ev_logs_base b1
+        WHERE b1.date = (
+            SELECT MIN(date)
+            FROM ev_logs_base b2
+            WHERE b2.cycle_id = b1.cycle_id
+        )
     ),
-    -- Get root values for each cycle (could be from previous cycle\'s last log)
-    cycle_root_values AS (
-    SELECT
-            cr.cycle_id,
-            cr.vehicle_id,
-            -- If this cycle has a previous cycle, use previous cycle\s last values
-            -- Otherwise use this cycle\'s first log values
-            CASE
-                WHEN crf.previous_cycle_id IS NOT NULL THEN p.last_odo
-                ELSE f.odo
-            END AS root_odo,
-            CASE
-                WHEN crf.previous_cycle_id IS NOT NULL THEN p.last_voltage
-                ELSE f.voltage
-            END AS root_voltage,
-            CASE
-                WHEN crf.previous_cycle_id IS NOT NULL THEN p.last_soc
-                ELSE f.soc
-            END AS root_soc,
-            CASE
-                WHEN crf.previous_cycle_id IS NOT NULL THEN p.last_aca
-                ELSE f.aca
-            END AS root_aca,
-            CASE
-                WHEN crf.previous_cycle_id IS NOT NULL THEN p.last_ada
-                ELSE f.ada
-            END AS root_ada,
-            CASE
-                WHEN crf.previous_cycle_id IS NOT NULL THEN p.last_ac
-                ELSE f.ac
-            END AS root_ac,
-            CASE
-                WHEN crf.previous_cycle_id IS NOT NULL THEN p.last_ad
-                ELSE f.ad
-            END AS root_ad,
-            -- Get cycle start date
-            f.date AS cycle_date,
-            -- Store relationship info
-            crf.previous_cycle_id,
-            f.log_type AS root_log_type
-        FROM all_cycles cr
-    -- Get first log in cycle
-        LEFT JOIN ev_logs_base f ON cr.cycle_id = f.cycle_id
-    AND f.date = (
-    SELECT MIN(date)
-                FROM ev_logs_base
-                WHERE cycle_id = cr.cycle_id
-            )
-        -- Get cycle relationships
-        LEFT JOIN cycle_relationships crf ON cr.cycle_id = crf.current_cycle_id
-        -- Get previous cycle\'s last values if exists
-        LEFT JOIN (
-            SELECT
-                cycle_id,
-                odo AS last_odo,
-                voltage AS last_voltage,
-                soc AS last_soc,
-                aca AS last_aca,
-                ada AS last_ada,
-                ac AS last_ac,
-                ad AS last_ad
-            FROM ev_logs_base
-            WHERE date = (
-                SELECT MAX(date)
-                FROM ev_logs_base b2
-                WHERE b2.cycle_id = ev_logs_base.cycle_id
-            )
-        ) p ON crf.previous_cycle_id = p.cycle_id
-    ),
-    -- Get last log in each cycle
+    -- Last in cycle
     last_in_cycle AS (
         SELECT
-            cycle_id,
-            MAX(date) AS end_date,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN odo END) AS last_odo,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN soc END) AS last_soc,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN aca END) AS last_aca,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN ada END) AS last_ada,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN ac END) AS last_ac,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN ad END) AS last_ad,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN lvc END) AS last_lvc,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN hvc END) AS last_hvc,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN ltc END) AS last_ltc,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN htc END) AS last_htc,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN tc END) AS last_tc,
-            MAX(CASE WHEN date = (SELECT MAX(date) FROM ev_logs_base b2 WHERE b2.cycle_id = ev_logs_base.cycle_id) THEN log_type END) AS last_log_type
-        FROM ev_logs_base
-        GROUP BY cycle_id
-    ),
-    -- Calculate incremental changes within each cycle
-    cycle_metrics AS (
-        SELECT
-            cycle_id,
-            -- Total charge and discharge in the cycle
-            MAX(ac) - MIN(ac) AS total_charge,
-            MAX(ad) - MIN(ad) AS total_discharge,
-            -- SOC change in the cycle
-            MAX(soc) - MIN(soc) AS soc_change,
-            -- Odo change in the cycle
-            MAX(odo) - MIN(odo) AS odo_change
-        FROM ev_logs_base
-        GROUP BY cycle_id
+            b2.cycle_id,
+            b2.date AS end_date,
+            b2.odo AS last_odo,
+            b2.soc AS last_soc,
+            b2.aca AS last_aca,
+            b2.ada AS last_ada,
+            b2.ac AS last_ac,
+            b2.ad AS last_ad,
+            b2.lvc AS last_lvc,
+            b2.hvc AS last_hvc,
+            b2.ltc AS last_ltc,
+            b2.htc AS last_htc,
+            b2.tc AS last_tc
+        FROM ev_logs_base b2
+        WHERE b2.date = (
+            SELECT MAX(date)
+            FROM ev_logs_base b3
+            WHERE b3.cycle_id = b2.cycle_id
+        )
     )
     SELECT
-        crv.cycle_id as id,
-        crv.vehicle_id,
-        crv.cycle_date,
+        cr.cycle_id as id,
+        cr.vehicle_id,
+        cr.cycle_date,
         lic.end_date,
-        -- Show if this cycle is chained from previous
-        crv.previous_cycle_id,
-        -- Root values (could be from previous cycle\'s last)
-        crv.root_odo,
-        crv.root_voltage,
-        crv.root_soc,
-        crv.root_ac,
-        crv.root_ad,
-        crv.root_aca,
-        crv.root_ada,
-        -- Last values of current cycle
+        cr.root_odo,
+        cr.root_voltage,
+        cr.root_soc,
+        cr.root_ac,
+        cr.root_ad,
+        cr.root_aca,
+        cr.root_ada,
         lic.last_odo,
         lic.last_soc,
         lic.last_aca,
@@ -220,38 +134,34 @@ return new class extends Migration
         lic.last_ltc,
         lic.last_htc,
         lic.last_tc,
-        -- Log types
-        crv.root_log_type,
-        lic.last_log_type,
-        -- Calculations
-        crv.root_soc - lic.last_soc AS soc_derivation,
+        cr.root_soc - lic.last_soc AS soc_derivation,
         lic.last_hvc - lic.last_lvc AS v_spread,
         lic.last_htc - lic.last_ltc AS t_spread,
         lic.last_soc - 100 * (lic.last_ac - lic.last_ad) / v.capacity AS soc_middle,
         lic.last_ac - lic.last_ad AS middle,
-        lic.last_aca - crv.root_aca AS charge_amp,
-        lic.last_ada - crv.root_ada AS discharge_amp,
-        -- Charge calculations
-        lic.last_ac - crv.root_ac AS charge,
-        cm.total_charge AS total_charge_in_cycle,
-        cm.total_discharge AS total_discharge_in_cycle,
-        -- Basic metrics
-        100 * (lic.last_ac - crv.root_ac) / NULLIF(lic.last_ad - crv.root_ad, 0) AS percentage_charge_total,
-        (lic.last_ad - crv.root_ad) - (lic.last_ac - crv.root_ac) AS used_energy,
-        -- Range and distance (using chained odo if available)
-        100 * (lic.last_odo - crv.root_odo) / NULLIF(crv.root_soc - lic.last_soc, 0) AS `range`,
-        lic.last_odo - crv.root_odo AS distance,
-        -- Capacity and consumption
-        100 * ((lic.last_ada - crv.root_ada) - (lic.last_aca - crv.root_aca)) / NULLIF(crv.root_soc - lic.last_soc, 0) AS capacity_amp,
-        100 * ((lic.last_ad - crv.root_ad) - (lic.last_ac - crv.root_ac)) / NULLIF(crv.root_soc - lic.last_soc, 0) AS capacity,
-        1000 * (lic.last_ada - crv.root_ada) / NULLIF(lic.last_odo - crv.root_odo, 0) AS a_consumption_amp,
-        1000 * (lic.last_ad - crv.root_ad) / NULLIF(lic.last_odo - crv.root_odo, 0) AS a_consumption,
-        10 * v.capacity * (crv.root_soc - lic.last_soc) / NULLIF(lic.last_odo - crv.root_odo, 0) AS consumption
-    FROM cycle_root_values crv
-    JOIN last_in_cycle lic ON crv.cycle_id = lic.cycle_id
-    JOIN cycle_metrics cm ON crv.cycle_id = cm.cycle_id
-    LEFT JOIN vehicles v ON crv.vehicle_id = v.id
-    ORDER BY crv.cycle_date;');
+        lic.last_aca - cr.root_aca AS charge_amp,
+        lic.last_ada - cr.root_ada AS discharge_amp,
+        lic.last_ac - cr.root_ac AS charge,
+        -- The missing columns:
+        cb.charge_from_charging,
+        cb.charge_from_regen,
+        cb.discharge,
+        100 * cb.charge_from_charging / NULLIF(cb.discharge, 0) AS percentage_charge_from_charging,
+        100 * cb.charge_from_regen / NULLIF(cb.discharge, 0) AS percentage_charge_from_regen,
+        100*(lic.last_ac - cr.root_ac)/NULLIF(lic.last_ad - cr.root_ad, 0) AS percentage_charge_total,
+        cb.discharge - cb.charge_from_regen AS used_energy,
+        100*(lic.last_odo - cr.root_odo) / NULLIF(cr.root_soc - lic.last_soc, 0) AS `range`,
+        lic.last_odo - cr.root_odo AS distance,
+        100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) / NULLIF(cr.root_soc - lic.last_soc, 0) AS capacity_amp,
+        100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) / NULLIF(cr.root_soc - lic.last_soc, 0) AS capacity,
+        1000 * (lic.last_ada - cr.root_ada) / NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption_amp,
+        1000 * (lic.last_ad - cr.root_ad) / NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption,
+        10*v.capacity * (cr.root_soc - lic.last_soc) / NULLIF(lic.last_odo - cr.root_odo, 0) AS consumption
+    FROM cycle_roots cr
+    JOIN last_in_cycle lic ON cr.cycle_id = lic.cycle_id
+    JOIN charge_breakdown cb ON cr.cycle_id = cb.cycle_id
+    LEFT JOIN vehicles v ON cr.vehicle_id = v.id
+    ORDER BY cr.cycle_date;');
 //        DB::statement('CREATE VIEW ev_logs_cycle_view AS
 //    WITH ev_logs_base AS (
 //        SELECT
