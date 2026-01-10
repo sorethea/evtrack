@@ -18,14 +18,11 @@ class LogResource extends Resource
 {
     protected static ?string $model = EvLog::class;
 
-
-    /**
-     * @param string|null $navigationLabel
-     */
-    public static function setNavigationLabel(?string $navigationLabel): void
+    public static function getNavigationGroup(): ?string
     {
-        self::$navigationLabel = "Daily Logs";
+        return "Raw Logs";
     }
+
 
     protected static ?string $navigationIcon = 'heroicon-o-table-cells';
 
@@ -95,7 +92,7 @@ class LogResource extends Resource
                 Tables\Columns\TextColumn::make('voltage')
                     ->numeric(0)
                     ->suffix('V')
-                    ->label('Battery Voltage'),
+                    ->label('Voltage'),
             ])
             ->filters([
                 //
