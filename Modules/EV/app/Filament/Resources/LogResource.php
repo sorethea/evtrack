@@ -63,6 +63,14 @@ class LogResource extends Resource
                         ->numeric(0)
                         ->suffix('kWh')
                         ->label('Discharge'),
+                    Tables\Columns\TextColumn::make('ac_power')
+                        ->numeric(0)
+                        ->suffix('Ah')
+                        ->label('Charge'),
+                    Tables\Columns\TextColumn::make('ad_power')
+                        ->numeric(0)
+                        ->suffix('Ah')
+                        ->label('Discharge'),
 
                 ])
             ])
