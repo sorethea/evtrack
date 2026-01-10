@@ -41,7 +41,19 @@ class LogResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('date')->date()->sortable()
+                Tables\Columns\TextColumn::make("date")
+                    ->date('d M, Y H:i')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make("log_type")
+                    ->badge()
+                    ->color(fn(string $state) => match ($state) {
+                        'charging' => 'success',
+                        'driving' => 'info',
+                        'packing' => 'warning',
+                    })
+                    ->label(trans('ev.type'))
+                    ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
+                    ->searchable(),
             ])
             ->filters([
                 //
