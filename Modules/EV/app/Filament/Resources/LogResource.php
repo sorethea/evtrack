@@ -80,7 +80,18 @@ class LogResource extends Resource
                         ->suffix('Ah')
                         ->label('Discharge'),
 
-                ])
+                ]),
+                Tables\Columns\ColumnGroup::make('Cell Voltage',[
+                    Tables\Columns\TextColumn::make('highest_cell_voltage')
+                        ->numeric(3)
+                        ->suffix('V')
+                        ->label('Highest'),
+                    Tables\Columns\TextColumn::make('lowest_cell_voltage')
+                        ->numeric(3)
+                        ->suffix('V')
+                        ->label('Lowest'),
+
+                ]),
             ])
             ->filters([
                 //
