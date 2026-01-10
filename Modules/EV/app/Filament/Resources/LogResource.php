@@ -92,6 +92,10 @@ class LogResource extends Resource
                         ->label('Lowest'),
 
                 ]),
+                Tables\Columns\TextColumn::make('voltage')
+                    ->numeric(0)
+                    ->suffix('V')
+                    ->label('Battery Voltage'),
             ])
             ->filters([
                 //
