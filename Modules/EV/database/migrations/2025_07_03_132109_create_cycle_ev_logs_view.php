@@ -182,7 +182,7 @@ return new class extends Migration
         -- Original calculations remain but you can modify if needed
         100*(lic.last_ac - cr.root_ac)/(lic.last_ad - cr.root_ad) AS percentage_charge_total,
         cb.discharge - cb.charge_from_regen AS used_energy,
-        lic.last_soc*v.capacity/100*(lic.last_odo - cr.root_odo)/(cb.discharge - cb.charge_from_regen) AS `range`,
+        100*(lic.last_odo - cr.root_odo)/cb.soc_decrease AS `range`,
         lic.last_odo - cr.root_odo AS distance,
         100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) /
         (cr.root_soc - lic.last_soc) AS capacity_amp,
