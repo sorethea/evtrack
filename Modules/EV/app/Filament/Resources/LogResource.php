@@ -54,6 +54,14 @@ class LogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
+                Tables\Columns\TextColumn::make('odo')
+                    ->numeric(0)
+                    ->suffix('km')
+                    ->label('Odometer'),
+                Tables\Columns\TextColumn::make('soc_actual')
+                    ->numeric(1)
+                    ->suffix('%')
+                    ->label('SoC'),
                 Tables\Columns\ColumnGroup::make('Accumulative',[
                     Tables\Columns\TextColumn::make('ac')
                         ->numeric(0)
