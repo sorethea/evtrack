@@ -18,6 +18,15 @@ class LogResource extends Resource
 {
     protected static ?string $model = EvLog::class;
 
+
+    /**
+     * @param string|null $navigationLabel
+     */
+    public static function setNavigationLabel(?string $navigationLabel): void
+    {
+        self::$navigationLabel = "Daily Logs";
+    }
+
     protected static ?string $navigationIcon = 'heroicon-o-table-cells';
 
     public static function form(Form $form): Form
