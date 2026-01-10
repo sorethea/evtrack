@@ -10,7 +10,6 @@ class CreateCycleEvLogsView extends Migration
         // First drop the view if it exists
         DB::statement('DROP VIEW IF EXISTS ev_logs_cycle_view');
 
-        // Then create the view
         DB::statement('CREATE VIEW ev_logs_cycle_view AS
     WITH ev_logs_base AS (
         SELECT
@@ -43,16 +42,14 @@ class CreateCycleEvLogsView extends Migration
             *,
             LAG(ac) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_ac,
             LAG(ad) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_ad,
-            LAG(soc) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_soc,
             LAG(log_type) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_log_type
         FROM ev_logs_base
         WHERE cycle_id IS NOT NULL
     ),
-    -- Separate charge and SOC accumulation by log_type
+    -- Separate charge accumulation by log_type
     charge_breakdown AS (
         SELECT
             cycle_id,
-            -- Charge breakdown
             SUM(CASE
                 WHEN log_type = \'charging\' AND prev_ac IS NOT NULL
                 THEN ac - prev_ac
@@ -63,28 +60,11 @@ class CreateCycleEvLogsView extends Migration
                 THEN ac - prev_ac
                 ELSE 0
             END) AS charge_from_regen,
-            -- SOC increase breakdown
-            SUM(CASE
-                WHEN log_type = \'charging\' AND prev_soc IS NOT NULL AND soc > prev_soc
-                THEN soc - prev_soc
-                ELSE 0
-            END) AS soc_increase_charging,
-            SUM(CASE
-                WHEN log_type != \'charging\' AND prev_soc IS NOT NULL AND soc > prev_soc
-                THEN soc - prev_soc
-                ELSE 0
-            END) AS soc_increase_regen,
-            -- Discharge and SOC decrease
             SUM(CASE
                 WHEN prev_ad IS NOT NULL
                 THEN ad - prev_ad
                 ELSE 0
-            END) AS discharge,
-            SUM(CASE
-                WHEN prev_soc IS NOT NULL AND soc < prev_soc
-                THEN prev_soc - soc
-                ELSE 0
-            END) AS soc_decrease
+            END) AS discharge
         FROM ev_logs_with_diffs
         GROUP BY cycle_id
     ),
@@ -99,10 +79,14 @@ class CreateCycleEvLogsView extends Migration
             b1.aca AS root_aca,
             b1.ada AS root_ada,
             b1.ac AS root_ac,
-            b1.ad AS root_ad
+            b1.ad AS root_ad,
+            b1.log_type AS root_log_type
         FROM ev_logs_base b1
-        WHERE b1.log_type = \'charging\'
-        GROUP BY cycle_id
+        WHERE b1.date = (
+            SELECT MIN(date)
+            FROM ev_logs_base b2
+            WHERE b2.cycle_id = b1.cycle_id
+        )
     ),
     last_in_cycle AS (
         SELECT
@@ -118,7 +102,8 @@ class CreateCycleEvLogsView extends Migration
             b2.hvc AS last_hvc,
             b2.ltc AS last_ltc,
             b2.htc AS last_htc,
-            b2.tc AS last_tc
+            b2.tc AS last_tc,
+            b2.log_type AS last_log_type
         FROM ev_logs_base b2
         INNER JOIN (
             SELECT cycle_id, MAX(date) AS max_date
@@ -149,7 +134,9 @@ class CreateCycleEvLogsView extends Migration
         lic.last_ltc,
         lic.last_htc,
         lic.last_tc,
-        (cr.root_soc - lic.last_soc) + cb.soc_increase_charging  AS soc_derivation,
+        cr.root_log_type,
+        lic.last_log_type,
+        cr.root_soc - lic.last_soc AS soc_derivation,
         lic.last_hvc - lic.last_lvc AS v_spread,
         lic.last_htc - lic.last_ltc AS t_spread,
         lic.last_soc - 100 * (lic.last_ac - lic.last_ad) / v.capacity AS soc_middle,
@@ -161,16 +148,6 @@ class CreateCycleEvLogsView extends Migration
         -- Separated charge values
         cb.charge_from_charging,
         cb.charge_from_regen,
-        -- SOC changes
-        cb.soc_increase_charging,
-        cb.soc_increase_regen,
-        cb.soc_decrease,
-        -- Percentage calculations
-        ROUND(cb.soc_increase_charging / NULLIF(cb.soc_increase_charging + cb.soc_increase_regen, 0) * 100, 2) AS soc_increase_charging_percentage,
-        ROUND(cb.soc_increase_regen / NULLIF(cb.soc_increase_charging + cb.soc_increase_regen, 0) * 100, 2) AS soc_increase_regen_percentage,
-        -- Efficiency metrics
-        ROUND(cb.charge_from_charging / NULLIF(cb.soc_increase_charging, 0), 2) AS charge_per_soc_increase,
-        ROUND(cb.charge_from_regen / NULLIF(cb.soc_increase_regen, 0), 2) AS regen_charge_per_soc_increase,
         cb.discharge,
         -- Percentage calculations using separated values
         100 * cb.charge_from_charging / NULLIF(cb.discharge, 0) AS percentage_charge_from_charging,
@@ -178,11 +155,12 @@ class CreateCycleEvLogsView extends Migration
         -- Original calculations remain but you can modify if needed
         100*(lic.last_ac - cr.root_ac)/(lic.last_ad - cr.root_ad) AS percentage_charge_total,
         cb.discharge - cb.charge_from_regen AS used_energy,
-        100*(lic.last_odo - cr.root_odo)/cb.soc_decrease AS `range`,
+        100*(lic.last_odo - cr.root_odo) / (cr.root_soc - lic.last_soc) AS `range`,
         lic.last_odo - cr.root_odo AS distance,
         100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) /
         (cr.root_soc - lic.last_soc) AS capacity_amp,
-        100 * (cb.discharge - cb.charge_from_regen) / cb.soc_decrease AS capacity,
+        100 * ((lic.last_ad - cr.root_ad) - (lic.last_ac - cr.root_ac)) /
+        (cr.root_soc - lic.last_soc) AS capacity,
         1000 * (lic.last_ada - cr.root_ada) /
         NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption_amp,
         1000 * (lic.last_ad - cr.root_ad) /
