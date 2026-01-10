@@ -54,6 +54,13 @@ class LogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
+                Tables\Columns\ColumnGroup::make('Accumulative',[
+                    Tables\Columns\TextColumn::make('ac')
+                        ->label('Charge kWh'),
+                    Tables\Columns\TextColumn::make('ad')
+                        ->label('Discharge kWh'),
+
+                ])
             ])
             ->filters([
                 //
