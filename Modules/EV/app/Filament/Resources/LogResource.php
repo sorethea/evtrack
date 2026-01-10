@@ -41,7 +41,7 @@ class LogResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('date')->date()->sortable()
             ])
             ->filters([
                 //
