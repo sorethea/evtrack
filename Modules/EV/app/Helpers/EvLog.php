@@ -46,7 +46,7 @@ class EvLog
         $avgVoltage = $voltage/200??0;
         $voltageBasedSoC = self::socVoltageBased($avgVoltage);
         $netDischarge = $log?->cycleView?->discharge - $log->cycleView?->charge_from_regen;
-        $remainRange = $netDischarge>0?($lastSoc)*($distance/$netDischarge):0;
+        $remainRange = $netDischarge>0?($lastSoc-10)*($distance/$netDischarge):0;
         //Add energy = regen + charge
         //Regenerative braking
         $regenPercentage = $log?->cycleView?->discharge>0?100*$log?->cycleView?->charge_from_regen/$log?->cycleView?->discharge:0 ;
@@ -67,7 +67,7 @@ class EvLog
         return [
             Stat::make(trans('ev.distance'),Number::format($distance).'km')
                 ->color(Color::Green)
-                ->description('Remaining range: '.Number::format($remainRange,1).' km')
+                ->description('Range to 10%: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
             Stat::make(trans('ev.soc').'('.$rootSoc.'%)',Number::format($lastSoc).'%')
                 ->description('Cell voltage based SoC: '.Number::format($voltageBasedSoC,1).'%')
