@@ -86,7 +86,7 @@ class EvLog
                 ->chart($cycleDischargeArray)
                 ->color(Color::Teal),
             Stat::make(trans('ev.consumption'),Number::format($consumption,0).'Wh/km')
-                ->description("SoC: ".Number::format($socConsumption,0)."Wh/km. Net: ".Number::format($netConsumption,0)."Wh/km")
+                ->description("Net: ".Number::format($netConsumption,0)."Wh/km")
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
