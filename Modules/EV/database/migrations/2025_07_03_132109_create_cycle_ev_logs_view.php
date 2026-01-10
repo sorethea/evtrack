@@ -10,7 +10,7 @@ class CreateCycleEvLogsView extends Migration
         // First, drop the view if it exists
         DB::statement('DROP VIEW IF EXISTS ev_logs_cycle_view');
 
-        // Create the simplified view
+        // Create the view
         DB::statement("
             CREATE VIEW ev_logs_cycle_view AS
             WITH ev_logs_base AS (
@@ -52,6 +52,7 @@ class CreateCycleEvLogsView extends Migration
                 SELECT
                     b.cycle_id,
                     b.vehicle_id,
+                    b.log_id AS first_log_id,
                     b.date AS first_date,
                     b.odo AS first_odo,
                     b.soc AS first_soc,
@@ -71,6 +72,7 @@ class CreateCycleEvLogsView extends Migration
                 SELECT
                     b.cycle_id,
                     b.vehicle_id,
+                    b.log_id AS last_log_id,
                     b.date AS last_date,
                     b.odo AS last_odo,
                     b.soc AS last_soc,
@@ -97,11 +99,12 @@ class CreateCycleEvLogsView extends Migration
                     curr.vehicle_id,
                     curr.cycle_start_date,
                     curr.cycle_end_date,
+                    -- Find next cycle where current's last log id = next's cycle_id
                     next_cycle.cycle_id AS next_cycle_id,
                     next_cycle.cycle_start_date AS next_cycle_start_date
                 FROM cycle_info curr
                 LEFT JOIN cycle_last_log curr_last ON curr.cycle_id = curr_last.cycle_id
-                LEFT JOIN cycle_info next_cycle ON CAST(curr_last.log_id AS CHAR) = next_cycle.cycle_id
+                LEFT JOIN cycle_info next_cycle ON curr_last.last_log_id = next_cycle.cycle_id
                     AND curr.vehicle_id = next_cycle.vehicle_id
                     AND next_cycle.cycle_start_date > curr.cycle_start_date
             ),
@@ -112,6 +115,7 @@ class CreateCycleEvLogsView extends Migration
                     cc.cycle_start_date,
                     cc.cycle_end_date,
                     cc.next_cycle_id,
+                    -- Use previous cycle's last values if this cycle is linked to a previous one
                     COALESCE(prev_last.last_odo, cfl.first_odo) AS root_odo,
                     COALESCE(prev_last.last_soc, cfl.first_soc) AS root_soc,
                     COALESCE(prev_last.last_aca, cfl.first_aca) AS root_aca,
@@ -121,6 +125,7 @@ class CreateCycleEvLogsView extends Migration
                     cfl.first_log_type AS root_log_type
                 FROM cycle_chains cc
                 LEFT JOIN cycle_first_log cfl ON cc.current_cycle_id = cfl.cycle_id
+                -- Find previous cycle that links to this one
                 LEFT JOIN cycle_chains prev_chain ON cc.current_cycle_id = prev_chain.next_cycle_id
                 LEFT JOIN cycle_last_log prev_last ON prev_chain.current_cycle_id = prev_last.cycle_id
             )
@@ -157,6 +162,7 @@ class CreateCycleEvLogsView extends Migration
                 cll.last_aca - crv.root_aca AS charge_amp,
                 cll.last_ada - crv.root_ada AS discharge_amp,
                 cll.last_ac - crv.root_ac AS charge,
+                -- Placeholder for charge breakdown (simplified)
                 0 AS charge_from_charging,
                 0 AS charge_from_regen,
                 0 AS discharge,
