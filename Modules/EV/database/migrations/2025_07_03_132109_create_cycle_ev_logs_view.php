@@ -102,7 +102,7 @@ class CreateCycleEvLogsView extends Migration
             b1.ad AS root_ad
         FROM ev_logs_base b1
         WHERE b1.log_type = \'charging\'
-
+        GROUP BY cycle_id
     ),
     last_in_cycle AS (
         SELECT
