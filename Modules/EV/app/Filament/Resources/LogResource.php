@@ -82,11 +82,11 @@ class LogResource extends Resource
 
                 ]),
                 Tables\Columns\ColumnGroup::make('Cell Voltage',[
-                    Tables\Columns\TextColumn::make('highest_cell_voltage')
+                    Tables\Columns\TextColumn::make('highest_volt_cell')
                         ->numeric(3)
                         ->suffix('V')
                         ->label('Highest'),
-                    Tables\Columns\TextColumn::make('lowest_cell_voltage')
+                    Tables\Columns\TextColumn::make('lowest_volt_cell')
                         ->numeric(3)
                         ->suffix('V')
                         ->label('Lowest'),
