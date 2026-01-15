@@ -59,14 +59,14 @@ class LogPivotResource extends Resource
                         ->label(trans("ev.discharge"))
                         ->numeric(),
                 ]),
-                Tables\Columns\ColumnGroup::make("cell")
-                    ->label(trans("ev.cell"))
+                Tables\Columns\ColumnGroup::make("cell_voltage")
+                    ->label(trans("ev.cell_voltage"))
                     ->columns([
                     Tables\Columns\TextColumn::make("lvc")
-                        ->label(trans("ev.lowest_volt_cell"))
+                        ->label(trans("ev.lowest"))
                         ->numeric(3),
                     Tables\Columns\TextColumn::make("hvc")
-                        ->label(trans("ev.highest_volt_cell"))
+                        ->label(trans("ev.highest"))
                         ->numeric(3),
                 ]),
 
