@@ -24,6 +24,7 @@ return [
     "a_consumption"=>"Acc Consumption",
     "net_discharge"=>"Net Discharge",
     "charge"=>"Charge",
+    "next_charge"=>"Next Charge",
     "regen"=>"Regen",
     "charge_types"=>[
         "name"=>"Charge Types",

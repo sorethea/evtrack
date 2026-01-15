@@ -174,6 +174,7 @@ return new class extends Migration
         COALESCE(lcd.end_aca - pfc.start_aca, 0) as aca_delta,
         COALESCE(lcd.end_ada - pfc.start_ada, 0) as ada_delta,
         COALESCE(lcd.end_ac - pfc.start_ac, 0) as ac_delta,
+        COALESCE(ncm.next_start_ac - pfc.start_ac, 0) as ac_epsilon,
         COALESCE(lcd.end_ad - pfc.start_ad, 0) as ad_delta,
         COALESCE(lcd.end_lvc - pfc.start_lvc, 0) as lvc_delta,
         COALESCE(lcd.end_hvc - pfc.start_hvc, 0) as hvc_delta,
