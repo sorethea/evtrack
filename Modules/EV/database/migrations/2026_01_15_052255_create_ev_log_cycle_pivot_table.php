@@ -12,7 +12,6 @@ return new class extends Migration
     WITH cycle_boundaries AS (
         -- Get cycle boundaries
         SELECT
-            id,
             cycle_id,
             vehicle_id,
             COUNT(*) as total_logs,
@@ -21,7 +20,7 @@ return new class extends Migration
             TIMESTAMPDIFF(MINUTE, MIN(date), MAX(date)) as duration_minutes
         FROM ev_logs
         WHERE cycle_id IS NOT NULL
-        GROUP BY id, cycle_id, vehicle_id
+        GROUP BY cycle_id, vehicle_id
         HAVING COUNT(*) > 0
     ),
     first_child_in_cycle AS (
@@ -50,7 +49,6 @@ return new class extends Migration
     parent_of_first_child_data AS (
         -- Get ALL ITEMS from the PARENT of the FIRST CHILD (START VALUES)
         SELECT
-            p.id,
             fc.cycle_id,
             p.odo as start_odo,
             p.voltage as start_voltage,
@@ -116,8 +114,7 @@ return new class extends Migration
         LEFT JOIN ev_log_pivot p ON ncsd.next_start_id = p.id
     )
     SELECT
-        cb.id,
-        cb.cycle_id,
+        cb.cycle_id as id,
         cb.vehicle_id,
         cb.total_logs,
         cb.cycle_start_date,
