@@ -53,10 +53,15 @@ class CyclePivotResource extends Resource
                 Tables\Columns\TextColumn::make('distance_km')
                     ->label(trans("ev.distance"))
                     ->numeric(1),
-                Tables\Columns\TextColumn::make('ac_delta')
+                Tables\Columns\TextColumn::make('current_cycle_ac_delta')
+                    ->hidden(fn($record)=>$record->next_cycle_ac_delta>0)
                     ->label(trans("ev.charge"))
                     ->numeric(0),
-                Tables\Columns\TextColumn::make('ad_delta')
+                Tables\Columns\TextColumn::make('next_cycle_ac_delta')
+                    ->hidden(fn($record)=>$record->current_cycle_ac_delta>0)
+                    ->label(trans("ev.charge"))
+                    ->numeric(0),
+                Tables\Columns\TextColumn::make('current_ad_delta')
                     ->label(trans("ev.discharge"))
                     ->numeric(0),
             ])

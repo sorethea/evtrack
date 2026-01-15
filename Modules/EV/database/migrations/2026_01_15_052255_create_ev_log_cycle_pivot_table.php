@@ -114,7 +114,7 @@ return new class extends Migration
         LEFT JOIN ev_log_pivot p ON ncsd.next_start_id = p.id
     )
     SELECT
-        cb.cycle_id as id,
+        cb.cycle_id,
         cb.vehicle_id,
         cb.total_logs,
         cb.cycle_start_date,
@@ -164,29 +164,99 @@ return new class extends Migration
         ncm.next_start_tc,
         ncm.next_start_date,
 
-        -- Calculate distance
+        -- Calculate distance (end_odo - start_odo)
         COALESCE(lcd.end_odo - pfc.start_odo, 0) as distance_km,
 
-        -- Calculate differences for all metrics
-        COALESCE(lcd.end_odo - pfc.start_odo, 0) as odo_delta,
-        COALESCE(lcd.end_voltage - pfc.start_voltage, 0) as voltage_delta,
-        COALESCE(lcd.end_soc - pfc.start_soc, 0) as soc_delta,
-        COALESCE(lcd.end_aca - pfc.start_aca, 0) as aca_delta,
-        COALESCE(lcd.end_ada - pfc.start_ada, 0) as ada_delta,
-        COALESCE(lcd.end_ac - pfc.start_ac, 0) as ac_delta,
-        COALESCE(lcd.end_ad - pfc.start_ad, 0) as ad_delta,
-        COALESCE(lcd.end_lvc - pfc.start_lvc, 0) as lvc_delta,
-        COALESCE(lcd.end_hvc - pfc.start_hvc, 0) as hvc_delta,
-        COALESCE(lcd.end_ltc - pfc.start_ltc, 0) as ltc_delta,
-        COALESCE(lcd.end_htc - pfc.start_htc, 0) as htc_delta,
-        COALESCE(lcd.end_tc - pfc.start_tc, 0) as tc_delta,
+        -- CURRENT CYCLE DELTAS (end - start)
+        COALESCE(lcd.end_odo - pfc.start_odo, 0) as current_cycle_odo_delta,
+        COALESCE(lcd.end_voltage - pfc.start_voltage, 0) as current_cycle_voltage_delta,
+        COALESCE(lcd.end_soc - pfc.start_soc, 0) as current_cycle_soc_delta,
+        COALESCE(lcd.end_aca - pfc.start_aca, 0) as current_cycle_aca_delta,
+        COALESCE(lcd.end_ada - pfc.start_ada, 0) as current_cycle_ada_delta,
+        COALESCE(lcd.end_ac - pfc.start_ac, 0) as current_cycle_ac_delta,
+        COALESCE(lcd.end_ad - pfc.start_ad, 0) as current_cycle_ad_delta,
+        COALESCE(lcd.end_lvc - pfc.start_lvc, 0) as current_cycle_lvc_delta,
+        COALESCE(lcd.end_hvc - pfc.start_hvc, 0) as current_cycle_hvc_delta,
+        COALESCE(lcd.end_ltc - pfc.start_ltc, 0) as current_cycle_ltc_delta,
+        COALESCE(lcd.end_htc - pfc.start_htc, 0) as current_cycle_htc_delta,
+        COALESCE(lcd.end_tc - pfc.start_tc, 0) as current_cycle_tc_delta,
+
+        -- CONDITIONAL NEXT CYCLE DELTAS (end - next_start, ONLY when next_start > 0)
+        COALESCE(
+            CASE WHEN ncm.next_start_odo > 0 THEN lcd.end_odo - ncm.next_start_odo END,
+            0
+        ) as next_cycle_odo_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_voltage > 0 THEN lcd.end_voltage - ncm.next_start_voltage END,
+            0
+        ) as next_cycle_voltage_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_cycle_soc > 0 THEN lcd.end_soc - ncm.next_cycle_soc END,
+            0
+        ) as next_cycle_soc_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_aca > 0 THEN lcd.end_aca - ncm.next_start_aca END,
+            0
+        ) as next_cycle_aca_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_ada > 0 THEN lcd.end_ada - ncm.next_start_ada END,
+            0
+        ) as next_cycle_ada_delta,
+
+        -- Your specific requirement: ac_delta = (end_ac - next_start_ac) only when next_start_ac > 0
+        COALESCE(
+            CASE WHEN ncm.next_start_ac > 0 THEN lcd.end_ac - ncm.next_start_ac END,
+            0
+        ) as ac_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_ad > 0 THEN lcd.end_ad - ncm.next_start_ad END,
+            0
+        ) as next_cycle_ad_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_lvc > 0 THEN lcd.end_lvc - ncm.next_start_lvc END,
+            0
+        ) as next_cycle_lvc_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_hvc > 0 THEN lcd.end_hvc - ncm.next_start_hvc END,
+            0
+        ) as next_cycle_hvc_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_ltc > 0 THEN lcd.end_ltc - ncm.next_start_ltc END,
+            0
+        ) as next_cycle_ltc_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_htc > 0 THEN lcd.end_htc - ncm.next_start_htc END,
+            0
+        ) as next_cycle_htc_delta,
+
+        COALESCE(
+            CASE WHEN ncm.next_start_tc > 0 THEN lcd.end_tc - ncm.next_start_tc END,
+            0
+        ) as next_cycle_tc_delta,
 
         -- Efficiency metrics
         CASE
             WHEN COALESCE(lcd.end_odo - pfc.start_odo, 0) > 0
             THEN ABS(COALESCE(pfc.start_soc - lcd.end_soc, 0)) / (lcd.end_odo - pfc.start_odo)
             ELSE NULL
-        END as soc_consumption_per_km
+        END as soc_consumption_per_km,
+
+        -- Next cycle efficiency (if available)
+        CASE
+            WHEN COALESCE(lcd.end_odo - pfc.start_odo, 0) > 0
+            AND ncm.next_cycle_soc > 0
+            THEN ABS(COALESCE(pfc.start_soc - ncm.next_cycle_soc, 0)) / (lcd.end_odo - pfc.start_odo)
+            ELSE NULL
+        END as next_cycle_soc_consumption_per_km
 
     FROM cycle_boundaries cb
     LEFT JOIN parent_of_first_child_data pfc ON cb.cycle_id = pfc.cycle_id
