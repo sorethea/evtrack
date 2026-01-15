@@ -31,17 +31,24 @@ class CyclePivotResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\ColumnGroup::make('Date')->columns([
+                    Tables\Columns\TextColumn::make('cycle_start_date')
+                        ->label(trans('ev.from'))
+                        ->date(),
+                    Tables\Columns\TextColumn::make('cycle_end_date')
+                        ->label(trans('ev.to'))
+                        ->date(),
+                ]),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -57,8 +64,8 @@ class CyclePivotResource extends Resource
     {
         return [
             'index' => Pages\ListCyclePivots::route('/'),
-            'create' => Pages\CreateCyclePivot::route('/create'),
-            'edit' => Pages\EditCyclePivot::route('/{record}/edit'),
+//            'create' => Pages\CreateCyclePivot::route('/create'),
+//            'edit' => Pages\EditCyclePivot::route('/{record}/edit'),
         ];
     }
 }
