@@ -2,7 +2,7 @@
 
 namespace Modules\EV\Filament\Resources;
 
-use App\Models\CycleCompleteAnalytics;
+
 use Modules\EV\Filament\Resources\CyclePivotResource\Pages;
 use Modules\EV\Filament\Resources\CyclePivotResource\RelationManagers;
 use Filament\Forms;
@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Modules\EV\Models\CycleCompleteAnalytics;
 
 class CyclePivotResource extends Resource
 {
