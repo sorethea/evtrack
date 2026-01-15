@@ -34,6 +34,17 @@ class LogPivotResource extends Resource
                 Tables\Columns\TextColumn::make("date")->date()->sortable(),
                 Tables\Columns\TextColumn::make("cycle.date")->date(),
                 Tables\Columns\TextColumn::make("log_type")->searchable(),
+                Tables\Columns\TextColumn::make("odo")
+                    ->label(trans("ev.odo"))
+                    ->numeric(1),
+                Tables\Columns\ColumnGroup::make("accumulative")->columns([
+                    Tables\Columns\TextColumn::make("ac")
+                        ->label(trans("ev.charge"))
+                        ->numeric(),
+                    Tables\Columns\TextColumn::make("ad")
+                        ->label(trans("ev.discharge"))
+                        ->numeric(),
+                ]),
 
             ])
             ->filters([
