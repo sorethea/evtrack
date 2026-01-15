@@ -37,7 +37,18 @@ class LogPivotResource extends Resource
                 Tables\Columns\TextColumn::make("odo")
                     ->label(trans("ev.odo"))
                     ->numeric(1),
-                Tables\Columns\ColumnGroup::make("accumulative")->columns([
+                Tables\Columns\ColumnGroup::make(trans("ev.soc"))
+                    ->columns([
+                        Tables\Columns\TextColumn::make("parent.soc")
+                            ->numeric(1)
+                            ->label(trans("ev.from")),
+                        Tables\Columns\TextColumn::make("soc")
+                            ->numeric(1)
+                            ->label(trans("ev.to")),
+                    ]),
+                Tables\Columns\ColumnGroup::make("accumulative")
+                    ->label(trans("ev.accumulative"))
+                    ->columns([
                     Tables\Columns\TextColumn::make("ac")
                         ->label(trans("ev.charge"))
                         ->numeric(),
