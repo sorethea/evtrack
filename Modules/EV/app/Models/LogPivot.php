@@ -13,7 +13,7 @@ class LogPivot extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $table = 'ev_log_pivot';
+    protected $table = 'log_pivot';
     protected $casts = [
         'date' => 'datetime',
         'odo' => 'double',
