@@ -6,6 +6,7 @@ return [
     "to"=>"To",
     "type"=>"Type",
     "cycle"=>"Charging Cycle",
+    "cell"=>"Cell",
     "soc"=>"SoC",
     "soc_actual"=>"SoC Actual",
     "soc_from"=>"SoC from",

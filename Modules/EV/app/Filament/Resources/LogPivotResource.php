@@ -37,6 +37,9 @@ class LogPivotResource extends Resource
                 Tables\Columns\TextColumn::make("odo")
                     ->label(trans("ev.odo"))
                     ->numeric(1),
+                Tables\Columns\TextColumn::make("voltage")
+                    ->label(trans("ev.voltage"))
+                    ->numeric(0),
                 Tables\Columns\ColumnGroup::make(trans("ev.soc"))
                     ->columns([
                         Tables\Columns\TextColumn::make("parent.soc")
@@ -55,6 +58,16 @@ class LogPivotResource extends Resource
                     Tables\Columns\TextColumn::make("ad")
                         ->label(trans("ev.discharge"))
                         ->numeric(),
+                ]),
+                Tables\Columns\ColumnGroup::make("cell")
+                    ->label(trans("ev.cell"))
+                    ->columns([
+                    Tables\Columns\TextColumn::make("lvc")
+                        ->label(trans("ev.lowest_volt_cell"))
+                        ->numeric(3),
+                    Tables\Columns\TextColumn::make("hvc")
+                        ->label(trans("ev.highest_volt_cell"))
+                        ->numeric(3),
                 ]),
 
             ])
