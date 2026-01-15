@@ -40,10 +40,10 @@ class CyclePivotResource extends Resource
                         ->date(),
                 ]),
                 Tables\Columns\ColumnGroup::make('SoC')->columns([
-                    Tables\Columns\TextColumn::make('cycle_start_soc')
+                    Tables\Columns\TextColumn::make('start_soc')
                         ->label(trans('ev.from'))
                         ->date(),
-                    Tables\Columns\TextColumn::make('cycle_end_soc')
+                    Tables\Columns\TextColumn::make('end_soc')
                         ->label(trans('ev.to'))
                         ->date(),
                 ]),
