@@ -38,7 +38,7 @@ class LogPivotResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //Tables\Actions\EditAction::make(),
             ])
             ->defaultSort('date','desc')
             ->bulkActions([
@@ -59,6 +59,7 @@ class LogPivotResource extends Resource
     {
         return [
             'index' => Pages\ListLogPivots::route('/'),
+            'view' =>Pages\ViewLogPivot::route('/{record}')
 //            'create' => Pages\CreateLogPivot::route('/create'),
 //            'edit' => Pages\EditLogPivot::route('/{record}/edit'),
         ];
