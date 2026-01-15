@@ -5,13 +5,10 @@ namespace Modules\EV\Filament\Resources;
 
 use Modules\EV\Filament\Resources\CyclePivotResource\Pages;
 use Modules\EV\Filament\Resources\CyclePivotResource\RelationManagers;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Modules\EV\Models\CycleCompleteAnalytics;
 
 class CyclePivotResource extends Resource
@@ -54,15 +51,11 @@ class CyclePivotResource extends Resource
                 Tables\Columns\TextColumn::make('distance_km')
                     ->label(trans("ev.distance"))
                     ->numeric(1),
-                Tables\Columns\TextColumn::make('current_cycle_ac_delta')
+                Tables\Columns\TextColumn::make('ac_delta')
                     //->hidden(fn($record)=>!empty($record->next_cycle_ac_delta))
                     ->label(trans("ev.charge"))
                     ->numeric(0),
-                Tables\Columns\TextColumn::make('next_cycle_ac_delta')
-                    //->hidden(fn($record)=>!empty($record->current_cycle_ac_delta))
-                    ->label(trans("ev.charge"))
-                    ->numeric(0),
-                Tables\Columns\TextColumn::make('current_ad_delta')
+                Tables\Columns\TextColumn::make('ad_delta')
                     ->label(trans("ev.discharge"))
                     ->numeric(0),
             ])
