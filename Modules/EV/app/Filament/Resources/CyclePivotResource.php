@@ -42,6 +42,9 @@ class CyclePivotResource extends Resource
                 Tables\Columns\TextColumn::make('total_logs')
                     ->label(trans("ev.count"))
                     ->numeric(0),
+                Tables\Columns\TextColumn::make('distance_km')
+                    ->label(trans("ev.distance"))
+                    ->numeric(1),
             ])
             ->filters([
                 //
