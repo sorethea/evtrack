@@ -12,12 +12,58 @@ class CyclePivot extends Model
 
     protected $table = 'cycle_complete_analytics';
 
+    // Set default values for attributes
+    protected $attributes = [
+        'start_odo' => 0,
+        'start_voltage' => 0,
+        'start_soc' => 0,
+        'start_aca' => 0,
+        'start_ada' => 0,
+        'start_ac' => 0,
+        'start_ad' => 0,
+        'start_lvc' => 0,
+        'start_hvc' => 0,
+        'start_ltc' => 0,
+        'start_htc' => 0,
+        'start_tc' => 0,
+
+        'end_odo' => 0,
+        'end_voltage' => 0,
+        'end_soc' => 0,
+        'end_aca' => 0,
+        'end_ada' => 0,
+        'end_ac' => 0,
+        'end_ad' => 0,
+        'end_lvc' => 0,
+        'end_hvc' => 0,
+        'end_ltc' => 0,
+        'end_htc' => 0,
+        'end_tc' => 0,
+
+        'next_start_odo' => 0,
+        'next_start_voltage' => 0,
+        'next_cycle_soc' => 0,
+        'next_start_aca' => 0,
+        'next_start_ada' => 0,
+        'next_start_ac' => 0,
+        'next_start_ad' => 0,
+        'next_start_lvc' => 0,
+        'next_start_hvc' => 0,
+        'next_start_ltc' => 0,
+        'next_start_htc' => 0,
+        'next_start_tc' => 0,
+
+        'distance_km' => 0,
+        'ac_delta' => 0,
+        'soc_consumption_per_km' => 0,
+    ];
+
     protected $casts = [
         'cycle_start_date' => 'datetime',
         'cycle_end_date' => 'datetime',
         'next_start_date' => 'datetime',
 
-        // Cast all numeric fields
+        // Cast all numeric fields with defaults
         'start_odo' => 'decimal:2',
         'start_voltage' => 'decimal:2',
         'start_soc' => 'decimal:2',
@@ -58,73 +104,31 @@ class CyclePivot extends Model
         'next_start_tc' => 'decimal:2',
 
         'distance_km' => 'decimal:2',
-        'odo_delta' => 'decimal:2',
-        'voltage_delta' => 'decimal:2',
-        'soc_delta' => 'decimal:2',
-        'aca_delta' => 'decimal:2',
-        'ada_delta' => 'decimal:2',
+        'current_cycle_ac_delta' => 'decimal:2',
         'ac_delta' => 'decimal:2',
-        'ad_delta' => 'decimal:2',
-        'lvc_delta' => 'decimal:2',
-        'hvc_delta' => 'decimal:2',
-        'ltc_delta' => 'decimal:2',
-        'htc_delta' => 'decimal:2',
-        'tc_delta' => 'decimal:2',
         'soc_consumption_per_km' => 'decimal:4',
     ];
 
-    // Accessors to get item definitions
-    public function getStartValuesAttribute()
+    // Accessor to always return 0 if NULL
+    public function getNextStartAcAttribute($value)
     {
-        return [
-            'odo' => $this->start_odo,
-            'voltage' => $this->start_voltage,
-            'soc' => $this->start_soc,
-            'aca' => $this->start_aca,
-            'ada' => $this->start_ada,
-            'ac' => $this->start_ac,
-            'ad' => $this->start_ad,
-            'lvc' => $this->start_lvc,
-            'hvc' => $this->start_hvc,
-            'ltc' => $this->start_ltc,
-            'htc' => $this->start_htc,
-            'tc' => $this->start_tc,
-        ];
+        return $value ?? 0;
     }
 
-    public function getEndValuesAttribute()
+    public function getNextCycleSocAttribute($value)
     {
-        return [
-            'odo' => $this->end_odo,
-            'voltage' => $this->end_voltage,
-            'soc' => $this->end_soc,
-            'aca' => $this->end_aca,
-            'ada' => $this->end_ada,
-            'ac' => $this->end_ac,
-            'ad' => $this->end_ad,
-            'lvc' => $this->end_lvc,
-            'hvc' => $this->end_hvc,
-            'ltc' => $this->end_ltc,
-            'htc' => $this->end_htc,
-            'tc' => $this->end_tc,
-        ];
+        return $value ?? 0;
     }
 
-    public function getDeltasAttribute()
-    {
-        return [
-            'odo' => $this->odo_delta,
-            'voltage' => $this->voltage_delta,
-            'soc' => $this->soc_delta,
-            'aca' => $this->aca_delta,
-            'ada' => $this->ada_delta,
-            'ac' => $this->ac_delta,
-            'ad' => $this->ad_delta,
-            'lvc' => $this->lvc_delta,
-            'hvc' => $this->hvc_delta,
-            'ltc' => $this->ltc_delta,
-            'htc' => $this->htc_delta,
-            'tc' => $this->tc_delta,
-        ];
-    }
+    // Similarly for all other next_* fields
+    public function getNextStartOdoAttribute($value) { return $value ?? 0; }
+    public function getNextStartVoltageAttribute($value) { return $value ?? 0; }
+    public function getNextStartAcaAttribute($value) { return $value ?? 0; }
+    public function getNextStartAdaAttribute($value) { return $value ?? 0; }
+    public function getNextStartAdAttribute($value) { return $value ?? 0; }
+    public function getNextStartLvcAttribute($value) { return $value ?? 0; }
+    public function getNextStartHvcAttribute($value) { return $value ?? 0; }
+    public function getNextStartLtcAttribute($value) { return $value ?? 0; }
+    public function getNextStartHtcAttribute($value) { return $value ?? 0; }
+    public function getNextStartTcAttribute($value) { return $value ?? 0; }
 }

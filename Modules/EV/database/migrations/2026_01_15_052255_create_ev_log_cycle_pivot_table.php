@@ -10,7 +10,6 @@ return new class extends Migration
         DB::statement("
     CREATE OR REPLACE VIEW cycle_complete_analytics AS
     WITH cycle_boundaries AS (
-        -- Get cycle boundaries
         SELECT
             cycle_id,
             vehicle_id,
@@ -24,7 +23,6 @@ return new class extends Migration
         HAVING COUNT(*) > 0
     ),
     first_child_in_cycle AS (
-        -- Find the FIRST CHILD in each cycle
         SELECT
             l.cycle_id,
             MIN(l.id) as first_child_id,
@@ -36,7 +34,6 @@ return new class extends Migration
         GROUP BY l.cycle_id
     ),
     last_child_in_cycle AS (
-        -- Find the LAST CHILD in each cycle
         SELECT
             l.cycle_id,
             MAX(l.id) as last_child_id
@@ -47,45 +44,42 @@ return new class extends Migration
         GROUP BY l.cycle_id
     ),
     parent_of_first_child_data AS (
-        -- Get ALL ITEMS from the PARENT of the FIRST CHILD (START VALUES)
         SELECT
             fc.cycle_id,
-            p.odo as start_odo,
-            p.voltage as start_voltage,
-            p.soc as start_soc,
-            p.aca as start_aca,
-            p.ada as start_ada,
-            p.ac as start_ac,
-            p.ad as start_ad,
-            p.lvc as start_lvc,
-            p.hvc as start_hvc,
-            p.ltc as start_ltc,
-            p.htc as start_htc,
-            p.tc as start_tc
+            COALESCE(p.odo, 0) as start_odo,
+            COALESCE(p.voltage, 0) as start_voltage,
+            COALESCE(p.soc, 0) as start_soc,
+            COALESCE(p.aca, 0) as start_aca,
+            COALESCE(p.ada, 0) as start_ada,
+            COALESCE(p.ac, 0) as start_ac,
+            COALESCE(p.ad, 0) as start_ad,
+            COALESCE(p.lvc, 0) as start_lvc,
+            COALESCE(p.hvc, 0) as start_hvc,
+            COALESCE(p.ltc, 0) as start_ltc,
+            COALESCE(p.htc, 0) as start_htc,
+            COALESCE(p.tc, 0) as start_tc
         FROM first_child_in_cycle fc
         LEFT JOIN ev_log_pivot p ON fc.parent_of_first_child_id = p.id
     ),
     last_child_data AS (
-        -- Get ALL ITEMS from the LAST CHILD (END VALUES)
         SELECT
             lc.cycle_id,
-            p.odo as end_odo,
-            p.voltage as end_voltage,
-            p.soc as end_soc,
-            p.aca as end_aca,
-            p.ada as end_ada,
-            p.ac as end_ac,
-            p.ad as end_ad,
-            p.lvc as end_lvc,
-            p.hvc as end_hvc,
-            p.ltc as end_ltc,
-            p.htc as end_htc,
-            p.tc as end_tc
+            COALESCE(p.odo, 0) as end_odo,
+            COALESCE(p.voltage, 0) as end_voltage,
+            COALESCE(p.soc, 0) as end_soc,
+            COALESCE(p.aca, 0) as end_aca,
+            COALESCE(p.ada, 0) as end_ada,
+            COALESCE(p.ac, 0) as end_ac,
+            COALESCE(p.ad, 0) as end_ad,
+            COALESCE(p.lvc, 0) as end_lvc,
+            COALESCE(p.hvc, 0) as end_hvc,
+            COALESCE(p.ltc, 0) as end_ltc,
+            COALESCE(p.htc, 0) as end_htc,
+            COALESCE(p.tc, 0) as end_tc
         FROM last_child_in_cycle lc
         LEFT JOIN ev_log_pivot p ON lc.last_child_id = p.id
     ),
     next_cycle_start_data AS (
-        -- Get the FIRST CHILD of the LAST CHILD (next cycle start)
         SELECT
             lc.cycle_id,
             MIN(el.id) as next_start_id
@@ -94,21 +88,20 @@ return new class extends Migration
         GROUP BY lc.cycle_id
     ),
     next_cycle_metrics AS (
-        -- Get ALL ITEMS for next cycle start
         SELECT
             ncsd.cycle_id,
-            p.odo as next_start_odo,
-            p.voltage as next_start_voltage,
-            p.soc as next_cycle_soc,
-            p.aca as next_start_aca,
-            p.ada as next_start_ada,
-            p.ac as next_start_ac,
-            p.ad as next_start_ad,
-            p.lvc as next_start_lvc,
-            p.hvc as next_start_hvc,
-            p.ltc as next_start_ltc,
-            p.htc as next_start_htc,
-            p.tc as next_start_tc,
+            COALESCE(p.odo, 0) as next_start_odo,
+            COALESCE(p.voltage, 0) as next_start_voltage,
+            COALESCE(p.soc, 0) as next_cycle_soc,
+            COALESCE(p.aca, 0) as next_start_aca,
+            COALESCE(p.ada, 0) as next_start_ada,
+            COALESCE(p.ac, 0) as next_start_ac,
+            COALESCE(p.ad, 0) as next_start_ad,
+            COALESCE(p.lvc, 0) as next_start_lvc,
+            COALESCE(p.hvc, 0) as next_start_hvc,
+            COALESCE(p.ltc, 0) as next_start_ltc,
+            COALESCE(p.htc, 0) as next_start_htc,
+            COALESCE(p.tc, 0) as next_start_tc,
             p.date as next_start_date
         FROM next_cycle_start_data ncsd
         LEFT JOIN ev_log_pivot p ON ncsd.next_start_id = p.id
@@ -121,7 +114,7 @@ return new class extends Migration
         cb.cycle_end_date,
         cb.duration_minutes,
 
-        -- START VALUES (from parent of first child)
+        -- START VALUES (from parent of first child) - Already COALESCE'd to 0
         pfc.start_odo,
         pfc.start_voltage,
         pfc.start_soc,
@@ -135,7 +128,7 @@ return new class extends Migration
         pfc.start_htc,
         pfc.start_tc,
 
-        -- END VALUES (from last child)
+        -- END VALUES (from last child) - Already COALESCE'd to 0
         lcd.end_odo,
         lcd.end_voltage,
         lcd.end_soc,
@@ -149,7 +142,7 @@ return new class extends Migration
         lcd.end_htc,
         lcd.end_tc,
 
-        -- NEXT CYCLE START VALUES (from first child of last child)
+        -- NEXT CYCLE START VALUES (from first child of last child) - Already COALESCE'd to 0
         ncm.next_start_odo,
         ncm.next_start_voltage,
         ncm.next_cycle_soc,
@@ -182,6 +175,7 @@ return new class extends Migration
         COALESCE(lcd.end_tc - pfc.start_tc, 0) as current_cycle_tc_delta,
 
         -- CONDITIONAL NEXT CYCLE DELTAS (end - next_start, ONLY when next_start > 0)
+        -- Since next_start_* are already COALESCE'd to 0, the condition >0 will work correctly
         COALESCE(
             CASE WHEN ncm.next_start_odo > 0 THEN lcd.end_odo - ncm.next_start_odo END,
             0
@@ -247,16 +241,8 @@ return new class extends Migration
         CASE
             WHEN COALESCE(lcd.end_odo - pfc.start_odo, 0) > 0
             THEN ABS(COALESCE(pfc.start_soc - lcd.end_soc, 0)) / (lcd.end_odo - pfc.start_odo)
-            ELSE NULL
-        END as soc_consumption_per_km,
-
-        -- Next cycle efficiency (if available)
-        CASE
-            WHEN COALESCE(lcd.end_odo - pfc.start_odo, 0) > 0
-            AND ncm.next_cycle_soc > 0
-            THEN ABS(COALESCE(pfc.start_soc - ncm.next_cycle_soc, 0)) / (lcd.end_odo - pfc.start_odo)
-            ELSE NULL
-        END as next_cycle_soc_consumption_per_km
+            ELSE 0
+        END as soc_consumption_per_km
 
     FROM cycle_boundaries cb
     LEFT JOIN parent_of_first_child_data pfc ON cb.cycle_id = pfc.cycle_id
