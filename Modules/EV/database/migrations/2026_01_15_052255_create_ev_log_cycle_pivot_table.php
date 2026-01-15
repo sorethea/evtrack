@@ -116,6 +116,7 @@ return new class extends Migration
         LEFT JOIN ev_log_pivot p ON ncsd.next_start_id = p.id
     )
     SELECT
+        cb.id,
         cb.cycle_id,
         cb.vehicle_id,
         cb.total_logs,
