@@ -4,6 +4,8 @@ namespace Modules\EV\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 // use Modules\EV\Database\Factories\LogPivotFactory;
 
 class LogPivot extends Model
@@ -29,5 +31,15 @@ class LogPivot extends Model
         'htc' => 'double',
         'tc' => 'double',
     ];
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class,'parent_id');
+    }
+
+    public function cycle(): BelongsTo
+    {
+        return $this->belongsTo(self::class,'cycle_id')->where("log_type","charging");
+    }
 
 }

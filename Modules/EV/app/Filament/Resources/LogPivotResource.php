@@ -32,6 +32,7 @@ class LogPivotResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make("date")->date()->sortable(),
+                Tables\Columns\TextColumn::make("log_type")->searchable(),
             ])
             ->filters([
                 //
@@ -39,6 +40,7 @@ class LogPivotResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
+            ->defaultSort('date','desc')
             ->bulkActions([
 //                Tables\Actions\BulkActionGroup::make([
 //                    Tables\Actions\DeleteBulkAction::make(),
