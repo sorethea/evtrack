@@ -31,7 +31,7 @@ class LogPivotResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make("date")->date()->sortable(),
             ])
             ->filters([
                 //
@@ -40,9 +40,9 @@ class LogPivotResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                ]),
             ]);
     }
 
@@ -57,8 +57,8 @@ class LogPivotResource extends Resource
     {
         return [
             'index' => Pages\ListLogPivots::route('/'),
-            'create' => Pages\CreateLogPivot::route('/create'),
-            'edit' => Pages\EditLogPivot::route('/{record}/edit'),
+//            'create' => Pages\CreateLogPivot::route('/create'),
+//            'edit' => Pages\EditLogPivot::route('/{record}/edit'),
         ];
     }
 }
