@@ -12,6 +12,7 @@ return new class extends Migration
     WITH cycle_boundaries AS (
         -- Get cycle boundaries
         SELECT
+            id,
             cycle_id,
             vehicle_id,
             COUNT(*) as total_logs,
@@ -49,6 +50,7 @@ return new class extends Migration
     parent_of_first_child_data AS (
         -- Get ALL ITEMS from the PARENT of the FIRST CHILD (START VALUES)
         SELECT
+            fc.id,
             fc.cycle_id,
             p.odo as start_odo,
             p.voltage as start_voltage,
