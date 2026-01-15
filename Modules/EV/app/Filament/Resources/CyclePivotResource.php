@@ -49,7 +49,7 @@ class CyclePivotResource extends Resource
             ->actions([
                 //Tables\Actions\EditAction::make(),
             ])
-            ->defaultSort('date','desc')
+            ->defaultSort('cycle_start_date','desc')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     //Tables\Actions\DeleteBulkAction::make(),
