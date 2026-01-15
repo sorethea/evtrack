@@ -4,6 +4,7 @@ return [
     "time"=>"Time",
     "from"=>"From",
     "to"=>"To",
+    "count"=>"Count",
     "type"=>"Type",
     "cycle"=>"Charging Cycle",
     "cell_voltage"=>"Cell Voltage",

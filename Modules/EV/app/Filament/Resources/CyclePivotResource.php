@@ -39,6 +39,9 @@ class CyclePivotResource extends Resource
                         ->label(trans('ev.to'))
                         ->date(),
                 ]),
+                Tables\Columns\TextColumn::make('total_logs')
+                    ->label(trans("ev.count"))
+                    ->numeric(0),
             ])
             ->filters([
                 //
