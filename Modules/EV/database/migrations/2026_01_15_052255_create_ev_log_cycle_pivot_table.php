@@ -21,7 +21,7 @@ return new class extends Migration
             TIMESTAMPDIFF(MINUTE, MIN(date), MAX(date)) as duration_minutes
         FROM ev_logs
         WHERE cycle_id IS NOT NULL
-        GROUP BY cycle_id, vehicle_id
+        GROUP BY id, cycle_id, vehicle_id
         HAVING COUNT(*) > 0
     ),
     first_child_in_cycle AS (
