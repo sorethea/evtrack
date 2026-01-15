@@ -2,9 +2,9 @@
 
 namespace Modules\EV\Filament\Resources;
 
+use App\Models\CycleCompleteAnalytics;
 use Modules\EV\Filament\Resources\CyclePivotResource\Pages;
 use Modules\EV\Filament\Resources\CyclePivotResource\RelationManagers;
-use Modules\EV\Models\CyclePivot;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CyclePivotResource extends Resource
 {
-    protected static ?string $model = CyclePivot::class;
+    protected static ?string $model = CycleCompleteAnalytics::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
