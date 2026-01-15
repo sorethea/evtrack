@@ -55,7 +55,7 @@ class CyclePivotResource extends Resource
                     ->label(trans("ev.charge"))
                     ->numeric(0),
                 Tables\Columns\TextColumn::make('ac_epsilon')
-                    ->label(trans("ev.next_charge"))
+                    ->label(trans("ev.cycle_charge"))
                     ->numeric(0),
                 Tables\Columns\TextColumn::make('ad_delta')
                     ->label(trans("ev.discharge"))
