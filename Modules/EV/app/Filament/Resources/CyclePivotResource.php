@@ -45,6 +45,12 @@ class CyclePivotResource extends Resource
                 Tables\Columns\TextColumn::make('distance_km')
                     ->label(trans("ev.distance"))
                     ->numeric(1),
+                Tables\Columns\TextColumn::make('ac_delta')
+                    ->label(trans("ev.charge"))
+                    ->numeric(0),
+                Tables\Columns\TextColumn::make('ad_delta')
+                    ->label(trans("ev.discharge"))
+                    ->numeric(0),
             ])
             ->filters([
                 //
