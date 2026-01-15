@@ -32,7 +32,9 @@ class LogPivotResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make("date")->date()->sortable(),
+                Tables\Columns\TextColumn::make("cycle.date")->date(),
                 Tables\Columns\TextColumn::make("log_type")->searchable(),
+
             ])
             ->filters([
                 //
