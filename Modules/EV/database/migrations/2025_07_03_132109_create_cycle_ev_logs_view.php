@@ -53,7 +53,7 @@ class CreateCycleEvLogsView extends Migration
             *,
             LEAD(ac) OVER (PARTITION BY cycle_id ORDER BY date) AS child_ac
         FROM ev_logs_base
-        WHERE cycle_id IS NOT NULL
+        WHERE cycle_id IS NULL
     ),
     -- Separate charge and SOC accumulation by log_type
     charge_breakdown AS (
