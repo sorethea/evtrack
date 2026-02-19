@@ -15,7 +15,8 @@ class CreateCycleEvLogsView extends Migration
     WITH ev_logs_base AS (
         SELECT
             l.id AS log_id,
-            COALESCE(CAST(l.cycle_id AS CHAR), CAST(l.id AS CHAR)) AS cycle_id,
+            -- COALESCE(CAST(l.cycle_id AS CHAR), CAST(l.id AS CHAR)) AS cycle_id,
+            l.cycle_id,
             l.vehicle_id,
             l.date,
             l.log_type,
