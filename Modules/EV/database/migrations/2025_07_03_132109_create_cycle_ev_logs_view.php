@@ -48,6 +48,13 @@ class CreateCycleEvLogsView extends Migration
         FROM ev_logs_base
         WHERE cycle_id IS NOT NULL
     ),
+    ev_logs_with_child AS (
+        SELECT
+            *,
+            LEAD(ac) OVER (PARTITION BY cycle_id ORDER BY date) AS child_ac
+        FROM ev_logs_base
+        WHERE cycle_id IS NOT NULL
+    ),
     -- Separate charge and SOC accumulation by log_type
     charge_breakdown AS (
         SELECT
@@ -86,6 +93,14 @@ class CreateCycleEvLogsView extends Migration
                 ELSE 0
             END) AS soc_decrease
         FROM ev_logs_with_diffs
+        GROUP BY cycle_id
+    ),
+    charge_segments AS (
+        SELECT
+            cycle_id,
+            SUM(child_ac - ac) AS charge_from_children
+        FROM ev_logs_with_child
+        WHERE child_ac IS NOT NULL
         GROUP BY cycle_id
     ),
     cycle_roots AS (
@@ -160,7 +175,8 @@ class CreateCycleEvLogsView extends Migration
         lic.last_aca - cr.root_aca AS charge_amp,
         lic.last_ada - cr.root_ada AS discharge_amp,
         -- Original charge calculation (total)
-        lic.last_ac - cr.root_ac AS charge,
+        -- lic.last_ac - cr.root_ac AS charge,
+        cs.charge_from_children AS charge,
         -- Separated charge values
         cb.charge_from_charging,
         cb.charge_from_regen,
