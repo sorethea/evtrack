@@ -46,13 +46,14 @@ class CreateCycleEvLogsView extends Migration
             LAG(soc) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_soc,
             LAG(log_type) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_log_type
         FROM ev_logs_base
-        -- WHERE cycle_id IS NOT NULL
+        WHERE cycle_id IS NOT NULL
     ),
     ev_logs_with_child AS (
         SELECT
             *,
             LEAD(ac) OVER (PARTITION BY cycle_id ORDER BY date) AS child_ac
         FROM ev_logs_base
+        WHERE cycle_id IS NOT NULL
     ),
     -- Separate charge and SOC accumulation by log_type
     charge_breakdown AS (
