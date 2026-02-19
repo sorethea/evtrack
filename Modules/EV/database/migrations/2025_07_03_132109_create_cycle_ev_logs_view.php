@@ -211,6 +211,7 @@ class CreateCycleEvLogsView extends Migration
     FROM cycle_roots cr
     JOIN last_in_cycle lic ON cr.cycle_id = lic.cycle_id
     JOIN charge_breakdown cb ON cr.cycle_id = cb.cycle_id
+    JOIN charge_segments cs ON cr.cycle_id = cs.cycle_id
     LEFT JOIN vehicles v ON cr.vehicle_id = v.id;');
     }
 
