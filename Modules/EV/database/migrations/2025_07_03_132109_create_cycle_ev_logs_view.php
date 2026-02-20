@@ -10,6 +10,8 @@ class CreateCycleEvLogsView extends Migration
         // First drop the view if it exists
         DB::statement('DROP VIEW IF EXISTS ev_logs_cycle_view');
 
+        DB::enableQueryLog();
+
         // Then create the view
         DB::statement('CREATE VIEW ev_logs_cycle_view AS
     WITH ev_logs_base AS (
@@ -223,6 +225,8 @@ class CreateCycleEvLogsView extends Migration
     JOIN last_in_cycle lic ON cr.cycle_id = lic.cycle_id
     JOIN charge_breakdown cb ON cr.cycle_id = cb.cycle_id
     LEFT JOIN vehicles v ON cr.vehicle_id = v.id;');
+        dd(DB::getQueryLog());
+
     }
 
     public function down()
