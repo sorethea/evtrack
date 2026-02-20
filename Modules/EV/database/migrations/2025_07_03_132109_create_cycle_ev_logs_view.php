@@ -137,7 +137,7 @@ class CreateCycleEvLogsView extends Migration
             LEAD(cr.root_aca)   OVER (ORDER BY cr.cycle_date) AS next_root_aca,
             LEAD(cr.root_ada)   OVER (ORDER BY cr.cycle_date) AS next_root_ada,
             LEAD(cr.root_voltage) OVER (ORDER BY cr.cycle_date) AS next_root_voltage
-        FROM cycle_roots cr
+        FROM cycle_roots_with_next cr
     ),
     last_in_cycle AS (
         SELECT
