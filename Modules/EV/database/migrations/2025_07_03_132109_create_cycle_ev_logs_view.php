@@ -118,16 +118,27 @@ class CreateCycleEvLogsView extends Migration
     ),
     cycle_roots_with_next AS (
         SELECT
-            cr.*,
+            cr.cycle_id,
+            cr.vehicle_id,
+            cr.cycle_date,
+            cr.root_odo,
+            cr.root_voltage,
+            cr.root_soc,
+            cr.root_ac,
+            cr.root_ad,
+            cr.root_aca,
+            cr.root_ada,
+            -- next cycles root columns
             LEAD(cr.cycle_id)   OVER (ORDER BY cr.cycle_date) AS next_cycle_id,
             LEAD(cr.root_odo)   OVER (ORDER BY cr.cycle_date) AS next_root_odo,
             LEAD(cr.root_soc)   OVER (ORDER BY cr.cycle_date) AS next_root_soc,
             LEAD(cr.root_ac)    OVER (ORDER BY cr.cycle_date) AS next_root_ac,
             LEAD(cr.root_ad)    OVER (ORDER BY cr.cycle_date) AS next_root_ad,
             LEAD(cr.root_aca)   OVER (ORDER BY cr.cycle_date) AS next_root_aca,
-            LEAD(cr.root_ada)   OVER (ORDER BY cr.cycle_date) AS next_root_ada
+            LEAD(cr.root_ada)   OVER (ORDER BY cr.cycle_date) AS next_root_ada,
+            LEAD(cr.root_voltage) OVER (ORDER BY cr.cycle_date) AS next_root_voltage
         FROM cycle_roots cr
-    ),
+    )
     last_in_cycle AS (
         SELECT
             b2.cycle_id,
