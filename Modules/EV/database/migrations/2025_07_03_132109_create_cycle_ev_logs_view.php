@@ -15,8 +15,7 @@ class CreateCycleEvLogsView extends Migration
     WITH ev_logs_base AS (
         SELECT
             l.id AS log_id,
-            -- COALESCE(CAST(l.cycle_id AS CHAR), CAST(l.id AS CHAR)) AS cycle_id,
-            l.cycle_id,
+            COALESCE(CAST(l.cycle_id AS CHAR), CAST(l.id AS CHAR)) AS cycle_id,
             l.vehicle_id,
             l.date,
             l.log_type,
@@ -96,14 +95,6 @@ class CreateCycleEvLogsView extends Migration
         FROM ev_logs_with_diffs
         GROUP BY cycle_id
     ),
-    charge_segments AS (
-        SELECT
-            cycle_id,
-            SUM(child_ac - ac) AS charge_from_children
-        FROM ev_logs_with_child
-        WHERE child_ac IS NOT NULL
-        GROUP BY cycle_id
-    ),
     cycle_roots AS (
         SELECT
             b1.cycle_id,
@@ -122,6 +113,18 @@ class CreateCycleEvLogsView extends Migration
             FROM ev_logs_base b2
             WHERE b2.cycle_id = b1.cycle_id
         )
+    ),
+    cycle_roots_with_next AS (
+        SELECT
+            cr.*,
+            LEAD(cr.cycle_id)   OVER (ORDER BY cr.cycle_date) AS next_cycle_id,
+            LEAD(cr.root_odo)   OVER (ORDER BY cr.cycle_date) AS next_root_odo,
+            LEAD(cr.root_soc)   OVER (ORDER BY cr.cycle_date) AS next_root_soc,
+            LEAD(cr.root_ac)    OVER (ORDER BY cr.cycle_date) AS next_root_ac,
+            LEAD(cr.root_ad)    OVER (ORDER BY cr.cycle_date) AS next_root_ad,
+            LEAD(cr.root_aca)   OVER (ORDER BY cr.cycle_date) AS next_root_aca,
+            LEAD(cr.root_ada)   OVER (ORDER BY cr.cycle_date) AS next_root_ada
+        FROM cycle_roots cr
     ),
     last_in_cycle AS (
         SELECT
@@ -168,6 +171,11 @@ class CreateCycleEvLogsView extends Migration
         lic.last_ltc,
         lic.last_htc,
         lic.last_tc,
+        cr.next_cycle_id,
+        cr.next_root_odo,
+        cr.next_root_soc,
+        cr.next_root_ac,
+        cr.next_root_ad,
         (cr.root_soc - lic.last_soc) + cb.soc_increase_charging  AS soc_derivation,
         lic.last_hvc - lic.last_lvc AS v_spread,
         lic.last_htc - lic.last_ltc AS t_spread,
@@ -208,11 +216,12 @@ class CreateCycleEvLogsView extends Migration
         1000 * (lic.last_ad - cr.root_ad) /
         NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption,
         10*v.capacity * (cr.root_soc - lic.last_soc) /
-        NULLIF(lic.last_odo - cr.root_odo, 0) AS consumption
+        NULLIF(lic.last_odo - cr.root_odo, 0) AS consumption,
+        cr.next_root_ac - cr.root_ac AS charge_to_next_cycle_start,
+        lic.last_ac - cr.next_root_ac AS ac_drop_after_cycle_end
     FROM cycle_roots cr
     JOIN last_in_cycle lic ON cr.cycle_id = lic.cycle_id
     JOIN charge_breakdown cb ON cr.cycle_id = cb.cycle_id
-    JOIN charge_segments cs ON cr.cycle_id = cs.cycle_id
     LEFT JOIN vehicles v ON cr.vehicle_id = v.id;');
     }
 
