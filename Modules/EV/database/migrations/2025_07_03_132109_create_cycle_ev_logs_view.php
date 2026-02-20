@@ -50,6 +50,14 @@ class CreateCycleEvLogsView extends Migration
         FROM ev_logs_base
         WHERE cycle_id IS NOT NULL
     ),
+    charge_segments AS (
+        SELECT
+            cycle_id,
+            SUM(child_ac - ac) AS charge_from_children
+        FROM ev_logs_with_child
+        WHERE child_ac IS NOT NULL
+        GROUP BY cycle_id
+    ),
     ev_logs_with_child AS (
         SELECT
             *,
@@ -99,17 +107,17 @@ class CreateCycleEvLogsView extends Migration
     ),
     cycle_roots AS (
         SELECT
-            b1.cycle_id,
-            b1.vehicle_id,
-            b1.date AS cycle_date,
-            b1.odo AS root_odo,
-            b1.voltage AS root_voltage,
-            b1.soc AS root_soc,
-            b1.aca AS root_aca,
-            b1.ada AS root_ada,
-            b1.ac AS root_ac,
-            b1.ad AS root_ad
-        FROM ev_logs_base b1
+            cr.cycle_id,
+            cr.vehicle_id,
+            cr.date AS cycle_date,
+            cr.odo AS root_odo,
+            cr.voltage AS root_voltage,
+            cr.soc AS root_soc,
+            cr.aca AS root_aca,
+            cr.ada AS root_ada,
+            cr.ac AS root_ac,
+            cr.ad AS root_ad
+        FROM ev_logs_base cr
         WHERE b1.date = (
             SELECT MIN(date)
             FROM ev_logs_base b2
@@ -118,16 +126,16 @@ class CreateCycleEvLogsView extends Migration
     ),
     cycle_roots_with_next AS (
         SELECT
-            cr.cycle_id,
-            cr.vehicle_id,
-            cr.cycle_date,
-            cr.root_odo,
-            cr.root_voltage,
-            cr.root_soc,
-            cr.root_ac,
-            cr.root_ad,
-            cr.root_aca,
-            cr.root_ada,
+            cr.next_cycle_id,
+            cr.next_vehicle_id,
+            cr.next_cycle_date,
+            cr.next_root_odo,
+            cr.next_root_voltage,
+            cr.next_root_soc,
+            cr.next_root_ac,
+            cr.next_root_ad,
+            cr.next_root_aca,
+            cr.next_root_ada,
             -- next cycles root columns
             LEAD(cr.cycle_id)   OVER (ORDER BY cr.cycle_date) AS next_cycle_id,
             LEAD(cr.root_odo)   OVER (ORDER BY cr.cycle_date) AS next_root_odo,
@@ -235,6 +243,7 @@ class CreateCycleEvLogsView extends Migration
     FROM cycle_roots cr
     JOIN last_in_cycle lic ON cr.cycle_id = lic.cycle_id
     JOIN charge_breakdown cb ON cr.cycle_id = cb.cycle_id
+    JOIN charge_segments cs ON cr.cycle_id = cs.cycle_id
     LEFT JOIN vehicles v ON cr.vehicle_id = v.id;');
         dd(DB::getQueryLog());
 
