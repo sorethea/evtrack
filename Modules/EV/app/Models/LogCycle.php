@@ -10,6 +10,9 @@ class LogCycle extends Model
 {
     use HasFactory;
 
+
+    protected $primaryKey = "cycle_id";
+
     /**
      * The attributes that are mass assignable.
      */
