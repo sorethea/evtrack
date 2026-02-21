@@ -46,10 +46,10 @@ class LogCycleResource extends Resource
                 Tables\Columns\ColumnGroup::make('soc')
                     ->label('SoC')
                     ->columns([
-                        Tables\Columns\TextColumn::make('rc.soc')
+                        Tables\Columns\TextColumn::make('rc_soc')
                             ->label('From')
                             ->searchable(),
-                        Tables\Columns\TextColumn::make('lcc.soc')
+                        Tables\Columns\TextColumn::make('lcc_soc')
                             ->label('To')
                             ->searchable(),
                     ]),
