@@ -57,8 +57,9 @@ class LogCycleResource extends Resource
     {
         return [
             'index' => Pages\ListLogCycles::route('/'),
-            'create' => Pages\CreateLogCycle::route('/create'),
-            'edit' => Pages\EditLogCycle::route('/{record}/edit'),
+            'view'  => Pages\ViewLogCycle::route('/{record}')
+            //'create' => Pages\CreateLogCycle::route('/create'),
+            //'edit' => Pages\EditLogCycle::route('/{record}/edit'),
         ];
     }
 }
