@@ -17,6 +17,7 @@ WITH logs_aggregated AS (
   SELECT
     l.id,
     l.cycle_id,
+    COALESCE(l.cycle_id, l.id) AS derived_cycle,   -- consistent cycle key
     l.parent_id,
     l.vehicle_id,
     l.date,
@@ -34,12 +35,12 @@ WITH logs_aggregated AS (
   FROM ev_logs l
   LEFT JOIN ev_log_items li
     ON l.id = li.log_id AND li.item_id BETWEEN 1 AND 29
-  GROUP BY l.id, l.cycle_id, l.parent_id, l.vehicle_id, l.date, l.log_type   -- added missing columns
+  GROUP BY l.id, l.cycle_id, l.parent_id, l.vehicle_id, l.date, l.log_type
 ),
 -- Regen per cycle: sum of positive ac differences where log_type = 'driving'
 regen_per_cycle AS (
   SELECT
-    cycle_id,
+    derived_cycle,
     SUM(CASE
           WHEN log_type = 'driving' AND ac > prev_ac
           THEN ac - prev_ac
@@ -47,39 +48,39 @@ regen_per_cycle AS (
         END) AS regen
   FROM (
     SELECT
-      cycle_id,
+      derived_cycle,
       log_type,
       ac,
-      LAG(ac) OVER (PARTITION BY cycle_id ORDER BY date) AS prev_ac
+      LAG(ac) OVER (PARTITION BY derived_cycle ORDER BY date) AS prev_ac
     FROM logs_aggregated
-    WHERE cycle_id IS NOT NULL
+    WHERE derived_cycle IS NOT NULL
   ) with_prev
-  GROUP BY cycle_id
+  GROUP BY derived_cycle
 ),
 -- All distinct cycles with vehicle_id and date range
 cycles AS (
   SELECT
-    cycle_id,
+    derived_cycle,
     MAX(vehicle_id) AS vehicle_id,
     MIN(date) AS start_date,
     MAX(date) AS end_date
   FROM logs_aggregated
-  WHERE cycle_id IS NOT NULL
-  GROUP BY cycle_id
+  WHERE derived_cycle IS NOT NULL
+  GROUP BY derived_cycle
 ),
 -- Root of each cycle (first log by date)
 root_per_cycle AS (
   SELECT DISTINCT
-    cycle_id,
-    FIRST_VALUE(id) OVER (PARTITION BY cycle_id ORDER BY date) AS rc_id
+    derived_cycle,
+    FIRST_VALUE(id) OVER (PARTITION BY derived_cycle ORDER BY date) AS rc_id
   FROM logs_aggregated
-  WHERE cycle_id IS NOT NULL
+  WHERE derived_cycle IS NOT NULL
 ),
 -- Last child in each cycle (by date)
 last_child_per_cycle AS (
   SELECT DISTINCT
-    cycle_id,
-    FIRST_VALUE(id) OVER (PARTITION BY cycle_id ORDER BY date DESC) AS lcc_id
+    derived_cycle,
+    FIRST_VALUE(id) OVER (PARTITION BY derived_cycle ORDER BY date DESC) AS lcc_id
   FROM logs_aggregated
   WHERE parent_id IS NOT NULL
 ),
@@ -92,7 +93,7 @@ first_child_of_parent AS (
   WHERE parent_id IS NOT NULL
 )
 SELECT
-  c.cycle_id,
+  c.derived_cycle AS cycle_id,      -- output the consistent cycle key
   c.vehicle_id,
   c.start_date,
   c.end_date,
@@ -137,15 +138,14 @@ SELECT
   -- Capacity = 100 * (discharge - regen) / (rc.soc - lcc.soc)
   100 * (lcc_row.ad - rc_row.ad - rp.regen) / NULLIF(rc_row.soc - lcc_row.soc, 0) AS capacity
 FROM cycles c
-LEFT JOIN root_per_cycle rc ON c.cycle_id = rc.cycle_id
+LEFT JOIN root_per_cycle rc ON c.derived_cycle = rc.derived_cycle
 LEFT JOIN logs_aggregated rc_row ON rc.rc_id = rc_row.id
-LEFT JOIN last_child_per_cycle lc ON c.cycle_id = lc.cycle_id
+LEFT JOIN last_child_per_cycle lc ON c.derived_cycle = lc.derived_cycle
 LEFT JOIN logs_aggregated lcc_row ON lc.lcc_id = lcc_row.id
 LEFT JOIN first_child_of_parent fc ON lc.lcc_id = fc.parent_id
 LEFT JOIN logs_aggregated clcc_row ON fc.clcc_id = clcc_row.id
-LEFT JOIN regen_per_cycle rp ON c.cycle_id = rp.cycle_id
-ORDER BY c.start_date;
-        ");
+LEFT JOIN regen_per_cycle rp ON c.derived_cycle = rp.derived_cycle
+ORDER BY c.start_date;");
     }
 
     /**
