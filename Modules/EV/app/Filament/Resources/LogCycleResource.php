@@ -31,7 +31,14 @@ class LogCycleResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('start_date')
+                    ->label('From')
+                    ->date('Y-m-d')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('end_date')
+                    ->label('To')
+                    ->date('Y-m-d')
+                    ->searchable(),
             ])
             ->filters([
                 //
