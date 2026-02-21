@@ -31,14 +31,29 @@ class LogCycleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('start_date')
-                    ->label('From')
-                    ->date('Y-m-d')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->label('To')
-                    ->date('Y-m-d')
-                    ->searchable(),
+                Tables\Columns\ColumnGroup::make()
+                    ->label('Date')
+                    ->columns([
+                        Tables\Columns\TextColumn::make('start_date')
+                            ->label('From')
+                            ->date('Y-m-d')
+                            ->searchable(),
+                        Tables\Columns\TextColumn::make('end_date')
+                            ->label('To')
+                            ->date('Y-m-d')
+                            ->searchable(),
+                    ]),
+                Tables\Columns\ColumnGroup::make()
+                    ->label('SoC')
+                    ->columns([
+                        Tables\Columns\TextColumn::make('rc.soc')
+                            ->label('From')
+                            ->searchable(),
+                        Tables\Columns\TextColumn::make('lcc.soc')
+                            ->label('To')
+                            ->searchable(),
+                    ]),
+
                 Tables\Columns\TextColumn::make('charge')
                     ->numeric(),
                 Tables\Columns\TextColumn::make('discharge')
