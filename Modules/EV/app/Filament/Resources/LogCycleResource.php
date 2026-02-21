@@ -2,6 +2,7 @@
 
 namespace Modules\EV\Filament\Resources;
 
+use Carbon\Carbon;
 use Modules\EV\Filament\Resources\LogCycleResource\Pages;
 use Modules\EV\Filament\Resources\LogCycleResource\RelationManagers;
 use Modules\EV\Models\LogCycle;
@@ -44,8 +45,8 @@ class LogCycleResource extends Resource
                             ->searchable(),
                         Tables\Columns\TextColumn::make('count')
                             ->label('Count')
-                            ->getStateUsing(fn($record)=>$record->start_date)
-                            ->date('Y-m-d'),
+                            ->getStateUsing(fn($record)=>Carbon::parse($record->start_date)->diffInDays($record->end_date))
+                            ->numeric(0),
                     ]),
                 Tables\Columns\ColumnGroup::make('soc')
                     ->label('SoC')
