@@ -39,6 +39,12 @@ class LogCycleResource extends Resource
                     ->label('To')
                     ->date('Y-m-d')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('charge')
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('discharge')
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('distance')
+                    ->numeric(),
             ])
             ->filters([
                 //
