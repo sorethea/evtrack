@@ -31,7 +31,7 @@ class LogCycleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ColumnGroup::make()
+                Tables\Columns\ColumnGroup::make('date')
                     ->label('Date')
                     ->columns([
                         Tables\Columns\TextColumn::make('start_date')
@@ -43,7 +43,7 @@ class LogCycleResource extends Resource
                             ->date('Y-m-d')
                             ->searchable(),
                     ]),
-                Tables\Columns\ColumnGroup::make()
+                Tables\Columns\ColumnGroup::make('soc')
                     ->label('SoC')
                     ->columns([
                         Tables\Columns\TextColumn::make('rc.soc')
