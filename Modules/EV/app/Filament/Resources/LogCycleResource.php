@@ -42,6 +42,10 @@ class LogCycleResource extends Resource
                             ->label('To')
                             ->date('Y-m-d')
                             ->searchable(),
+                        Tables\Columns\TextColumn::make('count')
+                            ->label('Count')
+                            ->getStateUsing(fn($record)=>$record->start_date)
+                            ->date('Y-m-d'),
                     ]),
                 Tables\Columns\ColumnGroup::make('soc')
                     ->label('SoC')
