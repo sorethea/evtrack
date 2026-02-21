@@ -43,8 +43,8 @@ class LogCycleResource extends Resource
                             ->label('To')
                             ->date('Y-m-d')
                             ->searchable(),
-                        Tables\Columns\TextColumn::make('count')
-                            ->label('Count')
+                        Tables\Columns\TextColumn::make('days')
+                            ->label('Days')
                             ->getStateUsing(fn($record)=>Carbon::parse($record->start_date)->diffInDays($record->end_date))
                             ->numeric(0),
                     ]),
