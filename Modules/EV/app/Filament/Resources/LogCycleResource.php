@@ -49,7 +49,7 @@ class LogCycleResource extends Resource
                         Tables\Columns\TextColumn::make('rc_soc')
                             ->label('From')
                             ->searchable(),
-                        Tables\Columns\TextColumn::make('lcc_soc')
+                        Tables\Columns\TextColumn::make('clcc_soc')
                             ->label('To')
                             ->searchable(),
                     ]),
