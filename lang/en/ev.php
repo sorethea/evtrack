@@ -2,6 +2,7 @@
 return [
     "date"=>"Date",
     "day"=>"Day(s)",
+    "day_hours"=>"Day(s)-hour(s)",
     "time"=>"Time",
     "from"=>"From",
     "to"=>"To",

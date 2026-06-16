@@ -41,8 +41,8 @@ class ChargingCycleResource extends Resource
                         ->date('d/m/y H:i')
                         ->searchable(),
                     Tables\Columns\TextColumn::make('days')
-                        ->label(__("ev.day"))
-                        ->getStateUsing(fn($record)=>number_format(Carbon::make($record->cycle_date)->diffInDays($record->end_date),0))
+                        ->label(__("ev.day_hours"))
+                        ->getStateUsing(fn($record)=>gmdate('d-H',Carbon::make($record->cycle_date)->diffInSeconds($record->end_date)))
                 ]),
                 Tables\Columns\ColumnGroup::make(__("ev.soc")."(%)",[
                     Tables\Columns\TextColumn::make('root_soc')
