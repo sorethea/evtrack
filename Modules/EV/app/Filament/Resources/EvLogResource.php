@@ -2,6 +2,7 @@
 
 namespace Modules\EV\Filament\Resources;
 
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
@@ -118,6 +119,8 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
                     ->searchable(),
+                Tables\Columns\TextColumn::make("duration")
+                    ->getStateUsing(fn($record)=>number_format(Carbon::make($record->parent->date)->diffInHours($record->date),2)),
                 Tables\Columns\TextColumn::make("log_type")
                     ->badge()
                     ->color(fn(string $state) => match ($state) {

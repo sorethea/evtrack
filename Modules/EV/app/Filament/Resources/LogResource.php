@@ -42,8 +42,7 @@ class LogResource extends Resource
                 Tables\Columns\TextColumn::make("date")
                     ->date('d M, Y H:i')
                     ->searchable(),
-                Tables\Columns\TextColumn::make("duration")
-                    ->getStateUsing(fn($record)=>Carbon::make($record->parent->date)->diffInHours($record->date)),
+
                 Tables\Columns\TextColumn::make("log_type")
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
