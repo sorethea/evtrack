@@ -120,7 +120,7 @@ class EvLogResource extends Resource
                     ->date('d M, Y H:i')
                     ->searchable(),
                 Tables\Columns\TextColumn::make("duration")
-                    ->getStateUsing(fn($record)=>number_format(Carbon::make($record->parent->date)->diffInHours($record->date),2)),
+                    ->getStateUsing(fn($record)=>Carbon::make($record->parent->date)->diffForHumans($record->date)),
                 Tables\Columns\TextColumn::make("log_type")
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
