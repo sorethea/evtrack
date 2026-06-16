@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Number;
+use Illuminate\Validation\Rules\Numeric;
 use Modules\EV\Models\ChargingCycle;
 
 class ChargingCycleResource extends Resource
@@ -41,7 +42,7 @@ class ChargingCycleResource extends Resource
                         ->searchable(),
                     Tables\Columns\TextColumn::make('days')
                         ->label(__("ev.day"))
-                        ->getStateUsing(fn($record)=>Carbon::make($record->cycle_date)->diffInDays($record->end_date))
+                        ->getStateUsing(fn($record)=>number_format(Carbon::make($record->cycle_date)->diffInDays($record->end_date),0))
                 ]),
                 Tables\Columns\ColumnGroup::make(__("ev.soc")."(%)",[
                     Tables\Columns\TextColumn::make('root_soc')
