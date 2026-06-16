@@ -1,6 +1,7 @@
 <?php
 return [
     "date"=>"Date",
+    "day"=>"Day(s)",
     "time"=>"Time",
     "from"=>"From",
     "to"=>"To",
