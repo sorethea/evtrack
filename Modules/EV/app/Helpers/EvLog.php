@@ -81,7 +81,7 @@ class EvLog
                 ->description( "Highest cell: {$log?->cycleView?->last_hvc}V. Lowest cell: {$log?->cycleView?->last_lvc}V.")
                 ->chart($cycleHCVArray)
                 ->color(Color::Orange),
-            Stat::make(trans('ev.used_energy'),Number::format($log?->cycleView?->discharge).'kWh')
+            Stat::make(trans('ev.used_energy'),Number::format($log?->cycleView?->discharge??0).'kWh')
                 ->description("Added({$log?->cycleView?->charge_from_regen} kWh): ".Number::format($regenPercentage??0,1).'%')
                 ->chart($cycleDischargeArray)
                 ->color(Color::Teal),
