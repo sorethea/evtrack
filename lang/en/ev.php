@@ -61,6 +61,7 @@ return [
     "gross_discharge"=>"Gross Discharge",
     "net"=>"Net",
     "capacity"=>"Capacity",
+    "limited_capacity"=>"Limited Capacity",
     "charge_capacity"=>"Charge Capacity",
     "range"=>"Range",
     "percentage_charge"=>"AC/AD (%)",
