@@ -23,6 +23,7 @@ class Vehicle extends Model
         "soc",
         "odo",
         "capacity",
+        "limited_capacity",
         "specs",
         "user_id",
         "is_default",
