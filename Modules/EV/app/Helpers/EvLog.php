@@ -91,9 +91,9 @@ class EvLog
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.remaining_capacity'),Number::format($capacity,1).'kWh')
-                ->description( trans("ev.limited_capacity").": {$limited_capacity} \n".trans("ev.capacity"))
+                ->description( nl2br(trans("ev.limited_capacity").": {$limited_capacity} \n".trans("ev.capacity")))
                 ->chart($cycleCapacityArray)
-                ->color(Color::Pink)->toHtml(),
+                ->color(Color::Pink),
             Stat::make(trans('ev.temperature'),Number::format($deltaTemp,0).'C')
                 ->description( "Highest cell: {$log?->cycleView?->last_htc}C. Lowest cell: {$log?->cycleView?->last_ltc}C.")
                 ->chart($cycleHTVArray)
