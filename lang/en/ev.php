@@ -53,6 +53,7 @@ return [
     "comment"=>"Comment",
     "duration"=>"Duration",
     "distance"=>"Distance",
+    "cycle_distance"=>"Cycle Distance",
     "gap_zero"=>"Gap Zero",
     "rb"=>"Regenerative",
     "gross"=>"Gross",

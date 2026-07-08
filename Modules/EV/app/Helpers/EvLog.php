@@ -65,7 +65,7 @@ class EvLog
         $cycleHTVArray = $log?->cycleView?->logs->pluck('htc')->toArray();
         $cycleLTVArray = $log?->cycleView?->logs->pluck('ltc')->toArray();
         return [
-            Stat::make(trans('ev.distance'),Number::format($distance).'km')
+            Stat::make(trans('ev.cycle_distance'),Number::format($distance).'km')
                 ->color(Color::Green)
                 ->description('Range to 10%: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
