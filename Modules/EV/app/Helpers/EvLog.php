@@ -91,7 +91,7 @@ class EvLog
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
             Stat::make(trans('ev.remaining_capacity'),Number::format($capacity,1).'kWh')
-                ->description( nl2br(trans("ev.limited_capacity").": {$limited_capacity} \n\r".trans("ev.capacity")))
+                ->description( nl2br(trans("ev.limited_capacity").": {$limited_capacity}\r".trans("ev.capacity")))
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),
             Stat::make(trans('ev.temperature'),Number::format($deltaTemp,0).'C')
