@@ -131,6 +131,7 @@ SELECT
   clcc_row.htc    AS clcc_htc,
   clcc_row.tc     AS clcc_tc,
   -- Calculated fields
+  rc_row.ad - rc_row.ac as gab,
   lcc_row.ad - rc_row.ad AS discharge,
   clcc_row.ac - rc_row.ac AS charge,
   rp.regen,
