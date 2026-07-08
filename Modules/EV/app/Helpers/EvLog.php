@@ -54,7 +54,7 @@ class EvLog
         $cycleConsumptionArray = $log?->cycleView?->logs->pluck('a_consumption')->toArray();
         $consumption = $log?->cycleView?->a_consumption??0;
         $socConsumption = $log?->cycleView?->consumption??0;
-        $capacity = $log?->cycleView?->capacity??0;
+        $capacity = $log?->vehicle?->limited_capacity??0;
         $cycleCapacityArray = $log?->cycleView?->logs->pluck('capacity')->toArray();
         $capacityVariant = $vehicleCapacity?Number::format(100*($capacity-$vehicleCapacity)/$vehicleCapacity,1):0;
         $netConsumption =$consumption*(100-$regenPercentage)/100??0;
@@ -89,7 +89,7 @@ class EvLog
                 //->description("Net: ".Number::format($netConsumption,0)."Wh/km")
                 ->chart($cycleConsumptionArray)
                 ->color(Color::Cyan),
-            Stat::make(trans('ev.capacity'),Number::format($capacity,1).'kWh')
+            Stat::make(trans('ev.remaining_capacity'),Number::format($capacity,1).'kWh')
                 ->description( "Capacity variant: {$capacityVariant}%")
                 ->chart($cycleCapacityArray)
                 ->color(Color::Pink),

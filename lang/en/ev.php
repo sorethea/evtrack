@@ -62,6 +62,7 @@ return [
     "net"=>"Net",
     "capacity"=>"Capacity",
     "limited_capacity"=>"Limited Capacity",
+    "remaining_capacity"=>"Remaining Capacity",
     "charge_capacity"=>"Charge Capacity",
     "range"=>"Range",
     "percentage_charge"=>"AC/AD (%)",
