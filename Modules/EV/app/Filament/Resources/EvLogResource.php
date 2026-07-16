@@ -207,7 +207,7 @@ class EvLogResource extends Resource
                         ->numeric()
                         ->label(__('ev.used'))
                         ->toggleable(),
-                    Tables\Columns\TextColumn::make('detail.a_consumption')
+                    Tables\Columns\TextColumn::make('detail.consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.consumption'))
