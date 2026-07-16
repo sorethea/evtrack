@@ -22,6 +22,7 @@ class EvLog extends Model
 //        "soc_from",
         "soc",
         "soc_actual",
+        "consumption",
         "ac",
         "ad",
         "ac_power",
