@@ -56,7 +56,7 @@ class EvLogResource extends Resource
 //                    Forms\Components\TextInput::make("odo")
 //                        ->label(trans('ev.odo'))
 //                        ->required(),
-                    Forms\Components\TextInput::make("soc")
+                    Forms\Components\TextInput::make("soc_actual")
                         ->label(trans('ev.soc'))
                         ->nullable(),
                     Forms\Components\TextInput::make("consumption")
