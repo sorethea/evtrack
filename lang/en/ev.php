@@ -67,6 +67,7 @@ return [
     "range"=>"Range",
     "percentage_charge"=>"AC/AD (%)",
     "consumption"=>"Consumption",
+    "consume"=>"Consume",
     "obd2"=>"OBD2",
     "qty"=>"Quantity",
     "power"=>"Power",

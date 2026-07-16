@@ -138,10 +138,6 @@ class EvLogResource extends Resource
                         ->label(trans('ev.from') )
                         ->toggleable(isToggledHiddenByDefault: false),
                         //->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder $query)=>$query->max('parent_soc'))),
-                    Tables\Columns\TextColumn::make('consumption')
-                        ->numeric(1)
-                        ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-                        ->label(__('ev.consumption')),
                     Tables\Columns\TextColumn::make('detail.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
@@ -164,6 +160,10 @@ class EvLogResource extends Resource
                         ->numeric(1)
                         //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
                         ->toggleable(),
+                    Tables\Columns\TextColumn::make('consumption')
+                        ->numeric(1)
+                        ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
+                        ->label(__('ev.consume')),
 //                    Tables\Columns\TextColumn::make('detail.soc_middle')
 //                        ->label(trans('ev.soc_middle') )
 //                        ->numeric(1)
