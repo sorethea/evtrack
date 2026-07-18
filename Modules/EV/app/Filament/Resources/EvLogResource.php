@@ -132,7 +132,7 @@ class EvLogResource extends Resource
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
                 Tables\Columns\ColumnGroup::make('SoC(%)',[
-                    Tables\Columns\TextColumn::make('parent.detail.soc')
+                    Tables\Columns\TextColumn::make('parent.soc_actual')
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.from') )
