@@ -11,8 +11,12 @@ return new class extends Migration {
         DB::statement("
             CREATE OR REPLACE VIEW next_ev_logs_view AS
             SELECT
-                a.*,
-                b.id        AS next_id
+                a.id,
+                a.date AS date_from,
+                b.date AS date_to,
+                b.id AS next_id,
+                b.ad - a.ad AS discharge,
+                b.ac - a.ac AS charge
             FROM ev_logs a
             LEFT JOIN ev_logs b
                 ON b.id = (
