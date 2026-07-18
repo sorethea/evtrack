@@ -132,7 +132,7 @@ class EvLogResource extends Resource
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
                 Tables\Columns\ColumnGroup::make('SoC(%)',[
-                    Tables\Columns\TextColumn::make('parent.soc_actual')
+                    Tables\Columns\TextColumn::make('parent.detail.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.from') )
@@ -211,7 +211,7 @@ class EvLogResource extends Resource
                         ->numeric()
                         ->label(__('ev.used'))
                         ->toggleable(),
-                    Tables\Columns\TextColumn::make('a_consumption')
+                    Tables\Columns\TextColumn::make('detail.consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.consumption'))
