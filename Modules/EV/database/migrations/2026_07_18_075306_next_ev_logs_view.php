@@ -12,7 +12,7 @@ return new class extends Migration {
             CREATE OR REPLACE VIEW next_ev_logs_view AS
             SELECT
                 a.*,
-                b.id        AS next_id,
+                b.id        AS next_id
             FROM ev_logs a
             LEFT JOIN ev_logs b
                 ON b.id = (
