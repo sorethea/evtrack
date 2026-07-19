@@ -15,6 +15,7 @@ return new class extends Migration {
                 a.date AS date_from,
                 b.date AS date_to,
                 b.id AS next_id,
+                b.odo - a.odo AS distance,
                 b.ad - a.ad AS discharge,
                 b.ac - a.ac AS charge
             FROM ev_logs a
