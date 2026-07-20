@@ -14,11 +14,10 @@ return new class extends Migration {
                 a.id,
                 a.date AS date_from,
                 b.date AS date_to,
-                b.ad - a.ad AS total_discharge,
-                b.ac - a.ac AS total_charge,
-                b.id AS next_id,
-                (SELECT SUM(ac) FROM ev_logs WHERE cycle_id = a.id AND a.log_type='charge') AS charge,
-                (SELECT SUM(ac) FROM ev_logs WHERE cycle_id = a.id AND a.log_type<>'charge') AS regen
+                b.odo - a.odo AS distance,
+                b.ad - a.ad AS discharge,
+                b.ac - a.ac AS charge,
+                b.id AS next_id
             FROM ev_logs a
             LEFT JOIN ev_logs b
                 ON b.id = (
