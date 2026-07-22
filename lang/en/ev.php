@@ -4,7 +4,7 @@ return [
     "day"=>"Day(s)",
     "day_hours"=>"Day(s)-hour(s)",
     "time"=>"Time",
-    "gab"=>"Gab",
+    "gab"=>"100% Gab",
     "current"=>"Current",
     "next"=>"Next",
     "from"=>"From",
