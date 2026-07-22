@@ -402,7 +402,7 @@ SELECT
     cr.next_root_soc,
     cr.next_root_ac,
     cr.next_root_ad,
-    (lic.last_ad-lic.last_ac)-(cr.root_ad - cr.root_ac)/(100-lic.last_soc)% AS est_capacity,
+    100 * ((lic.last_ad-lic.last_ac)-(cr.root_ad - cr.root_ac)/(100-lic.last_soc)) AS est_capacity,
     cr.root_ad - cr.root_ac AS gab,
     cr.next_root_ad - cr.next_root_ac AS next_gab,
     (cr.root_soc - lic.last_soc) + cb.soc_increase_charging AS soc_derivation,
