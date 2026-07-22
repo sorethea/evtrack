@@ -430,7 +430,7 @@ SELECT
     100 * (lic.last_odo - cr.root_odo) / cb.soc_decrease AS `range`,
     lic.last_odo - cr.root_odo AS distance,
     100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) / (cr.root_soc - lic.last_soc) AS capacity_amp,
-    100 * ((cb.discharge - cb.charge_from_regen)+((lic.last_ad-lic.last_ac)-(cr.root_ad - cr.root_ac)))/ (cb.soc_decrease +(100-lic.last_soc)) AS capacity,
+    100 * ((cb.discharge - cb.charge_from_regen)+((lic.last_ad-lic.last_ac)-(cr.root_ad - cr.root_ac)))/ cb.soc_decrease AS capacity,
     1000 * (lic.last_ada - cr.root_ada) / NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption_amp,
     1000 * (lic.last_ad - cr.root_ad) / NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption,
     10 * v.capacity * (cr.root_soc - lic.last_soc) / NULLIF(lic.last_odo - cr.root_odo, 0) AS consumption,
