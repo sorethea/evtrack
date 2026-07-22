@@ -4,6 +4,8 @@ return [
     "day"=>"Day(s)",
     "day_hours"=>"Day(s)-hour(s)",
     "time"=>"Time",
+    "current"=>"Current",
+    "next"=>"Next",
     "from"=>"From",
     "to"=>"To",
     "count"=>"Count",
