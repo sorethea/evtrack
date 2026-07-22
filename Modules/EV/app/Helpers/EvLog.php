@@ -66,13 +66,15 @@ class EvLog
         $cycleHTVArray = $log?->cycleView?->logs->pluck('htc')->toArray();
         $cycleLTVArray = $log?->cycleView?->logs->pluck('ltc')->toArray();
         $cycleGab = $log?->cycleView?->root_ad-$log?->cycleView?->root_ac??0;
+        $currentGab = $log?->detail?->ad-$log?->detail?->ac??0;
+        $fullChargeEnergy = $currentGab - $cycleGab;
         return [
             Stat::make(trans('ev.cycle_distance'),Number::format($distance).'km')
                 ->color(Color::Green)
                 ->description('Range to 10%: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
             Stat::make(trans('ev.soc').'('.$rootSoc.'%)',Number::format($lastSoc).'%')
-                ->description('Gab: '.Number::format($cycleGab,0).'kWh')
+                ->description('Gab: '.Number::format($cycleGab,0).'kWh; Full charge energy: '.$fullChargeEnergy.'kWh')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
             Stat::make(trans('ev.battery_voltage')."({$log?->cycleView?->root_voltage}V)",Number::format($voltage).'V')
