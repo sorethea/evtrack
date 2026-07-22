@@ -63,7 +63,7 @@ class ChargingCycleResource extends Resource
                         ->label(__("ev.consumption"))
                         ->toggleable(isToggledHiddenByDefault: true),
                 ]),
-                Tables\Columns\ColumnGroup::make(__("ev.gab")."kWh",[
+                Tables\Columns\ColumnGroup::make(__("ev.gab")."(kWh)",[
                     Tables\Columns\TextColumn::make('gab')
                         ->label(__("ev.current"))
                         ->toggleable(true),
