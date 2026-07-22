@@ -405,7 +405,7 @@ SELECT
     ((lic.last_ad-lic.last_ac)-(cr.root_ad - cr.root_ac))/((100-lic.last_soc)/100) AS est_capacity,
     (lic.last_ad-lic.last_ac)-(cr.root_ad - cr.root_ac) AS be_charge,
     cr.root_ad - cr.root_ac AS gab,
-    lic.last_ac - cr.next_root_ac AS next_charge,
+    cr.next_root_ac - lic.last_ac AS next_charge,
     (cr.root_soc - lic.last_soc) + cb.soc_increase_charging AS soc_derivation,
     lic.last_hvc - lic.last_lvc AS v_spread,
     lic.last_htc - lic.last_ltc AS t_spread,
