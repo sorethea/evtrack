@@ -65,7 +65,7 @@ class EvLog
         $deltaTemp = $log?->cycleView?->t_spread??0;
         $cycleHTVArray = $log?->cycleView?->logs->pluck('htc')->toArray();
         $cycleLTVArray = $log?->cycleView?->logs->pluck('ltc')->toArray();
-        $cycleGab = $log?->cycleView?->rc_ad-$log?->cycleView?->rc_ac??0;
+        $cycleGab = $log?->cycleView?->rc_ad;//-$log?->cycleView?->rc_ac??0;
         return [
             Stat::make(trans('ev.cycle_distance'),Number::format($distance).'km')
                 ->color(Color::Green)
