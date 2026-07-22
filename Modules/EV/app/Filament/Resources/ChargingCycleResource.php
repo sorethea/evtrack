@@ -67,8 +67,11 @@ class ChargingCycleResource extends Resource
                     Tables\Columns\TextColumn::make('gab')
                         ->label(__("ev.gab"))
                         ->toggleable(true),
-                    Tables\Columns\TextColumn::make('next_charge')
+                    Tables\Columns\TextColumn::make('be_charge')
                         ->label(__("ev.charge"))
+                        ->toggleable(true),
+                    Tables\Columns\TextColumn::make('next_charge')
+                        ->label(__("ev.charged"))
                         ->toggleable(true),
                 ]),
 //                Tables\Columns\ColumnGroup::make(trans('ev.accumulative').'(Ah)',[

@@ -6,7 +6,6 @@ return [
     "time"=>"Time",
     "100_gab"=>"100% Gab",
     "100_charge"=>"100% Charge",
-    "next_charge"=>"Next Charge to 100%",
     "gab"=>"Gab",
     "current"=>"Current",
     "next"=>"Next",
@@ -32,6 +31,8 @@ return [
     "a_consumption"=>"Acc Consumption",
     "net_discharge"=>"Net Discharge",
     "charge"=>"Charge",
+    "be_charge"=>"Be Charge",
+    "charged"=>"Charged",
     "cycle_charge"=>"Cycle Charge",
     "regen"=>"Regen",
     "charge_types"=>[
