@@ -119,7 +119,7 @@ class ChargingCycleResource extends Resource
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.used'))
                         ->toggleable(isToggledHiddenByDefault: false),
-                    Tables\Columns\TextColumn::make('est_capacity')
+                    Tables\Columns\TextColumn::make('capacity')
                         ->label(trans('ev.capacity'))
                         ->numeric(1),
                 ]),
