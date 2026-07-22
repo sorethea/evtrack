@@ -402,6 +402,7 @@ SELECT
     cr.next_root_soc,
     cr.next_root_ac,
     cr.next_root_ad,
+    cr.root_ad - cr.root_ac AS gab,
     cr.next_root_ad - cr.next_root_ac AS next_gab,
     (cr.root_soc - lic.last_soc) + cb.soc_increase_charging AS soc_derivation,
     lic.last_hvc - lic.last_lvc AS v_spread,

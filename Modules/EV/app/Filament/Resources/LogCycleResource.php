@@ -58,6 +58,16 @@ class LogCycleResource extends Resource
                             ->label('To')
                             ->searchable(),
                     ]),
+                Tables\Columns\ColumnGroup::make('gab')
+                    ->label('Gab')
+                    ->columns([
+                        Tables\Columns\TextColumn::make('gab')
+                            ->label('Current')
+                            ->searchable(),
+                        Tables\Columns\TextColumn::make('next_gab')
+                            ->label('Next')
+                            ->searchable(),
+                    ]),
 
                 Tables\Columns\TextColumn::make('charge')
                     ->numeric(),
