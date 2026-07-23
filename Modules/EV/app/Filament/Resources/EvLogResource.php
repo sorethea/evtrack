@@ -275,7 +275,7 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
-                    ->label(trans('ev.distance')))
+                    ->label(trans('ev.distance'))
 //                    ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
             ])
             ->defaultPaginationPageOption(25)
