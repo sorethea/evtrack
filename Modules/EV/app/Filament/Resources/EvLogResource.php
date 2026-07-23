@@ -120,7 +120,7 @@ class EvLogResource extends Resource
                     ->date('d M, Y H:i')
                     ->searchable(),
                 Tables\Columns\TextColumn::make("duration")
-                    ->getStateUsing(fn($record)=>gmdate("H:i",Carbon::make($record->parent->date)->diffInSeconds($record->date))),
+                    ->getStateUsing(fn($record)=>gmdate("H:i",Carbon::make($record?->parent?->date)->diffInSeconds($record?->date)),
                 Tables\Columns\TextColumn::make("log_type")
                     ->badge()
                     ->color(fn(string $state) => match ($state) {
@@ -275,7 +275,7 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
-                    ->label(trans('ev.distance')),
+                    ->label(trans('ev.distance')))
 //                    ->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.distance'))),
             ])
             ->defaultPaginationPageOption(25)
