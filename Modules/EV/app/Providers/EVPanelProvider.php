@@ -30,6 +30,7 @@ class EVPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->login()
             ->discoverResources(in: app_path('Filament/EV/Resources'), for: 'Modules\\EV\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/EV/Pages'), for: 'Modules\\EV\\Filament\\Pages')
             ->pages([
