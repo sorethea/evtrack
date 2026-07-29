@@ -60,7 +60,7 @@ class EvLogResource extends Resource
                         ->label(trans('ev.soc'))
                         ->nullable(),
                     Forms\Components\TextInput::make("consumption")
-                        ->label(trans('ev.consumption'))
+                        ->label(trans('ev.consume'))
                         ->nullable(),
                     Forms\Components\Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
