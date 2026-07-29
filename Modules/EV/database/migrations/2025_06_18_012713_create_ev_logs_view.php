@@ -98,7 +98,7 @@ return new class extends Migration
         END AS a_consumption,
         CASE
             WHEN (c.odo - IFNULL(p.odo, c.odo)) = 0 THEN 0
-            ELSE 10 * IFNULL(v.capacity, 0) * (IFNULL(p.soc, c.soc) - c.soc) / (c.odo - IFNULL(p.odo, c.odo))
+            ELSE IFNULL(v.capacity, 0) * (IFNULL(p.soc, c.soc) - c.soc) / (c.odo - IFNULL(p.odo, c.odo))
         END AS consumption
     FROM ev_logs_base c
     LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id
