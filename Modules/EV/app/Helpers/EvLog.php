@@ -208,7 +208,7 @@ class EvLog
                     ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                     ->nullable(),
                 TextInput::make("consume")
-                    ->label(trans("ev.consume"))
+                    ->label(trans("ev.consume")."(kWh/100km)")
                     ->nullable(),
                 FileUpload::make('obd_file')
                     ->preserveFilenames()
