@@ -5,6 +5,7 @@ namespace Modules\EV\Helpers;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -205,6 +206,9 @@ class EvLog
                     ->label(trans('ev.charge_types.name'))
                     ->options(trans("ev.charge_types.options"))
                     ->hidden(fn(Get $get)=>$get("log_type")!="charging")
+                    ->nullable(),
+                TextInput::make("consume")
+                    ->label(trans("ev.consume"))
                     ->nullable(),
                 FileUpload::make('obd_file')
                     ->preserveFilenames()
