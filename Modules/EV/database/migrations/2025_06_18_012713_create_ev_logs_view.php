@@ -94,7 +94,7 @@ return new class extends Migration
         END AS a_consumption_amp,
         CASE
             WHEN (c.odo - IFNULL(p.odo, c.odo)) = 0 THEN 0
-            ELSE 1000 * (c.ad - IFNULL(p.ad, 0)) / (c.odo - IFNULL(p.odo, c.odo))
+            ELSE (c.ad - IFNULL(p.ad, 0)) / (c.odo - IFNULL(p.odo, c.odo))
         END AS a_consumption,
         CASE
             WHEN (c.odo - IFNULL(p.odo, c.odo)) = 0 THEN 0
