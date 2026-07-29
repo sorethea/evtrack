@@ -214,7 +214,7 @@ class EvLogResource extends Resource
                     Tables\Columns\TextColumn::make('detail.consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
-                        ->label(__('ev.consumption'))
+                        ->label(__('ev.consume'))
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.capacity')
                         ->formatStateUsing(fn($state)=>Number::format($state,1))
