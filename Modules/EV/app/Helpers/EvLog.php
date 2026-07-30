@@ -152,7 +152,6 @@ class EvLog
         $obdFileName = end($obdFileArray);
         $obdFileNameArray = explode(".", $obdFileName);
         $evLog->update([
-            'consume'=>$data['consume'],
             'date' => $obdFileNameArray[0],
             'obd_file' => $obdFile,
         ]);
@@ -208,7 +207,7 @@ class EvLog
                     ->options(trans("ev.charge_types.options"))
                     ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                     ->nullable(),
-                TextInput::make("consume")
+                TextInput::make("consumption")
                     ->label(trans("ev.consume")."(kWh/100km)")
                     ->nullable(),
                 FileUpload::make('obd_file')
