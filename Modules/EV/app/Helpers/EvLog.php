@@ -152,6 +152,7 @@ class EvLog
         $obdFileName = end($obdFileArray);
         $obdFileNameArray = explode(".", $obdFileName);
         $evLog->update([
+            'consume'=>$data['consume'],
             'date' => $obdFileNameArray[0],
             'obd_file' => $obdFile,
         ]);
