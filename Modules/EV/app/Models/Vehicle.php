@@ -22,6 +22,7 @@ class Vehicle extends Model
         "plate",
         "soc",
         "odo",
+        "consumption",
         "capacity",
         "limited_capacity",
         "specs",
