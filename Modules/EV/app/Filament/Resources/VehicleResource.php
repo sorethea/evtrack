@@ -30,6 +30,7 @@ class VehicleResource extends Resource
                     Forms\Components\TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
                     Forms\Components\TextInput::make("vin")->nullable(),
                     Forms\Components\TextInput::make("plate")->nullable(),
+                    Forms\Components\TextInput::make("consumption")->nullable(),
                     Forms\Components\TextInput::make("capacity")->name(trans("ev.capacity"))->suffix("kWh")->nullable(),
                     Forms\Components\TextInput::make("limited_capacity")->name(trans("ev.limited_capacity"))->suffix("kWh")->nullable(),
                     Forms\Components\Toggle::make("is_default")->default(false),
