@@ -50,7 +50,7 @@ class EvLogResource extends Resource
                         ->label(trans('ev.cycle'))
                         ->relationship('cycle', 'date')
                         //->hidden(fn(Get $get) => $get("log_type") == "charging")
-                        ->default(fn() => EvLog::where("log_type", "charging")->where("soc",100)->max('date'))
+                        ->default(fn() => EvLog::where("log_type", "charging")->where("soc_actual",100)->max('date'))
                         ->searchable()
                         ->nullable(),
 //                    Forms\Components\TextInput::make("odo")
