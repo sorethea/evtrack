@@ -77,7 +77,7 @@ class EvLog
                 ->description('Range to 10%: '.Number::format($remainRange,1).' km')
                 ->chart($cycleDistanceArray),
             Stat::make(trans('ev.soc').'('.$rootSoc.'%)',Number::format($lastSoc).'%')
-                ->description('Gab: '.Number::format($cycleGab,0).'kWh; Charged: '.$cycleSoCCharged.'%; Discharged: '.$cycleSoCDischarged)
+                ->description('Gab: '.Number::format($cycleGab,0).'kWh; Charged: '.$cycleSoCCharged.'%; Discharged: '.$cycleSoCDischarged.'%.')
                 ->color(Color::Red)
                 ->chart($cycleSoCArray),
             Stat::make(trans('ev.battery_voltage')."({$log?->cycleView?->root_voltage}V)",Number::format($voltage).'V')
