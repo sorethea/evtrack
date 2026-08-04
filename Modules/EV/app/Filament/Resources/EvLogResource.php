@@ -5,9 +5,10 @@ namespace Modules\EV\Filament\Resources;
 use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Form;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,9 +22,9 @@ class EvLogResource extends Resource
 
     protected static ?string $model = EvLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-calendar';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

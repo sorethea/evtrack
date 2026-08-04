@@ -4,9 +4,10 @@ namespace Modules\EV\Filament\Resources;
 
 use App\Filament\Resources\ChargingCycleResource\Pages;
 use App\Filament\Resources\ChargingCycleResource\RelationManagers;
+use BackedEnum;
 use Carbon\Carbon;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Number;
@@ -17,9 +18,9 @@ class ChargingCycleResource extends Resource
 {
     protected static ?string $model = ChargingCycle::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-bolt';
+     protected static string | BackedEnum | null $navigationIcon= 'heroicon-o-bolt';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

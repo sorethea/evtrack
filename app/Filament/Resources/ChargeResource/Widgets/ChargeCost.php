@@ -12,7 +12,7 @@ use Illuminate\Contracts\Support\Htmlable;
 class ChargeCost extends ChartWidget
 {
     use InteractsWithPageTable;
-    protected static ?string $heading = ' EV Charging Cost (USD)';
+    protected ?string $heading = ' EV Charging Cost (USD)';
 //    public function getHeading(): string|Htmlable|null
 //    {
 //        $rate = config("ev.usd_rate");

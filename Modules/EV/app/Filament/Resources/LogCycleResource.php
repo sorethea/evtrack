@@ -2,7 +2,9 @@
 
 namespace Modules\EV\Filament\Resources;
 
+use BackedEnum;
 use Carbon\Carbon;
+use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\LogCycleResource\Pages;
 use Modules\EV\Filament\Resources\LogCycleResource\RelationManagers;
 use Modules\EV\Models\LogCycle;
@@ -18,9 +20,9 @@ class LogCycleResource extends Resource
 {
     protected static ?string $model = LogCycle::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

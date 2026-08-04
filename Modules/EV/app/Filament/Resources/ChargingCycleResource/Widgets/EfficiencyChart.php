@@ -9,7 +9,7 @@ use Illuminate\Support\Number;
 class EfficiencyChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Energy Efficiency';
+    protected ?string $heading = 'Energy Efficiency';
 
     protected function getData(): array
     {

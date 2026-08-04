@@ -6,9 +6,11 @@ use App\Filament\Resources\DrivingLogResource\Pages;
 use App\Filament\Resources\DrivingLogResource\RelationManagers;
 use App\Filament\Resources\DrivingLogResource\Widgets\DrivingOverview;
 use App\Models\DrivingLog;
+use BackedEnum;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Number;
@@ -17,9 +19,9 @@ class DrivingLogResource extends Resource
 {
     protected static ?string $model = DrivingLog::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-pencil-square';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

@@ -2,11 +2,11 @@
 
 namespace Modules\EV\Filament\Resources;
 
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\LogPivotResource\Pages;
 use Modules\EV\Filament\Resources\LogPivotResource\RelationManagers;
 use Modules\EV\Models\LogPivot;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,9 +17,9 @@ class LogPivotResource extends Resource
 {
     protected static ?string $model = LogPivot::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

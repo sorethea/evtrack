@@ -7,9 +7,11 @@ use App\Filament\Resources\ChargeResource\RelationManagers;
 use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use App\Filament\Resources\ChargeResource\Widgets\ChargeOverview;
 use App\Models\Charge;
+use BackedEnum;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,9 +23,9 @@ class ChargeResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    protected static ?string $navigationIcon = 'heroicon-o-bolt';
+    protected static string | BackedEnum | null $navigationIcon= 'heroicon-o-bolt';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

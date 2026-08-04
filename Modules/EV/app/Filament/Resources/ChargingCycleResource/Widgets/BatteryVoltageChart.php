@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BatteryVoltageChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Voltage';
+    protected ?string $heading = 'Voltage';
     protected function getData(): array
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();

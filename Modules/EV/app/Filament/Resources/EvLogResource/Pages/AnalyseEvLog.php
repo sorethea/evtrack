@@ -10,7 +10,7 @@ class AnalyseEvLog extends ViewRecord
 {
     protected static string $resource = EvLogResource::class;
 
-    protected static string $view = 'ev::filament.resources.ev-log-resource.pages.analyse-ev-log';
+    protected string $view = 'ev::filament.resources.ev-log-resource.pages.analyse-ev-log';
 
     protected static ?string $title = 'Analyse';
 

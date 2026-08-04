@@ -2,6 +2,8 @@
 
 namespace Modules\EV\Filament\Resources;
 
+use BackedEnum;
+use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\VehicleResource\Pages;
 use Modules\EV\Filament\Resources\VehicleResource\RelationManagers;
 use Filament\Forms;
@@ -15,9 +17,9 @@ class VehicleResource extends Resource
 {
     protected static ?string $model = Vehicle::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-truck';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-truck';
 
-    public static function form(Form $form): Form
+    public static function form( Schema $form): Schema
     {
         return $form
             ->schema([

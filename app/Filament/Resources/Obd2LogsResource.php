@@ -5,9 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\Obd2LogsResource\Pages;
 use App\Filament\Resources\Obd2LogsResource\RelationManagers;
 use App\Models\Obd2Logs;
+use BackedEnum;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
@@ -24,9 +26,9 @@ class Obd2LogsResource extends Resource
         trans('ev.trips');
     }
 
-    protected static ?string $navigationIcon = 'heroicon-o-cloud-arrow-down';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-cloud-arrow-down';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

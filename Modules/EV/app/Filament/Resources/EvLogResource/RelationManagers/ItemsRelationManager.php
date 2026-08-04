@@ -4,8 +4,8 @@ namespace Modules\EV\Filament\Resources\EvLogResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +19,7 @@ class ItemsRelationManager extends RelationManager
 
 
 
-    public function form(Form $form): Form
+    public function form(Schema $form): Schema
     {
         return $form
             ->schema([

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MiddleSoCChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Energy';
+    protected ?string $heading = 'Energy';
 
     protected function getData(): array
     {

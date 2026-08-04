@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RangeChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Range vs. Capacity';
+    protected ?string $heading = 'Range vs. Capacity';
 
     protected function getData(): array
     {

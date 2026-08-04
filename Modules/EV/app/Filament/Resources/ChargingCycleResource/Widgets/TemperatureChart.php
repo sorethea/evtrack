@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TemperatureChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Temperature';
+    protected ?string $heading = 'Temperature';
     protected function getData(): array
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();

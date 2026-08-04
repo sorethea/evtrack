@@ -2,7 +2,9 @@
 
 namespace Modules\EV\Filament\Resources;
 
+use BackedEnum;
 use Carbon\Carbon;
+use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\LogResource\Pages;
 use Modules\EV\Filament\Resources\LogResource\RelationManagers;
 use Modules\EV\Models\EvLog;
@@ -25,9 +27,9 @@ class LogResource extends Resource
    }
 
 
-    protected static ?string $navigationIcon = 'heroicon-o-table-cells';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-table-cells';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return $form
             ->schema([

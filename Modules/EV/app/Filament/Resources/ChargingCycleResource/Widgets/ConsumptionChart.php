@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ConsumptionChart extends ChartWidget
 {
     public Model $record;
-    protected static ?string $heading = 'Consumption';
+    protected ?string $heading = 'Consumption';
     protected function getData(): array
     {
         $socArray = $this->record->logs->pluck('soc')->toArray();
