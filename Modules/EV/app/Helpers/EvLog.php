@@ -70,7 +70,7 @@ class EvLog
         $currentGab = $log?->detail?->ad-$log?->detail?->ac??0;
         $fullChargeEnergy = $currentGab - $cycleGab;
         $cycleSoCCharged = $log?->cycleView?->soc_increase_charging??0;
-        $cycleSoCDischarged = $log?->cycleView?->soc_descrease??0;
+        $cycleSoCDischarged = $log?->cycleView?->soc_decrease??0;
         return [
             Stat::make(trans('ev.cycle_distance'),Number::format($distance).'km')
                 ->color(Color::Green)
