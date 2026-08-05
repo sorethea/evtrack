@@ -2,6 +2,8 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\RelationManagers;
 
+use Filament\Actions\Action;
+use Filament\Actions\CreateAction;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -47,8 +49,8 @@ class ItemsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
-                Tables\Actions\Action::make('obdImport')
+                CreateAction::make(),
+                Action::make('obdImport')
                     ->label('Obd Import')
                     ->form([
                         FileUpload::make('obd_file')
