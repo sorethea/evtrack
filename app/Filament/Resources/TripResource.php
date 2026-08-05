@@ -28,65 +28,65 @@ class TripResource extends Resource
     {
         return $form
             ->schema([
-                \Filamant\Forms\Components\Section::make([
-                    \Filamant\Forms\Components\Section::make([
-                        \Filamant\Forms\Components\DatePicker::make('date_from')
+                \Filament\Forms\Components\Section::make([
+                    \Filament\Forms\Components\Section::make([
+                        \Filament\Forms\Components\DatePicker::make('date_from')
                             ->label(trans("ev.from"))
                             ->default(now())
                             ->required(),
-                        \Filamant\Forms\Components\DatePicker::make('date_to')
+                        \Filament\Forms\Components\DatePicker::make('date_to')
                             ->label(trans("ev.to"))
                             ->default(now())
                             ->nullable(),
                     ])
                         ->columns(2)
                         ->heading(trans("ev.date")),
-                    \Filamant\Forms\Components\Section::make(trans("ev.odo"))
+                    \Filament\Forms\Components\Section::make(trans("ev.odo"))
                         ->schema([
-                            \Filamant\Forms\Components\TextInput::make('odo_from')
+                            \Filament\Forms\Components\TextInput::make('odo_from')
                                 ->label(trans("ev.from"))
                                 ->default(fn()=>auth()->user()->vehicle->odo)
                                 ->required(),
-                            \Filamant\Forms\Components\TextInput::make('odo_to')
+                            \Filament\Forms\Components\TextInput::make('odo_to')
                                 ->label(trans("ev.to"))
                                 ->required(),
                         ])
                         ->columns(2),
-                    \Filamant\Forms\Components\Section::make(trans("ev.soc"))
+                    \Filament\Forms\Components\Section::make(trans("ev.soc"))
                         ->schema([
-                            \Filamant\Forms\Components\TextInput::make('soc_from')
+                            \Filament\Forms\Components\TextInput::make('soc_from')
                                 ->label(trans("ev.from"))
                                 ->default(fn()=>auth()->user()->vehicle->soc)
                                 ->required(),
-                            \Filamant\Forms\Components\TextInput::make('soc_to')
+                            \Filament\Forms\Components\TextInput::make('soc_to')
                                 ->label(trans("ev.to"))
                                 ->required(),
                         ])
                         ->columns(2),
-                    \Filamant\Forms\Components\Section::make(trans("ev.accumulative"))
+                    \Filament\Forms\Components\Section::make(trans("ev.accumulative"))
                         ->schema([
-                            \Filamant\Forms\Components\Fieldset::make(trans("ev.charge"))
+                            \Filament\Forms\Components\Fieldset::make(trans("ev.charge"))
                                 ->schema([
-                                    \Filamant\Forms\Components\TextInput::make('ac_from')
+                                    \Filament\Forms\Components\TextInput::make('ac_from')
                                         ->label(trans("ev.from"))
                                         ->nullable(),
-                                    \Filamant\Forms\Components\TextInput::make('ac_to')
+                                    \Filament\Forms\Components\TextInput::make('ac_to')
                                         ->label(trans("ev.to"))
                                         ->nullable(),
                                 ]),
-                            \Filamant\Forms\Components\Fieldset::make(trans("ev.discharge"))
+                            \Filament\Forms\Components\Fieldset::make(trans("ev.discharge"))
                                 ->schema([
-                                    \Filamant\Forms\Components\TextInput::make('ad_from')
+                                    \Filament\Forms\Components\TextInput::make('ad_from')
                                         ->label(trans("ev.from"))
                                         ->nullable(),
-                                    \Filamant\Forms\Components\TextInput::make('ad_to')
+                                    \Filament\Forms\Components\TextInput::make('ad_to')
                                         ->label(trans("ev.to"))
                                         ->nullable(),
                                 ]),
 
 
                         ]),
-                    \Filamant\Forms\Components\MarkdownEditor::make("comment")
+                    \Filament\Forms\Components\MarkdownEditor::make("comment")
                         ->label(trans("ev.comment"))
                         ->columnSpan(2)
                         ->nullable(),
