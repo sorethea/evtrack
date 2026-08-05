@@ -29,42 +29,42 @@ class ChargeResource extends Resource
     {
         return $form
             ->schema([
-                Filamant\Forms\Components\Section::make([
-                    Filamant\Forms\Components\DatePicker::make('date')
+                \Filamant\Forms\Components\Section::make([
+                    \Filamant\Forms\Components\DatePicker::make('date')
                         ->label(trans('ev.date'))
                         ->default(now())
                         ->required(),
-                    Filamant\Forms\Components\Select::make('type')
+                    \Filamant\Forms\Components\Select::make('type')
                         ->options(trans("ev.charge_types"))
                         ->default('ac')
                         ->required(),
-                    Filamant\Forms\Components\Fieldset::make("soc")
+                    \Filamant\Forms\Components\Fieldset::make("soc")
                         ->label(trans("ev.soc"))
                         ->schema([
-                        Filamant\Forms\Components\TextInput::make("soc_from")
+                        \Filamant\Forms\Components\TextInput::make("soc_from")
                             ->label(trans("ev.from"))
                             ->default(0)
                             ->nullable(),
-                        Filamant\Forms\Components\TextInput::make("soc_to")
+                        \Filamant\Forms\Components\TextInput::make("soc_to")
                             ->label(trans("ev.to"))
                             ->default(0)
                             ->nullable(),
                     ]),
-                    Filamant\Forms\Components\Fieldset::make("accumulative")
+                    \Filamant\Forms\Components\Fieldset::make("accumulative")
                         ->label(trans("ev.accumulative"))
                         ->schema([
-                        Filamant\Forms\Components\TextInput::make("ac_from")
+                        \Filamant\Forms\Components\TextInput::make("ac_from")
                             ->label(trans("ev.from"))
                             ->default(0)
                             ->nullable(),
-                        Filamant\Forms\Components\TextInput::make("ac_to")
+                        \Filamant\Forms\Components\TextInput::make("ac_to")
                             ->label(trans("ev.to"))
                             ->default(0)
                             ->nullable(),
                     ]),
-                    Filamant\Forms\Components\TextInput::make("qty")
+                    \Filamant\Forms\Components\TextInput::make("qty")
                         ->default(0),
-                    Filamant\Forms\Components\TextInput::make("price")
+                    \Filamant\Forms\Components\TextInput::make("price")
                         ->default(0),
 
                 ])->columns(2),

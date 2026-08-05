@@ -29,10 +29,10 @@ class ItemsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Filamant\Forms\Components\Select::make('item_id')
+                \Filamant\Forms\Components\Select::make('item_id')
                     ->relationship('item','pid')
                     ->required(),
-                Filamant\Forms\Components\TextInput::make('value')
+                \Filamant\Forms\Components\TextInput::make('value')
                     ->numeric()
                     ->default(0),
             ]);

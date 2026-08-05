@@ -36,24 +36,24 @@ class EvLogResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    Filamant\Forms\Components\DateTimePicker::make("date")
+                    \Filamant\Forms\Components\DateTimePicker::make("date")
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d H i'))
                         ->required(),
-                    Filamant\Forms\Components\Select::make("parent_id")
+                    \Filamant\Forms\Components\Select::make("parent_id")
                         ->live()
                         ->label(trans('ev.parent'))
                         ->relationship('parent', 'date')
                         ->default(fn() => EvLog::max('date'))
                         ->searchable()
                         ->nullable(),
-                    Filamant\Forms\Components\Select::make("log_type")
+                    \Filamant\Forms\Components\Select::make("log_type")
                         ->live()
                         ->label(trans('ev.log_types.name'))
                         ->options(trans("ev.log_types.options"))
                         ->default('driving')
                         ->nullable(),
-                    Filamant\Forms\Components\Select::make("cycle_id")
+                    \Filamant\Forms\Components\Select::make("cycle_id")
                         ->reactive()
                         ->label(trans('ev.cycle'))
                         ->relationship('cycle', 'date')
@@ -64,13 +64,13 @@ class EvLogResource extends Resource
 //                    Filamant\Forms\Components\TextInput::make("odo")
 //                        ->label(trans('ev.odo'))
 //                        ->required(),
-                    Filamant\Forms\Components\TextInput::make("soc_actual")
+                    \Filamant\Forms\Components\TextInput::make("soc_actual")
                         ->label(trans('ev.soc'))
                         ->nullable(),
-                    Filamant\Forms\Components\TextInput::make("consumption")
+                    \Filamant\Forms\Components\TextInput::make("consumption")
                         ->label(trans('ev.consume'))
                         ->nullable(),
-                    Filamant\Forms\Components\Select::make("charge_type")
+                    \Filamant\Forms\Components\Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))
                         ->hidden(fn(Get $get) => $get("log_type") != "charging")
@@ -110,7 +110,7 @@ class EvLogResource extends Resource
 //                            ->label(trans('ev.voltage'))
 //                            ->nullable(),
 //                    ]),
-                    Filamant\Forms\Components\Textarea::make("remark")
+                    \Filamant\Forms\Components\Textarea::make("remark")
                         ->label(trans('ev.remark'))
                         ->columnSpan(2)
                         ->nullable(),
