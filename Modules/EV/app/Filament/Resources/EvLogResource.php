@@ -11,6 +11,7 @@ use Filament\Actions\ViewAction;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Actions;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
@@ -34,7 +35,7 @@ class EvLogResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make([
+                Section::make([
                     Forms\Components\DateTimePicker::make("date")
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d H i'))
