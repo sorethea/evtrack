@@ -1,0 +1,11 @@
+{
+    "name": "EV5",
+    "alias": "ev5",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\EV5\\Providers\\EV5ServiceProvider"
+    ],
+    "files": []
+}
