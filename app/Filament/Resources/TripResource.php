@@ -28,65 +28,65 @@ class TripResource extends Resource
     {
         return $form
             ->schema([
-                Schema\Components\Section::make([
-                    Schema\Components\Section::make([
-                        Schema\Components\DatePicker::make('date_from')
+                Schemas\Components\Section::make([
+                    Schemas\Components\Section::make([
+                        Schemas\Components\DatePicker::make('date_from')
                             ->label(trans("ev.from"))
                             ->default(now())
                             ->required(),
-                        Schema\Components\DatePicker::make('date_to')
+                        Schemas\Components\DatePicker::make('date_to')
                             ->label(trans("ev.to"))
                             ->default(now())
                             ->nullable(),
                     ])
                         ->columns(2)
                         ->heading(trans("ev.date")),
-                    Schema\Components\Section::make(trans("ev.odo"))
+                    Schemas\Components\Section::make(trans("ev.odo"))
                         ->schema([
-                            Schema\Components\TextInput::make('odo_from')
+                            Schemas\Components\TextInput::make('odo_from')
                                 ->label(trans("ev.from"))
                                 ->default(fn()=>auth()->user()->vehicle->odo)
                                 ->required(),
-                            Schema\Components\TextInput::make('odo_to')
+                            Schemas\Components\TextInput::make('odo_to')
                                 ->label(trans("ev.to"))
                                 ->required(),
                         ])
                         ->columns(2),
-                    Schema\Components\Section::make(trans("ev.soc"))
+                    Schemas\Components\Section::make(trans("ev.soc"))
                         ->schema([
-                            Schema\Components\TextInput::make('soc_from')
+                            Schemas\Components\TextInput::make('soc_from')
                                 ->label(trans("ev.from"))
                                 ->default(fn()=>auth()->user()->vehicle->soc)
                                 ->required(),
-                            Schema\Components\TextInput::make('soc_to')
+                            Schemas\Components\TextInput::make('soc_to')
                                 ->label(trans("ev.to"))
                                 ->required(),
                         ])
                         ->columns(2),
-                    Schema\Components\Section::make(trans("ev.accumulative"))
+                    Schemas\Components\Section::make(trans("ev.accumulative"))
                         ->schema([
-                            Schema\Components\Fieldset::make(trans("ev.charge"))
+                            Schemas\Components\Fieldset::make(trans("ev.charge"))
                                 ->schema([
-                                    Schema\Components\TextInput::make('ac_from')
+                                    Schemas\Components\TextInput::make('ac_from')
                                         ->label(trans("ev.from"))
                                         ->nullable(),
-                                    Schema\Components\TextInput::make('ac_to')
+                                    Schemas\Components\TextInput::make('ac_to')
                                         ->label(trans("ev.to"))
                                         ->nullable(),
                                 ]),
-                            Schema\Components\Fieldset::make(trans("ev.discharge"))
+                            Schemas\Components\Fieldset::make(trans("ev.discharge"))
                                 ->schema([
-                                    Schema\Components\TextInput::make('ad_from')
+                                    Schemas\Components\TextInput::make('ad_from')
                                         ->label(trans("ev.from"))
                                         ->nullable(),
-                                    Schema\Components\TextInput::make('ad_to')
+                                    Schemas\Components\TextInput::make('ad_to')
                                         ->label(trans("ev.to"))
                                         ->nullable(),
                                 ]),
 
 
                         ]),
-                    Schema\Components\MarkdownEditor::make("comment")
+                    Schemas\Components\MarkdownEditor::make("comment")
                         ->label(trans("ev.comment"))
                         ->columnSpan(2)
                         ->nullable(),

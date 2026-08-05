@@ -9,7 +9,7 @@ use \Filament\Actions\DeleteBulkAction;
 use \Filament\Actions\EditAction;
 use \Filament\Actions\ViewAction;
 use Filament\Forms;
-use Filament\Schema\Components\FileUpload;
+use Filament\Schemas\Components\FileUpload;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -36,24 +36,24 @@ class EvLogResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    Schema\Components\DateTimePicker::make("date")
+                    Schemas\Components\DateTimePicker::make("date")
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d H i'))
                         ->required(),
-                    Schema\Components\Select::make("parent_id")
+                    Schemas\Components\Select::make("parent_id")
                         ->live()
                         ->label(trans('ev.parent'))
                         ->relationship('parent', 'date')
                         ->default(fn() => EvLog::max('date'))
                         ->searchable()
                         ->nullable(),
-                    Schema\Components\Select::make("log_type")
+                    Schemas\Components\Select::make("log_type")
                         ->live()
                         ->label(trans('ev.log_types.name'))
                         ->options(trans("ev.log_types.options"))
                         ->default('driving')
                         ->nullable(),
-                    Schema\Components\Select::make("cycle_id")
+                    Schemas\Components\Select::make("cycle_id")
                         ->reactive()
                         ->label(trans('ev.cycle'))
                         ->relationship('cycle', 'date')
@@ -61,56 +61,56 @@ class EvLogResource extends Resource
                         ->default(fn() => EvLog::where("log_type", "charging")->where("soc_actual",100)->max('date'))
                         ->searchable()
                         ->nullable(),
-//                    Schema\Components\TextInput::make("odo")
+//                    Schemas\Components\TextInput::make("odo")
 //                        ->label(trans('ev.odo'))
 //                        ->required(),
-                    Schema\Components\TextInput::make("soc_actual")
+                    Schemas\Components\TextInput::make("soc_actual")
                         ->label(trans('ev.soc'))
                         ->nullable(),
-                    Schema\Components\TextInput::make("consumption")
+                    Schemas\Components\TextInput::make("consumption")
                         ->label(trans('ev.consume'))
                         ->nullable(),
-                    Schema\Components\Select::make("charge_type")
+                    Schemas\Components\Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))
                         ->hidden(fn(Get $get) => $get("log_type") != "charging")
                         ->nullable(),
-//                    Schema\Components\Repeater::make('items')
+//                    Schemas\Components\Repeater::make('items')
 //                        ->relationship('items')
 //                        ->orderColumn(column: 'item_id')
 //                        ->schema([
-//                            Schema\Components\Select::make('item_id')
+//                            Schemas\Components\Select::make('item_id')
 //                                ->relationship('item','pid')
 //                                ->required(),
-//                            Schema\Components\TextInput::make('value')->default(0)
+//                            Schemas\Components\TextInput::make('value')->default(0)
 //                        ])
 //                        ->columns(2)
 //                        ->columnSpan(2),
-//                    Schema\Components\Fieldset::make()->label(trans('ev.obd2'))
+//                    Schemas\Components\Fieldset::make()->label(trans('ev.obd2'))
 //                    ->schema([
-//                        Schema\Components\TextInput::make("ac")
+//                        Schemas\Components\TextInput::make("ac")
 //                            ->label(trans('ev.charge'))
 //                            ->nullable(),
-//                        Schema\Components\TextInput::make("ad")
+//                        Schemas\Components\TextInput::make("ad")
 //                            ->label(trans('ev.discharge'))
 //                            ->nullable(),
-//                        Schema\Components\TextInput::make("highest_temp_cell")
+//                        Schemas\Components\TextInput::make("highest_temp_cell")
 //                            ->label(trans('ev.highest_temp_cell'))
 //                            ->nullable(),
-//                        Schema\Components\TextInput::make("lowest_temp_cell")
+//                        Schemas\Components\TextInput::make("lowest_temp_cell")
 //                            ->label(trans('ev.lowest_temp_cell'))
 //                            ->nullable(),
-//                        Schema\Components\TextInput::make("highest_volt_cell")
+//                        Schemas\Components\TextInput::make("highest_volt_cell")
 //                            ->label(trans('ev.highest_volt_cell'))
 //                            ->nullable(),
-//                        Schema\Components\TextInput::make("lowest_volt_cell")
+//                        Schemas\Components\TextInput::make("lowest_volt_cell")
 //                            ->label(trans('ev.lowest_volt_cell'))
 //                            ->nullable(),
-//                        Schema\Components\TextInput::make("voltage")
+//                        Schemas\Components\TextInput::make("voltage")
 //                            ->label(trans('ev.voltage'))
 //                            ->nullable(),
 //                    ]),
-                    Schema\Components\Textarea::make("remark")
+                    Schemas\Components\Textarea::make("remark")
                         ->label(trans('ev.remark'))
                         ->columnSpan(2)
                         ->nullable(),
