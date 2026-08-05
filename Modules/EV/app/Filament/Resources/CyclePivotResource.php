@@ -67,12 +67,12 @@ class CyclePivotResource extends Resource
                 //
             ])
             ->actions([
-                //Filament\Actions\EditAction::make(),
+                //\Filament\Actions\EditAction::make(),
             ])
             ->defaultSort('cycle_start_date','desc')
             ->bulkActions([
-                Filament\Actions\BulkActionGroup::make([
-                    //Filament\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    //\Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

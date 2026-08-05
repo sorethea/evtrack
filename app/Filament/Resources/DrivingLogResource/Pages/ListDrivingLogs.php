@@ -4,7 +4,7 @@ namespace App\Filament\Resources\DrivingLogResource\Pages;
 
 use App\Filament\Imports\DrivingLogImporter;
 use App\Filament\Resources\DrivingLogResource;
-use Filament\Actions;
+use \Filament\Actions;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Pages\ListRecords;
 

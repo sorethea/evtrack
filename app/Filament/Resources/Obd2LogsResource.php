@@ -52,12 +52,12 @@ class Obd2LogsResource extends Resource
                 //
             ])
             ->actions([
-                //Filament\Actions\EditAction::make(),
+                //\Filament\Actions\EditAction::make(),
             ])
             ->defaultSort('id','desc')
             ->bulkActions([
-                Filament\Actions\BulkActionGroup::make([
-                    Filament\Actions\DeleteBulkAction::make(),
+                \Filament\Actions\BulkActionGroup::make([
+                    \Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -3,7 +3,7 @@
 namespace Modules\EV\Filament\Resources\CyclePivotResource\Pages;
 
 use Modules\EV\Filament\Resources\CyclePivotResource;
-use Filament\Actions;
+use \Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class EditCyclePivot extends EditRecord

@@ -75,12 +75,12 @@ class LogPivotResource extends Resource
                 //
             ])
             ->actions([
-                //Filament\Actions\EditAction::make(),
+                //\Filament\Actions\EditAction::make(),
             ])
             ->defaultSort('date','desc')
             ->bulkActions([
-//                Filament\Actions\BulkActionGroup::make([
-//                    Filament\Actions\DeleteBulkAction::make(),
+//                \Filament\Actions\BulkActionGroup::make([
+//                    \Filament\Actions\DeleteBulkAction::make(),
 //                ]),
             ]);
     }

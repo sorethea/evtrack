@@ -3,7 +3,7 @@
 namespace Modules\EV\Filament\Resources\LogPivotResource\Pages;
 
 use Modules\EV\Filament\Resources\LogPivotResource;
-use Filament\Actions;
+use \Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListLogPivots extends ListRecords

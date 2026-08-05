@@ -4,7 +4,7 @@ namespace Modules\EV\Filament\Resources\LogPivotResource\Pages;
 
 use Filament\Resources\Pages\ViewRecord;
 use Modules\EV\Filament\Resources\LogPivotResource;
-use Filament\Actions;
+use \Filament\Actions;
 
 class ViewLogPivot extends ViewRecord
 {
