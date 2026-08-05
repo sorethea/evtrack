@@ -25,8 +25,8 @@ class Ev5PanelProvider extends PanelProvider
     {
         $separator = DIRECTORY_SEPARATOR;
         return $panel
-            ->id('e-v5-ev5')
-            ->path('e-v5/ev5')
+            ->id('ev5')
+            ->path('ev5')
             ->brandName($this->getNavigationLabel())
             ->colors([
                 'primary' => Color::Amber,
@@ -67,6 +67,6 @@ class Ev5PanelProvider extends PanelProvider
 
     public function getNavigationLabel(): string
     {
-        return __("EV5");
+        return __("My EV");
     }
 }
