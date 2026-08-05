@@ -9,8 +9,8 @@ use \Filament\Actions;
 use Filament\Filament\Forms\Components\Fieldset;
 use Filament\Filament\Forms\Components\Select;
 use Filament\Filament\Forms\Components\TextInput;
-use Filament\Forms\Get;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Schemas\Components\Utilities\Get;
 use Modules\EV\Models\EvLog;
 
 class ListObd2Logs extends ListRecords
