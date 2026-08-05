@@ -9,7 +9,7 @@ use \Filament\Actions\DeleteBulkAction;
 use \Filament\Actions\EditAction;
 use \Filament\Actions\ViewAction;
 use Filament\Forms;
-use Filament\Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
