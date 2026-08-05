@@ -2,7 +2,7 @@
 
 namespace Modules\EV\Helpers;
 
-use Filament\Schemas\Components\Fieldset
+use Filament\Schemas\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
