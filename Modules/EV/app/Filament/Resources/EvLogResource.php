@@ -7,6 +7,7 @@ use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Actions;
@@ -327,7 +328,7 @@ class EvLogResource extends Resource
                     }),
 
 
-                ViewAcion::make(),
+                ViewAction::make(),
 //                Tables\Actions\Action::make('analyse')t
 //                    ->icon('heroicon-o-chart-bar')
 //                    ->color('success')
