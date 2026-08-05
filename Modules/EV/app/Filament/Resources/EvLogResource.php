@@ -330,7 +330,7 @@ class EvLogResource extends Resource
 
 
                 ViewAction::make(),
-//                Tables\Actions\Action::make('analyse')t
+//                Filament\Actions\Action::make('analyse')t
 //                    ->icon('heroicon-o-chart-bar')
 //                    ->color('success')
 //                    ->url(fn($record)=>EvLogResource::getUrl("analyse",['record'=>$record] )),

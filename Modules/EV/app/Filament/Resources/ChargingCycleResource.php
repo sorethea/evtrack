@@ -142,12 +142,12 @@ class ChargingCycleResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->hidden(),
-                Tables\Actions\DeleteAction::make()->hidden(),
+                Filament\Actions\EditAction::make()->hidden(),
+                Filament\Actions\DeleteAction::make()->hidden(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()->hidden(),
+                Filament\Actions\BulkActionGroup::make([
+                    Filament\Actions\DeleteBulkAction::make()->hidden(),
                 ]),
             ]);
     }
