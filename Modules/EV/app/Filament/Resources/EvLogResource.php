@@ -3,8 +3,10 @@
 namespace Modules\EV\Filament\Resources;
 
 use Carbon\Carbon;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
@@ -307,8 +309,7 @@ class EvLogResource extends Resource
             ])
             ->defaultSort(fn(Builder $query) => $query->orderBy('date', 'desc')->orderBy('id', 'desc'))
             ->actions([
-
-                Tables\Actions\Action::make('obd_import')
+                Action::make('obd_import')
                     ->visible(fn($record) => !$record->items()->count('*'))
                     ->icon('heroicon-o-arrow-up-tray')
                     ->label(trans('ODB2'))
