@@ -3,7 +3,6 @@
 namespace Modules\EV\Filament\Resources;
 
 use BackedEnum;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\VehicleResource\Pages;
 use Modules\EV\Filament\Resources\VehicleResource\RelationManagers;
@@ -24,20 +23,20 @@ class VehicleResource extends Resource
     {
         return $form
             ->schema([
-                Section::make([
-                    Schemas\Components\TextInput::make("name")->required(),
-                    Schemas\Components\TextInput::make("make")->required(),
-                    Schemas\Components\TextInput::make("model")->required(),
-                    Schemas\Components\TextInput::make("year")->required(),
-                    Schemas\Components\TextInput::make("soc")->name(trans("ev.soc"))->nullable(),
-                    Schemas\Components\TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
-                    Schemas\Components\TextInput::make("vin")->nullable(),
-                    Schemas\Components\TextInput::make("plate")->nullable(),
-                    Schemas\Components\TextInput::make("consumption")->nullable(),
-                    Schemas\Components\TextInput::make("capacity")->name(trans("ev.capacity"))->suffix("kWh")->nullable(),
-                    Schemas\Components\TextInput::make("limited_capacity")->name(trans("ev.limited_capacity"))->suffix("kWh")->nullable(),
-                    Schemas\Components\Toggle::make("is_default")->default(false),
-                    Schemas\Components\MarkdownEditor::make("specs")
+                Filamant\Schemas\Components\Section::make([
+                    Filamant\Forms\Components\TextInput::make("name")->required(),
+                    Filamant\Forms\Components\TextInput::make("make")->required(),
+                    Filamant\Forms\Components\TextInput::make("model")->required(),
+                    Filamant\Forms\Components\TextInput::make("year")->required(),
+                    Filamant\Forms\Components\TextInput::make("soc")->name(trans("ev.soc"))->nullable(),
+                    Filamant\Forms\Components\TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
+                    Filamant\Forms\Components\TextInput::make("vin")->nullable(),
+                    Filamant\Forms\Components\TextInput::make("plate")->nullable(),
+                    Filamant\Forms\Components\TextInput::make("consumption")->nullable(),
+                    Filamant\Forms\Components\TextInput::make("capacity")->name(trans("ev.capacity"))->suffix("kWh")->nullable(),
+                    Filamant\Forms\Components\TextInput::make("limited_capacity")->name(trans("ev.limited_capacity"))->suffix("kWh")->nullable(),
+                    Filamant\Forms\Components\Toggle::make("is_default")->default(false),
+                    Filamant\Forms\Components\MarkdownEditor::make("specs")
                         ->columnSpan(2)
                         ->nullable(),
                 ])

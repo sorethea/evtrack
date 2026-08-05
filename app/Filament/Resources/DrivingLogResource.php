@@ -25,14 +25,14 @@ class DrivingLogResource extends Resource
     {
         return $form
             ->schema([
-                Schemas\Components\Section::make([
-                    Schemas\Components\DatePicker::make("date")
+                Filamant\Forms\Components\Section::make([
+                    Filamant\Forms\Components\DatePicker::make("date")
                         ->label(trans('ev.date'))
                         ->required(),
-                    Schemas\Components\TextInput::make("odo")
+                    Filamant\Forms\Components\TextInput::make("odo")
                         ->label(trans('ev.odo'))
                         ->required(),
-                    Schemas\Components\TextInput::make("soc_from")
+                    Filamant\Forms\Components\TextInput::make("soc_from")
                         ->label(trans('ev.soc_from'))
                         ->default(function (){
                             $maxDate = DrivingLog::max('date');
@@ -40,19 +40,19 @@ class DrivingLogResource extends Resource
                             return $log->soc_to;
                         })
                         ->nullable(),
-                    Schemas\Components\TextInput::make("soc_to")
+                    Filamant\Forms\Components\TextInput::make("soc_to")
                         ->label(trans('ev.soc_to'))
                         ->nullable(),
-                    Schemas\Components\TextInput::make("ac")
+                    Filamant\Forms\Components\TextInput::make("ac")
                         ->label(trans('ev.charge'))
                         ->nullable(),
-                    Schemas\Components\TextInput::make("ad")
+                    Filamant\Forms\Components\TextInput::make("ad")
                         ->label(trans('ev.discharge'))
                         ->nullable(),
-                    Schemas\Components\TextInput::make("voltage")
+                    Filamant\Forms\Components\TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
                         ->nullable(),
-                    Schemas\Components\Select::make("type")
+                    Filamant\Forms\Components\Select::make("type")
                         ->label(trans('ev.type'))
                         ->options(trans("ev.log_types"))
                         ->default('log')

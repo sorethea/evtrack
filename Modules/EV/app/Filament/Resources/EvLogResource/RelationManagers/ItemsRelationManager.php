@@ -9,7 +9,7 @@ use \Filament\Actions\DeleteAction;
 use \Filament\Actions\DeleteBulkAction;
 use \Filament\Actions\EditAction;
 use Filament\Forms;
-use Filament\Schemas\Components\FileUpload;
+use Filament\Filamant\Forms\Components\FileUpload;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables;
@@ -29,10 +29,10 @@ class ItemsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Schemas\Components\Select::make('item_id')
+                Filamant\Forms\Components\Select::make('item_id')
                     ->relationship('item','pid')
                     ->required(),
-                Schemas\Components\TextInput::make('value')
+                Filamant\Forms\Components\TextInput::make('value')
                     ->numeric()
                     ->default(0),
             ]);
