@@ -3,6 +3,7 @@
 namespace Modules\EV\Filament\Resources;
 
 use BackedEnum;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\VehicleResource\Pages;
 use Modules\EV\Filament\Resources\VehicleResource\RelationManagers;
@@ -23,7 +24,7 @@ class VehicleResource extends Resource
     {
         return $form
             ->schema([
-                Filamant\Schemas\Components\Section::make([
+                Section::make([
                     Filamant\Forms\Components\TextInput::make("name")->required(),
                     Filamant\Forms\Components\TextInput::make("make")->required(),
                     Filamant\Forms\Components\TextInput::make("model")->required(),
