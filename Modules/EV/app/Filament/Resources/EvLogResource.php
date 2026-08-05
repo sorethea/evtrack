@@ -4,6 +4,9 @@ namespace Modules\EV\Filament\Resources;
 
 use Carbon\Carbon;
 use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Actions;
@@ -324,16 +327,16 @@ class EvLogResource extends Resource
                     }),
 
 
-                Tables\Actions\ViewAction::make(),
-//                Tables\Actions\Action::make('analyse')
+                ViewAcion::make(),
+//                Tables\Actions\Action::make('analyse')t
 //                    ->icon('heroicon-o-chart-bar')
 //                    ->color('success')
 //                    ->url(fn($record)=>EvLogResource::getUrl("analyse",['record'=>$record] )),
-                Tables\Actions\EditAction::make()->hidden(),
+                EditAction::make()->hidden(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
