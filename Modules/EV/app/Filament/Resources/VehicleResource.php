@@ -23,20 +23,20 @@ class VehicleResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make([
-                    Forms\Components\TextInput::make("name")->required(),
-                    Forms\Components\TextInput::make("make")->required(),
-                    Forms\Components\TextInput::make("model")->required(),
-                    Forms\Components\TextInput::make("year")->required(),
-                    Forms\Components\TextInput::make("soc")->name(trans("ev.soc"))->nullable(),
-                    Forms\Components\TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
-                    Forms\Components\TextInput::make("vin")->nullable(),
-                    Forms\Components\TextInput::make("plate")->nullable(),
-                    Forms\Components\TextInput::make("consumption")->nullable(),
-                    Forms\Components\TextInput::make("capacity")->name(trans("ev.capacity"))->suffix("kWh")->nullable(),
-                    Forms\Components\TextInput::make("limited_capacity")->name(trans("ev.limited_capacity"))->suffix("kWh")->nullable(),
-                    Forms\Components\Toggle::make("is_default")->default(false),
-                    Forms\Components\MarkdownEditor::make("specs")
+                Schema\Components\Section::make([
+                    Schema\Components\TextInput::make("name")->required(),
+                    Schema\Components\TextInput::make("make")->required(),
+                    Schema\Components\TextInput::make("model")->required(),
+                    Schema\Components\TextInput::make("year")->required(),
+                    Schema\Components\TextInput::make("soc")->name(trans("ev.soc"))->nullable(),
+                    Schema\Components\TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
+                    Schema\Components\TextInput::make("vin")->nullable(),
+                    Schema\Components\TextInput::make("plate")->nullable(),
+                    Schema\Components\TextInput::make("consumption")->nullable(),
+                    Schema\Components\TextInput::make("capacity")->name(trans("ev.capacity"))->suffix("kWh")->nullable(),
+                    Schema\Components\TextInput::make("limited_capacity")->name(trans("ev.limited_capacity"))->suffix("kWh")->nullable(),
+                    Schema\Components\Toggle::make("is_default")->default(false),
+                    Schema\Components\MarkdownEditor::make("specs")
                         ->columnSpan(2)
                         ->nullable(),
                 ])

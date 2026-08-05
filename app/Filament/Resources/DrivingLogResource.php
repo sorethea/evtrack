@@ -25,14 +25,14 @@ class DrivingLogResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make([
-                    Forms\Components\DatePicker::make("date")
+                Schema\Components\Section::make([
+                    Schema\Components\DatePicker::make("date")
                         ->label(trans('ev.date'))
                         ->required(),
-                    Forms\Components\TextInput::make("odo")
+                    Schema\Components\TextInput::make("odo")
                         ->label(trans('ev.odo'))
                         ->required(),
-                    Forms\Components\TextInput::make("soc_from")
+                    Schema\Components\TextInput::make("soc_from")
                         ->label(trans('ev.soc_from'))
                         ->default(function (){
                             $maxDate = DrivingLog::max('date');
@@ -40,19 +40,19 @@ class DrivingLogResource extends Resource
                             return $log->soc_to;
                         })
                         ->nullable(),
-                    Forms\Components\TextInput::make("soc_to")
+                    Schema\Components\TextInput::make("soc_to")
                         ->label(trans('ev.soc_to'))
                         ->nullable(),
-                    Forms\Components\TextInput::make("ac")
+                    Schema\Components\TextInput::make("ac")
                         ->label(trans('ev.charge'))
                         ->nullable(),
-                    Forms\Components\TextInput::make("ad")
+                    Schema\Components\TextInput::make("ad")
                         ->label(trans('ev.discharge'))
                         ->nullable(),
-                    Forms\Components\TextInput::make("voltage")
+                    Schema\Components\TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
                         ->nullable(),
-                    Forms\Components\Select::make("type")
+                    Schema\Components\Select::make("type")
                         ->label(trans('ev.type'))
                         ->options(trans("ev.log_types"))
                         ->default('log')

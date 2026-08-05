@@ -29,42 +29,42 @@ class ChargeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make([
-                    Forms\Components\DatePicker::make('date')
+                Schema\Components\Section::make([
+                    Schema\Components\DatePicker::make('date')
                         ->label(trans('ev.date'))
                         ->default(now())
                         ->required(),
-                    Forms\Components\Select::make('type')
+                    Schema\Components\Select::make('type')
                         ->options(trans("ev.charge_types"))
                         ->default('ac')
                         ->required(),
-                    Forms\Components\Fieldset::make("soc")
+                    Schema\Components\Fieldset::make("soc")
                         ->label(trans("ev.soc"))
                         ->schema([
-                        Forms\Components\TextInput::make("soc_from")
+                        Schema\Components\TextInput::make("soc_from")
                             ->label(trans("ev.from"))
                             ->default(0)
                             ->nullable(),
-                        Forms\Components\TextInput::make("soc_to")
+                        Schema\Components\TextInput::make("soc_to")
                             ->label(trans("ev.to"))
                             ->default(0)
                             ->nullable(),
                     ]),
-                    Forms\Components\Fieldset::make("accumulative")
+                    Schema\Components\Fieldset::make("accumulative")
                         ->label(trans("ev.accumulative"))
                         ->schema([
-                        Forms\Components\TextInput::make("ac_from")
+                        Schema\Components\TextInput::make("ac_from")
                             ->label(trans("ev.from"))
                             ->default(0)
                             ->nullable(),
-                        Forms\Components\TextInput::make("ac_to")
+                        Schema\Components\TextInput::make("ac_to")
                             ->label(trans("ev.to"))
                             ->default(0)
                             ->nullable(),
                     ]),
-                    Forms\Components\TextInput::make("qty")
+                    Schema\Components\TextInput::make("qty")
                         ->default(0),
-                    Forms\Components\TextInput::make("price")
+                    Schema\Components\TextInput::make("price")
                         ->default(0),
 
                 ])->columns(2),
