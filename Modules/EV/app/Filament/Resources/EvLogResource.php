@@ -67,9 +67,6 @@ class EvLogResource extends Resource
                     \Filament\Forms\Components\TextInput::make("soc_actual")
                         ->label(trans('ev.soc'))
                         ->nullable(),
-                    \Filament\Forms\Components\TextInput::make("soh")
-                        ->label(trans('ev.soh'))
-                        ->nullable(),
                     \Filament\Forms\Components\TextInput::make("consumption")
                         ->label(trans('ev.consume'))
                         ->nullable(),
@@ -142,6 +139,9 @@ class EvLogResource extends Resource
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
+                Tables\Columns\TextColumn::make("detail.soh")
+                    ->numeric(1)
+                    ->label(trans("ev.soh")),
                 Tables\Columns\ColumnGroup::make('SoC(%)',[
                     Tables\Columns\TextColumn::make('parent.detail.soc')
                         ->inverseRelationship('log')
