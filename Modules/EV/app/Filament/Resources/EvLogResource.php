@@ -141,6 +141,7 @@ class EvLogResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make("detail.soh")
                     ->numeric(1)
+                    ->formatStateUsing(fn(float $state): float => ($state>=100)?100:$state)
                     ->label(trans("ev.soh")),
                 Tables\Columns\ColumnGroup::make('SoC(%)',[
                     Tables\Columns\TextColumn::make('parent.detail.soc')
