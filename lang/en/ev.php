@@ -17,6 +17,7 @@ return [
     "cell_voltage"=>"Cell Voltage",
     "cell_temperature"=>"Cell Temperature",
     "soc"=>"SoC",
+    "soh"=>"SoH",
     "soc_actual"=>"SoC Actual",
     "soc_from"=>"SoC from",
     "soc_to"=>"SoC to",

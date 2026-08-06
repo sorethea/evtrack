@@ -67,6 +67,9 @@ class EvLogResource extends Resource
                     \Filament\Forms\Components\TextInput::make("soc_actual")
                         ->label(trans('ev.soc'))
                         ->nullable(),
+                    \Filament\Forms\Components\TextInput::make("soh")
+                        ->label(trans('ev.soh'))
+                        ->nullable(),
                     \Filament\Forms\Components\TextInput::make("consumption")
                         ->label(trans('ev.consume'))
                         ->nullable(),
