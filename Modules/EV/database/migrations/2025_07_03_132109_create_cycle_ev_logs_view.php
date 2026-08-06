@@ -414,6 +414,7 @@ SELECT
     lic.last_aca - cr.root_aca AS charge_amp,
     lic.last_ada - cr.root_ada AS discharge_amp,
     cs.charge_from_children AS charge,
+    65+35*(cb.charge_from_charging/(cs.charge_from_children*v.capacity)) AS soh,
     cb.charge_from_charging,
     cb.charge_from_regen,
     cb.soc_increase_charging,
