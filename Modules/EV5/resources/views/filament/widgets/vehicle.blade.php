@@ -8,9 +8,8 @@
                 {!! $vehicle->make !!} &nbsp; {!! $vehicle->model !!} &nbsp; {!! $vehicle->year !!}
             </p>
             <p class="fi-section-content">
-                <label>{{trans("ev5::ev.odo")}}:&nbsp;{{$vehicle->odo}}km</label>
-                <label>{{trans("ev5::ev.soc")}}:&nbsp;{{$vehicle->soc}}km</label>
-            </p>
+               <p><label>{{trans("ev5::ev.odo")}}</label>:&nbsp;{{$vehicle->odo}}km</p>
+               <p><label>{{trans("ev5::ev.soc")}}</label>:&nbsp;{{$vehicle->soc}}%</p>
         </div>
     </x-filament::section>
 </x-filament-widgets::widget>
