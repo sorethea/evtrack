@@ -18,6 +18,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Modules\EV5\Filament\Widgets\Vehicle;
 
 class OwnerPanelProvider extends PanelProvider
 {
@@ -39,6 +40,7 @@ class OwnerPanelProvider extends PanelProvider
             ->discoverWidgets(in:module("EV5", true)->appPath("Filament{$separator}EV5Owner{$separator}Widgets"), for: module("EV5", true)->appNamespace('Filament\EV5Owner\Widgets'))
             ->widgets([
                 AccountWidget::class,
+                Vehicle::class,
                 //FilamentInfoWidget::class,
             ])
             ->discoverClusters(in: module("EV5", true)->appPath("Filament{$separator}EV5Owner{$separator}Clusters"), for: module("EV5", true)->appNamespace('Filament\EV5Owner\Clusters'))
