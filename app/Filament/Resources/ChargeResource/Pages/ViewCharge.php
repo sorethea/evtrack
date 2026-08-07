@@ -4,7 +4,7 @@ namespace App\Filament\Resources\ChargeResource\Pages;
 
 use App\Filament\Resources\ChargeResource;
 use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
-use \Filament\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewCharge extends ViewRecord

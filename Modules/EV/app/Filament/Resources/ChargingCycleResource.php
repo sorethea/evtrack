@@ -6,12 +6,18 @@ use App\Filament\Resources\ChargingCycleResource\Pages;
 use App\Filament\Resources\ChargingCycleResource\RelationManagers;
 use BackedEnum;
 use Carbon\Carbon;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Number;
 use Illuminate\Validation\Rules\Numeric;
+use Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ManageChargingCycles;
+use Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ViewChargingCycle;
 use Modules\EV\Models\ChargingCycle;
 
 class ChargingCycleResource extends Resource
@@ -142,12 +148,12 @@ class ChargingCycleResource extends Resource
                 //
             ])
             ->actions([
-                \Filament\Actions\EditAction::make()->hidden(),
-                \Filament\Actions\DeleteAction::make()->hidden(),
+                EditAction::make()->hidden(),
+                DeleteAction::make()->hidden(),
             ])
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make()->hidden(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make()->hidden(),
                 ]),
             ]);
     }
@@ -155,8 +161,8 @@ class ChargingCycleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ManageChargingCycles::route('/'),
-            'view' =>  \Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ViewChargingCycle::route('/{record}'),
+            'index' => ManageChargingCycles::route('/'),
+            'view' =>  ViewChargingCycle::route('/{record}'),
         ];
     }
 }

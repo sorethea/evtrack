@@ -2,14 +2,19 @@
 
 namespace Modules\EV\Filament\Resources;
 
+use BackedEnum;
 use Carbon\Carbon;
-use \Filament\Actions\Action;
-use \Filament\Actions\BulkActionGroup;
-use \Filament\Actions\DeleteBulkAction;
-use \Filament\Actions\EditAction;
-use \Filament\Actions\ViewAction;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -21,6 +26,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Number;
+use Modules\EV\Filament\Resources\EvLogResource\Pages\AnalyseEvLog;
+use Modules\EV\Filament\Resources\EvLogResource\Pages\CreateEvLog;
+use Modules\EV\Filament\Resources\EvLogResource\Pages\EditEvLog;
+use Modules\EV\Filament\Resources\EvLogResource\Pages\ListEvLogs;
+use Modules\EV\Filament\Resources\EvLogResource\Pages\ViewEvLog;
+use Modules\EV\Filament\Resources\EvLogResource\RelationManagers\ItemsRelationManager;
 use Modules\EV\Models\EvLog;
 
 class EvLogResource extends Resource
@@ -29,31 +40,31 @@ class EvLogResource extends Resource
 
     protected static ?string $model = EvLog::class;
 
-    protected static string|null|\BackedEnum $navigationIcon = 'heroicon-o-calendar';
+    protected static string|null|BackedEnum $navigationIcon = 'heroicon-o-calendar';
 
     public static function form(Schema $form): Schema
     {
         return $form
             ->schema([
                 Section::make([
-                    \Filament\Forms\Components\DateTimePicker::make("date")
+                    DateTimePicker::make("date")
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d H i'))
                         ->required(),
-                    \Filament\Forms\Components\Select::make("parent_id")
+                    Select::make("parent_id")
                         ->live()
                         ->label(trans('ev.parent'))
                         ->relationship('parent', 'date')
                         ->default(fn() => EvLog::max('date'))
                         ->searchable()
                         ->nullable(),
-                    \Filament\Forms\Components\Select::make("log_type")
+                    Select::make("log_type")
                         ->live()
                         ->label(trans('ev.log_types.name'))
                         ->options(trans("ev.log_types.options"))
                         ->default('driving')
                         ->nullable(),
-                    \Filament\Forms\Components\Select::make("cycle_id")
+                    Select::make("cycle_id")
                         ->reactive()
                         ->label(trans('ev.cycle'))
                         ->relationship('cycle', 'date')
@@ -64,13 +75,13 @@ class EvLogResource extends Resource
 //                    Filament\Forms\Components\TextInput::make("odo")
 //                        ->label(trans('ev.odo'))
 //                        ->required(),
-                    \Filament\Forms\Components\TextInput::make("soc_actual")
+                    TextInput::make("soc_actual")
                         ->label(trans('ev.soc'))
                         ->nullable(),
-                    \Filament\Forms\Components\TextInput::make("consumption")
+                    TextInput::make("consumption")
                         ->label(trans('ev.consume'))
                         ->nullable(),
-                    \Filament\Forms\Components\Select::make("charge_type")
+                    Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))
                         ->hidden(fn(Get $get) => $get("log_type") != "charging")
@@ -110,7 +121,7 @@ class EvLogResource extends Resource
 //                            ->label(trans('ev.voltage'))
 //                            ->nullable(),
 //                    ]),
-                    \Filament\Forms\Components\Textarea::make("remark")
+                    Textarea::make("remark")
                         ->label(trans('ev.remark'))
                         ->columnSpan(2)
                         ->nullable(),
@@ -350,18 +361,18 @@ class EvLogResource extends Resource
     public static function getRelations(): array
     {
         return [
-            \Modules\EV\Filament\Resources\EvLogResource\RelationManagers\ItemsRelationManager::class,
+            ItemsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => \Modules\EV\Filament\Resources\EvLogResource\Pages\ListEvLogs::route('/'),
-            'create' => \Modules\EV\Filament\Resources\EvLogResource\Pages\CreateEvLog::route('/create'),
-            'edit' => \Modules\EV\Filament\Resources\EvLogResource\Pages\EditEvLog::route('/{record}/edit'),
-            'view' => \Modules\EV\Filament\Resources\EvLogResource\Pages\ViewEvLog::route('/{record}'),
-            'analyse' => \Modules\EV\Filament\Resources\EvLogResource\Pages\AnalyseEvLog::route('/{record}/analyse'),
+            'index' => ListEvLogs::route('/'),
+            'create' => CreateEvLog::route('/create'),
+            'edit' => EditEvLog::route('/{record}/edit'),
+            'view' => ViewEvLog::route('/{record}'),
+            'analyse' => AnalyseEvLog::route('/{record}/analyse'),
         ];
     }
 

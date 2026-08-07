@@ -6,6 +6,8 @@ use App\Filament\Resources\Obd2LogsResource\Pages;
 use App\Filament\Resources\Obd2LogsResource\RelationManagers;
 use App\Models\Obd2Logs;
 use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -56,8 +58,8 @@ class Obd2LogsResource extends Resource
             ])
             ->defaultSort('id','desc')
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

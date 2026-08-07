@@ -7,7 +7,16 @@ use App\Filament\Resources\TripResource\RelationManagers;
 use App\Models\Trip;
 use BackedEnum;
 use Carbon\Carbon;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -28,65 +37,65 @@ class TripResource extends Resource
     {
         return $form
             ->schema([
-                \Filament\Forms\Components\Section::make([
-                    \Filament\Forms\Components\Section::make([
-                        \Filament\Forms\Components\DatePicker::make('date_from')
+                Section::make([
+                    Section::make([
+                        DatePicker::make('date_from')
                             ->label(trans("ev.from"))
                             ->default(now())
                             ->required(),
-                        \Filament\Forms\Components\DatePicker::make('date_to')
+                        DatePicker::make('date_to')
                             ->label(trans("ev.to"))
                             ->default(now())
                             ->nullable(),
                     ])
                         ->columns(2)
                         ->heading(trans("ev.date")),
-                    \Filament\Forms\Components\Section::make(trans("ev.odo"))
+                    Section::make(trans("ev.odo"))
                         ->schema([
-                            \Filament\Forms\Components\TextInput::make('odo_from')
+                            TextInput::make('odo_from')
                                 ->label(trans("ev.from"))
                                 ->default(fn()=>auth()->user()->vehicle->odo)
                                 ->required(),
-                            \Filament\Forms\Components\TextInput::make('odo_to')
+                            TextInput::make('odo_to')
                                 ->label(trans("ev.to"))
                                 ->required(),
                         ])
                         ->columns(2),
-                    \Filament\Forms\Components\Section::make(trans("ev.soc"))
+                    Section::make(trans("ev.soc"))
                         ->schema([
-                            \Filament\Forms\Components\TextInput::make('soc_from')
+                            TextInput::make('soc_from')
                                 ->label(trans("ev.from"))
                                 ->default(fn()=>auth()->user()->vehicle->soc)
                                 ->required(),
-                            \Filament\Forms\Components\TextInput::make('soc_to')
+                            TextInput::make('soc_to')
                                 ->label(trans("ev.to"))
                                 ->required(),
                         ])
                         ->columns(2),
-                    \Filament\Forms\Components\Section::make(trans("ev.accumulative"))
+                    Section::make(trans("ev.accumulative"))
                         ->schema([
-                            \Filament\Forms\Components\Fieldset::make(trans("ev.charge"))
+                            Fieldset::make(trans("ev.charge"))
                                 ->schema([
-                                    \Filament\Forms\Components\TextInput::make('ac_from')
+                                    TextInput::make('ac_from')
                                         ->label(trans("ev.from"))
                                         ->nullable(),
-                                    \Filament\Forms\Components\TextInput::make('ac_to')
+                                    TextInput::make('ac_to')
                                         ->label(trans("ev.to"))
                                         ->nullable(),
                                 ]),
-                            \Filament\Forms\Components\Fieldset::make(trans("ev.discharge"))
+                            Fieldset::make(trans("ev.discharge"))
                                 ->schema([
-                                    \Filament\Forms\Components\TextInput::make('ad_from')
+                                    TextInput::make('ad_from')
                                         ->label(trans("ev.from"))
                                         ->nullable(),
-                                    \Filament\Forms\Components\TextInput::make('ad_to')
+                                    TextInput::make('ad_to')
                                         ->label(trans("ev.to"))
                                         ->nullable(),
                                 ]),
 
 
                         ]),
-                    \Filament\Forms\Components\MarkdownEditor::make("comment")
+                    MarkdownEditor::make("comment")
                         ->label(trans("ev.comment"))
                         ->columnSpan(2)
                         ->nullable(),
@@ -142,12 +151,12 @@ class TripResource extends Resource
                 //
             ])
             ->actions([
-                \Filament\Actions\ViewAction::make(),
-                \Filament\Actions\EditAction::make(),
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

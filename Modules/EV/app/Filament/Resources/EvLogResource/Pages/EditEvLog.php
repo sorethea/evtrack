@@ -2,7 +2,7 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\Pages;
 
-use \Filament\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Modules\EV\Filament\Resources\EvLogResource;
 

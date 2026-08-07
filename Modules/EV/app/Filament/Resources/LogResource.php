@@ -4,6 +4,8 @@ namespace Modules\EV\Filament\Resources;
 
 use BackedEnum;
 use Carbon\Carbon;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\LogResource\Pages;
 use Modules\EV\Filament\Resources\LogResource\RelationManagers;
@@ -106,8 +108,8 @@ class LogResource extends Resource
             ])
             ->defaultSort('date','desc')
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

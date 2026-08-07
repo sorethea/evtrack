@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Str;
+use Modules\EV\Facades\EvLog;
+
 return [
 
     /*
@@ -123,8 +126,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
     'aliases' =>[
-        'evlog'=> \Modules\EV\Facades\EvLog::class,
-        'Str'=>\Illuminate\Support\Str::class,
+        'evlog'=> EvLog::class,
+        'Str'=> Str::class,
     ],
 
 ];

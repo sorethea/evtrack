@@ -2,7 +2,7 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\Pages;
 
-use \Filament\Actions;
+use Filament\Actions;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Pages\ListRecords;
 use Modules\EV\Filament\Resources\EvLogResource;

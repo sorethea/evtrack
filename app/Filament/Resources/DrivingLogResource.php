@@ -7,7 +7,14 @@ use App\Filament\Resources\DrivingLogResource\RelationManagers;
 use App\Filament\Resources\DrivingLogResource\Widgets\DrivingOverview;
 use App\Models\DrivingLog;
 use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -25,14 +32,14 @@ class DrivingLogResource extends Resource
     {
         return $form
             ->schema([
-                \Filament\Forms\Components\Section::make([
-                    \Filament\Forms\Components\DatePicker::make("date")
+                Section::make([
+                    DatePicker::make("date")
                         ->label(trans('ev.date'))
                         ->required(),
-                    \Filament\Forms\Components\TextInput::make("odo")
+                    TextInput::make("odo")
                         ->label(trans('ev.odo'))
                         ->required(),
-                    \Filament\Forms\Components\TextInput::make("soc_from")
+                    TextInput::make("soc_from")
                         ->label(trans('ev.soc_from'))
                         ->default(function (){
                             $maxDate = DrivingLog::max('date');
@@ -40,19 +47,19 @@ class DrivingLogResource extends Resource
                             return $log->soc_to;
                         })
                         ->nullable(),
-                    \Filament\Forms\Components\TextInput::make("soc_to")
+                    TextInput::make("soc_to")
                         ->label(trans('ev.soc_to'))
                         ->nullable(),
-                    \Filament\Forms\Components\TextInput::make("ac")
+                    TextInput::make("ac")
                         ->label(trans('ev.charge'))
                         ->nullable(),
-                    \Filament\Forms\Components\TextInput::make("ad")
+                    TextInput::make("ad")
                         ->label(trans('ev.discharge'))
                         ->nullable(),
-                    \Filament\Forms\Components\TextInput::make("voltage")
+                    TextInput::make("voltage")
                         ->label(trans('ev.voltage'))
                         ->nullable(),
-                    \Filament\Forms\Components\Select::make("type")
+                    Select::make("type")
                         ->label(trans('ev.type'))
                         ->options(trans("ev.log_types"))
                         ->default('log')
@@ -105,12 +112,12 @@ class DrivingLogResource extends Resource
             ->defaultSort('date','desc')
 
             ->actions([
-                \Filament\Actions\EditAction::make(),
+                EditAction::make(),
 
             ])
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Obd2LogsResource\Pages;
 use App\Filament\Imports\Obd2LogsImporter;
 use App\Filament\Resources\Obd2LogsResource;
 use App\Models\Obd2Logs;
-use \Filament\Actions;
+use Filament\Actions;
 use Filament\Filament\Forms\Components\Fieldset;
 use Filament\Filament\Forms\Components\Select;
 use Filament\Filament\Forms\Components\TextInput;

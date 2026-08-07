@@ -105,13 +105,13 @@ class ChargeCost extends ChartWidget
         $currency = config("ev.currency_symbol");
         return RawJs::make(<<<JS
             {
-                plugins:{
-                    legend:{
-                        animation: false,
+                {
+                    {
+                        false,
                         position: 'top'
                     },
-                    tooltip:{
-                        callbacks:{
+                    {
+                        {
                             label:  function (context){
                                     const value = context.parsed.y || 0;
                                     return context.dataset.label + ': {$currency}'+ value.toLocaleString();
@@ -126,22 +126,23 @@ class ChargeCost extends ChartWidget
                         }
                     }
                 },
-                scales: {
-                    y: {
-                        display: true,
+                {
+                    {
+                        true,
                         grid: {
-                            display: false
+                            false
                         },
 
                     },
-                    x: {
-                        grid: {
-                            display: false
+                    {
+                        {
+                            false
                         }
 
                     }
                 }
             }
-        JS);
+        JS
+        );
     }
 }

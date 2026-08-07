@@ -4,6 +4,7 @@ namespace Modules\EV\Filament\Resources;
 
 
 use BackedEnum;
+use Filament\Actions\BulkActionGroup;
 use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\CyclePivotResource\Pages;
 use Modules\EV\Filament\Resources\CyclePivotResource\RelationManagers;
@@ -71,7 +72,7 @@ class CyclePivotResource extends Resource
             ])
             ->defaultSort('cycle_start_date','desc')
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
+                BulkActionGroup::make([
                     //\Filament\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

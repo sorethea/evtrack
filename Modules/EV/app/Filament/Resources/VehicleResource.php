@@ -3,10 +3,20 @@
 namespace Modules\EV\Filament\Resources;
 
 use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Modules\EV\Filament\Resources\VehicleResource\Pages;
+use Modules\EV\Filament\Resources\VehicleResource\Pages\CreateVehicle;
+use Modules\EV\Filament\Resources\VehicleResource\Pages\EditVehicle;
+use Modules\EV\Filament\Resources\VehicleResource\Pages\ListVehicles;
+use Modules\EV\Filament\Resources\VehicleResource\Pages\ViewVehicle;
 use Modules\EV\Filament\Resources\VehicleResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -26,19 +36,19 @@ class VehicleResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    \Filament\Forms\Components\TextInput::make("name")->required(),
-                    \Filament\Forms\Components\TextInput::make("make")->required(),
-                    \Filament\Forms\Components\TextInput::make("model")->required(),
-                    \Filament\Forms\Components\TextInput::make("year")->required(),
-                    \Filament\Forms\Components\TextInput::make("soc")->name(trans("ev.soc"))->nullable(),
-                    \Filament\Forms\Components\TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
-                    \Filament\Forms\Components\TextInput::make("vin")->nullable(),
-                    \Filament\Forms\Components\TextInput::make("plate")->nullable(),
-                    \Filament\Forms\Components\TextInput::make("consumption")->nullable(),
-                    \Filament\Forms\Components\TextInput::make("capacity")->name(trans("ev.capacity"))->suffix("kWh")->nullable(),
-                    \Filament\Forms\Components\TextInput::make("limited_capacity")->name(trans("ev.limited_capacity"))->suffix("kWh")->nullable(),
-                    \Filament\Forms\Components\Toggle::make("is_default")->default(false),
-                    \Filament\Forms\Components\MarkdownEditor::make("specs")
+                    TextInput::make("name")->required(),
+                    TextInput::make("make")->required(),
+                    TextInput::make("model")->required(),
+                    TextInput::make("year")->required(),
+                    TextInput::make("soc")->name(trans("ev.soc"))->nullable(),
+                    TextInput::make("odo")->name(trans("ev.odo"))->nullable(),
+                    TextInput::make("vin")->nullable(),
+                    TextInput::make("plate")->nullable(),
+                    TextInput::make("consumption")->nullable(),
+                    TextInput::make("capacity")->name(trans("ev.capacity"))->suffix("kWh")->nullable(),
+                    TextInput::make("limited_capacity")->name(trans("ev.limited_capacity"))->suffix("kWh")->nullable(),
+                    Toggle::make("is_default")->default(false),
+                    MarkdownEditor::make("specs")
                         ->columnSpan(2)
                         ->nullable(),
                 ])
@@ -62,12 +72,12 @@ class VehicleResource extends Resource
                 //
             ])
             ->actions([
-                \Filament\Actions\ViewAction::make(),
-                \Filament\Actions\EditAction::make(),
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -82,10 +92,10 @@ class VehicleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \Modules\EV\Filament\Resources\VehicleResource\Pages\ListVehicles::route('/'),
-            'create' => \Modules\EV\Filament\Resources\VehicleResource\Pages\CreateVehicle::route('/create'),
-            'view' => \Modules\EV\Filament\Resources\VehicleResource\Pages\ViewVehicle::route('/{record}'),
-            'edit' => \Modules\EV\Filament\Resources\VehicleResource\Pages\EditVehicle::route('/{record}/edit'),
+            'index' => ListVehicles::route('/'),
+            'create' => CreateVehicle::route('/create'),
+            'view' => ViewVehicle::route('/{record}'),
+            'edit' => EditVehicle::route('/{record}/edit'),
         ];
     }
 }

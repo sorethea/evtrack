@@ -8,7 +8,16 @@ use App\Filament\Resources\ChargeResource\Widgets\ChargeCost;
 use App\Filament\Resources\ChargeResource\Widgets\ChargeOverview;
 use App\Models\Charge;
 use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -29,42 +38,42 @@ class ChargeResource extends Resource
     {
         return $form
             ->schema([
-                \Filament\Forms\Components\Section::make([
-                    \Filament\Forms\Components\DatePicker::make('date')
+                Section::make([
+                    DatePicker::make('date')
                         ->label(trans('ev.date'))
                         ->default(now())
                         ->required(),
-                    \Filament\Forms\Components\Select::make('type')
+                    Select::make('type')
                         ->options(trans("ev.charge_types"))
                         ->default('ac')
                         ->required(),
-                    \Filament\Forms\Components\Fieldset::make("soc")
+                    Fieldset::make("soc")
                         ->label(trans("ev.soc"))
                         ->schema([
-                        \Filament\Forms\Components\TextInput::make("soc_from")
+                        TextInput::make("soc_from")
                             ->label(trans("ev.from"))
                             ->default(0)
                             ->nullable(),
-                        \Filament\Forms\Components\TextInput::make("soc_to")
+                        TextInput::make("soc_to")
                             ->label(trans("ev.to"))
                             ->default(0)
                             ->nullable(),
                     ]),
-                    \Filament\Forms\Components\Fieldset::make("accumulative")
+                    Fieldset::make("accumulative")
                         ->label(trans("ev.accumulative"))
                         ->schema([
-                        \Filament\Forms\Components\TextInput::make("ac_from")
+                        TextInput::make("ac_from")
                             ->label(trans("ev.from"))
                             ->default(0)
                             ->nullable(),
-                        \Filament\Forms\Components\TextInput::make("ac_to")
+                        TextInput::make("ac_to")
                             ->label(trans("ev.to"))
                             ->default(0)
                             ->nullable(),
                     ]),
-                    \Filament\Forms\Components\TextInput::make("qty")
+                    TextInput::make("qty")
                         ->default(0),
-                    \Filament\Forms\Components\TextInput::make("price")
+                    TextInput::make("price")
                         ->default(0),
 
                 ])->columns(2),
@@ -98,12 +107,12 @@ class ChargeResource extends Resource
             ])
             ->defaultSort('date','desc')
             ->actions([
-                \Filament\Actions\ViewAction::make(),
-                \Filament\Actions\EditAction::make(),
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

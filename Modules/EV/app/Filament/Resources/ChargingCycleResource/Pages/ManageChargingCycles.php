@@ -2,7 +2,7 @@
 
 namespace Modules\EV\Filament\Resources\ChargingCycleResource\Pages;
 
-use \Filament\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 use Modules\EV\Filament\Resources\ChargingCycleResource;
 

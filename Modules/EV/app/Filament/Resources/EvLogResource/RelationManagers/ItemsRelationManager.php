@@ -2,14 +2,17 @@
 
 namespace Modules\EV\Filament\Resources\EvLogResource\RelationManagers;
 
-use \Filament\Actions\Action;
-use \Filament\Actions\BulkActionGroup;
-use \Filament\Actions\CreateAction;
-use \Filament\Actions\DeleteAction;
-use \Filament\Actions\DeleteBulkAction;
-use \Filament\Actions\EditAction;
+use evlog;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables;
@@ -29,10 +32,10 @@ class ItemsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                \Filament\Forms\Components\Select::make('item_id')
+                Select::make('item_id')
                     ->relationship('item','pid')
                     ->required(),
-                \Filament\Forms\Components\TextInput::make('value')
+                TextInput::make('value')
                     ->numeric()
                     ->default(0),
             ]);
@@ -64,7 +67,7 @@ class ItemsRelationManager extends RelationManager
                     ])
                     ->action(function (array $data, ) {
                         //$evLog = EvLog::create($data);
-                        \evlog::obdImportAction($data,$this->ownerRecord);
+                        evlog::obdImportAction($data,$this->ownerRecord);
                     })->hidden(!empty($this->ownerRecord->items->toArray())),
             ])
             ->actions([

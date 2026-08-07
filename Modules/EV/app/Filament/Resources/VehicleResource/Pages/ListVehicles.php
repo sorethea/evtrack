@@ -2,7 +2,7 @@
 
 namespace Modules\EV\Filament\Resources\VehicleResource\Pages;
 
-use \Filament\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Modules\EV\Filament\Resources\VehicleResource;
 
