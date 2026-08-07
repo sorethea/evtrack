@@ -8,8 +8,8 @@
                 {!! $vehicle->make !!} &nbsp; {!! $vehicle->model !!} &nbsp; {!! $vehicle->year !!}
             </p>
             <div class="fi-ta-row">
-                <p class="fi-ta-col"><label>{{trans("ev5::ev.odo")}}</label>:&nbsp;{{$vehicle->odo}}km</p>
-                <p class="fi-ta-col"><label>{{trans("ev5::ev.soc")}}</label>:&nbsp;{{$vehicle->soc}}%</p>
+                <p class="fi-ta-cell"><label class="fi-ta-cell-label">{{trans("ev5::ev.odo")}}:&nbsp;</label><span>{{$vehicle->odo}}km</span></span></p>
+                <p class="fi-ta-cell"><label class="fi-ta-cell-label">{{trans("ev5::ev.soc")}}</label>:&nbsp;{{$vehicle->soc}}%</p>
             </div>
 
         </div>
