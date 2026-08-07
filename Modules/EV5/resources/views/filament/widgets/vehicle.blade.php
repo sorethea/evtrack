@@ -9,8 +9,8 @@
             </p>
             <div class="fi-ta-table">
 
-                <p class="fi-ta-row"><label class="fi-ta-cell-label">{{trans("ev5::ev.odo")}}:&nbsp;</label><span>{{$vehicle->odo}}km</span></p>
-                <p class="fi-ta-row"><label class="fi-ta-cell-label">{{trans("ev5::ev.soc")}}:&nbsp;</label><span>{{$vehicle->soc}}%</span></p>
+                <td class="fi-ta-row"><label class="fi-ta-cell-label">{{trans("ev5::ev.odo")}}:&nbsp;</label><span>{{$vehicle->odo}}km</span></td>
+                <td class="fi-ta-row"><label class="fi-ta-cell-label">{{trans("ev5::ev.soc")}}:&nbsp;</label><span>{{$vehicle->soc}}%</span></td>
 
             </div>
 
