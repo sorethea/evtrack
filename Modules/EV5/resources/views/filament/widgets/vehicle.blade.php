@@ -7,9 +7,9 @@
             <p class="fi-account-widget-user-name">
                 {!! $vehicle->make !!} &nbsp; {!! $vehicle->model !!} &nbsp; {!! $vehicle->year !!}
             </p>
-            <div class="fi-fo-field-content">
-                <p><label>{{trans("ev5::ev.odo")}}</label>:&nbsp;{{$vehicle->odo}}km</p>
-                <p><label>{{trans("ev5::ev.soc")}}</label>:&nbsp;{{$vehicle->soc}}%</p>
+            <div class="fi-ta-row">
+                <p class="fi-ta-col"><label>{{trans("ev5::ev.odo")}}</label>:&nbsp;{{$vehicle->odo}}km</p>
+                <p class="fi-ta-col"><label>{{trans("ev5::ev.soc")}}</label>:&nbsp;{{$vehicle->soc}}%</p>
             </div>
 
         </div>
