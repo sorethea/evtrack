@@ -14,7 +14,7 @@ class Vehicle extends Widget
     public object $vehicle;
     public function mount()
     {
-        $this->vehicle = auth()->user()->vehicle->where('default',true);
+        $this->vehicle = auth()->user()->vehicle->where('is_default',true);
     }
 
 }
