@@ -8,9 +8,9 @@
                 {!! $vehicle->make !!} &nbsp; {!! $vehicle->model !!} &nbsp; {!! $vehicle->year !!}
             </p>
             <p class="fi-section-content">
-            <ul>
-                <li><label>{{trans("ev5::ev.odo")}}</label>:&nbsp;{{$vehicle->odo}}km</li>
-                <li><label>{{trans("ev5::ev.soc")}}</label>:&nbsp;{{$vehicle->soc}}%</li>
+            <ul class="fi-dropdown-list">
+                <li class="fi-dropdown-list-item"><label>{{trans("ev5::ev.odo")}}</label>:&nbsp;{{$vehicle->odo}}km</li>
+                <li class="fi-dropdown-list-item"><label>{{trans("ev5::ev.soc")}}</label>:&nbsp;{{$vehicle->soc}}%</li>
             </ul>
 
         </div>
