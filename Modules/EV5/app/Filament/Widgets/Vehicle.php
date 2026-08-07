@@ -9,5 +9,5 @@ class Vehicle extends Widget
 {
 
     protected string $view = 'ev5::filament.widgets.vehicle';
-    public static string $header = "My Vehicle";
+    public string $header = "My Vehicle";
 }
