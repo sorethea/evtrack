@@ -7,7 +7,6 @@
             <p class="fi-account-widget-user-name">
                 {!! $vehicle->make !!} &nbsp; {!! $vehicle->model !!} &nbsp; {!! $vehicle->year !!}
             </p>
-            <p class="fi-section-content">
             <ul class="fi-dropdown-list">
                 <li class="fi-dropdown-list-item"><label>{{trans("ev5::ev.odo")}}</label>:&nbsp;{{$vehicle->odo}}km</li>
                 <li class="fi-dropdown-list-item"><label>{{trans("ev5::ev.soc")}}</label>:&nbsp;{{$vehicle->soc}}%</li>
