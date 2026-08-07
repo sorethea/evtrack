@@ -4,6 +4,9 @@
             <h2 class="fi-account-widget-heading">
                 {!! $header !!}
             </h2>
+            <p class="fi-account-widget-user-name">
+                {!! $vehicle->name !!}
+            </p>
         </div>
     </x-filament::section>
 </x-filament-widgets::widget>

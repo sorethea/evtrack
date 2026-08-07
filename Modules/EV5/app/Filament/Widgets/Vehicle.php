@@ -3,6 +3,7 @@
 namespace Modules\EV5\Filament\Widgets;
 
 use Filament\Widgets\Widget;
+use Illuminate\Database\Eloquent\Model;
 
 class Vehicle extends Widget
 
@@ -10,4 +11,10 @@ class Vehicle extends Widget
 
     protected string $view = 'ev5::filament.widgets.vehicle';
     public string $header = "My Vehicle";
+    public function mount($header)
+    {
+        $this->header = $header;
+
+    }
+
 }
