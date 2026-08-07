@@ -5,7 +5,7 @@
                 {!! $header !!}
             </h2>
             <p class="fi-account-widget-user-name">
-                {!! $vehicle->make !!}
+                {!! $vehicle->make !!} &nbsp; {!! $vehicle->model !!} &nbsp; {!! $vehicle->year !!}
             </p>
         </div>
     </x-filament::section>
