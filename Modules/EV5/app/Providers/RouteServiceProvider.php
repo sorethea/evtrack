@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     protected string $name = 'EV5';
+    protected string $smallName = 'ev5';
 
     /**
      * Called before routes are registered.
@@ -51,16 +52,16 @@ class RouteServiceProvider extends ServiceProvider
 
     private function registerTranslation():void
     {
-        $langPath = resource_path('lang/modules/' . $this->ev5);
+        $langPath = resource_path('lang/modules/' .$this->smallName );
 
         if (is_dir($langPath)) {
             // Load published translations overridden by the app
-            $this->loadTranslationsFrom($langPath, $this->ev5);
+            $this->loadTranslationsFrom($langPath, $this->smallName);
             $this->loadJsonTranslationsFrom($langPath);
         } else {
             // Load module default translations
-            $this->loadTranslationsFrom(module_path($this->ev5, 'resources/lang'), $this->ev5);
-            $this->loadJsonTranslationsFrom(module_path($this->ev5, 'resources/lang'));
+            $this->loadTranslationsFrom(module_path($this->name, 'resources/lang'), $this->smallName);
+            $this->loadJsonTranslationsFrom(module_path($this->name, 'resources/lang'));
         }
     }
 }
