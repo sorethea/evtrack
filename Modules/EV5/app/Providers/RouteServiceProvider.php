@@ -17,6 +17,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         parent::boot();
+        $this->registerTranslation();
     }
 
     /**
@@ -46,5 +47,20 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes(): void
     {
         Route::middleware('api')->prefix('api')->name('api.')->group(module_path($this->name, '/routes/api.php'));
+    }
+
+    private function registerTranslation():void
+    {
+        $langPath = resource_path('lang/modules/' . $this->ev5);
+
+        if (is_dir($langPath)) {
+            // Load published translations overridden by the app
+            $this->loadTranslationsFrom($langPath, $this->ev5);
+            $this->loadJsonTranslationsFrom($langPath);
+        } else {
+            // Load module default translations
+            $this->loadTranslationsFrom(module_path($this->ev5, 'resources/lang'), $this->ev5);
+            $this->loadJsonTranslationsFrom(module_path($this->ev5, 'resources/lang'));
+        }
     }
 }
