@@ -11,7 +11,7 @@ class Vehicle extends Widget
 
     protected string $view = 'ev5::filament.widgets.vehicle';
     public string $header = "My Vehicle";
-    public \Modules\EV5\Models\Vehicle $vehicle;
+    public object $vehicle;
     public function mount()
     {
         $this->vehicle = auth()->user()->vehicle->where('default',true);
