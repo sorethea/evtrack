@@ -404,6 +404,14 @@ SELECT
     cr.next_root_ad,
     ((lic.last_ad-lic.last_ac)-(cr.root_ad - cr.root_ac))/((100-lic.last_soc)/100) AS est_capacity,
     (lic.last_ad-lic.last_ac)-(cr.root_ad - cr.root_ac) AS be_charge,
+    CASE
+            WHEN cr.next_root_soc = 100 AND lic.last_soc >=65 THEN
+            65+35*((cr.next_root_ac-lic.last_ac)/(v.capacity*(`cr`.`next_root_soc` - `lic`.`last_soc`)/100))
+            WHEN cr.next_root_soc = 100 AND lic.last_soc <65 THEN
+            65+35*(((cr.next_root_ac-lic.last_ac)-(v.capacity*((`cr`.`next_root_soc` - `lic`.`last_soc`)-35)/100))/(35*v.capacity/100))
+            ELSE
+            0
+    END AS `next_soh`,
     cr.root_ad - cr.root_ac AS gab,
     cr.next_root_ac - lic.last_ac AS next_charge,
     (cr.root_soc - lic.last_soc) + cb.soc_increase_charging AS soc_derivation,
@@ -414,7 +422,6 @@ SELECT
     lic.last_aca - cr.root_aca AS charge_amp,
     lic.last_ada - cr.root_ada AS discharge_amp,
     cs.charge_from_children AS charge,
-    65+35*(cb.charge_from_charging/(cb.soc_increase_charging*v.capacity/100)) AS soh,
     cb.charge_from_charging,
     cb.charge_from_regen,
     cb.soc_increase_charging,
