@@ -72,7 +72,8 @@ return new class extends Migration
                 WHEN `c`.`soc` - `p`.`soc` <=35 THEN
                     65+35*(((c.ac-p.ac)-(c.ad-p.ad))/((`c`.`soc` - `p`.`soc`)*v.capacity/100))
                 ELSE
-                    65+35*(((c.ac-p.ac)-(c.ad-p.ad))-(((`c`.`soc` - `p`.`soc`)-35)*v.capacity/100)/(35*v.capacity/100))
+                    0
+                    -- 65+35*(((c.ac-p.ac)-(c.ad-p.ad))-(((`c`.`soc` - `p`.`soc`)-35)/(35*v.capacity/100))
             ELSE
                 0
                -- 65+35*(((c.ad-p.ad)-(c.ac-p.ac))/((`p`.`soc` - `c`.`soc`)*v.capacity/100))
