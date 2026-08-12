@@ -69,14 +69,9 @@ return new class extends Migration
         c.ac - IFNULL(p.ac, 0) AS charge,
         CASE
             WHEN `c`.`soc` - `p`.`soc`>0 THEN
-                WHEN `c`.`soc` - `p`.`soc` =<35 THEN
-                    65+35*(((c.ac-p.ac)-(c.ad-p.ad))/((`c`.`soc` - `p`.`soc`)*v.capacity/100))
-                ELSE
-                    0
-                    -- 65+35*(((c.ac-p.ac)-(c.ad-p.ad))-(((`c`.`soc` - `p`.`soc`)-35)/(35*v.capacity/100))
+                65+35*(((c.ac-p.ac)-(c.ad-p.ad))/((`c`.`soc` - `p`.`soc`)*v.capacity/100))
             ELSE
-                0
-               -- 65+35*(((c.ad-p.ad)-(c.ac-p.ac))/((`p`.`soc` - `c`.`soc`)*v.capacity/100))
+                65+35*(((c.ad-p.ad)-(c.ac-p.ac))/((`p`.`soc` - `c`.`soc`)*v.capacity/100))
         END AS `soh`,
         -- Handle division by zero
         CASE
