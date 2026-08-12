@@ -72,7 +72,8 @@ class ChargingCycleResource extends Resource
                 ]),
                 Tables\Columns\ColumnGroup::make(__("ev.next_cycle"),[
                     Tables\Columns\TextColumn::make('next_soh')
-                        ->label(__("ev.soh"))
+                        ->numeric(1)
+                        ->label(__("ev.soh")."(%)")
                         ->toggleable(true),
                     Tables\Columns\TextColumn::make('be_charge')
                         ->label(__("ev.charge"))
