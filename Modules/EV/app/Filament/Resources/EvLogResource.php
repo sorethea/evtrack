@@ -46,7 +46,6 @@ class EvLogResource extends Resource
     {
         return $form
             ->schema([
-                Section::make([
                     DateTimePicker::make("date")
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d H i'))
@@ -126,8 +125,6 @@ class EvLogResource extends Resource
                         ->label(trans('ev.remark'))
                         ->columnSpan(2)
                         ->nullable(),
-
-                ])
             ]);
     }
 
