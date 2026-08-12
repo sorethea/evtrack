@@ -9,6 +9,7 @@ return [
     "gab"=>"Gab",
     "current"=>"Current",
     "next"=>"Next",
+    "next_cycle"=>"Next Cycle",
     "from"=>"From",
     "to"=>"To",
     "count"=>"Count",
