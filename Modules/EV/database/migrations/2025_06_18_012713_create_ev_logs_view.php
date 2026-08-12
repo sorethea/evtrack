@@ -68,10 +68,11 @@ return new class extends Migration
         c.ada - IFNULL(p.ada, 0) AS discharge_amp,
         c.ac - IFNULL(p.ac, 0) AS charge,
         CASE
-            WHEN `c`.`soc` - `p`.`soc`>0 THEN
-                65+35*(((c.ac-p.ac)-(c.ad-p.ad))/((`c`.`soc` - `p`.`soc`)*v.capacity/100))
-            ELSE
-                65+35*(((c.ad-p.ad)-(c.ac-p.ac))/((`p`.`soc` - `c`.`soc`)*v.capacity/100))
+            WHEN `c`.`soc` - `p`.`soc` >0 AND `c`.`soc` - `p`.`soc` <=35 AND `c`.`soc` =100	THEN
+                    65 + 35 * ((`c`.`ac` - `p`.`ac` - ( `c`.`ad` - `p`.`ad` )) / (( `c`.`soc` - `p`.`soc` ) * `v`.`capacity` / 100 ))
+            WHEN `c`.`soc` - `p`.`soc` >35 AND `c`.`soc` =100 THEN
+                    65 + 35 * (((`c`.`ac` - `p`.`ac` - ( `c`.`ad` - `p`.`ad` ))- ((( `c`.`soc` - `p`.`soc` )-35)*`v`.`capacity`/100)) / (35 * `v`.`capacity` / 100 ))
+            ELSE 0
         END AS `soh`,
         -- Handle division by zero
         CASE
