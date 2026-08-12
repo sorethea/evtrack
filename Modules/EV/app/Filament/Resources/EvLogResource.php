@@ -126,7 +126,7 @@ class EvLogResource extends Resource
                         ->label(trans('ev.remark'))
                         ->columnSpan(2)
                         ->nullable(),
-                    ])
+                    ])->columns(2)->columnSpan(2)
             ]);
     }
 
