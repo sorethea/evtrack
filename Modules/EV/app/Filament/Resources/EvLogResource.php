@@ -127,7 +127,7 @@ class EvLogResource extends Resource
                         ->columnSpan(2)
                         ->nullable(),
 
-                ])->columns(2)
+                ])
             ]);
     }
 
