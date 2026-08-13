@@ -55,21 +55,21 @@ class LogsRelationManager extends RelationManager
             ->filters([
                 //
             ])
-            ->headerActions([
-                CreateAction::make(),
-                Action::make('obdImport')
-                    ->label('Obd Import')
-                    ->form([
-                        FileUpload::make('obd_file')
-                            ->preserveFilenames()
-                            ->disk('local')
-                            ->directory('obd2'),
-                    ])
-                    ->action(function (array $data, ) {
-                        //$evLog = EvLog::create($data);
-                        evlog::obdImportAction($data,$this->ownerRecord);
-                    })->hidden(!empty($this->ownerRecord->items->toArray())),
-            ])
+//            ->headerActions([
+//                CreateAction::make(),
+//                Action::make('obdImport')
+//                    ->label('Obd Import')
+//                    ->form([
+//                        FileUpload::make('obd_file')
+//                            ->preserveFilenames()
+//                            ->disk('local')
+//                            ->directory('obd2'),
+//                    ])
+//                    ->action(function (array $data, ) {
+//                        //$evLog = EvLog::create($data);
+//                        evlog::obdImportAction($data,$this->ownerRecord);
+//                    })->hidden(!empty($this->ownerRecord->items->toArray())),
+//            ])
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
