@@ -30,7 +30,7 @@ class LogResource extends Resource
 
 
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-table-cells';
-
+    protected static bool $shouldRegisterNavigation = false;
     public static function form(Schema $form): Schema
     {
         return $form

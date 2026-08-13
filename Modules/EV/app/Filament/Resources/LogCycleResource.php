@@ -23,6 +23,7 @@ class LogCycleResource extends Resource
     protected static ?string $model = LogCycle::class;
 
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Schema $form): Schema
     {
