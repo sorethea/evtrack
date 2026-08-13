@@ -238,14 +238,16 @@ class EvLogResource extends Resource
                         ->numeric()
                         ->label(__('ev.used'))
                         ->toggleable(),
-                    Tables\Columns\TextColumn::make('detail.consumption')
+                    Tables\Columns\TextColumn::make('detail.w_consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.consume'))
+                        ->toggleable(isToggledHiddenByDefault: true)
                         ->toggleable(),
                     Tables\Columns\TextColumn::make('detail.capacity')
                         ->formatStateUsing(fn($state)=>Number::format($state,1))
                         ->inverseRelationship('log')
+                        ->toggleable(isToggledHiddenByDefault: true)
                         ->label(trans('ev.capacity')),
                 ]),
                 Tables\Columns\ColumnGroup::make(trans('ev.voltage').'(V)',[
