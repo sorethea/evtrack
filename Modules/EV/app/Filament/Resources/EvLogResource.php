@@ -300,6 +300,7 @@ class EvLogResource extends Resource
                 Tables\Columns\TextColumn::make('detail.range')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
                     ->inverseRelationship('log')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label(trans('ev.range')),
                 Tables\Columns\TextColumn::make('detail.distance')
                     ->formatStateUsing(fn($state)=>Number::format($state,1))
