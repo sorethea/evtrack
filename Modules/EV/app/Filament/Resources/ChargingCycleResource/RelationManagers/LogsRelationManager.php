@@ -44,14 +44,14 @@ class LogsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('item_id')
+            ->recordTitleAttribute('log_id')
             ->columns([
                 Tables\Columns\TextColumn::make('item.pid')->searchable(),
                 Tables\Columns\TextColumn::make('value'),
                 Tables\Columns\TextColumn::make('item.units')->label(trans('Unit'))
             ])
             ->paginated(false)
-            ->defaultSort('item_id')
+            ->defaultSort('log_id')
             ->filters([
                 //
             ])
