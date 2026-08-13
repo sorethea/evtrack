@@ -46,16 +46,16 @@ class LogsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('log_id')
             ->columns([
-                Tables\Columns\TextColumn::make('item.pid')->searchable(),
-                Tables\Columns\TextColumn::make('value'),
-                Tables\Columns\TextColumn::make('item.units')->label(trans('Unit'))
+                Tables\Columns\TextColumn::make('log_id')->searchable(),
+                Tables\Columns\TextColumn::make('date'),
+                Tables\Columns\TextColumn::make('soc')->label(trans('ev.soc'))
             ])
             ->paginated(false)
             ->defaultSort('log_id')
             ->filters([
                 //
             ])
-//            ->headerActions([
+            ->headerActions([
 //                CreateAction::make(),
 //                Action::make('obdImport')
 //                    ->label('Obd Import')
@@ -69,7 +69,7 @@ class LogsRelationManager extends RelationManager
 //                        //$evLog = EvLog::create($data);
 //                        evlog::obdImportAction($data,$this->ownerRecord);
 //                    })->hidden(!empty($this->ownerRecord->items->toArray())),
-//            ])
+            ])
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
