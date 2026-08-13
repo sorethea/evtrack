@@ -18,6 +18,7 @@ use Illuminate\Support\Number;
 use Illuminate\Validation\Rules\Numeric;
 use Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ManageChargingCycles;
 use Modules\EV\Filament\Resources\ChargingCycleResource\Pages\ViewChargingCycle;
+use Modules\EV\Filament\Resources\EvLogResource\RelationManagers\LogsRelationManager;
 use Modules\EV\Models\ChargingCycle;
 
 class ChargingCycleResource extends Resource
@@ -164,6 +165,12 @@ class ChargingCycleResource extends Resource
         return [
             'index' => ManageChargingCycles::route('/'),
             'view' =>  ViewChargingCycle::route('/{record}'),
+        ];
+    }
+    public static function getRelations(): array
+    {
+        return [
+          LogsRelationManager::class,
         ];
     }
 }

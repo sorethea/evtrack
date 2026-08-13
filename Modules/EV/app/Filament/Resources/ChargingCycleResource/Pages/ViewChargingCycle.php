@@ -9,9 +9,10 @@ class ViewChargingCycle extends ViewRecord
 {
     protected static string $resource = ChargingCycleResource::class;
 
-    protected static ?string $title = "Dashboard";
+    protected static ?string $title = "Charging Cycle";
 
-    protected function getHeaderWidgets(): array
+
+    /*protected function getHeaderWidgets(): array
     {
         return [
             ChargingCycleResource\Widgets\ChargingCycleOverview::make([
@@ -42,5 +43,5 @@ class ViewChargingCycle extends ViewRecord
 //                'record'=>$this->record,
 //            ]),
         ];
-    }
+    }*/
 }
