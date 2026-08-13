@@ -28,6 +28,7 @@ return [
     "used_energy"=>"Used Energy",
     "added_energy"=>"Added Energy",
     "used"=>"Used",
+    "base_used"=>"Base Used",
     "odo"=>"Odometer",
     "accumulative"=>"Accumulative",
     "a_consumption"=>"Acc Consumption",

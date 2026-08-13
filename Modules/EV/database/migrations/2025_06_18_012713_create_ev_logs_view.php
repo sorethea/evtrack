@@ -20,6 +20,7 @@ return new class extends Migration
             l.vehicle_id,
             l.parent_id,
             l.cycle_id,
+            l.consumption,
             l.date,
             MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
             MAX(CASE WHEN li.item_id = 2 THEN li.value END) AS voltage,
@@ -45,6 +46,7 @@ return new class extends Migration
         c.cycle_id,
         c.date,
         c.odo,
+        c.consumption,
         c.voltage,
         c.soc,
         c.aca,
@@ -74,6 +76,20 @@ return new class extends Migration
                     65 + 35 * (((`c`.`ac` - `p`.`ac` - ( `c`.`ad` - `p`.`ad` ))- ((( `c`.`soc` - `p`.`soc` )-35)*`v`.`capacity`/100)) / (35 * `v`.`capacity` / 100 ))
             ELSE 0
         END AS `soh`,
+        CASE
+            WHEN `c`.consumption >0 THEN
+                (`c`.`odo` - `p`.`odo`)*`c`.consumption/100
+            ELSE
+                0
+        END AS base_used_energy,
+        CASE
+            WHEN `c`.consumption >0 THEN
+                (`c`.`ad` - ifnull( `p`.`ad`, 0 ) - (
+            `c`.`ac` - ifnull( `p`.`ac`, 0 )))-
+                (`c`.`odo` - `p`.`odo`)*`c`.consumption/100
+            ELSE
+                0
+        END AS lost_energy,
         -- Handle division by zero
         CASE
             WHEN (c.ad - IFNULL(p.ad, 0)) = 0 THEN 0
