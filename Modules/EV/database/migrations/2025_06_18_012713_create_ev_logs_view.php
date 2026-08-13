@@ -77,16 +77,16 @@ return new class extends Migration
             ELSE 0
         END AS `soh`,
         CASE
-            WHEN `c`.consume >0 THEN
-                (`c`.`odo` - `p`.`odo`)*`c`.consume/100
+            WHEN consume >0 THEN
+                (`c`.`odo` - `p`.`odo`)*consume/100
             ELSE
                 0
         END AS base_used_energy,
         CASE
-            WHEN `c`.consume >0 THEN
+            WHEN consume >0 THEN
                 (`c`.`ad` - ifnull( `p`.`ad`, 0 ) - (
             `c`.`ac` - ifnull( `p`.`ac`, 0 )))-
-                (`c`.`odo` - `p`.`odo`)*`c`.consume/100
+                (`c`.`odo` - `p`.`odo`)*consume/100
             ELSE
                 0
         END AS lost_energy,
