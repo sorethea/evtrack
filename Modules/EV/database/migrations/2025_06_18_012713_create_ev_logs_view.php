@@ -46,7 +46,7 @@ return new class extends Migration
         c.cycle_id,
         c.date,
         c.odo,
-        c.consumption AS consume,
+        c.consumption,
         c.voltage,
         c.soc,
         c.aca,
@@ -77,16 +77,16 @@ return new class extends Migration
             ELSE 0
         END AS `soh`,
         CASE
-            WHEN consume >0 THEN
-                (`c`.`odo` - `p`.`odo`)*consume/100
+            WHEN `c`.consumption >0 THEN
+                (`c`.`odo` - `p`.`odo`)*`c`.consumption/100
             ELSE
                 0
         END AS base_used_energy,
         CASE
-            WHEN consume >0 THEN
+            WHEN `c`.consumption >0 THEN
                 (`c`.`ad` - ifnull( `p`.`ad`, 0 ) - (
             `c`.`ac` - ifnull( `p`.`ac`, 0 )))-
-                (`c`.`odo` - `p`.`odo`)*consume/100
+                (`c`.`odo` - `p`.`odo`)*`c`.consumption/100
             ELSE
                 0
         END AS lost_energy,
@@ -122,7 +122,7 @@ return new class extends Migration
         CASE
             WHEN (c.odo - IFNULL(p.odo, c.odo)) = 0 THEN 0
             ELSE IFNULL(v.capacity, 0) * (IFNULL(p.soc, c.soc) - c.soc) / (c.odo - IFNULL(p.odo, c.odo))
-        END AS consumption
+        END AS w_consumption
     FROM ev_logs_base c
     LEFT JOIN ev_logs_base p ON c.parent_id = p.log_id
     LEFT JOIN vehicles v ON c.vehicle_id = v.id
