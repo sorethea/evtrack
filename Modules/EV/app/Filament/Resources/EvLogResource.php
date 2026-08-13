@@ -136,8 +136,8 @@ class EvLogResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make("date")
-                    ->dateTooltip()
-                    ->formatStateUsing(fn($record)=>Carbon::getHumanDiffOptions($record->date))
+                    ->dateTimeTooltip()
+                    ->since()
                     ->searchable(),
                 Tables\Columns\TextColumn::make("duration")
                     ->getStateUsing(fn($record)=>!is_null($record&&$record?->date&&$record?->parent?->date)?gmdate("H:i",Carbon::make($record?->parent?->date??now())->diffInSeconds($record?->date??now())):0),
