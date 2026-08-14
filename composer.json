@@ -15,7 +15,8 @@
         "filament/filament": "^v5.7.5",
         "laravel/framework": "^v13.23.0",
         "laravel/tinker": "^3.0.2",
-        "nwidart/laravel-modules": "*"
+        "nwidart/laravel-modules": "*",
+        "alizharb/filament-module-manager": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
