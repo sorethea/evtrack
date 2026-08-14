@@ -1,0 +1,30 @@
+{
+    "name": "sorethea/vehicle",
+    "description": "",
+    "authors": [
+        {
+            "name": "Sorethea OK",
+            "email": "sorethea@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Vehicle\\": "app/",
+            "Modules\\Vehicle\\Database\\Factories\\": "database/factories/",
+            "Modules\\Vehicle\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Vehicle\\Tests\\": "tests/"
+        }
+    }
+}

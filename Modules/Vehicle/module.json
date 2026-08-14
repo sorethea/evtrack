@@ -1,0 +1,13 @@
+{
+    "name": "Vehicle",
+    "alias": "vehicle",
+    "repository": "sorethea/vehicle",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Vehicle\\Providers\\VehicleServiceProvider"
+    ],
+    "files": []
+}
