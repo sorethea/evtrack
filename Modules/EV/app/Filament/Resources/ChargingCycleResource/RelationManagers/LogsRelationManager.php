@@ -46,7 +46,7 @@ class LogsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('log_id')
+            ->recordTitleAttribute('id')
             ->columns([
                 Tables\Columns\TextColumn::make("date")
                     ->dateTimeTooltip()
