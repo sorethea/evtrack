@@ -61,7 +61,6 @@ ev_logs_with_diffs AS (
 charge_segments AS (
     SELECT
         cycle_id,
-        parent_id,
         SUM(child_ac - ac) AS charge_from_children
     FROM ev_logs_with_child
     WHERE child_ac IS NOT NULL
