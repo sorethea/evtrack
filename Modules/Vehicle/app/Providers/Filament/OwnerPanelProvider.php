@@ -39,7 +39,7 @@ class OwnerPanelProvider extends PanelProvider
             ->discoverWidgets(in:module("Vehicle", true)->appPath("Filament{$separator}VehicleOwner{$separator}Widgets"), for: module("Vehicle", true)->appNamespace('Filament\VehicleOwner\Widgets'))
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
+                //FilamentInfoWidget::class,
             ])
             ->discoverClusters(in: module("Vehicle", true)->appPath("Filament{$separator}VehicleOwner{$separator}Clusters"), for: module("Vehicle", true)->appNamespace('Filament\VehicleOwner\Clusters'))
             ->middleware([
@@ -57,11 +57,11 @@ class OwnerPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->navigationItems([
                 // Add a backlink to the default panel
-                \Filament\Navigation\NavigationItem::make()
-                    ->label(__('Back Home'))
-                    ->sort(-1000)
-                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedHomeModern)
-                    ->url(filament()->getDefaultPanel()->getUrl()),
+//                \Filament\Navigation\NavigationItem::make()
+//                    ->label(__('Back Home'))
+//                    ->sort(-1000)
+//                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedHomeModern)
+//                    ->url(filament()->getDefaultPanel()->getUrl()),
             ]);
     }
 
