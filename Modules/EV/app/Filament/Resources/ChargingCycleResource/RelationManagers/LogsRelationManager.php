@@ -67,7 +67,7 @@ class LogsRelationManager extends RelationManager
                     ->formatStateUsing(fn(string $state): string => ($state>=100)?Number::format(100,1):Number::format($state,1))
                     ->label(trans("ev.soh")),
                 Tables\Columns\ColumnGroup::make('SoC(%)',[
-                    Tables\Columns\TextColumn::make('parent.soc')
+                    Tables\Columns\TextColumn::make('detail.parent.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.from') )
