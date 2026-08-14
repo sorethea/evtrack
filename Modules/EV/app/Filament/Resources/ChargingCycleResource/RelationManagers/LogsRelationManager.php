@@ -73,17 +73,11 @@ class LogsRelationManager extends RelationManager
                         ->label(trans('ev.from') )
                         ->toggleable(isToggledHiddenByDefault: false),
                     //->summarize(Tables\Columns\Summarizers\Summarizer::make()->using(fn(\Illuminate\Database\Query\Builder $query)=>$query->max('parent_soc'))),
-                    Tables\Columns\TextColumn::make('detail.soc')
+                    Tables\Columns\TextColumn::make('soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.to') )
                         ->toggleable(isToggledHiddenByDefault: false),
-                    Tables\Columns\TextColumn::make('detail.soc_derivation')
-                        ->inverseRelationship('log')
-                        ->label(trans('ev.used'))
-                        ->numeric(1)
-                        //->summarize(Tables\Columns\Summarizers\Sum::make()->label(trans('ev.soc_derivation')))
-                        ->toggleable(),
                     Tables\Columns\TextColumn::make('consumption')
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
