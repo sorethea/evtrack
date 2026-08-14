@@ -1,6 +1,5 @@
 {
     "Clinic": true,
     "EV": true,
-    "Vehicle": true,
-    "Core": true
+    "Vehicle": true
 }
