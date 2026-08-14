@@ -2,7 +2,9 @@
     "name": "EV",
     "alias": "ev",
     "description": "",
+    "repository": "sorethea/ev",
     "keywords": [],
+    "version": "1.0.0",
     "priority": 0,
     "providers": [
         "Modules\\EV\\Providers\\EVServiceProvider"
