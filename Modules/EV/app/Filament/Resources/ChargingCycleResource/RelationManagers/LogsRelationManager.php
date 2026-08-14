@@ -64,11 +64,11 @@ class LogsRelationManager extends RelationManager
                     ->label(trans('ev.type'))
                     ->formatStateUsing(fn(string $state): string => trans("ev.log_types.options.{$state}"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make("detail.soh")
+                Tables\Columns\TextColumn::make("soh")
                     ->formatStateUsing(fn(string $state): string => ($state>=100)?Number::format(100,1):Number::format($state,1))
                     ->label(trans("ev.soh")),
                 Tables\Columns\ColumnGroup::make('SoC(%)',[
-                    Tables\Columns\TextColumn::make('parent.detail.soc')
+                    Tables\Columns\TextColumn::make('parent.soc')
                         ->inverseRelationship('log')
                         ->numeric(1)
                         ->label(trans('ev.from') )
