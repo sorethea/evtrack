@@ -1,0 +1,11 @@
+{
+    "name": "EV1",
+    "alias": "ev1",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\EV1\\Providers\\EV1ServiceProvider"
+    ],
+    "files": []
+}
