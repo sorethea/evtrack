@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Alizharb\FilamentModuleManager\FilamentModuleManagerPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -49,6 +50,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
+                FilamentModuleManagerPlugin::make(),
             ])
             ->middleware([
                 EncryptCookies::class,

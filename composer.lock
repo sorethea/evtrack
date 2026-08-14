@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84bb2c1dbd8dd126445a9d696736daf3",
+    "content-hash": "cda5e96963f1c8448b6d68a7d26e7da4",
     "packages": [
         {
             "name": "alizharb/filament-module-manager",
