@@ -294,6 +294,7 @@ ev_logs_with_diffs AS (
 charge_segments AS (
     SELECT
         cycle_id,
+        parent_id,
         SUM(child_ac - ac) AS charge_from_children
     FROM ev_logs_with_child
     WHERE child_ac IS NOT NULL
@@ -309,12 +310,13 @@ charge_breakdown AS (
         SUM(CASE WHEN prev_ad IS NOT NULL THEN ad - prev_ad ELSE 0 END) AS discharge,
         SUM(CASE WHEN prev_soc IS NOT NULL AND soc < prev_soc THEN prev_soc - soc ELSE 0 END) AS soc_decrease
     FROM ev_logs_with_diffs
-    GROUP BY cycle_id
+    GROUP BY cycle_id, parent_id
 ),
 cycle_roots AS (
     SELECT
         b1.cycle_id,
         b1.vehicle_id,
+        b1.parent_id,
         b1.date AS cycle_date,
         b1.odo AS root_odo,
         b1.voltage AS root_voltage,
