@@ -15,6 +15,13 @@
             }
         }
     },
+    "require": {
+        "alizharb/filament-module-manager": "*",
+        "bezhansalleh/filament-shield": "*",
+        "coolsam/modules": "*",
+        "filament/filament": "*",
+        "nwidart/laravel-modules": "*"
+    },
     "autoload": {
         "psr-4": {
             "Modules\\Core\\": "app/",
