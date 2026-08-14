@@ -50,7 +50,6 @@ class LogsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make("date")
                     ->dateTimeTooltip()
-                    ->since()
                     ->searchable(),
                 Tables\Columns\TextColumn::make("duration")
                     ->getStateUsing(fn($record)=>!is_null($record&&$record?->date&&$record?->parent?->date)?gmdate("H:i",Carbon::make($record?->parent?->date??now())->diffInSeconds($record?->date??now())):0),

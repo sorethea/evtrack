@@ -17,6 +17,7 @@ return new class extends Migration
         SELECT
             l.id,
             l.id as log_id,
+            l.log_type,
             l.vehicle_id,
             l.parent_id,
             l.cycle_id,
@@ -38,12 +39,14 @@ return new class extends Migration
         LEFT JOIN ev_log_items li
             ON l.id = li.log_id
             AND li.item_id BETWEEN 1 AND 29
-        GROUP BY l.id, l.cycle_id, l.parent_id, l.vehicle_id,l.consumption, l.date
+        GROUP BY l.id, l.cycle_id, l.parent_id, l.vehicle_id,l.consumption, l.date,l.log_type
     )
     SELECT
         c.id,
         c.log_id,
+        c.parent_id,
         c.cycle_id,
+        c.log_type,
         c.date,
         c.odo,
         c.consumption,
