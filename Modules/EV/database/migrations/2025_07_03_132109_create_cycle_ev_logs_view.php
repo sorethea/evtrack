@@ -333,6 +333,7 @@ cycle_roots AS (
 last_in_cycle AS (
     SELECT
         b2.cycle_id,
+        b2.parent_id,
         b2.date AS end_date,
         b2.odo AS last_odo,
         b2.soc AS last_soc,
@@ -356,6 +357,7 @@ cycle_roots_with_next AS (
     SELECT
         cr.cycle_id,
         cr.vehicle_id,
+        cr.parent_id,
         cr.cycle_date,
         cr.root_odo,
         cr.root_voltage,
@@ -378,6 +380,7 @@ SELECT
     cr.cycle_id AS id,
     cr.vehicle_id,
     cr.cycle_date,
+    cr.parent_id,
     lic.end_date,
     cr.root_odo,
     cr.root_voltage,
