@@ -89,6 +89,7 @@ class LogsRelationManager extends RelationManager
                         ->numeric(1)
                         ->formatStateUsing(fn($state)=>($state>0)?Number::format($state,1):0)
                         ->label(__('ev.consume')),
+                    ])
             ])
             ->paginated(false)
             ->defaultSort('log_id')
