@@ -32,18 +32,18 @@ class OwnerPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->discoverResources(in: module("EV5", true)->appPath("Filament{$separator}EV5Owner{$separator}Resources"), for: module("EV5", true)->appNamespace('Filament\EV5Owner\Resources'))
-            ->discoverPages(in:module("EV5", true)->appPath("Filament{$separator}EV5Owner{$separator}Pages"), for: module("EV5", true)->appNamespace('Filament\EV5Owner\Pages'))
+            ->discoverResources(in: module("EV5", true)->appPath("Filament{$separator}EV5{$separator}Resources"), for: module("EV5", true)->appNamespace('Filament\EV5\Resources'))
+            ->discoverPages(in:module("EV5", true)->appPath("Filament{$separator}EV5{$separator}Pages"), for: module("EV5", true)->appNamespace('Filament\EV5\Pages'))
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in:module("EV5", true)->appPath("Filament{$separator}EV5Owner{$separator}Widgets"), for: module("EV5", true)->appNamespace('Filament\EV5Owner\Widgets'))
+            ->discoverWidgets(in:module("EV5", true)->appPath("Filament{$separator}EV5{$separator}Widgets"), for: module("EV5", true)->appNamespace('Filament\EV5\Widgets'))
             ->widgets([
-                AccountWidget::class,
+                //AccountWidget::class,
                 Vehicle::class,
                 //FilamentInfoWidget::class,
             ])
-            ->discoverClusters(in: module("EV5", true)->appPath("Filament{$separator}EV5Owner{$separator}Clusters"), for: module("EV5", true)->appNamespace('Filament\EV5Owner\Clusters'))
+            ->discoverClusters(in: module("EV5", true)->appPath("Filament{$separator}EV5{$separator}Clusters"), for: module("EV5", true)->appNamespace('Filament\EV5\Clusters'))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
