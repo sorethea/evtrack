@@ -316,7 +316,6 @@ cycle_roots AS (
     SELECT
         b1.cycle_id,
         b1.vehicle_id,
-        b1.parent_id,
         b1.date AS cycle_date,
         b1.odo AS root_odo,
         b1.voltage AS root_voltage,
@@ -335,7 +334,6 @@ cycle_roots AS (
 last_in_cycle AS (
     SELECT
         b2.cycle_id,
-        b2.parent_id,
         b2.date AS end_date,
         b2.odo AS last_odo,
         b2.soc AS last_soc,
