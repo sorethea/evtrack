@@ -34,8 +34,8 @@ class LogsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Select::make('log_id')
-                    ->relationship('logs','log_id')
+                Select::make('id')
+                    ->relationship('logs','id')
                     ->required(),
                 TextInput::make('date')
                     ->numeric()
