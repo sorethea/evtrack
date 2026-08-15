@@ -18,7 +18,7 @@ class ChargingCycle extends Model
 
     public function parent():BelongsTo
     {
-        return $this->belongsTo(EvLogDetail::class,'parent_id');
+        return $this->belongsTo(EvLog::class,'parent_id');
     }
     public function vehicle():BelongsTo
     {
@@ -27,7 +27,7 @@ class ChargingCycle extends Model
 
     public function logs():HasMany
     {
-        return $this->hasMany(EvLogDetail::class,'cycle_id');
+        return $this->hasMany(EvLog::class,'cycle_id');
     }
     public function latestLog():HasOne
     {
