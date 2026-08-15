@@ -164,7 +164,7 @@ class EvLog
                 $latitude = !empty($row[4]) ? $row[4] : 0.0;
                 $longitude = !empty($row[5]) ? $row[5] : 0.0;
                 $evLogItem = EvLogItem::query()->firstOrCreate(
-                    ['item_id' => $item->id, 'log_id' => $evLog->id],
+                    ['item_id' => $item->id, 'id' => $evLog->id],
                     ['value' => $row[2], 'latitude' => $latitude, 'longitude' => $longitude]);
                 if(!empty($item->name)){
                     $evLog->update([
