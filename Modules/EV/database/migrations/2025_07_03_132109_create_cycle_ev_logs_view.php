@@ -255,6 +255,7 @@ WITH ev_logs_base AS (
         COALESCE(CAST(l.cycle_id AS CHAR), CAST(l.id AS CHAR)) AS cycle_id,
         l.vehicle_id,
         l.date,
+        l.consumption as consume,
         l.log_type,
         MAX(CASE WHEN li.item_id = 1 THEN li.value END) AS odo,
         MAX(CASE WHEN li.item_id = 2 THEN li.value END) AS voltage,
@@ -302,6 +303,9 @@ charge_segments AS (
 charge_breakdown AS (
     SELECT
         cycle_id,
+        AVG(CASE WHEN `ev_logs_with_diffs`.`log_type` = 'discharging'
+		         THEN `ev_logs_with_diffs`.`consume`
+		         ELSE NULL END) AS avg_discharge_consume,
         SUM(CASE WHEN log_type = 'charging' AND prev_ac IS NOT NULL THEN ac - prev_ac ELSE 0 END) AS charge_from_charging,
         SUM(CASE WHEN log_type != 'charging' AND prev_ac IS NOT NULL THEN ac - prev_ac ELSE 0 END) AS charge_from_regen,
         SUM(CASE WHEN log_type = 'charging' AND prev_soc IS NOT NULL AND soc > prev_soc THEN soc - prev_soc ELSE 0 END) AS soc_increase_charging,
@@ -426,6 +430,7 @@ SELECT
     cb.soc_increase_charging,
     cb.soc_increase_regen,
     cb.soc_decrease,
+    cb.avg_discharge_consume,
     ROUND(cb.soc_increase_charging / NULLIF(cb.soc_increase_charging + cb.soc_increase_regen, 0) * 100, 2) AS soc_increase_charging_percentage,
     ROUND(cb.soc_increase_regen / NULLIF(cb.soc_increase_charging + cb.soc_increase_regen, 0) * 100, 2) AS soc_increase_regen_percentage,
     ROUND(cb.charge_from_charging / NULLIF(cb.soc_increase_charging, 0), 2) AS charge_per_soc_increase,
