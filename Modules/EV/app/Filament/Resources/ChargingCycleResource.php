@@ -62,11 +62,11 @@ class ChargingCycleResource extends Resource
                     Tables\Columns\TextColumn::make('soc_derivation')
                         ->label(__("ev.used"))
                         ->toggleable(true),
-                    Tables\Columns\TextColumn::make('soc_middle')
-                        ->numeric(1)
-                        ->label(__("ev.soc_middle"))
-                        ->toggleable(isToggledHiddenByDefault: true),
-                    Tables\Columns\TextColumn::make('consumption')
+//                    Tables\Columns\TextColumn::make('soc_middle')
+//                        ->numeric(1)
+//                        ->label(__("ev.soc_middle"))
+//                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('avg_discharge_consume')
                         ->numeric(1)
                         ->label(__("ev.consumption"))
                         ->toggleable(isToggledHiddenByDefault: true),
