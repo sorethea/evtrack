@@ -273,7 +273,7 @@ WITH ev_logs_base AS (
     LEFT JOIN ev_log_items li
         ON l.id = li.log_id
         AND li.item_id BETWEEN 1 AND 29
-    GROUP BY l.id, l.cycle_id, l.vehicle_id, l.date, l.log_type
+    GROUP BY l.id, l.cycle_id, l.vehicle_id, l.date, l.log_type,l.consumption
 ),
 ev_logs_with_child AS (
     SELECT
