@@ -68,7 +68,7 @@ class ChargingCycleResource extends Resource
 //                        ->toggleable(isToggledHiddenByDefault: true),
                     Tables\Columns\TextColumn::make('avg_discharge_consume')
                         ->numeric(1)
-                        ->label(__("ev.consumption"))
+                        ->label(__("ev.consume"))
                         ->toggleable(isToggledHiddenByDefault: true),
                 ]),
                 Tables\Columns\ColumnGroup::make(__("ev.next_cycle"),[

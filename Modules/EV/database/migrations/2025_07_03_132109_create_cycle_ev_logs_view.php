@@ -443,7 +443,13 @@ SELECT
     100 * (lic.last_odo - cr.root_odo) / cb.soc_decrease AS `range`,
     lic.last_odo - cr.root_odo AS distance,
     100 * ((lic.last_ada - cr.root_ada) - (lic.last_aca - cr.root_aca)) / (cr.root_soc - lic.last_soc) AS capacity_amp,
-    100 * ((cb.discharge - cb.charge_from_regen) )/ cb.soc_decrease AS capacity,
+    CASE
+    WHEN cb.avg_discharge_consume>0 THEN
+        ((lic.last_odo - cr.root_odo)*cb.avg_discharge_consume)/((cr.root_soc - lic.last_soc) + cb.soc_increase_charging)
+    ELSE
+        100 * ((cb.discharge - cb.charge_from_regen) )/ cb.soc_decrease
+    END AS capacity,
+
     1000 * (lic.last_ada - cr.root_ada) / NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption_amp,
     1000 * (lic.last_ad - cr.root_ad) / NULLIF(lic.last_odo - cr.root_odo, 0) AS a_consumption,
     10 * v.capacity * (cr.root_soc - lic.last_soc) / NULLIF(lic.last_odo - cr.root_odo, 0) AS consumption,
