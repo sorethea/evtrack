@@ -303,7 +303,7 @@ charge_segments AS (
 charge_breakdown AS (
     SELECT
         cycle_id,
-        AVG(CASE WHEN `ev_logs_with_diffs`.`log_type` = 'discharging'
+        AVG(CASE WHEN `ev_logs_with_diffs`.`log_type` = 'driving'
 		         THEN `ev_logs_with_diffs`.`consume`
 		         ELSE NULL END) AS avg_discharge_consume,
         SUM(CASE WHEN log_type = 'charging' AND prev_ac IS NOT NULL THEN ac - prev_ac ELSE 0 END) AS charge_from_charging,
