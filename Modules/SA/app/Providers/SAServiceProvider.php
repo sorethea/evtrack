@@ -45,6 +45,6 @@ class SAServiceProvider extends ModuleServiceProvider
     // }
     public function boot(): void
     {
-        $this->loadMigrationsFrom(module_path($this->moduleName,'database/migrations'));
+        $this->loadMigrationsFrom(module_path($this->name,'database/migrations'));
     }
 }
