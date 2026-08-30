@@ -62,7 +62,7 @@ services:
   worker:
     build:
         context: .
-        dockerfile: Dockerfile
+        dockerfile: Dockerfile.worker
     container_name: worker
     command: php artisan solar:listen
     restart: always
