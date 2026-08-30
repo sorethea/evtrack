@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('topic');
             $table->string('value');
-            $table->json('metadata');
+            $table->json('metadata')->nullable();
             $table->timestamps();
         });
     }
