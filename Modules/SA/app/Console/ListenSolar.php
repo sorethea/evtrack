@@ -34,7 +34,7 @@ class ListenSolar extends Command
     public function handle(SAWebSocket $wsClient) {
         $this->info('SA Module: WebSocket listener started...');
 
-        $wsClient->listen(function ($message) {
+        $wsClient->listen(null,function (array $message) {
             // Handle 'definition' messages (metadata)
             if ($message['event'] === 'definition') {
                 // You can cache these definitions for reference

@@ -16,7 +16,7 @@ class SAWebSocket
         $this->password = config('sa.password');
     }
 
-    public function listen(callable $onMessage): void
+    public function listen(?callable $onMessage=null,?callable $onTick=null,int $interval =5): void
     {
         $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$this->password}");
         $joinMessage = json_encode([
@@ -29,6 +29,7 @@ class SAWebSocket
             'ref'     => '1'
         ]);
         $this->client->text($joinMessage);
+        $lastTick = microtime(true);
         while (true) {
             try {
                 $response = $this->client->receive();
@@ -43,6 +44,16 @@ class SAWebSocket
                 break;
             }
         }
+        // Check if it's time to fire the tick
+        $now = microtime(true);
+        if ($now - $lastTick >= $interval && $onTick !== null) {
+            // Call the tick callback with the latest snapshot
+            $onTick($this->latestMetrics);
+            $lastTick = $now;
+        }
+
+        // Prevent CPU spinning
+        usleep(10000); // 10ms
 
     }
 
