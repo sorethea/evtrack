@@ -1,0 +1,24 @@
+FROM php:8.3-fpm
+
+WORKDIR /var/www
+
+# Copy only the necessary files (avoid symlinks)
+COPY composer.json composer.lock ./
+COPY artisan ./
+COPY app/ app/
+COPY bootstrap/ bootstrap/
+COPY config/ config/
+COPY database/ database/
+COPY public/ public/
+COPY resources/ resources/
+COPY routes/ routes/
+COPY storage/ storage/
+COPY vendor/ vendor/   # if vendor is committed, otherwise run composer install
+
+# If you have other directories, add them as needed.
+# Avoid copying any symlinked directories like 'storage' if it points elsewhere.
+
+# Install dependencies if vendor is not committed
+# RUN composer install --no-dev --optimize-autoloader
+
+CMD ["php", "artisan", "solar:listen"]
