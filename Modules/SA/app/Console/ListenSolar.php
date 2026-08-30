@@ -17,7 +17,7 @@ class ListenSolar extends Command
         $ws->listen(
             null,
             function (array $latestMetrics) {
-                $this->info("Start listen...");
+                $this->info(json_encode($latestMetrics));
                 $this->storeSnapshot($latestMetrics);
                 $this->info('[SA] Metrics stored at ' . now()->toDateTimeString());
             },
