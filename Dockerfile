@@ -39,14 +39,12 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Add user for laravel application
-RUN groupadd -g 1000 www || true
-RUN useradd -u 1000 -ms /bin/bash -g www www || true
-#RUN adduser --disabled-password --gecos '' www
-USER www
+# Create group and user if they don't exist
+RUN getent group www || groupadd -g 1000 www
+RUN id -u www || useradd -u 1000 -ms /bin/bash -g www www
 
-# Copy existing application directory contents
-COPY ./ /var/www
+# Create directory for Supervisor logs
+RUN mkdir -p /var/log/supervisor && chown -R www:www /var/log/supervisor
 
 # Copy existing application directory permissions
 COPY --chown=www:www ./ /var/www
