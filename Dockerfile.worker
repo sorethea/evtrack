@@ -14,10 +14,4 @@ COPY routes/ routes/
 COPY storage/ storage/
 COPY vendor/ vendor/
 
-# If you have other directories, add them as needed.
-# Avoid copying any symlinked directories like 'storage' if it points elsewhere.
-
-# Install dependencies if vendor is not committed
-# RUN composer install --no-dev --optimize-autoloader
-
 CMD ["php", "artisan", "solar:listen"]
