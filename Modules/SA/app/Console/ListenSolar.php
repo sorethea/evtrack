@@ -27,17 +27,14 @@ class ListenSolar extends Command
     protected function storeSnapshot(array $metrics): void
     {
         try {
-            foreach ($metrics as $key=>$metric){
-                $this->info($key,$metric);
-            }
+
             if (empty($metrics)) {
-                $this->info("No data!");
                 return;
             }
 
             Metric::create([
                 'recorded_at' => now(),
-                'metadata' => $metrics, // Eloquent will automatically JSON‑encode this
+                'metadata' => json_encode($metrics), // Eloquent will automatically JSON‑encode this
             ]);
         }catch (\Exception $exception){
             Log::error($exception->getMessage());
