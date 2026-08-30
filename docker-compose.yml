@@ -67,8 +67,9 @@ services:
       restart: always
       command: php artisan solar:listen
       working_dir: /var/www
+      # no volumes at all, or only logs
       volumes:
-          - ./storage/logs:/var/www/storage/logs   # optional, for log persistence
+          - ./storage/logs:/var/www/storage/logs   # optional
       environment:
           - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
           - SOLAR_PASSWORD=${SOLAR_PASSWORD}
