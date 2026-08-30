@@ -14,10 +14,10 @@ class ListenSolar extends Command
     public function handle(SAWebSocket $ws)
     {
         $this->info('[SA] WebSocket listener started – storing JSON snapshots every 5s...');
-        $this->info(config('sa.device_ip'));
         $ws->listen(
             null,
             function (array $latestMetrics) {
+                $this->info("Start listen...");
                 $this->storeSnapshot($latestMetrics);
                 $this->info('[SA] Metrics stored at ' . now()->toDateTimeString());
             },
