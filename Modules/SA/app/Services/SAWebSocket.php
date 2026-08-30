@@ -33,11 +33,21 @@ class SAWebSocket
         $lastTick = microtime(true);
         while (true) {
             try {
-                $response = $this->client->receive();
-                $data = json_decode($response, true);
+                $response = $this->client->receive(0.1);
 
-                if (json_last_error() === JSON_ERROR_NONE && isset($data['event'])) {
-                    $onMessage($data);
+                if ($response) {
+                    $data = json_decode($response, true);
+                    if (isset($data['event']) && $data['event'] === 'data' && isset($data['payload']['metrics'])) {
+                        // Update the latest snapshot
+                        foreach ($data['payload']['metrics'] as $metric) {
+                            $this->latestMetrics[$metric['topic']] = $metric['value'];
+                        }
+
+                        // ✅ Only call if not null
+                        if ($onMessage !== null) {
+                            $onMessage($data);
+                        }
+                    }
                 }
             } catch (\Exception $e) {
                 Log::error('SolarAssistant WebSocket error: ' . $e->getMessage());
