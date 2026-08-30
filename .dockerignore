@@ -1,2 +1,9 @@
 storage
 public/storage
+vendor
+node_modules
+.git
+.idea
+.vscode
+*.log
+.env
