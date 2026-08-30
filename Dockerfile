@@ -58,6 +58,5 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
-CMD ["php-fpm"]
 # Start Supervisor (which manages both php-fpm and the artisan command)
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
