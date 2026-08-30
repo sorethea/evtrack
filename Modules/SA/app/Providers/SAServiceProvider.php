@@ -2,6 +2,7 @@
 
 namespace Modules\SA\Providers;
 
+use Modules\SA\Console\ListenSolar;
 use Nwidart\Modules\Support\ModuleServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 
@@ -46,5 +47,12 @@ class SAServiceProvider extends ModuleServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom(module_path($this->name,'database/migrations'));
+    }
+
+    public function register(): void
+    {
+        $this->commands([
+            ListenSolar::class
+        ]);
     }
 }
