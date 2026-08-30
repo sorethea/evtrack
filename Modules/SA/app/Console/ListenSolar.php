@@ -46,7 +46,7 @@ class ListenSolar extends Command
             // Update or create a record for the latest value
             Metric::create(
                 ['topic' => $topic],
-                ['value' => $value, 'updated_at' => now()]
+                ['value' => $value,]
             );
         }
     }
