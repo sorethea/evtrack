@@ -60,12 +60,13 @@ services:
 #    networks:
 #      - app-network
   worker:
-    build:
-        context: .
-        dockerfile: Dockerfile
+    image: app   # or use the same build as app
     container_name: worker
-    command: php artisan solar:listen
     restart: always
+    command: php artisan solar:listen
+    working_dir: /var/www
+    volumes:
+        - ./vendor:/var/www/vendor   # <--- ADD THIS
     environment:
         - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
         - SOLAR_PASSWORD=${SOLAR_PASSWORD}
