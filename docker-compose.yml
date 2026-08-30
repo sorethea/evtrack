@@ -68,10 +68,16 @@ services:
       command: php artisan solar:listen
       working_dir: /var/www
       volumes:
-          - ./:/var/www
+          - ./storage/logs:/var/www/storage/logs   # optional, for log persistence
       environment:
           - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
           - SOLAR_PASSWORD=${SOLAR_PASSWORD}
+          - DB_CONNECTION=${DB_CONNECTION}
+          - DB_HOST=${DB_HOST}
+          - DB_PORT=${DB_PORT}
+          - DB_DATABASE=${DB_DATABASE}
+          - DB_USERNAME=${DB_USERNAME}
+          - DB_PASSWORD=${DB_PASSWORD}
       networks:
           - app-network
       depends_on:
