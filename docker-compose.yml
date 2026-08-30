@@ -60,7 +60,7 @@ services:
 #    networks:
 #      - app-network
   worker:
-    image: app   # or use the same build as app
+    image: ev_app   # or use the same build as app
     container_name: worker
     restart: always
     command: php artisan solar:listen
