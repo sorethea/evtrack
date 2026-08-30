@@ -36,7 +36,7 @@ services:
         command: php artisan solar:listen
         working_dir: /var/www
         volumes:
-            - ./vendor:/var/www/vendor          # mount vendor to provide dependencies
+            - ./:/var/www          # mount vendor to provide dependencies
         environment:
             - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
             - SOLAR_PASSWORD=${SOLAR_PASSWORD}
