@@ -9,6 +9,7 @@ class SAWebSocket
     protected Client $client;
     protected string $deviceIp;
     protected string $password;
+    protected array $latestMetrics = [];
 
     public function __construct()
     {
