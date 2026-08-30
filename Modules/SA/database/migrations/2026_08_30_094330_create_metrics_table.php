@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('metrics', function (Blueprint $table) {
             $table->id();
-            $table->string('topic');
-            $table->string('value');
-            $table->json('metadata')->nullable();
+            $table->timestamp('recorded_at')->index();
+            $table->json('metadata');
             $table->timestamps();
         });
     }

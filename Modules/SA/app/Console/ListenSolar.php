@@ -11,11 +11,11 @@ use Symfony\Component\Console\Input\InputArgument;
 class ListenSolar extends Command
 {
     protected $signature = 'solar:listen';
-    protected $description = 'Listen to Solar Assistant and store data every 5 seconds';
+    protected $description = 'Listen to Solar Assistant and store JSON snapshots every 5 seconds';
 
     public function handle(SAWebSocket $ws)
     {
-        $this->info('[SA] WebSocket listener started – storing every 5 seconds...');
+        $this->info('[SA] WebSocket listener started – storing JSON snapshots every 5s...');
 
         $ws->listen(
             null,
@@ -29,11 +29,13 @@ class ListenSolar extends Command
 
     protected function storeSnapshot(array $metrics): void
     {
-        foreach ($metrics as $topic => $value) {
-            Metric::updateOrCreate(
-                ['topic' => $topic],
-                ['value' => $value]
-            );
+        if (empty($metrics)) {
+            return;
         }
+
+        Snapshot::create([
+            'recorded_at' => now(),
+            'data' => $metrics, // Eloquent will automatically JSON‑encode this
+        ]);
     }
 }
