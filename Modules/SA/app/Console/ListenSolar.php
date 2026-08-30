@@ -30,7 +30,6 @@ class ListenSolar extends Command
         if (empty($metrics)) {
             return;
         }
-        Log::info($metrics);
 
         Metric::create([
             'recorded_at' => now(),

@@ -14,8 +14,8 @@ class SAWebSocket
 
     public function __construct()
     {
-        $this->deviceIp = config('sa.device_ip', env('SOLAR_DEVICE_IP', ''));
-        $this->password = config('sa.password', env('SOLAR_PASSWORD', ''));
+        $this->deviceIp = config('sa.device_ip');
+        $this->password = config('sa.password');
     }
 
     /**
