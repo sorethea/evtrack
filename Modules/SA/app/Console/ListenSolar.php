@@ -53,7 +53,7 @@ class ListenSolar extends Command
     {
         foreach ($metrics as $metric) {
             // Update or create a record for the latest value
-            Metric::updateOrCreate(
+            Metric::Create(
                 ['topic' => $metric['topic']],
                 ['value' => $metric['value'], 'updated_at' => now()]
             );
