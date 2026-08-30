@@ -59,7 +59,23 @@ services:
 #      - ./mysql/my.cnf:/etc/mysql/my.cnf
 #    networks:
 #      - app-network
-
+  worker:
+      build:
+          context: .
+          dockerfile: Dockerfile
+      container_name: worker
+      restart: always
+      command: php artisan solar:listen
+      working_dir: /var/www
+      volumes:
+          - ./:/var/www
+      environment:
+          - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
+          - SOLAR_PASSWORD=${SOLAR_PASSWORD}
+      networks:
+          - app-network
+      depends_on:
+          - app
 #Docker Networks
 networks:
   app-network:

@@ -43,20 +43,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN getent group www || groupadd -g 1000 www
 RUN id -u www || useradd -u 1000 -ms /bin/bash -g www www
 
-# Create directory for Supervisor logs
-RUN mkdir -p /var/log/supervisor && chown -R www:www /var/log/supervisor
 
 # Copy existing application directory permissions
 COPY --chown=www:www ./ /var/www
 
 # Change current user to www
-# Create directory for Supervisor logs (optional, but good practice)
-RUN mkdir -p /var/log/supervisor && chown -R www:www /var/log/supervisor
 
-# Copy Supervisor configuration
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
-# Start Supervisor (which manages both php-fpm and the artisan command)
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+CMD ["php-fpm"]
