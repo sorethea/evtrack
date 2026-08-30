@@ -5,9 +5,6 @@ namespace Modules\SA\Console;
 use Illuminate\Console\Command;
 use Modules\SA\Models\Metric;
 use Modules\SA\Services\SAWebSocket;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
-
 class ListenSolar extends Command
 {
     protected $signature = 'solar:listen';

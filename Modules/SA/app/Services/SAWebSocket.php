@@ -26,7 +26,8 @@ class SAWebSocket
         while (true) { // Outer loop – reconnects forever
             try {
                 Log::info('[SA] Connecting to Solar Assistant...');
-                $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$this->password}");
+                $encodedPassword = urlencode($this->password);
+                $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$encodedPassword}");
 
                 $joinMessage = json_encode([
                     'topic'   => 'metrics',
