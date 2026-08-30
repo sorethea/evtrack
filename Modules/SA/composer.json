@@ -1,0 +1,33 @@
+{
+    "name": "sorethea/sa",
+    "description": "Solar Assistant data reading.",
+    "authors": [
+        {
+            "name": "Sorethea OK",
+            "email": "sorethea@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "require": {
+        "textalk/websocket": "1.6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\SA\\": "app/",
+            "Modules\\SA\\Database\\Factories\\": "database/factories/",
+            "Modules\\SA\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\SA\\Tests\\": "tests/"
+        }
+    }
+}
