@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\SA\Services;
+use Illuminate\Support\Facades\Log;
 use WebSocket\Client;
 
 class SAWebSocket
