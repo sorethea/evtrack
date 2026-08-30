@@ -37,8 +37,6 @@ services:
         working_dir: /var/www
         volumes:
             - ./vendor:/var/www/vendor          # mount vendor to provide dependencies
-            - ./storage:/var/www/storage        # mount storage so logs and cache persist
-            - ./bootstrap/cache:/var/www/bootstrap/cache  # mount cache
         environment:
             - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
             - SOLAR_PASSWORD=${SOLAR_PASSWORD}
