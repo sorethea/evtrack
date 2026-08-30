@@ -51,6 +51,7 @@ class SAServiceProvider extends ModuleServiceProvider
 
     public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php','sa');
         $this->commands([
             ListenSolar::class
         ]);
