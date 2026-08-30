@@ -17,6 +17,7 @@ class SAWebSocket
 
     public function listen(callable $onMessage): void
     {
+        $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$this->password}");
         $joinMessage = json_encode([
             'topic'   => 'metrics',
             'event'   => 'phx_join',
