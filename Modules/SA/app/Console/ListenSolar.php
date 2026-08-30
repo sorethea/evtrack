@@ -27,7 +27,9 @@ class ListenSolar extends Command
     protected function storeSnapshot(array $metrics): void
     {
         try {
-            $this->info(json_encode($metrics));
+            foreach ($metrics as $key=>$metric){
+                $this->info($key,$metric);
+            }
             if (empty($metrics)) {
                 $this->info("No data!");
                 return;
