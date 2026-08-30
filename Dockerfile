@@ -48,7 +48,7 @@ RUN id -u www || useradd -u 1000 -ms /bin/bash -g www www
 COPY --chown=www:www ./ /var/www
 
 # Change current user to www
-
+RUN composer install --no-dev --optimize-autoloader
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
