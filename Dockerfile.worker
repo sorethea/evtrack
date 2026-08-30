@@ -2,7 +2,6 @@ FROM php:8.3-fpm
 
 WORKDIR /var/www
 
-# Copy only the necessary files (avoid symlinks)
 COPY composer.json composer.lock ./
 COPY artisan ./
 COPY app/ app/
@@ -13,7 +12,7 @@ COPY public/ public/
 COPY resources/ resources/
 COPY routes/ routes/
 COPY storage/ storage/
-COPY vendor/ vendor/   # if vendor is committed, otherwise run composer install
+COPY vendor/ vendor/
 
 # If you have other directories, add them as needed.
 # Avoid copying any symlinked directories like 'storage' if it points elsewhere.
