@@ -1,17 +1,13 @@
 version: '3.7'
-services:
 
-    #PHP Service
+services:
     app:
         build:
             context: .
             dockerfile: Dockerfile
-        image: evtrack-app   # <-- custom image name (no 'ev_app')
+        image: evtrack-app
         container_name: app
         restart: unless-stopped
-        environment:
-            SERVICE_NAME: app
-            SERVICE_TAGS: dev
         working_dir: /var/www
         volumes:
             - ./:/var/www
@@ -19,12 +15,10 @@ services:
         networks:
             - app-network
 
-    #Nginx Service
     web:
         image: nginx:alpine
         container_name: web
         restart: unless-stopped
-        tty: true
         ports:
             - "80:80"
             - "443:443"
@@ -35,15 +29,16 @@ services:
         networks:
             - app-network
 
-    #Worker Service
     worker:
-        image: evtrack-app   # <-- use the same image built for app
+        image: evtrack-app
         container_name: worker
         restart: always
         command: php artisan solar:listen
         working_dir: /var/www
         volumes:
-            - ./vendor:/var/www/vendor   # mount vendor (or add to image)
+            - ./vendor:/var/www/vendor          # mount vendor to provide dependencies
+            - ./storage:/var/www/storage        # mount storage so logs and cache persist
+            - ./bootstrap/cache:/var/www/bootstrap/cache  # mount cache
         environment:
             - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
             - SOLAR_PASSWORD=${SOLAR_PASSWORD}
