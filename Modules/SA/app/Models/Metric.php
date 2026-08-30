@@ -15,7 +15,7 @@ class Metric extends Model
      */
     protected $fillable = ['record_at','metadata'];
     protected $casts =[
-        'metadata'=>'array',
+        'metadata'=>'json',
         'record'=>'datetime',
     ];
 
