@@ -34,7 +34,7 @@ class ListenSolar extends Command
 
             Metric::create([
                 'recorded_at' => now(),
-                'metadata' => json_encode($metrics), // Eloquent will automatically JSON‑encode this
+                'metadata' => $metrics, // Eloquent will automatically JSON‑encode this
             ]);
         }catch (\Exception $exception){
             Log::error($exception->getMessage());
