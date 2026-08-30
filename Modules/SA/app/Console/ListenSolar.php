@@ -3,6 +3,7 @@
 namespace Modules\SA\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Modules\SA\Models\Metric;
 use Modules\SA\Services\SAWebSocket;
 class ListenSolar extends Command
@@ -17,6 +18,7 @@ class ListenSolar extends Command
         $ws->listen(
             null,
             function (array $latestMetrics) {
+                Log::info(json_encode($latestMetrics));
                 $this->storeSnapshot($latestMetrics);
                 $this->info('[SA] Metrics stored at ' . now()->toDateTimeString());
             },
