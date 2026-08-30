@@ -43,11 +43,10 @@ class ListenSolar extends Command
     protected function storeMetrics(array $metrics): void
     {
         foreach ($metrics as $topic => $value) {
-            // Update or create a record for the latest value
-            Metric::create(
-                ['topic' => $topic],
-                ['value' => $value??0,]
-            );
+            Metric::create([
+                'topic' => $topic,
+                'value' => $value
+            ]);
         }
     }
 
