@@ -13,10 +13,10 @@ class Metric extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['record_at','metadata'];
+    protected $fillable = ['recorded_at','metadata'];
     protected $casts =[
         'metadata'=>'json',
-        'record'=>'datetime',
+        'recorded_at'=>'datetime',
     ];
 
     // protected static function newFactory(): MetricFactory
