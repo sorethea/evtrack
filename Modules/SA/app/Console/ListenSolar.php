@@ -18,7 +18,6 @@ class ListenSolar extends Command
         $ws->listen(
             null,
             function (array $latestMetrics) {
-                Log::info(json_encode($latestMetrics));
                 $this->storeSnapshot($latestMetrics);
                 $this->info('[SA] Metrics stored at ' . now()->toDateTimeString());
             },
@@ -31,6 +30,7 @@ class ListenSolar extends Command
         if (empty($metrics)) {
             return;
         }
+        Log::info($metrics);
 
         Metric::create([
             'recorded_at' => now(),
