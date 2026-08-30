@@ -1,90 +1,63 @@
 version: '3.7'
 services:
 
-  #PHP Service
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: php:8.3-fpm
-    container_name: app
-    restart: unless-stopped
-    #tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - app-network
+    #PHP Service
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: evtrack-app   # <-- custom image name (no 'ev_app')
+        container_name: app
+        restart: unless-stopped
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+            - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - app-network
 
-  #Nginx Service
-  web:
-    image: nginx:alpine
-    container_name: web
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/nginx/ssl
-    networks:
-      - app-network
-#  node:
-#      image: node:18
-#      container_name: node
-#      working_dir: /var/www
-#      depends_on:
-#          - 'app'
-  #MySQL Service
-#  db:
-#    image: mysql:8.0
-#    container_name: db
-#    restart: unless-stopped
-#    tty: true
-#    ports:
-#      - "3306:3306"
-#    environment:
-#      MYSQL_DATABASE: ${DB_DATABASE}
-#      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-#      SERVICE_TAGS: dev
-#      SERVICE_NAME: mysql
-#    volumes:
-#      - ./mysql/:/var/lib/pos
-#      - ./mysql/my.cnf:/etc/mysql/my.cnf
-#    networks:
-#      - app-network
-  worker:
-    image: ev-app   # or use the same build as app
-    container_name: worker
-    restart: always
-    command: php artisan solar:listen
-    working_dir: /var/www
-    volumes:
-        - ./vendor:/var/www/vendor   # <--- ADD THIS
-    environment:
-        - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
-        - SOLAR_PASSWORD=${SOLAR_PASSWORD}
-        - DB_CONNECTION=${DB_CONNECTION}
-        - DB_HOST=${DB_HOST}
-        - DB_PORT=${DB_PORT}
-        - DB_DATABASE=${DB_DATABASE}
-        - DB_USERNAME=${DB_USERNAME}
-        - DB_PASSWORD=${DB_PASSWORD}
-    networks:
-        - app-network
-    depends_on:
-        - app
-#Docker Networks
+    #Nginx Service
+    web:
+        image: nginx:alpine
+        container_name: web
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./nginx/conf.d/:/etc/nginx/conf.d
+            - ./nginx/ssl:/etc/nginx/ssl
+        networks:
+            - app-network
+
+    #Worker Service
+    worker:
+        image: evtrack-app   # <-- use the same image built for app
+        container_name: worker
+        restart: always
+        command: php artisan solar:listen
+        working_dir: /var/www
+        volumes:
+            - ./vendor:/var/www/vendor   # mount vendor (or add to image)
+        environment:
+            - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
+            - SOLAR_PASSWORD=${SOLAR_PASSWORD}
+            - DB_CONNECTION=${DB_CONNECTION}
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+        networks:
+            - app-network
+        depends_on:
+            - app
+
 networks:
-  app-network:
-    driver: bridge
-#Volumes
-volumes:
-  dbdata:
-    driver: local
+    app-network:
+        driver: bridge
