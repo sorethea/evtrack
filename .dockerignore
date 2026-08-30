@@ -1,9 +1,16 @@
+# Exclude symlinked directories (the most common culprit)
 storage
 public/storage
-vendor
-node_modules
+
+# Exclude development files
 .git
 .idea
 .vscode
 *.log
 .env
+.phpunit.result.cache
+
+# Exclude build artifacts
+vendor
+node_modules
+composer.phar
