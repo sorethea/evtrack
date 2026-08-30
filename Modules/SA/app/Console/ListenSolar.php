@@ -21,7 +21,7 @@ class ListenSolar extends Command
             null,
             function (array $latestMetrics) {
                 $this->storeSnapshot($latestMetrics);
-                $this->info('[SA] Snapshot stored at ' . now()->toDateTimeString());
+                $this->info('[SA] Metrics stored at ' . now()->toDateTimeString());
             },
             5
         );
@@ -33,7 +33,7 @@ class ListenSolar extends Command
             return;
         }
 
-        Snapshot::create([
+        Metric::create([
             'recorded_at' => now(),
             'data' => $metrics, // Eloquent will automatically JSON‑encode this
         ]);
