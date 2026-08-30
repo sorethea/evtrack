@@ -35,17 +35,8 @@ class ListenSolar extends Command
         $this->info('SA Module: WebSocket listener started...');
 
         $wsClient->listen(null,function (array $message) {
-            // Handle 'definition' messages (metadata)
-            if ($message['event'] === 'definition') {
-                // You can cache these definitions for reference
-                // \Cache::put('solar_definitions', $message['payload']['definitions'], 3600);
-                return;
-            }
-
-            // Handle 'data' messages (actual values)
-            if ($message['event'] === 'data' && isset($message['payload']['metrics'])) {
-                $this->storeMetrics($message['payload']['metrics']);
-            }
+            $this->storeMetrics($message);
+            $this->info('Metric stored at ' . now()->toDateTimeString());
         });
     }
 
