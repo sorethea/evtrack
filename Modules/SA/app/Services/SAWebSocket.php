@@ -3,6 +3,7 @@
 namespace Modules\SA\Services;
 use Illuminate\Support\Facades\Log;
 use WebSocket\Client;
+use WebSocket\TimeoutException;
 
 class SAWebSocket
 {
@@ -13,59 +14,70 @@ class SAWebSocket
 
     public function __construct()
     {
-        $this->deviceIp = config('sa.device_ip');
-        $this->password = config('sa.password');
+        $this->deviceIp = config('sa.device_ip', env('SOLAR_DEVICE_IP', ''));
+        $this->password = config('sa.password', env('SOLAR_PASSWORD', ''));
     }
 
-    public function listen(?callable $onMessage=null,?callable $onTick=null,int $interval =5): void
+    /**
+     * Connect and listen – runs forever with auto‑reconnect.
+     */
+    public function listen(?callable $onMessage = null, ?callable $onTick = null, int $interval = 5): void
     {
-        $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$this->password}");
-        $joinMessage = json_encode([
-            'topic'   => 'metrics',
-            'event'   => 'phx_join',
-            'payload' => [
-                // Optional: filter topics to reduce load
-                // 'topics' => [['topic' => 'total/*'], ['topic' => 'battery_1/*']]
-            ],
-            'ref'     => '1'
-        ]);
-        $this->client->text($joinMessage);
-        $lastTick = microtime(true);
-        while (true) {
+        while (true) { // Outer loop – reconnects forever
             try {
-                $response = $this->client->receive(0.1);
+                Log::info('[SA] Connecting to Solar Assistant...');
+                $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$this->password}");
 
-                if ($response) {
-                    $data = json_decode($response, true);
-                    if (isset($data['event']) && $data['event'] === 'data' && isset($data['payload']['metrics'])) {
-                        // Update the latest snapshot
-                        foreach ($data['payload']['metrics'] as $metric) {
-                            $this->latestMetrics[$metric['topic']] = $metric['value'];
-                        }
+                $joinMessage = json_encode([
+                    'topic'   => 'metrics',
+                    'event'   => 'phx_join',
+                    'payload' => [],
+                    'ref'     => '1'
+                ]);
+                $this->client->text($joinMessage);
+                Log::info('[SA] Joined metrics channel');
 
-                        // ✅ Only call if not null
-                        if ($onMessage !== null) {
-                            $onMessage($data);
+                $lastTick = microtime(true);
+
+                // Inner loop – receive messages and fire ticks
+                while (true) {
+                    try {
+                        $response = $this->client->receive(0.1); // non‑blocking
+
+                        if ($response) {
+                            $data = json_decode($response, true);
+                            if (isset($data['event']) && $data['event'] === 'data' && isset($data['payload']['metrics'])) {
+                                foreach ($data['payload']['metrics'] as $metric) {
+                                    $this->latestMetrics[$metric['topic']] = $metric['value'];
+                                }
+                                if ($onMessage !== null) {
+                                    $onMessage($data);
+                                }
+                            }
                         }
+                    } catch (TimeoutException $e) {
+                        // No message – that's fine
+                    } catch (\Exception $e) {
+                        Log::error('[SA] Receive error: ' . $e->getMessage());
+                        break; // break inner loop and reconnect
                     }
+
+                    // Fire tick every $interval seconds
+                    $now = microtime(true);
+                    if ($now - $lastTick >= $interval && $onTick !== null) {
+                        $onTick($this->latestMetrics);
+                        Log::info('[SA] Tick executed at ' . now()->toDateTimeString());
+                        $lastTick = $now;
+                    }
+
+                    usleep(10000); // 10ms – prevent CPU overuse
                 }
             } catch (\Exception $e) {
-                Log::error('SolarAssistant WebSocket error: ' . $e->getMessage());
-                // Optionally break and let Supervisor restart the process
-                break;
+                Log::error('[SA] Connection lost – reconnecting in 5 seconds: ' . $e->getMessage());
+                sleep(5);
+                // outer loop retries
             }
         }
-        // Check if it's time to fire the tick
-        $now = microtime(true);
-        if ($now - $lastTick >= $interval && $onTick !== null) {
-            // Call the tick callback with the latest snapshot
-            $onTick($this->latestMetrics);
-            $lastTick = $now;
-        }
-
-        // Prevent CPU spinning
-        usleep(10000); // 10ms
-
     }
 
     public function close(): void

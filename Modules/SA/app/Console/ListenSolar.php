@@ -10,63 +10,30 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class ListenSolar extends Command
 {
-    /**
-     * The name and signature of the console command.
-     */
     protected $signature = 'solar:listen';
+    protected $description = 'Listen to Solar Assistant and store data every 5 seconds';
 
-    /**
-     * The console command description.
-     */
-    protected $description = 'Listen to Solar Websocket and store metrics.';
-
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
+    public function handle(SAWebSocket $ws)
     {
-        parent::__construct();
+        $this->info('[SA] WebSocket listener started – storing every 5 seconds...');
+
+        $ws->listen(
+            null,
+            function (array $latestMetrics) {
+                $this->storeSnapshot($latestMetrics);
+                $this->info('[SA] Snapshot stored at ' . now()->toDateTimeString());
+            },
+            5
+        );
     }
 
-    /**
-     * Execute the console command.
-     */
-    public function handle(SAWebSocket $wsClient) {
-        $this->info('SA Module: WebSocket listener started...');
-
-        $wsClient->listen(null,function (array $message) {
-            $this->storeMetrics($message);
-            $this->info('Metric stored at ' . now()->toDateTimeString());
-        });
-    }
-
-    protected function storeMetrics(array $metrics): void
+    protected function storeSnapshot(array $metrics): void
     {
         foreach ($metrics as $topic => $value) {
-            Metric::create([
-                'topic' => $topic,
-                'value' => $value
-            ]);
+            Metric::updateOrCreate(
+                ['topic' => $topic],
+                ['value' => $value]
+            );
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     */
-    protected function getArguments(): array
-    {
-        return [
-            ['example', InputArgument::REQUIRED, 'An example argument.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     */
-    protected function getOptions(): array
-    {
-        return [
-            ['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
-        ];
     }
 }
