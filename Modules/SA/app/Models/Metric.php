@@ -13,9 +13,9 @@ class Metric extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = ['record_at','data'];
+    protected $fillable = ['record_at','metadata'];
     protected $casts =[
-        'data'=>'array',
+        'metadata'=>'array',
         'record'=>'datetime',
     ];
 
