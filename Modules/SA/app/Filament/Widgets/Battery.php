@@ -14,7 +14,7 @@ class Battery extends StatsOverviewWidget
     {
         $latest = Metric::latest('recorded_at')->first();
         $batterySoc = $latest->metadata['total/battery_state_of_charge'] ?? '--';
-        $pvPower    = $latest->metadata['total/pv_power'] ?? '--';
+        $pvEnergy    = $latest->metadata['total/pv_energy'] ?? '--';
         $loadPower  = $latest->metadata['total/load_power'] ?? '--';
         $gridPower  = $latest->metadata['total/grid_power'] ?? '--';
         $battery1Soc = $latest->metadata['battery_1/state_of_charge'] ?? '--';
@@ -26,8 +26,8 @@ class Battery extends StatsOverviewWidget
                 ->description('Real‑time battery level')
                 ->descriptionIcon('heroicon-m-battery-100')
                 ->color('success'),
-            Stat::make('PV Power', number_format($pvPower). 'W')
-                ->description('Real‑time PV power level')
+            Stat::make('PV Power', number_format($pvEnergy). 'kWh')
+                ->description('Real‑time PV energy generated')
                 ->descriptionIcon('heroicon-m-bolt')
                 ->color('warning'),
             Stat::make('Last Update', $latest->recorded_at->timezone('Asia/Phnom_Penh')->diffForHumans())
