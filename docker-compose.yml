@@ -32,7 +32,6 @@ services:
     worker:
         image: evtrack-app
         container_name: worker
-        user: www-data
         restart: always
         command: php artisan solar:listen
         working_dir: /var/www
