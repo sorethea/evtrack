@@ -40,9 +40,9 @@ class EnergyStats extends BaseWidget
         if ($gridPower == 0) {
             $gridDescription = 'Idle';
         } elseif ($gridIn > 0) {
-            $gridDescription = 'Import: ' . number_format($gridPower, 0) . ' W · Today: ' . number_format($gridIn, 1) . ' kWh';
+            $gridDescription .= 'Import: ' . number_format($gridPower, 0) . ' W · Today: ' . number_format($gridIn, 1) . ' kWh';
         } else {
-            $gridDescription = 'Export: ' . number_format(abs($gridPower), 0) . ' W · Today: ' . number_format($gridOut, 1) . ' kWh';
+            $gridDescription .= 'Export: ' . number_format(abs($gridPower), 0) . ' W · Today: ' . number_format($gridOut, 1) . ' kWh';
         }
 
         return [
