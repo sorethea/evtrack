@@ -4,6 +4,7 @@ namespace Modules\SA\Filament\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\Log;
 use Modules\SA\Models\Metric;
 
 class Battery extends StatsOverviewWidget
@@ -12,7 +13,9 @@ class Battery extends StatsOverviewWidget
     protected function getStats(): array
     {
         $latest = Metric::latest('recorded_at')->first();
+        Log::info($latest->metadata['total']);
         $soc = $latest ? ($latest->metadata['total']['battery_state_of_charge'] ?? '--') : '--';
+
         return [
             Stat::make('Battery SoC', $soc . '%')
                 ->description('Real‑time battery level')
