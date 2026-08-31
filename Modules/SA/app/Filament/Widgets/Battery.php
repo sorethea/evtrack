@@ -34,17 +34,17 @@ class Battery extends BaseWidget
         return [
             Stat::make('Battery SoC', number_format($batterySoc, 1) . '%')
                 ->description('Main battery')
-                ->descriptionIcon('heroicon-m-battery-100')
+                //->descriptionIcon('heroicon-m-battery-100')
                 ->color('success'),
 
             Stat::make('PV Energy', number_format($pvEnergy, 1) . ' kWh')
                 ->description('Generated today')
-                ->descriptionIcon('heroicon-m-bolt')
+                //->descriptionIcon('heroicon-m-bolt')
                 ->color('warning'),
 
             Stat::make('Temperature', number_format($temperature, 1) . '°C')
                 ->description('Outside')
-                ->descriptionIcon('heroicon-o-thermometer')   // ✅ changed from 'm-thermometer'
+                //->descriptionIcon('heroicon-o-thermometer')   // ✅ changed from 'm-thermometer'
                 ->color('info'),
 
             Stat::make('Last Update', $latest->recorded_at->timezone('Asia/Phnom_Penh')->diffForHumans())
