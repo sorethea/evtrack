@@ -32,6 +32,11 @@ class EnergyStats extends BaseWidget
         $batteryIcon = $batteryPower > 0 ? 'heroicon-m-arrow-trending-up' : ($batteryPower < 0 ? 'heroicon-m-arrow-trending-down' : 'heroicon-m-minus');
 
         return [
+            // Load
+            Stat::make('Load', number_format($get('total/load_power'), 0) . ' W')
+                ->description('Active consumption')
+                ->descriptionIcon('heroicon-m-home')
+                ->color('info'),
             // Solar PV
             Stat::make('Solar PV', number_format($get('total/pv_power'), 0) . ' W')
                 ->description('Today: ' . number_format($get('total/pv_energy'), 1) . ' kWh')
@@ -52,11 +57,7 @@ class EnergyStats extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-path')
                 ->color('danger'),
 
-            // Load
-            Stat::make('Load', number_format($get('total/load_power'), 0) . ' W')
-                ->description('Active consumption')
-                ->descriptionIcon('heroicon-m-home')
-                ->color('info'),
+
         ];
     }
 }
