@@ -32,7 +32,7 @@ class SAWebSocket
                     'Origin' => 'http://192.168.123.141',
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
                 ];
-                $this->client = new Client("ws://{$this->deviceIp}/api/webSocket?password={$encodedPassword}", ['headers' => $headers]);
+                $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$encodedPassword}", ['headers' => $headers]);
                 $joinMessage = json_encode([
                     'topic'   => 'metrics',
                     'event'   => 'phx_join',
