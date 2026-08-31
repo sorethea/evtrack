@@ -8,7 +8,7 @@ use Modules\SA\Models\Metric;
 
 class EnergyStats extends BaseWidget
 {
-    protected static ?string $pollingInterval = '5s';
+    protected static ?string $pollInterval = '5s';
 
     protected function getStats(): array
     {
