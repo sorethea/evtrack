@@ -14,15 +14,15 @@ class Battery extends StatsOverviewWidget
     {
         $latest = Metric::latest('recorded_at')->first();
         $batterySoc = $latest->metadata['total/battery_state_of_charge'] ?? '--';
-        $pvPower    = $latest['total/pv_power'] ?? '--';
-        $loadPower  = $latest['total/load_power'] ?? '--';
-        $gridPower  = $latest['total/grid_power'] ?? '--';
-        $battery1Soc = $latest['battery_1/state_of_charge'] ?? '--';
-        $battery2Soc = $latest['battery_2/state_of_charge'] ?? '--';
-        $temperature = $latest['weather/outside_temperature'] ?? '--';
+        $pvPower    = $latest->metadata['total/pv_power'] ?? '--';
+        $loadPower  = $latest->metadata['total/load_power'] ?? '--';
+        $gridPower  = $latest->metadata['total/grid_power'] ?? '--';
+        $battery1Soc = $latest->metadata['battery_1/state_of_charge'] ?? '--';
+        $battery2Soc = $latest->metadata['battery_2/state_of_charge'] ?? '--';
+        $temperature = $latest->metadata['weather/outside_temperature'] ?? '--';
 
         return [
-            Stat::make('Battery SoC', json_encode($latest->metadata["total/battery_state_of_charge"]) . '%')
+            Stat::make('Battery SoC', $batterySoc. '%')
                 ->description('Real‑time battery level')
                 ->descriptionIcon('heroicon-m-battery-100')
                 ->color('success'),
