@@ -26,7 +26,7 @@ class Battery extends StatsOverviewWidget
                 ->description('Real‑time battery level')
                 ->descriptionIcon('heroicon-m-battery-100')
                 ->color('success'),
-            Stat::make('PV Power', $batterySoc. 'kWh')
+            Stat::make('PV Power', $pvPower. 'kWh')
                 ->description('Real‑time PV power level')
                 ->descriptionIcon('heroicon-m-bolt')
                 ->color('warning'),
