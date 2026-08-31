@@ -30,7 +30,8 @@ class Battery extends StatsOverviewWidget
                 ->description('Real‑time PV power level')
                 ->descriptionIcon('heroicon-m-bolt')
                 ->color('warning'),
-            Stat::make('Last Update', $latest->recorded_at->timezone('Asia/Phnom_Penh')->diffForHumans()),
+            Stat::make('Last Update', $latest->recorded_at->timezone('Asia/Phnom_Penh')->diffForHumans())
+                ->description($latest->recorded_at->timezone('Asia/Phnom_Penh')->toDateTimeString()),
         ];
     }
 }
