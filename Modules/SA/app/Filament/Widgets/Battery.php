@@ -13,13 +13,13 @@ class Battery extends StatsOverviewWidget
     protected function getStats(): array
     {
         $latest = Metric::latest('recorded_at')->first();
-        $batterySoc = $metadata['total/battery_state_of_charge'] ?? '--';
-        $pvPower    = $metadata['total/pv_power'] ?? '--';
-        $loadPower  = $metadata['total/load_power'] ?? '--';
-        $gridPower  = $metadata['total/grid_power'] ?? '--';
-        $battery1Soc = $metadata['battery_1/state_of_charge'] ?? '--';
-        $battery2Soc = $metadata['battery_2/state_of_charge'] ?? '--';
-        $temperature = $metadata['weather/outside_temperature'] ?? '--';
+        $batterySoc = $latest['total/battery_state_of_charge'] ?? '--';
+        $pvPower    = $latest['total/pv_power'] ?? '--';
+        $loadPower  = $latest['total/load_power'] ?? '--';
+        $gridPower  = $latest['total/grid_power'] ?? '--';
+        $battery1Soc = $latest['battery_1/state_of_charge'] ?? '--';
+        $battery2Soc = $latest['battery_2/state_of_charge'] ?? '--';
+        $temperature = $latest['weather/outside_temperature'] ?? '--';
 
         return [
             Stat::make('Battery SoC', $batterySoc . '%')
