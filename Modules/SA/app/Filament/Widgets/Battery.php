@@ -9,7 +9,7 @@ use Modules\SA\Models\Metric;
 
 class Battery extends StatsOverviewWidget
 {
-    protected static ?string $pullingInterval ='10s';
+    protected static ?string $pullingInterval ='5s';
     protected function getStats(): array
     {
         $latest = Metric::latest('recorded_at')->first();
