@@ -41,7 +41,7 @@ class SAWebSocket
                 $lastTick = microtime(true);
 
                 // Inner loop – receive messages and fire ticks
-                while (true) {
+                //while (true) {
                     try {
                         $response = $this->client->receive(0.1); // non‑blocking
 
@@ -72,7 +72,7 @@ class SAWebSocket
 //                    }
 //
 //                    usleep(10000); // 10ms – prevent CPU overuse
-                }
+                //}
             } catch (\Exception $e) {
                 Log::error('[SA] Connection lost – reconnecting in 5 seconds: ' . $e->getMessage());
                 //sleep(5);
