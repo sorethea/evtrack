@@ -9,7 +9,7 @@ use Throwable;
 class SAWebSocket
 {
     protected string $deviceIp;
-    protected string $password; // kept for consistency, not used in REST (but maybe for future)
+    protected string $password;
     protected array $latestMetrics = [];
 
     public function __construct()
@@ -20,6 +20,7 @@ class SAWebSocket
 
     /**
      * Poll the REST API every $interval seconds.
+     * Transform the response into a flat key-value array.
      */
     public function listen(?callable $onMessage = null, ?callable $onTick = null, int $interval = 5): void
     {
@@ -28,19 +29,27 @@ class SAWebSocket
         while (true) {
             try {
                 $response = Http::timeout(5)
-                    ->withBasicAuth('admin', $this->password)   // <-- use admin + password
+                    ->withBasicAuth('admin', $this->password)
                     ->get("http://{$this->deviceIp}/api/v1/metrics");
 
                 if ($response->successful()) {
-                    $metrics = $response->json();
+                    $data = $response->json();
 
-                    if (is_array($metrics) && !empty($metrics)) {
-                        // Update latest metrics
-                        $this->latestMetrics = $metrics;
+                    if (is_array($data) && !empty($data)) {
+                        // Transform array of objects into flat key-value
+                        $transformed = [];
+                        foreach ($data as $item) {
+                            if (isset($item['topic'], $item['value'])) {
+                                $transformed[$item['topic']] = $item['value'];
+                            }
+                        }
 
-                        // Fire the tick callback with the snapshot
+                        // Update latest metrics (flat format)
+                        $this->latestMetrics = $transformed;
+
+                        // Fire the tick callback with the flat array
                         if ($onTick !== null) {
-                            $onTick($metrics);
+                            $onTick($transformed);
                         }
 
                         Log::info('[SA] REST snapshot stored at ' . now()->toDateTimeString());
@@ -60,6 +69,6 @@ class SAWebSocket
 
     public function close(): void
     {
-        // No-op for REST
+        // No-op
     }
 }
