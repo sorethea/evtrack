@@ -22,11 +22,11 @@ class Battery extends StatsOverviewWidget
         $temperature = $latest->metadata['weather/outside_temperature'] ?? '--';
 
         return [
-            Stat::make('Battery SoC', $batterySoc. '%')
+            Stat::make('Battery SoC', number_format($batterySoc,2). '%')
                 ->description('Real‑time battery level')
                 ->descriptionIcon('heroicon-m-battery-100')
                 ->color('success'),
-            Stat::make('PV Power', $pvPower. 'kWh')
+            Stat::make('PV Power', number_format($pvPower). 'W')
                 ->description('Real‑time PV power level')
                 ->descriptionIcon('heroicon-m-bolt')
                 ->color('warning'),
