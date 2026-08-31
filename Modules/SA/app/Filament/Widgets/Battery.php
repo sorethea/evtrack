@@ -19,10 +19,9 @@ class Battery extends BaseWidget
             ];
         }
 
-        // Extract metrics safely
         $metadata = $latest->metadata;
 
-        // Helper to get numeric value, fallback to 0
+        // Helper to get numeric value safely
         $getNumeric = function ($key) use ($metadata) {
             $value = $metadata[$key] ?? null;
             return is_numeric($value) ? (float) $value : 0;
@@ -30,8 +29,6 @@ class Battery extends BaseWidget
 
         $batterySoc = $getNumeric('total/battery_state_of_charge');
         $pvEnergy   = $getNumeric('total/pv_energy');
-        $battery1Soc = $getNumeric('battery_1/state_of_charge');
-        $battery2Soc = $getNumeric('battery_2/state_of_charge');
         $temperature = $getNumeric('weather/outside_temperature');
 
         return [
@@ -47,7 +44,7 @@ class Battery extends BaseWidget
 
             Stat::make('Temperature', number_format($temperature, 1) . '°C')
                 ->description('Outside')
-                ->descriptionIcon('heroicon-m-thermometer')
+                ->descriptionIcon('heroicon-o-thermometer')   // ✅ changed from 'm-thermometer'
                 ->color('info'),
 
             Stat::make('Last Update', $latest->recorded_at->timezone('Asia/Phnom_Penh')->diffForHumans())
