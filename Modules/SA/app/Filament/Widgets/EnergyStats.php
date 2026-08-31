@@ -45,10 +45,10 @@ class EnergyStats extends BaseWidget
             $gridDescription = 'Export: ' . number_format(abs($gridPower), 0) . ' W · Today: ' . number_format($gridOut, 1) . ' kWh';
         }
         if($gridIn>0){
-            $gridDescription .= ' Grid Import Today: ' . number_format($gridIn, 1) . ' kWh';
+            $gridDescription = ' Grid Import Today: ' . number_format($gridIn, 1) . ' kWh';
         }
         if($gridOut>0){
-            $gridDescription .= ' Grid Export Today: ' . number_format($gridOut, 1) . ' kWh';
+            $gridDescription = ' Grid Export Today: ' . number_format($gridOut, 1) . ' kWh';
         }
         return [
             // Solar PV
