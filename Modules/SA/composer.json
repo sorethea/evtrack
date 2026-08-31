@@ -15,9 +15,6 @@
             }
         }
     },
-    "require": {
-        "textalk/websocket": "1.6.3"
-    },
     "autoload": {
         "psr-4": {
             "Modules\\SA\\": "app/",

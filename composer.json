@@ -17,6 +17,7 @@
         "laravel/framework": "^v13.23.0",
         "laravel/tinker": "^3.0.2",
         "nwidart/laravel-modules": "*",
+        "textalk/websocket": "1.6.3",
         "spatie/laravel-data": "^4.23"
     },
     "require-dev": {
