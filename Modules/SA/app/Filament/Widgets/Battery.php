@@ -2,34 +2,54 @@
 
 namespace Modules\SA\Filament\Widgets;
 
-use Filament\Widgets\StatsOverviewWidget;
+use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Facades\Log;
 use Modules\SA\Models\Metric;
 
-class Battery extends StatsOverviewWidget
+class Battery extends BaseWidget
 {
-    protected static ?string $pullingInterval ='5s';
     protected function getStats(): array
     {
         $latest = Metric::latest('recorded_at')->first();
-        $batterySoc = $latest->metadata['total/battery_state_of_charge'] ?? '--';
-        $pvEnergy    = $latest->metadata['total/pv_energy'] ?? '--';
-        $loadPower  = $latest->metadata['total/load_power'] ?? '--';
-        $gridPower  = $latest->metadata['total/grid_power'] ?? '--';
-        $battery1Soc = $latest->metadata['battery_1/state_of_charge'] ?? '--';
-        $battery2Soc = $latest->metadata['battery_2/state_of_charge'] ?? '--';
-        $temperature = $latest->metadata['weather/outside_temperature'] ?? '--';
+
+        if (!$latest) {
+            return [
+                Stat::make('Battery SoC', '--')
+                    ->description('No data yet'),
+            ];
+        }
+
+        // Extract metrics safely
+        $metadata = $latest->metadata;
+
+        // Helper to get numeric value, fallback to 0
+        $getNumeric = function ($key) use ($metadata) {
+            $value = $metadata[$key] ?? null;
+            return is_numeric($value) ? (float) $value : 0;
+        };
+
+        $batterySoc = $getNumeric('total/battery_state_of_charge');
+        $pvEnergy   = $getNumeric('total/pv_energy');
+        $battery1Soc = $getNumeric('battery_1/state_of_charge');
+        $battery2Soc = $getNumeric('battery_2/state_of_charge');
+        $temperature = $getNumeric('weather/outside_temperature');
 
         return [
-            Stat::make('Battery SoC', number_format($batterySoc,2). '%')
-                ->description('Real‑time battery level')
+            Stat::make('Battery SoC', number_format($batterySoc, 1) . '%')
+                ->description('Main battery')
                 ->descriptionIcon('heroicon-m-battery-100')
                 ->color('success'),
-            Stat::make('PV Power', number_format($pvEnergy,2). 'kWh')
-                ->description('Real‑time PV energy generated')
+
+            Stat::make('PV Energy', number_format($pvEnergy, 1) . ' kWh')
+                ->description('Generated today')
                 ->descriptionIcon('heroicon-m-bolt')
                 ->color('warning'),
+
+            Stat::make('Temperature', number_format($temperature, 1) . '°C')
+                ->description('Outside')
+                ->descriptionIcon('heroicon-m-thermometer')
+                ->color('info'),
+
             Stat::make('Last Update', $latest->recorded_at->timezone('Asia/Phnom_Penh')->diffForHumans())
                 ->description($latest->recorded_at->timezone('Asia/Phnom_Penh')->toDateTimeString()),
         ];
