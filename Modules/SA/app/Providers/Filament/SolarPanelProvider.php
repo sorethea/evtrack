@@ -38,8 +38,8 @@ class SolarPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in:module("SA", true)->appPath("Filament{$separator}SASolar{$separator}Widgets"), for: module("SA", true)->appNamespace('Filament\SASolar\Widgets'))
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                //AccountWidget::class,
+                //FilamentInfoWidget::class,
             ])
             ->discoverClusters(in: module("SA", true)->appPath("Filament{$separator}SASolar{$separator}Clusters"), for: module("SA", true)->appNamespace('Filament\SASolar\Clusters'))
             ->middleware([
@@ -57,11 +57,11 @@ class SolarPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->navigationItems([
                 // Add a backlink to the default panel
-                \Filament\Navigation\NavigationItem::make()
-                    ->label(__('Back Home'))
-                    ->sort(-1000)
-                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedHomeModern)
-                    ->url(filament()->getDefaultPanel()->getUrl()),
+//                \Filament\Navigation\NavigationItem::make()
+//                    ->label(__('Back Home'))
+//                    ->sort(-1000)
+//                    ->icon(\Filament\Support\Icons\Heroicon::OutlinedHomeModern)
+//                    ->url(filament()->getDefaultPanel()->getUrl()),
             ]);
     }
 
