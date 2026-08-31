@@ -27,12 +27,8 @@ class SAWebSocket
             try {
                 Log::info('[SA] Connecting to Solar Assistant...');
                 $encodedPassword = urlencode($this->password);
-                //$this->client = new Client("ws://{$this->deviceIp}/api/webSocket?password={$encodedPassword}");
-                $headers = [
-                    'Origin' => 'http://192.168.123.141',
-                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                ];
-                $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$encodedPassword}", ['headers' => $headers]);
+                $this->client = new Client("ws://{$this->deviceIp}/api/webSocket?password={$encodedPassword}");
+
                 $joinMessage = json_encode([
                     'topic'   => 'metrics',
                     'event'   => 'phx_join',
@@ -67,19 +63,19 @@ class SAWebSocket
                         break; // break inner loop and reconnect
                     }
 
-                    // Fire tick every $interval seconds
-                    $now = microtime(true);
-                    if ($now - $lastTick >= $interval && $onTick !== null) {
-                        $onTick($this->latestMetrics);
-                        Log::info('[SA] Tick executed at ' . now()->toDateTimeString());
-                        $lastTick = $now;
-                    }
-
-                    usleep(10000); // 10ms – prevent CPU overuse
+//                    // Fire tick every $interval seconds
+//                    $now = microtime(true);
+//                    if ($now - $lastTick >= $interval && $onTick !== null) {
+//                        $onTick($this->latestMetrics);
+//                        Log::info('[SA] Tick executed at ' . now()->toDateTimeString());
+//                        $lastTick = $now;
+//                    }
+//
+//                    usleep(10000); // 10ms – prevent CPU overuse
                 }
             } catch (\Exception $e) {
                 Log::error('[SA] Connection lost – reconnecting in 5 seconds: ' . $e->getMessage());
-                sleep(5);
+                //sleep(5);
                 // outer loop retries
             }
         }
