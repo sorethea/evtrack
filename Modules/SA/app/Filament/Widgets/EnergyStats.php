@@ -61,7 +61,7 @@ class EnergyStats extends BaseWidget
                 ->color($batteryColor),
 
             // Grid
-            Stat::make('Grid', number_format($gridPower, 0) . ' W')
+            Stat::make('Grid', number_format($gridIn, 0) . ' kWh')
                 ->description($gridDescription)
                 ->descriptionIcon('heroicon-m-arrow-path')
                 ->color('danger'),
