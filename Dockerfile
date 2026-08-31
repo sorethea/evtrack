@@ -44,6 +44,8 @@ RUN getent group www || groupadd -g 1000 www
 RUN id -u www || useradd -u 1000 -ms /bin/bash -g www www
 # Create Laravel cache and storage directories
 
+RUN git config --global --add safe.directory /var/www
+
 COPY . /var/www
 
 # Expose port 9000 and start php-fpm server
