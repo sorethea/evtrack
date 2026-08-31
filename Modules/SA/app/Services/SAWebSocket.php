@@ -13,7 +13,7 @@ class SAWebSocket
     protected string $deviceIp;
     protected string $password;
     protected array $latestMetrics = [];
-    protected bool $useRestFallback = false; // set to true if WebSocket fails
+    protected bool $useRestFallback = true; // set to true if WebSocket fails
 
     public function __construct()
     {
