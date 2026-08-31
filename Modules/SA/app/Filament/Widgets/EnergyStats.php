@@ -39,12 +39,17 @@ class EnergyStats extends BaseWidget
         $gridDescription = '';
         if ($gridPower == 0) {
             $gridDescription = 'Idle';
-        } elseif ($gridIn > 0) {
-            $gridDescription .= 'Import: ' . number_format($gridPower, 0) . ' W · Today: ' . number_format($gridIn, 1) . ' kWh';
+        } elseif ($gridPower > 0) {
+            $gridDescription = 'Import: ' . number_format($gridPower, 0) .' W ';
         } else {
-            $gridDescription .= 'Export: ' . number_format(abs($gridPower), 0) . ' W · Today: ' . number_format($gridOut, 1) . ' kWh';
+            $gridDescription = 'Export: ' . number_format(abs($gridPower), 0) . ' W · Today: ' . number_format($gridOut, 1) . ' kWh';
         }
-
+        if($gridIn>0){
+            $gridDescription .= ' Grid Import Today: ' . number_format($gridIn, 1) . ' kWh';
+        }
+        if($gridOut>0){
+            $gridDescription .= ' Grid Export Today: ' . number_format($gridOut, 1) . ' kWh';
+        }
         return [
             // Solar PV
             Stat::make('Solar PV', number_format($get('total/pv_power'), 0) . ' W')
