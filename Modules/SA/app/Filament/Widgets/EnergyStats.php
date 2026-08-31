@@ -5,7 +5,6 @@ namespace Modules\SA\Filament\Widgets;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Modules\SA\Models\Metric;
-use Carbon\Carbon;
 
 class EnergyStats extends BaseWidget
 {
@@ -13,7 +12,6 @@ class EnergyStats extends BaseWidget
 
     protected function getStats(): array
     {
-        // Get latest two snapshots to compute trend
         $records = Metric::latest('recorded_at')->take(2)->get();
         $latest = $records->first();
         $previous = $records->count() > 1 ? $records->get(1) : null;
@@ -24,30 +22,44 @@ class EnergyStats extends BaseWidget
 
         $data = $latest->metadata;
 
-        // Helper to get numeric value, fallback to 0
+        // Helper to get numeric value
         $get = fn($key) => is_numeric($data[$key] ?? null) ? (float)$data[$key] : 0;
 
-        // Battery SoC trend (%/hr)
-        $trend = '--';
+        // --- Battery trend (charge/discharge) ---
+        $trendText = 'Stable';
+        $trendColor = 'gray';
+        $trendIcon = 'heroicon-m-minus';
+        $rate = 0;
+
         if ($previous && isset($data['total/battery_state_of_charge']) && isset($previous->metadata['total/battery_state_of_charge'])) {
             $socNow = (float)$data['total/battery_state_of_charge'];
             $socPrev = (float)$previous->metadata['total/battery_state_of_charge'];
             $timeDiff = $latest->recorded_at->diffInSeconds($previous->recorded_at);
             if ($timeDiff > 0) {
                 $rate = (($socNow - $socPrev) / $timeDiff) * 3600; // % per hour
-                $trend = ($rate >= 0 ? '+' : '') . number_format($rate, 1) . '%/hr';
             }
+        }
+
+        if ($rate > 0.1) {
+            $trendText = 'Charging +' . number_format($rate, 1) . '%/hr';
+            $trendColor = 'success';
+            $trendIcon = 'heroicon-m-arrow-trending-up';
+        } elseif ($rate < -0.1) {
+            $trendText = 'Discharging ' . number_format($rate, 1) . '%/hr';
+            $trendColor = 'danger';
+            $trendIcon = 'heroicon-m-arrow-trending-down';
+        } else {
+            $trendText = 'Stable';
+            $trendColor = 'gray';
+            $trendIcon = 'heroicon-m-minus';
         }
 
         return [
             // Battery
             Stat::make('Battery', number_format($get('total/battery_state_of_charge'), 1) . '%')
-                ->description($trend)
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
-                ->color('success')
-                ->extraAttributes([
-                    'class' => 'border-l-4 border-green-500',
-                ]),
+                ->description($trendText)
+                ->color($trendColor)
+                ->descriptionIcon($trendIcon),
 
             // Solar PV
             Stat::make('Solar PV', number_format($get('total/pv_power'), 0) . ' W')
