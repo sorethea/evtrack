@@ -41,7 +41,7 @@ class SAWebSocket
                 $lastTick = microtime(true);
 
                 // Inner loop – receive messages and fire ticks
-                //while (true) {
+                while (true) {
                     try {
                         $response = $this->client->receive(0.1); // non‑blocking
 
@@ -64,18 +64,22 @@ class SAWebSocket
                     }
 
 //                    // Fire tick every $interval seconds
-//                    $now = microtime(true);
-//                    if ($now - $lastTick >= $interval && $onTick !== null) {
-//                        $onTick($this->latestMetrics);
-//                        Log::info('[SA] Tick executed at ' . now()->toDateTimeString());
-//                        $lastTick = $now;
-//                    }
+                    $now = microtime(true);
+                    if ($now - $lastPing >= 25) {
+                        $this->client->text(json_encode([
+                            'topic'   => 'metrics',
+                            'event'   => 'phx_ping',
+                            'payload' => [],
+                            'ref'     => 'ping_' . time()
+                        ]));
+                        $lastPing = $now;
+                    }
 //
-//                    usleep(10000); // 10ms – prevent CPU overuse
-                //}
+                    //usleep(10000); // 10ms – prevent CPU overuse
+                }
             } catch (\Exception $e) {
                 Log::error('[SA] Connection lost – reconnecting in 5 seconds: ' . $e->getMessage());
-                //sleep(5);
+                sleep(5);
                 // outer loop retries
             }
         }
