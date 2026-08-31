@@ -19,6 +19,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Modules\SA\Filament\Widgets\Battery;
+use Modules\SA\Filament\Widgets\EnergyStats;
 
 class SolarPanelProvider extends PanelProvider
 {
@@ -39,7 +40,7 @@ class SolarPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in:module("SA", true)->appPath("Filament{$separator}SASolar{$separator}Widgets"), for: module("SA", true)->appNamespace('Filament\SASolar\Widgets'))
             ->widgets([
-                Battery::class,
+                EnergyStats::class,
                 //AccountWidget::class,
                 //FilamentInfoWidget::class,
             ])
