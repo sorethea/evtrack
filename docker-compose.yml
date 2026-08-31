@@ -33,16 +33,15 @@ services:
             - app-network
 
     worker:
+        user: www   # <-- must be present
         image: evtrack-app
         container_name: worker
-        user: www-data
         restart: always
         command: php artisan solar:listen
         working_dir: /var/www
         volumes:
-            - ./:/var/www          # mount vendor to provide dependencies
+            - ./:/var/www
         environment:
-            - TZ=Asia/Phnom_Penh
             - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
             - SOLAR_PASSWORD=${SOLAR_PASSWORD}
             - DB_CONNECTION=${DB_CONNECTION}
