@@ -39,7 +39,7 @@ class EnergyStats extends BaseWidget
         $gridDescription = '';
         if ($gridPower == 0) {
             $gridDescription = 'Idle';
-        } elseif ($gridPower > 0) {
+        } elseif ($gridIn > 0) {
             $gridDescription = 'Import: ' . number_format($gridPower, 0) . ' W · Today: ' . number_format($gridIn, 1) . ' kWh';
         } else {
             $gridDescription = 'Export: ' . number_format(abs($gridPower), 0) . ' W · Today: ' . number_format($gridOut, 1) . ' kWh';
@@ -61,7 +61,7 @@ class EnergyStats extends BaseWidget
                 ->color($batteryColor),
 
             // Grid
-            Stat::make('Grid', number_format($gridIn, 0) . ' kWh')
+            Stat::make('Grid', number_format($gridPower, 0) . ' W')
                 ->description($gridDescription)
                 ->descriptionIcon('heroicon-m-arrow-path')
                 ->color('danger'),
