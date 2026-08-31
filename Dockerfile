@@ -43,15 +43,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN getent group www || groupadd -g 1000 www
 RUN id -u www || useradd -u 1000 -ms /bin/bash -g www www
 # Create Laravel cache and storage directories
-RUN mkdir -p /var/www/bootstrap/cache \
-    /var/www/storage/app \
-    /var/www/storage/framework/cache \
-    /var/www/storage/framework/sessions \
-    /var/www/storage/framework/views \
-    /var/www/storage/logs
 
-# Set ownership (assumes user www-data exists)
-RUN chown -R www-data:www-data /var/www/bootstrap/cache /var/www/storage
+COPY . /var/www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
