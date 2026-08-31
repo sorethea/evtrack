@@ -27,7 +27,7 @@ class SAWebSocket
             try {
                 Log::info('[SA] Connecting to Solar Assistant...');
                 $encodedPassword = urlencode($this->password);
-                $this->client = new Client("ws://{$this->deviceIp}/api/websocket?password={$encodedPassword}");
+                $this->client = new Client("ws://{$this->deviceIp}/api/socket/websocket?password={$encodedPassword}");
 
                 $joinMessage = json_encode([
                     'topic'   => 'metrics',
