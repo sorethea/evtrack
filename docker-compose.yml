@@ -8,6 +8,9 @@ services:
         image: evtrack-app
         container_name: app
         restart: unless-stopped
+        environment:
+            - TZ=Asia/Phnom_Penh
+            - SERVICE_NAME=app
         working_dir: /var/www
         volumes:
             - ./:/var/www
@@ -39,6 +42,7 @@ services:
         volumes:
             - ./:/var/www          # mount vendor to provide dependencies
         environment:
+            - TZ=Asia/Phnom_Penh
             - SOLAR_DEVICE_IP=${SOLAR_DEVICE_IP}
             - SOLAR_PASSWORD=${SOLAR_PASSWORD}
             - DB_CONNECTION=${DB_CONNECTION}
