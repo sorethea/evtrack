@@ -27,7 +27,9 @@ class SAWebSocket
 
         while (true) {
             try {
-                $response = Http::timeout(5)->get("http://{$this->deviceIp}/api/status");
+                $response = Http::timeout(5)
+                    ->withBasicAuth('admin', $this->password)   // <-- use admin + password
+                    ->get("http://{$this->deviceIp}/api/v1/metrics");
 
                 if ($response->successful()) {
                     $metrics = $response->json();
