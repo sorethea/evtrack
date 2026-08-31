@@ -25,8 +25,8 @@ class SolarPanelProvider extends PanelProvider
     {
         $separator = DIRECTORY_SEPARATOR;
         return $panel
-            ->id('s-a-solar')
-            ->path('s-a/solar')
+            ->id('sa-solar')
+            ->path('sa/solar')
             ->brandName($this->getNavigationLabel())
             ->colors([
                 'primary' => Color::Amber,
@@ -67,6 +67,6 @@ class SolarPanelProvider extends PanelProvider
 
     public function getNavigationLabel(): string
     {
-        return __("Solar");
+        return __("Solar Assistant");
     }
 }
