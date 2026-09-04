@@ -1,6 +1,8 @@
 <?php
 return [
     "date"=>"Date",
+    "start_charge"=>"Start Charge",
+    "end_charge"=>"End Charge",
     "day"=>"Day(s)",
     "day_hours"=>"Day(s)-hour(s)",
     "time"=>"Time",

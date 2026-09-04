@@ -51,6 +51,7 @@ class EvLogResource extends Resource
                         ->label(trans('ev.date'))
                         ->default(now()->format('Y-m-d H i'))
                         ->required(),
+
                     Select::make("parent_id")
                         ->live()
                         ->label(trans('ev.parent'))
@@ -63,6 +64,14 @@ class EvLogResource extends Resource
                         ->label(trans('ev.log_types.name'))
                         ->options(trans("ev.log_types.options"))
                         ->default('driving')
+                        ->nullable(),
+                    DateTimePicker::make("start_charge")
+                        ->label(trans('ev.start_charge'))
+                        ->hidden(fn(Get $get) => $get("log_type") != "charging")
+                        ->nullable(),
+                    DateTimePicker::make("end_charge")
+                        ->label(trans('ev.end_charge'))
+                        ->hidden(fn(Get $get) => $get("log_type") != "charging")
                         ->nullable(),
                     Select::make("cycle_id")
                         ->reactive()

@@ -2,6 +2,7 @@
 
 namespace Modules\EV\Helpers;
 
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -203,6 +204,14 @@ class EvLog
                     //->hidden(fn(Get $get)=>$get("log_type")=="charging")
                     ->default(fn()=> \Modules\EV\Models\EvLog::where("log_type","charging")->where("soc_actual",100)->max('id'))
                     ->searchable(['id','date'])
+                    ->nullable(),
+                DateTimePicker::make("start_charge")
+                    ->label(trans('ev.start_charge'))
+                    ->hidden(fn(Get $get) => $get("log_type") != "charging")
+                    ->nullable(),
+                DateTimePicker::make("end_charge")
+                    ->label(trans('ev.end_charge'))
+                    ->hidden(fn(Get $get) => $get("log_type") != "charging")
                     ->nullable(),
                 Select::make("charge_type")
                     ->label(trans('ev.charge_types.name'))
