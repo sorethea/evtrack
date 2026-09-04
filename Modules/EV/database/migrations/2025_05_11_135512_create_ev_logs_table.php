@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('cycle_id')->nullable()->index();
             $table->string('log_type');
             $table->dateTime('date');
+            $table->dateTime('start_charge')->nullable();
+            $table->dateTime('end_charge')->nullable();
             $table->double('odo')->nullable();
             $table->double('soc')->nullable();
             $table->double('ac')->nullable();
