@@ -65,14 +65,7 @@ class EvLogResource extends Resource
                         ->options(trans("ev.log_types.options"))
                         ->default('driving')
                         ->nullable(),
-                    DateTimePicker::make("start_charge")
-                        ->label(trans('ev.start_charge'))
-                        ->hidden(fn(Get $get) => $get("log_type") != "charging")
-                        ->nullable(),
-                    DateTimePicker::make("end_charge")
-                        ->label(trans('ev.end_charge'))
-                        ->hidden(fn(Get $get) => $get("log_type") != "charging")
-                        ->nullable(),
+
                     Select::make("cycle_id")
                         ->reactive()
                         ->label(trans('ev.cycle'))
@@ -94,6 +87,14 @@ class EvLogResource extends Resource
                     Select::make("charge_type")
                         ->label(trans('ev.charge_types.name'))
                         ->options(trans("ev.charge_types.options"))
+                        ->hidden(fn(Get $get) => $get("log_type") != "charging")
+                        ->nullable(),
+                    DateTimePicker::make("start_charge")
+                        ->label(trans('ev.start_charge'))
+                        ->hidden(fn(Get $get) => $get("log_type") != "charging")
+                        ->nullable(),
+                    DateTimePicker::make("end_charge")
+                        ->label(trans('ev.end_charge'))
                         ->hidden(fn(Get $get) => $get("log_type") != "charging")
                         ->nullable(),
 //                    Filament\Forms\Components\Repeater::make('items')

@@ -205,6 +205,12 @@ class EvLog
                     ->default(fn()=> \Modules\EV\Models\EvLog::where("log_type","charging")->where("soc_actual",100)->max('id'))
                     ->searchable(['id','date'])
                     ->nullable(),
+
+                Select::make("charge_type")
+                    ->label(trans('ev.charge_types.name'))
+                    ->options(trans("ev.charge_types.options"))
+                    ->hidden(fn(Get $get)=>$get("log_type")!="charging")
+                    ->nullable(),
                 DateTimePicker::make("start_charge")
                     ->label(trans('ev.start_charge'))
                     ->hidden(fn(Get $get) => $get("log_type") != "charging")
@@ -212,11 +218,6 @@ class EvLog
                 DateTimePicker::make("end_charge")
                     ->label(trans('ev.end_charge'))
                     ->hidden(fn(Get $get) => $get("log_type") != "charging")
-                    ->nullable(),
-                Select::make("charge_type")
-                    ->label(trans('ev.charge_types.name'))
-                    ->options(trans("ev.charge_types.options"))
-                    ->hidden(fn(Get $get)=>$get("log_type")!="charging")
                     ->nullable(),
                 TextInput::make("consumption")
                     ->label(trans("ev.consume")."(kWh/100km)")
