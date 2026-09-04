@@ -17,6 +17,8 @@ class EvLog extends Model
         "vehicle_id",
         "cycle_id",
         "date",
+        "start_charge",
+        "end_charge",
         "odo",
         "log_type",
 //        "soc_from",
