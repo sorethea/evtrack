@@ -2,5 +2,6 @@
     "Clinic": true,
     "EV": true,
     "Vehicle": true,
-    "SA": true
+    "SA": true,
+    "LFP": true
 }

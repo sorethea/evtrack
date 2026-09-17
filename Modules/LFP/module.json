@@ -1,0 +1,11 @@
+{
+    "name": "LFP",
+    "alias": "lfp",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LFP\\Providers\\LFPServiceProvider"
+    ],
+    "files": []
+}
